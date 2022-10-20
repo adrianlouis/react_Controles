@@ -1,0 +1,153 @@
+.logContainer{
+    height: 100vh;
+    width: 100vw;
+    background-color: #000;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 80%;
+    /* margin: auto auto; */
+    /* background-color: #3333; */
+    transition: all .3s;
+    padding: 50px 0;
+
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+}
+
+form label{
+    color: #050;
+    margin: 15px 0 5px 0;
+}
+
+form input{
+    text-align: center;
+    background-color: transparent;
+    border: 2px solid #050;
+    color: #0a0;
+}
+form input:focus, .btnForm:focus{
+    outline: none;
+    border: 2px solid #0a0
+}
+
+
+.btnForm{
+    padding: 5px 20px;
+    margin: 20px 0;
+    background-color: transparent;
+    color: #050;
+    border: 2px solid #050;
+}
+.btnForm:active{
+    background-color: #020;
+    color: #0c0;
+    border: 2px solid #0c0;
+}
+
+.erroLogin{
+    font-weight: 700;
+    font-size: 1.2rem;
+    text-align: center;
+    color: #0a0;
+}
+
+strong{
+    cursor: pointer;
+    font-weight: 900;
+}
+strong:hover, label:hover, button:hover{
+    color: #0a0;
+}
+
+p{
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.mudarForm{
+    opacity: 0;
+    visibility: hidden;
+    transform: translate(-40%, -50%);
+    /* display: none; */
+}
+
+.animarErro{
+    animation-name: inputErro;
+    animation-duration: .3s;
+    animation-timing-function: linear;
+}
+@keyframes inputErro {
+    20%{transform: translateX(5px);}
+    40%{transform: translateX(-10px);}
+    60%{transform: translateX(10px);}
+    80%{transform: translateX(-5px);}
+    100%{transform: translateX(0px);}
+}
+
+.inputValido{
+    outline: none;
+    border: 2px solid #0a0
+}
+
+
+
+
+
+
+
+
+
+.enterTheMatrix{
+    width: 100vw;
+    height: 100vh;
+    background-color: #000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.morpheus{
+    color: #050;
+    position: relative;
+}
+.morpheus::after{
+    content: '';
+    border-left: #050 8px solid;
+    position: absolute;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #000;
+    animation: wakeup 5s steps(15) 1 forwards, byeOracle 2s steps(2) infinite;
+}
+.helloTrinity{
+    animation: byeTrinity 5s forwards;
+}
+@keyframes byeTrinity {
+    100%{opacity: 0;}
+}
+@keyframes wakeup {
+    25%{left: 100%;}
+    100%{left: 100%;}
+}
+@keyframes byeOracle {
+    100%{border-left: 8px solid #010;}
+}
+
+
+
