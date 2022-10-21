@@ -2,7 +2,9 @@ import React from 'react'
 import Button from './Button'
 import css from './css/log.css'
 import Input from './Input'
-import {logara, validarRegSenha, validarConfSenha, validarRegNome, validarRegEmail} from './funcoes/login'
+import {validarRegSenha, validarConfSenha, validarRegNome, validarRegEmail} from './funcoes/login'
+import {useNavigate} from "react-router-dom"
+
 
 const Log = () => {
 
@@ -18,6 +20,7 @@ const Log = () => {
     const user = {nome:nome, senha: senha}
     const regUser = {cadNome:regNome, cadEmail:regEmail, cadSenha:regSenha, cadConfSenha:confSenha}
     const [regValidacoes, setRegValidacoes] = React.useState({vNome: false, vEmail:false, vSenha:false, vConfSenha:false})
+    const navigate = useNavigate();
 
     React.useEffect(()=>{
       if (window.localStorage.getItem('controleUsers')){
@@ -33,54 +36,56 @@ const Log = () => {
         setFormAtivo(true)
       }
     }
-console.log(listaUser)
+
     function logar(e){
       e.preventDefault()
+
       const item = listaUser.filter((filtrar)=>{
-        return filtrar.nome === user.nome && filtrar.senha === user.senha
+        return filtrar.cadNome === nome && filtrar.cadSenha === senha
       })
       if (item.length === 0){
         setErroLogin('usuário ou senha não confere')
       }else{
         // LOGADO 
-        setErroLogin(`Olá, Sr(a). ${item[0].nome}!`)
+        setErroLogin(`Olá, Sr(a). ${item[0].cadNome}!`)
+        setTimeout(() => {
+          navigate('/home')
+        }, 4000);
       }
     }
 
-    logara()
-
-    React.useEffect(()=>{
-      const nabucodonosor = document.querySelectorAll('.morpheus')
-      smith(nabucodonosor)
-    },[])
-    function smith(v){
+    // React.useEffect(()=>{
+    //   const nabucodonosor = document.querySelectorAll('.morpheus')
+    //   smith(nabucodonosor)
+    // },[])
+    // function smith(v){
       
-      for (let i = 0; i < v.length; i++) {
-        v[i].style.display='none';
+    //   for (let i = 0; i < v.length; i++) {
+    //     v[i].style.display='none';
         
-      }
-      v[0].style.display='block'
+    //   }
+    //   v[0].style.display='block'
       
-      setTimeout(() => {
-        v[0].style.display='none'
-        v[1].style.display='block'
-      }, 5000);
-      setTimeout(() => {
-        v[1].style.display='none'
-        v[2].style.display='block'
-      }, 10000);
-      setTimeout(() => {
-        v[2].style.display='none'
-        v[3].style.display='block'
-      }, 15000);
-      setTimeout(() => {
-        v[3].classList.add('helloTrinity')
-      }, 20000);
-      setTimeout(() => {
-        document.querySelector('.enterTheMatrix').style.display='none'
-      }, 25000);
+    //   setTimeout(() => {
+    //     v[0].style.display='none'
+    //     v[1].style.display='block'
+    //   }, 5000);
+    //   setTimeout(() => {
+    //     v[1].style.display='none'
+    //     v[2].style.display='block'
+    //   }, 10000);
+    //   setTimeout(() => {
+    //     v[2].style.display='none'
+    //     v[3].style.display='block'
+    //   }, 15000);
+    //   setTimeout(() => {
+    //     v[3].classList.add('helloTrinity')
+    //   }, 20000);
+    //   setTimeout(() => {
+    //     document.querySelector('.enterTheMatrix').style.display='none'
+    //   }, 25000);
 
-    }
+    // }
 
 
     React.useEffect(()=>{
@@ -217,12 +222,12 @@ var charEspecial = /(?=.*[!@#$%^&*])/
 
       {/* MATRIX  */}
 
-      <div className='enterTheMatrix'>
+      {/* <div className='enterTheMatrix'>
         <span className='morpheus'>Wake up, Neo. . .</span>
         <span className='morpheus'>The Matrix has you. . .</span>
         <span className='morpheus'>Follow the white rabbit.</span>
         <span className='morpheus'>Knock, knock, Neo.</span>
-      </div>
+      </div> */}
 
     </div>
   )

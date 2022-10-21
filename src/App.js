@@ -1,14 +1,27 @@
 import logo from './logo.svg';
 import './App.css';
 import Log from './Log.js';
+import {BrowserRouter, Routes, Route} from 'react-router-dom'
+import Home from './Home.js';
+import LdE from './LdE.js';
 
 function App() {
+
   return (
-    <div className="App">
+    <BrowserRouter>
+
+      <Routes>
+        <Route path='/' element={<Log/>} />
+        <Route path='home' element={<Home/>} />
+        <Route path='lde' element={<LdE/>} />
+
+    {/* <div className="App">
       <header className="App-header">
-        <Log />
+      <Log />
       </header>
-    </div>
+    </div> */}
+    </Routes>
+    </BrowserRouter>
   );
 }
 
