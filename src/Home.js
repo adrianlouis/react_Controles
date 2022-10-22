@@ -3,6 +3,7 @@ import HomeCard from './HomeCard'
 import css from './css/home.css'
 import Header from './Header'
 import {useNavigate} from 'react-router-dom'
+import {GlobalContext} from './GlobalContext'
 
 const Home = () => {
     const navigate = useNavigate()
@@ -35,7 +36,9 @@ const Home = () => {
 
         <HomeCard spanCardClass='cardText' cardNome='Lojistas' />
 
-        <HomeCard spanCardClass='cardText' cardNome='Acompanhamentos' />
+        <HomeCard spanCardClass='cardText' cardNome='Medidores de Gás' />
+
+        <HomeCard spanCardClass='cardText' cardNome='Prestadores' />
 
         </div>
       

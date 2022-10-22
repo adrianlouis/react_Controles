@@ -4,10 +4,12 @@ import css from './css/log.css'
 import Input from './Input'
 import {validarRegSenha, validarConfSenha, validarRegNome, validarRegEmail} from './funcoes/login'
 import {useNavigate} from "react-router-dom"
+import { GlobalContext } from './GlobalContext'
 
 
 const Log = () => {
 
+    const context = React.useContext(GlobalContext)
     const [nome, setNome] = React.useState('')
     const [senha, setSenha] = React.useState('')
     const [listaUser, setListaUser] = React.useState([])
@@ -18,21 +20,41 @@ const Log = () => {
     const [regSenha, setRegSenha] = React.useState('')
     const [confSenha, setConfSenha] = React.useState('')
     const user = {nome:nome, senha: senha}
-    const regUser = {cadNome:regNome, cadEmail:regEmail, cadSenha:regSenha, cadConfSenha:confSenha}
+    const regUser = { cadNome:regNome, cadEmail:regEmail, cadSenha:regSenha, cadConfSenha:confSenha}
     const [regValidacoes, setRegValidacoes] = React.useState({vNome: false, vEmail:false, vSenha:false, vConfSenha:false})
     const navigate = useNavigate();
 
+    const newReg = {perfil:{nome: regNome, email:regEmail, senha:regSenha}}
+
+      // console.log(newReg)
+      // console.log(context.dados)
+
+
     React.useEffect(()=>{
-      if (window.localStorage.getItem('controleUsers')){
-        setListaUser(JSON.parse(window.localStorage.getItem('controleUsers')))
-      }
+
+      // window.localStorage.setItem('dados', JSON.stringify(context.dados))
+
+      // if (window.localStorage.getItem('controleUsers')){
+      //   setListaUser(JSON.parse(window.localStorage.getItem('controleUsers')))
+      // }
+
+      // console.log(JSON.parse(window.localStorage.getItem('dados')))
+
     },[])
+
+
+    // console.log(context.dados.usuario.length+1)
+    // window.localStorage.clear()
 
     // REGISTRAR
     function submit(e){
       e.preventDefault()
       if (regValidacoes.vNome && regValidacoes.vEmail && regValidacoes.vSenha && regValidacoes.vConfSenha){
-        setListaUser([...listaUser, {...regUser}])
+        context.setDados([...context.dados, {...newReg}])
+        
+
+        // context.setDados()
+
         setFormAtivo(true)
       }
     }
@@ -40,14 +62,16 @@ const Log = () => {
     function logar(e){
       e.preventDefault()
 
-      const item = listaUser.filter((filtrar)=>{
-        return filtrar.cadNome === nome && filtrar.cadSenha === senha
+      const item = context.dados.filter((filtro)=>{
+        return filtro.perfil.nome === user.nome && filtro.perfil.senha === user.senha
       })
+
       if (item.length === 0){
         setErroLogin('usuário ou senha não confere')
       }else{
         // LOGADO 
-        setErroLogin(`Olá, Sr(a). ${item[0].cadNome}!`)
+        setErroLogin(`Olá, Sr(a). ${item[0].perfil.nome}!`)
+        context.setUserLogado([item[0]])
         setTimeout(() => {
           navigate('/home')
         }, 4000);
@@ -170,7 +194,6 @@ var charEspecial = /(?=.*[!@#$%^&*])/
     }else{
         document.querySelector('#erro2').style.display='block'
     }
-
 
   },[regUser.cadSenha])
 
