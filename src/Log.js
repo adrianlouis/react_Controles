@@ -23,58 +23,42 @@ const Log = () => {
     const regUser = { cadNome:regNome, cadEmail:regEmail, cadSenha:regSenha, cadConfSenha:confSenha}
     const [regValidacoes, setRegValidacoes] = React.useState({vNome: false, vEmail:false, vSenha:false, vConfSenha:false})
     const navigate = useNavigate();
+    const newUser = {nome: regNome, email:regEmail, senha:regSenha, lde:[]}
 
-    const newReg = {perfil:{nome: regNome, email:regEmail, senha:regSenha}}
-
-      // console.log(newReg)
-      // console.log(context.dados)
-
-
-    React.useEffect(()=>{
-
-      // window.localStorage.setItem('dados', JSON.stringify(context.dados))
-
-      // if (window.localStorage.getItem('controleUsers')){
-      //   setListaUser(JSON.parse(window.localStorage.getItem('controleUsers')))
-      // }
-
-      // console.log(JSON.parse(window.localStorage.getItem('dados')))
-
-    },[])
-
-
-    // console.log(context.dados.usuario.length+1)
-    // window.localStorage.clear()
 
     // REGISTRAR
     function submit(e){
       e.preventDefault()
       if (regValidacoes.vNome && regValidacoes.vEmail && regValidacoes.vSenha && regValidacoes.vConfSenha){
-        context.setDados([...context.dados, {...newReg}])
-        
+        context.setUsuarios([...context.usuarios, {...newUser}])
 
-        // context.setDados()
+        context.setUpload(true)
 
-        setFormAtivo(true)
+        console.log('FUNCAO SUBMIT')
       }
     }
+
+    
+    console.log(context.usuarios)
+    // window.localStorage.clear()
+
 
     function logar(e){
       e.preventDefault()
 
-      const item = context.dados.filter((filtro)=>{
-        return filtro.perfil.nome === user.nome && filtro.perfil.senha === user.senha
+      const item = context.usuarios.filter((filtro)=>{
+        return filtro.nome === user.nome && filtro.senha === user.senha
       })
 
       if (item.length === 0){
         setErroLogin('usuário ou senha não confere')
       }else{
         // LOGADO 
-        setErroLogin(`Olá, Sr(a). ${item[0].perfil.nome}!`)
-        context.setUserLogado([item[0]])
+        setErroLogin(`Olá, Sr(a). ${item[0].nome}!`)
+        context.setUserLogado(...item)
         setTimeout(() => {
           navigate('/home')
-        }, 4000);
+        }, 500);
       }
     }
 
@@ -197,9 +181,6 @@ var charEspecial = /(?=.*[!@#$%^&*])/
 
   },[regUser.cadSenha])
 
-  // React.useEffect(()=>{
-  //   console.log(regValidacoes)
-  // },[regValidacoes])
 
   return (
     <div className='logContainer'>

@@ -1,10 +1,10 @@
 import React from 'react'
 import css from './css/lde.css'
-import {useNavigate} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import { GlobalContext } from './GlobalContext'
+import Input from './Input'
 
 const LdE = () => {
-    // const [luzes, setLuzes] = React.useState([{id: 1, num: 1, local: '4pav B', duracao: '2h', avaria: ''}, { id: 2, num: 2, local:'3pav B', duracao: '6h', avaria: 'lorem asnd aoidja is aisjdiasj diajd siaj sdij ai sdjaisdj iasjdiasjdiaj aoj sdoaj dsoajdosjd oj doajdoajs oasjd oasjdoa djoa sjdao djasaojsd oajs doajsd oajsd asjd aisjd aisdja  aosjd  dojasdoja sdaosjd aosjd '}])
     const navigate = useNavigate()
     const context = React.useContext(GlobalContext)
 
@@ -26,12 +26,13 @@ const LdE = () => {
         }
     }
 
+    
   return (
     <>
-    
 
-    {context.userLogado[0].lde.map((item)=>{
-        return <div key={item.id} className='ldeContainer'>
+    {context.userLogado.lde.map((item)=>{
+        // console.log(context.userLogado.lde[item].num)
+        return <div key={item.num} className='ldeContainer'>
         <div className='contSuperior'  onClick={(e)=>expandir(e.currentTarget, item.avaria)}>
             <div className='ldeUnidade' >
                 <p>Núm</p>
@@ -43,7 +44,7 @@ const LdE = () => {
             </div>
             <div className='ldeUnidade'>
                 <p>Duração</p>
-                <p>{item.duracao}</p>
+                <p>{item.dur}</p>
             </div>
             </div>
             { item.avaria && <div className='contInferior'>
@@ -53,12 +54,19 @@ const LdE = () => {
             <div className='cardAcoes'>
                 <span className='notReady'>Editar</span>
                 <span className='notReady'>Excluir</span>
+                
             </div>
         </div>
     })}
 
+   
+    
+
+
+
+
     <div className='ldeSubFooter'>
-        <span className='ldeSubFooterBtn' >Novo Registro</span>
+        <Link className='ldeSubFooterBtn' to='/ldeNovo' >novo registro</Link>
         <span className='ldeSubFooterBtn' onClick={()=>navigate('/home')}>voltar</span>
     </div>
       

@@ -3,29 +3,31 @@ import React from 'react'
 export const GlobalContext = React.createContext()
 
 export const GlobalStorage = ({children}) =>{
+    const [upload, setUpload] = React.useState(false)
     const [userLogado, setUserLogado] = React.useState([])
-    const [dados, setDados] = React.useState(
-    
-    [
-        {
-            perfil:{nome:'Adrian', email:'adrian@email.com', senha:'qwe123!@#'},
-            lde:[
-                    {id:1, num:1, local:'4pav B', duracao:'3h', avaria:''},
-                    {id:2, num:2, local:'4pav B', duracao:'2h', avaria:'Muito suja. Tomada saindo da parede sozinha.'}
-                ],
-            ext:{num:16958, tipo:'A'}
-        },
-        {
-            perfil:{nome:'Louis', senha:'qwe123!@#'},
-            lde:[
-                {id:1, num:1, local:'4pav B', duracao:'3h', avaria:''},
-                {id:2, num:2, local:'4pav B', duracao:'2h', avaria:'Pouco suja. Tomada desencaixando sozinha.'}
-            ],
-            ext:{num:26554, tipo:'C'}
+    const [usuarios, setUsuarios] = React.useState([])
+    const [perfil, setPerfil] = React.useState()
+    const [lde, setLde] = React.useState([])
+    const [ext, setExt] = React.useState([])
+
+    // SALVAR NOVOS USUARIOS PARA LOCALSTORAGE
+    React.useEffect(()=>{
+        if (upload){
+            window.localStorage.setItem('usuarios', JSON.stringify(usuarios))
+            console.log('EFFEITO DE SALVAR ATIVADO NOVOS PARA LOCALSTORAGE')
         }
-    ]
 
-    )
+        setUpload(false)
 
-    return <GlobalContext.Provider value={{userLogado, setUserLogado, dados, setDados}}>{children}</GlobalContext.Provider>
+    },[usuarios])
+
+    // CARREGAR USUARIOS DO LOCALSTORAGE PARA O SISTEMA 
+React.useEffect(()=>{
+    if (window.localStorage.getItem('usuarios')){
+        setUsuarios(JSON.parse(window.localStorage.getItem('usuarios')))
+    }
+},[])
+
+
+    return <GlobalContext.Provider value={{upload, setUpload, lde, setLde, usuarios, setUsuarios, userLogado, setUserLogado}}>{children}</GlobalContext.Provider>
 }

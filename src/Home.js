@@ -7,10 +7,14 @@ import {GlobalContext} from './GlobalContext'
 
 const Home = () => {
     const navigate = useNavigate()
+    const context = React.useContext(GlobalContext)
 
     function nav(dest){
         navigate(dest)
     }
+
+    // console.log(context.userLogado.lde)
+    // console.log(context.lde)
 
   return (
     <>
