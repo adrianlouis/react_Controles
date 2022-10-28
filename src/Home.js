@@ -13,9 +13,6 @@ const Home = () => {
         navigate(dest)
     }
 
-    // console.log(context.userLogado.lde)
-    // console.log(context.lde)
-
   return (
     <>
     <Header />

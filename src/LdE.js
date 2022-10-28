@@ -26,13 +26,17 @@ const LdE = () => {
         }
     }
 
+    function excluirLde(elem, idLde){
+        // console.log( idLde)
+        console.log(context.userLogado.lde[idLde])
+    }
+
     
   return (
     <>
 
     {context.userLogado.lde.map((item)=>{
-        // console.log(context.userLogado.lde[item].num)
-        return <div key={item.num} className='ldeContainer'>
+        return <div key={item.id} className='ldeContainer'>
         <div className='contSuperior'  onClick={(e)=>expandir(e.currentTarget, item.avaria)}>
             <div className='ldeUnidade' >
                 <p>Núm</p>
@@ -53,7 +57,7 @@ const LdE = () => {
 
             <div className='cardAcoes'>
                 <span className='notReady'>Editar</span>
-                <span className='notReady'>Excluir</span>
+                <span className='notReady' onClick={({currentTarget})=>excluirLde(currentTarget ,(item.id - 1))}>Excluir</span>
                 
             </div>
         </div>

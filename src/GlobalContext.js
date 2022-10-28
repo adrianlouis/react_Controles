@@ -1,4 +1,5 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
 export const GlobalContext = React.createContext()
 
@@ -9,25 +10,23 @@ export const GlobalStorage = ({children}) =>{
     const [perfil, setPerfil] = React.useState()
     const [lde, setLde] = React.useState([])
     const [ext, setExt] = React.useState([])
+    const navigate = useNavigate()
 
     // SALVAR NOVOS USUARIOS PARA LOCALSTORAGE
     React.useEffect(()=>{
-        if (upload){
+        if (upload === true){
             window.localStorage.setItem('usuarios', JSON.stringify(usuarios))
-            console.log('EFFEITO DE SALVAR ATIVADO NOVOS PARA LOCALSTORAGE')
+            setUpload(false)
+            navigate('/lde')
         }
-
-        setUpload(false)
-
-    },[usuarios])
+    },[upload])
 
     // CARREGAR USUARIOS DO LOCALSTORAGE PARA O SISTEMA 
-React.useEffect(()=>{
-    if (window.localStorage.getItem('usuarios')){
-        setUsuarios(JSON.parse(window.localStorage.getItem('usuarios')))
-    }
-},[])
-
+    React.useEffect(()=>{
+        if (window.localStorage.getItem('usuarios')){
+            setUsuarios(JSON.parse(window.localStorage.getItem('usuarios')))
+        }
+    },[])
 
     return <GlobalContext.Provider value={{upload, setUpload, lde, setLde, usuarios, setUsuarios, userLogado, setUserLogado}}>{children}</GlobalContext.Provider>
 }

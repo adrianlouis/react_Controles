@@ -18,22 +18,22 @@ const LdENovoReg = () => {
     function handleSubmit(){
       context.setUserLogado(prev => ({...prev, lde:[ ...prev.lde, ldeNovo ]}))
       setMerge(true)
-      navigate('/lde')
     }
 
     // ADICIONAR USUARIO LOGADO NA LISTA DE USUARIOS
     React.useEffect(()=>{
-
-      if (merge){
+      
+      if (merge === true){
         const item = context.usuarios.filter((filtro)=>{
           return context.userLogado.nome !== filtro.nome
         })
         
-        context.setUsuarios(([ ...item, context.userLogado]))
+        context.setUsuarios([ ...item, context.userLogado])
         context.setUpload(true)
+        setMerge(false)
       }
-      
     },[context.userLogado])
+
 
   return (
     <>

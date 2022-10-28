@@ -31,17 +31,9 @@ const Log = () => {
       e.preventDefault()
       if (regValidacoes.vNome && regValidacoes.vEmail && regValidacoes.vSenha && regValidacoes.vConfSenha){
         context.setUsuarios([...context.usuarios, {...newUser}])
-
         context.setUpload(true)
-
-        console.log('FUNCAO SUBMIT')
       }
     }
-
-    
-    console.log(context.usuarios)
-    // window.localStorage.clear()
-
 
     function logar(e){
       e.preventDefault()
