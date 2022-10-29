@@ -1,20 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
 
 *{
-  margin: 0;
+  margin: 0 auto;
   padding: 0;
   background-color: #000;
   color: #050;
   font-family: 'Orbitron', sans-serif;
   font-size: 1rem;
   transition: all .3s;
+ 
 }
 
 body {
-  margin: 0;
+  /* margin: 0; */
   max-width: 412px;
   margin: 0 auto;
 }
+
 
 /* code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',

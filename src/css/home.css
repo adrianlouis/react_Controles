@@ -1,7 +1,7 @@
 .homeContainer{
     margin: auto;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     /* background-color: #3333;
     border: 2px solid red; */
 
@@ -14,7 +14,7 @@
 .cards{
     margin: 50px auto;
     /* border: 1px solid green; */
-    width: 80vw;
+    /* width: 80vw; */
     
     display: grid;
     grid-template-columns: auto auto;

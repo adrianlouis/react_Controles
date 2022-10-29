@@ -16,22 +16,28 @@ const LdENovoReg = () => {
 
     // ADICIONAR LDE NO USUARIO LOGADO
     function handleSubmit(){
+      if (num === '' && pav === '' && dur === '' && anotacao === ''){
+        return
+      }
+
       context.setUserLogado(prev => ({...prev, lde:[ ...prev.lde, ldeNovo ]}))
       context.setUploadLde(true)
       navigate('/lde')
     }
 
+    console.log(num, pav, dur, anotacao)
+
   return (
     <>
       <div className='editarLdE' >
         <Input id='editarLdENum' labText='Número da LdE' inpTipo='text' onChange={({target})=>setNum(target.value)} value={num} />
-        <Input id='editarLdEPav' labText='Pavimento' inpTipo='text' autoComplete='on' onChange={({target})=>setPav(target.value)} value={pav} />
-        <Input id='editarLdEDur' labText='Duração' inpTipo='text' onChange={({target})=>setDur(target.value)} value={dur} />
+        <Input id='editarLdEPav' labText='Local' inpTipo='text' autoComplete='on' onChange={({target})=>setPav(target.value)} value={pav} />
+        <Input id='editarLdEDur' labText='Autonomia' inpTipo='text' onChange={({target})=>setDur(target.value)} value={dur} />
         <label >Anotações</label>
         <textarea onChange={({target})=>setAnotacao(target.value)} value={anotacao} />  
         
         <div className='cardAcoes'>
-            <span className='notReady' onClick={handleSubmit} >Salvar</span>
+            <span className={(num === '' && pav === '' && dur === '' && anotacao === '') ? 'notReady' : 'ldeSubFooterBtn'} onClick={handleSubmit} >Salvar</span>
             <Link className='ldeSubFooterBtn' to='/lde' >Cancelar</Link>
                 
         </div>

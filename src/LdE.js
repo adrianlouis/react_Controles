@@ -7,6 +7,7 @@ import Input from './Input'
 const LdE = () => {
     const navigate = useNavigate()
     const context = React.useContext(GlobalContext)
+    const [linhasTextArea, setLinhasTextArea] = React.useState('')
 
     function expandir(elem, avaria){
 
@@ -43,15 +44,15 @@ const LdE = () => {
         return <div key={item.id} className='ldeContainer'>
         <div className='contSuperior'  onClick={(e)=>expandir(e.currentTarget, item.avaria)}>
             <div className='ldeUnidade' >
-                <p>Núm</p>
+                <p>Número</p>
                 <p>{item.num}</p>
             </div>
             <div className='ldeUnidade'>
-                <p>Pav</p>
+                <p>Local</p>
                 <p>{item.local}</p>
             </div>
             <div className='ldeUnidade'>
-                <p>Duração</p>
+                <p>Autonomia</p>
                 <p>{item.dur}</p>
             </div>
             </div>
@@ -74,7 +75,8 @@ const LdE = () => {
 
 
     <div className='ldeSubFooter'>
-        <Link className='ldeSubFooterBtn' to='/ldeNovo' >novo registro</Link>
+        <span className='ldeSubFooterBtn' >filtro</span>
+        <Link className='ldeSubFooterBtn' to='/ldeNovo' >nova LdE</Link>
         <span className='ldeSubFooterBtn' onClick={()=>navigate('/home')}>voltar</span>
     </div>
       
