@@ -18,7 +18,7 @@ export const GlobalStorage = ({children}) =>{
     
     React.useEffect(()=>{
         if (userLogado.length === 0){
-            console.log('NGM LOGADO')
+            return
         }else{
             const item = usuarios.filter((filtro)=>{
                 return filtro.nome !== userLogado.nome
@@ -28,7 +28,7 @@ export const GlobalStorage = ({children}) =>{
             
     },[userLogado])
         
-    console.log(usuarios)
+    // console.log(usuarios)
         
         
     return <GlobalContext.Provider value={{uploadLde, setUploadLde, upload, setUpload, lde, setLde, usuarios, setUsuarios, userLogado, setUserLogado}}>{children}</GlobalContext.Provider>

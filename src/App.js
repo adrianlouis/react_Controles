@@ -7,6 +7,7 @@ import LdE from './LdE.js';
 import { GlobalStorage } from './GlobalContext';
 import LdENovoReg from './LdENovoReg';
 import AreaParaTestes from './AreaParaTestes';
+import LdeEdit from './LdeEdit';
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
           <Route path='home' element={<Home/>} />
           <Route path='lde' element={<LdE/>} />
           <Route path='ldenovo' element={<LdENovoReg/> } />
+          <Route path='/lde/edit/:id' element={<LdeEdit/> } />
           <Route path='testes' element={<AreaParaTestes/>} />
         </Routes>
 

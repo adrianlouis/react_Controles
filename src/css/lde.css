@@ -47,7 +47,7 @@
     align-items: flex-start;
 }
 
-.ldeSubFooter{
+.ldeSubFooter, .ldeUpperFooter{
     height: 70px;
     width: 100%;
     border-top: #0a0 2px solid;
@@ -57,12 +57,10 @@
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+    box-shadow: 0px -15px 10px #000;
 }
 
 .ldeSubFooterBtn{
-    /* position: fixed;
-    bottom: 40px;
-    right: 40px; */
     border: 2px solid #0a0;
     padding: 5px 15px;
     text-decoration: none;
@@ -71,6 +69,15 @@
 .ldeSubFooterBtn:hover{
     background-color: #0a0;
     color: #000;
+}
+.ldeUpperFooter{
+    bottom: unset;
+    position: sticky;
+    border-bottom: 2px solid #0a0;
+    border-top: none;
+    top: 0;
+    margin-bottom: 20px;
+    box-shadow: #000 0px 15px 10px;
 }
 
 .contInferior{
@@ -158,6 +165,35 @@ label:nth-child(1) {
 .ldeUnidade p:nth-child(2){
     color: #0a0;
     height: 60%;
+}
+
+select{
+    border: none;
+}
+
+/* optgroup{
+    color: white;
+} */
+
+
+/* option:checked{
+    color: red;
+    background-color: none;
+}
+option:active{
+    color: blue;
+}
+option:hover{
+    background-color: green;
+}
+select::selection{
+    color: pink;
+} */
+
+.filtroLdE{
+    margin: auto;
+    /* width: 50%; */
+    text-align: center;
 }
 
 }
