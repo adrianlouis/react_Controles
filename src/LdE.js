@@ -1,13 +1,13 @@
 import React from 'react'
 import css from './css/lde.css'
-import {Link, useNavigate} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import { GlobalContext } from './GlobalContext'
 import Input from './Input'
 
 const LdE = () => {
-    const navigate = useNavigate()
     const context = React.useContext(GlobalContext)
-    const [linhasTextArea, setLinhasTextArea] = React.useState('')
+
+    console.log(context.userLogado.lde)
 
     function expandir(elem, avaria){
 
@@ -67,7 +67,7 @@ const LdE = () => {
 
             <div className='cardAcoes'>
                 {/* <span className='notReady' onClick={()=>console.log(context.userLogado)}>Editar</span> */}
-                <Link className='ldeSubFooterBtn' to={`edit/${item.id}`}>Editar</Link>
+                <Link className='ldeSubFooterBtn' to={`edit/id?id=${item.id}&ind=${index}`}>Editar</Link>
                 <span className='ldeSubFooterBtn' onClick={({currentTarget})=>excluirLde(currentTarget ,item)}>Excluir</span>
                 
             </div>
@@ -101,9 +101,9 @@ const LdE = () => {
     </div> */}
 
     <div className='ldeSubFooter'>
-        <span className='ldeSubFooterBtn' >filtro</span>
+        <span className='notReady' >filtro</span>
         <Link className='ldeSubFooterBtn' to='/ldeNovo' >nova LdE</Link>
-        <span className='ldeSubFooterBtn' >pesquisar</span>
+        <span className='notReady' >pesquisar</span>
     </div>
       
     </>

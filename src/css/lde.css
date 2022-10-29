@@ -108,15 +108,23 @@
 }
 .notReady{
     color: #555;
-    border: 1px solid #500;
+    border: 2px solid #500;
     cursor: not-allowed;
+    padding: 5px 15px;
+    text-decoration: none;
 }
 .notReady:hover{
     color: #aaa;
-    border: 1px solid #a00;
+    border: 2px solid #a00;
 }
 
-
+.deltree{
+    cursor: pointer;
+    margin: 10px;
+}
+.deltree:hover{
+    color: #0a0
+}
 
 .editarLdE{
     width: 90%;

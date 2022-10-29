@@ -24,6 +24,7 @@ const Log = () => {
     const [regValidacoes, setRegValidacoes] = React.useState({vNome: false, vEmail:false, vSenha:false, vConfSenha:false})
     const navigate = useNavigate();
     const newUser = {nome: regNome, email:regEmail, senha:regSenha, lde:[]}
+    const [deltree, setDeltree] = React.useState(false)
 
     // window.localStorage.clear()
 
@@ -185,6 +186,7 @@ var charEspecial = /(?=.*[!@#$%^&*])/
         <Button btnId='formBtn' btnText='Logar' btnClass='btnForm' onClick={(event)=>{logar(event)}}  />
         <span>esqueceu a senha? clique <strong>aqui</strong></span>
         <span>não possui conta? <strong onClick={alternarForm}>registre</strong></span>
+        <span className='deltree' onClick={()=>{!deltree?setDeltree(true):window.localStorage.clear()}} >{!deltree? 'excluir os dados salvos?' : 'Tem certeza?'}</span>
         <span className='erroLogin'>{erroLogin}</span>
 
       </form>
