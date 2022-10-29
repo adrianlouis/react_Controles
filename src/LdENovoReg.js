@@ -11,29 +11,15 @@ const LdENovoReg = () => {
   const [pav, setPav] = React.useState('')
   const [dur, setDur] = React.useState('')
   const [anotacao, setAnotacao] = React.useState('')
-  const [merge, setMerge] = React.useState(false)
-  const ldeNovo = {id:context.userLogado.lde.length+1 ,num:num, local:pav, dur:dur, avaria:anotacao}
+  const tamanho = context.userLogado.lde.length
+  const ldeNovo = {id:(tamanho === 0 ? 1 : context.userLogado.lde[tamanho-1].id+1), num:num, local:pav, dur:dur, avaria:anotacao}
 
     // ADICIONAR LDE NO USUARIO LOGADO
     function handleSubmit(){
       context.setUserLogado(prev => ({...prev, lde:[ ...prev.lde, ldeNovo ]}))
-      setMerge(true)
+      context.setUploadLde(true)
+      navigate('/lde')
     }
-
-    // ADICIONAR USUARIO LOGADO NA LISTA DE USUARIOS
-    React.useEffect(()=>{
-      
-      if (merge === true){
-        const item = context.usuarios.filter((filtro)=>{
-          return context.userLogado.nome !== filtro.nome
-        })
-        
-        context.setUsuarios([ ...item, context.userLogado])
-        context.setUpload(true)
-        setMerge(false)
-      }
-    },[context.userLogado])
-
 
   return (
     <>

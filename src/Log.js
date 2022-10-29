@@ -25,13 +25,16 @@ const Log = () => {
     const navigate = useNavigate();
     const newUser = {nome: regNome, email:regEmail, senha:regSenha, lde:[]}
 
+    // window.localStorage.clear()
 
     // REGISTRAR
     function submit(e){
       e.preventDefault()
       if (regValidacoes.vNome && regValidacoes.vEmail && regValidacoes.vSenha && regValidacoes.vConfSenha){
         context.setUsuarios([...context.usuarios, {...newUser}])
-        context.setUpload(true)
+        context.setUserLogado(newUser)
+        // context.setUpload(true)
+        navigate('/home')
       }
     }
 
