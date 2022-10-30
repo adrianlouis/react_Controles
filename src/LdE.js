@@ -2,12 +2,12 @@ import React from 'react'
 import css from './css/lde.css'
 import {Link} from 'react-router-dom'
 import { GlobalContext } from './GlobalContext'
-import Input from './Input'
 
 const LdE = () => {
     const context = React.useContext(GlobalContext)
+    const [ordenados, setOrdenados] = React.useState([])
+    const [itemOrdem, setItemOrdem] = React.useState([])
 
-    console.log(context.userLogado.lde)
 
     function expandir(elem, avaria){
 
@@ -37,6 +37,27 @@ const LdE = () => {
         
     }
     
+    function sort(){
+        setItemOrdem([])
+
+        const numeros = Object.keys(context.userLogado.lde).map((item)=>{
+            return Number(context.userLogado.lde[item].num)
+        })
+  
+        const ordenados = numeros.sort((a,b)=>{
+            return a - b
+        })
+
+        ordenados.forEach((cada)=>{
+            context.userLogado.lde.map((item)=>{
+                if (item.num === String(cada)){
+                    setItemOrdem(prev => ([...prev, item]))
+                }
+            })
+        })
+        
+    }
+    
   return (
     <>
 
@@ -45,7 +66,7 @@ const LdE = () => {
         <Link className='ldeSubFooterBtn' to='/' >logout</Link>
     </div>
 
-    {context.userLogado && context.userLogado.lde.map((item, index)=>{
+    {itemOrdem.length === 0 && context.userLogado && context.userLogado.lde.map((item, index)=>{
         return <div key={item.id} className='ldeContainer'>
         <div className='contSuperior'  onClick={(e)=>expandir(e.currentTarget, item.avaria)}>
             <div className='ldeUnidade' >
@@ -74,6 +95,37 @@ const LdE = () => {
         </div>
     })}
 
+
+    {itemOrdem.length !== 0 && context.userLogado && itemOrdem.map((item, index)=>{
+        return <div key={item.id} className='ldeContainer'>
+        <div className='contSuperior'  onClick={(e)=>expandir(e.currentTarget, item.avaria)}>
+            <div className='ldeUnidade' >
+                <p>Número</p>
+                <p>{item.num}</p>
+            </div>
+            <div className='ldeUnidade'>
+                <p>Local</p>
+                <p>{item.local}</p>
+            </div>
+            <div className='ldeUnidade'>
+                <p>Autonomia</p>
+                <p>{item.dur}</p>
+            </div>
+            </div>
+            { item.avaria && <div className='contInferior'>
+                <textarea disabled value={item.avaria} ></textarea>
+            </div>}
+
+            <div className='cardAcoes'>
+                {/* <span className='notReady' onClick={()=>console.log(context.userLogado)}>Editar</span> */}
+                <Link className='ldeSubFooterBtn' to={`edit/id?id=${item.id}&ind=${index}`}>Editar</Link>
+                <span className='ldeSubFooterBtn' onClick={({currentTarget})=>excluirLde(currentTarget ,item)}>Excluir</span>
+                
+            </div>
+        </div>
+    })}
+
+
     {/* <div className='ldeSubFooter'>
         <span className='filtroLdE'>filtrar por 
             <select>
@@ -101,7 +153,7 @@ const LdE = () => {
     </div> */}
 
     <div className='ldeSubFooter'>
-        <span className='notReady' >filtro</span>
+        <span className='notReady' onClick={sort} >filtro por Num</span>
         <Link className='ldeSubFooterBtn' to='/ldeNovo' >nova LdE</Link>
         <span className='notReady' >pesquisar</span>
     </div>
