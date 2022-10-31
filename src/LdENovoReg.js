@@ -25,14 +25,49 @@ const LdENovoReg = () => {
       navigate('/lde')
     }
 
-    console.log(num, pav, dur, anotacao)
+    // console.log(num, pav, dur, anotacao)
+    function validarNumeros(elem){
+      const validacao = /[0-9]/
+      if (elem.value.match(validacao)){
+        elem.classList.remove('naoValidado')
+
+      }else{
+        elem.classList.add('naoValidado')
+      }
+    }
+    
 
   return (
     <>
       <div className='editarLdE' >
-        <Input id='editarLdENum' labText='Número da LdE' inpTipo='text' onChange={({target})=>setNum(target.value)} value={num} />
-        <Input id='editarLdEPav' labText='Local' inpTipo='text' autoComplete='on' onChange={({target})=>setPav(target.value)} value={pav} />
-        <Input id='editarLdEDur' labText='Autonomia' inpTipo='text' onChange={({target})=>setDur(target.value)} value={dur} />
+        <Input inpClass='newLde' id='editarLdENum' labText='Número da LdE' inpTipo='text' onChange={({target})=>setNum(target.value)} value={num} onBlur={({currentTarget})=>{validarNumeros(currentTarget)}} />
+        {/* <Input inpClass='newLde' id='editarLdEPav' labText='Local' inpTipo='text' autoComplete='on' onChange={({target})=>setPav(target.value)} value={pav} /> */}
+        {/* <Input inpClass='newLde' id='editarLdEDur' labText='Autonomia' inpTipo='text' onChange={({target})=>setDur(target.value)} value={dur} /> */}
+
+        <label>Local: {'  '}
+        <select onChange={({target})=>setPav(target.value)}>
+          <option value='Subsolo'>Subsolo</option>
+          <option value='Térreo'>Térreo</option>
+          <option value='2º Pav A'>2º Pavimento A</option>
+          <option value='2º Pav B'>2º Pavimento B</option>
+          <option value='3º Pav A'>3º Pavimento A</option>
+          <option value='3º Pav B'>3º Pavimento B</option>
+          <option value='4º Pav A'>4º Pavimento A</option>
+          <option value='4º Pav B'>4º Pavimento B</option>
+        </select>
+        </label>
+
+        <label>Autonomia: {'  '}
+        <select onChange={({target})=>setDur(target.value)}>
+          <option value='1h'>1h</option>
+          <option value='2h'>2h</option>
+          <option value='3h'>3h</option>
+          <option value='4h'>4h</option>
+          <option value='5h'>5h</option>
+          <option value='6h'>6h</option>
+        </select>
+        </label>
+
         <label >Anotações</label>
         <textarea onChange={({target})=>setAnotacao(target.value)} value={anotacao} />  
         

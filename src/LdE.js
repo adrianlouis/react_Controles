@@ -5,8 +5,8 @@ import { GlobalContext } from './GlobalContext'
 
 const LdE = () => {
     const context = React.useContext(GlobalContext)
-    const [ordenados, setOrdenados] = React.useState([])
     const [itemOrdem, setItemOrdem] = React.useState([])
+    const [filtro, setFiltro] = React.useState('')
 
 
     function expandir(elem, avaria){
@@ -55,15 +55,53 @@ const LdE = () => {
                 }
             })
         })
-        
+    }
+
+    function filtrar(){
+        if (filtro === 'numero'){
+            sort()
+            ldeMenu()
+        }
+    }
+
+    function ldeMenu(){
+        const modal = document.querySelector('.ldeModal')
+        if ( modal.style.left === '0px'){
+            modal.style.left = '-100%'
+        }else{
+            modal.style.left = '0px'
+        }
     }
     
   return (
     <>
 
-<div className='ldeUpperFooter'>
+<div className='ldeUpperFooter' >
         <Link className='ldeSubFooterBtn' to='/home' >home</Link>
         <Link className='ldeSubFooterBtn' to='/' >logout</Link>
+        <div id='ldeMenu' className='ldeSubFooterBtn' onClick={ldeMenu}>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+
+    <div className='ldeModal'>
+        {/* <span className='ldeSubFooterBtn' onClick={sort} >filtro por Num</span> */}
+        <span className='notReady' >pesquisar</span>
+         
+        <label> Filtrar por:
+
+        <select id='filtro' value={filtro} onChange={({target})=>setFiltro(target.value)}>
+            <option value='' disabled >- - - - - - - -</option>
+            <option value='numero' >número</option>
+            <option value='local'>pavimento</option>
+            <option value='dur'>autonomia</option>
+        </select>
+        </label>
+
+        <button className='ldeSubFooterBtn' onClick={filtrar}>Filtrar</button>
+
     </div>
 
     {itemOrdem.length === 0 && context.userLogado && context.userLogado.lde.map((item, index)=>{
@@ -153,9 +191,7 @@ const LdE = () => {
     </div> */}
 
     <div className='ldeSubFooter'>
-        <span className='notReady' onClick={sort} >filtro por Num</span>
         <Link className='ldeSubFooterBtn' to='/ldeNovo' >nova LdE</Link>
-        <span className='notReady' >pesquisar</span>
     </div>
       
     </>
