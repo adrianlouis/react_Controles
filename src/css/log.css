@@ -23,12 +23,15 @@ form{
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    
+    /* height: 100%;
+    margin-top: 100px; */
+
+    /* border: 1px solid blue; */
 }
 
 form label{
     color: #050;
-    margin: 15px 0 5px 0;
+    /* margin: 15px 0 5px 0; */
 }
 
 form input{
@@ -37,11 +40,10 @@ form input{
     border: 2px solid #050;
     color: #0a0;
 }
-form input:focus, .btnForm:focus{
+form input:focus{
     outline: none;
     border: 2px solid #0a0
 }
-
 
 .btnForm{
     padding: 5px 20px;
@@ -49,18 +51,62 @@ form input:focus, .btnForm:focus{
     background-color: transparent;
     color: #050;
     border: 2px solid #050;
+    cursor: pointer;
 }
 .btnForm:active{
     background-color: #020;
     color: #0c0;
     border: 2px solid #0c0;
 }
-
+.btnForm:hover{
+    border-color: #0a0;
+}
+.irParaLogin{
+    position: absolute;
+    /* border: 2px solid blue; */
+    bottom: -40px;
+}
+.msgErroLogin{
+    color: #a00;
+    margin: 5px 0;
+    position: absolute;
+    top: 85%;
+}
 .erroLogin{
-    font-weight: 700;
-    font-size: 1.2rem;
     text-align: center;
-    color: #0a0;
+    border: 2px solid #500;
+}
+.erroLogin:is(:focus, :hover){
+    border: 2px solid #a00;
+}
+
+.registrarNegado{
+    color: #555;
+    border: 2px solid #500;
+    cursor: not-allowed;
+}
+.registrarNegado:hover{
+    color: #aaa;
+    border: 2px solid #a00;
+}
+.registrarNegado:active{
+    background-color: #200;
+
+}
+
+.visivelOuNao{
+    /* font-size: 2rem; */
+    position: absolute;
+    top: 42px;
+    right: 2px;
+    /* border: #050 1px solid; */
+    /* background-color: transparent; */
+    height: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    padding: 2px 3px
 }
 
 strong{
@@ -73,7 +119,8 @@ strong:hover, label:hover, button:hover{
 
 p{
     text-align: center;
-    margin-bottom: 10px;
+    /* margin-bottom: 10px; */
+    margin-top: 5px;
 }
 
 .mudarForm{
@@ -101,8 +148,35 @@ p{
     border: 2px solid #0a0
 }
 
+/* #formRegistro input{
+    margin-bottom: 20px;
+} */
 
+.divRegInputs{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-direction: column;
+    height: 90px;
+}
 
+#formRegistro p{
+    display: none;
+    color: #500;
+}
+
+#formRegistro .divRegInputs:nth-child(3){
+    position: relative;
+    /* display: none; */
+}
+
+.containerErrosCadastro{
+    position: absolute;
+    top: 65px;
+    width: 150%;
+    /* border: 1px solid blue; */
+    height: 90px;
+}
 
 
 

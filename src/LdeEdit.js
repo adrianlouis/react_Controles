@@ -2,6 +2,8 @@ import React, { useContext } from 'react'
 import Input from './Input'
 import { Link, useParams, useNavigate, useLocation } from 'react-router-dom'
 import { GlobalContext } from './GlobalContext';
+import css from './css/lde.css'
+import Select from './Select';
 
 const LdeEdit = () => {
 
@@ -44,8 +46,10 @@ const LdeEdit = () => {
     <div>
       <div className='editarLdE' >
         <Input id='editarLdENum' labText='Número da LdE' inpTipo='text' onChange={({target})=>setNum(target.value)} value={num} />
-        <Input id='editarLdEPav' labText='Local' inpTipo='text' autoComplete='on' onChange={({target})=>setLocal(target.value)} value={local} />
-        <Input id='editarLdEDur' labText='Autonomia' inpTipo='text' onChange={({target})=>setDur(target.value)} value={dur} />
+
+        <Select selectValorInicial={local} selectOnChange={({target})=>setLocal(target.value)}  options={['Subsolo', 'Acesso subsolo A', 'Acesso subsolo B', 'Escada A', 'Escada B', 'Escada C', 'Térreo', '2º Pav A', '2º Pav B', '2º Pav Escada C', '3º Pav A', '3º Pav B', '3º Pav Escada C', '4º Pav A', '4º Pav B', '4º Pav Escada C']} />
+        <Select selectValorInicial={dur} selectOnChange={({target})=>setDur(target.value)} optionDisabledValue='Autonomia' options={['1h', '2h', '3h', '4h', '5h', '6h']} />
+
         <label >Anotações</label>
         <textarea onChange={({target})=>setAvaria(target.value)} value={avaria} />  
         <div className='cardAcoes'>

@@ -5,7 +5,7 @@ const Input = ({labClass, id, labText, inpClass, inpTipo, ...props}) => {
     <>
     <label className={labClass} htmlFor={id} >{labText}
     </label>
-      <input className={inpClass} id={id} type={inpTipo} {...props} />
+      <input className={inpClass} id={id} type={inpTipo} {...props}  />
 
     </>
   )

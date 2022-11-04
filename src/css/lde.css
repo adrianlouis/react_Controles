@@ -45,6 +45,7 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: flex-start;
+    position: relative;
 }
 
 .ldeSubFooter, .ldeUpperFooter{
@@ -98,7 +99,6 @@
 .cardAcoes{
     width: 100%;
     height: 60px;
-    border-top: 1px solid #0a0;
     display: flex;
     align-items: center;
     justify-content: space-evenly;
@@ -138,6 +138,15 @@
     flex-direction: column;
 }
 
+.editarLdE input{
+    text-align: center;
+    border: 2px solid #050;
+}
+.editarLdE input:focus{
+    outline: none;
+    border: 2px solid #0a0;
+}
+
 .newLde{
     margin-bottom: 15px;
     text-align: center;
@@ -163,9 +172,16 @@
     outline: none;
 }
 
-label:nth-child(1) {
-    margin-top: 20px;
+.ldeNotificacaoAvaria{
+    position: absolute;
+    bottom: 1px;
+    right: 5px;
+    font-size: 1.2rem;
 }
+
+/* label:nth-child(1) {
+    margin-top: 20px;
+} */
 
 label{
     margin: 10px;
@@ -189,6 +205,13 @@ select{
     border: none;
 }
 
+select{
+    /* border: 1px solid red; */
+    width: 240px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
 #ldeMenu span{
     display: block;
     width: 20px;
@@ -208,6 +231,7 @@ select{
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    z-index: 1;
 }
 .ldeModal span{
     margin: 10px;

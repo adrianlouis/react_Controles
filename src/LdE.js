@@ -2,13 +2,17 @@ import React from 'react'
 import css from './css/lde.css'
 import {Link} from 'react-router-dom'
 import { GlobalContext } from './GlobalContext'
+import Select from './Select'
 
 const LdE = () => {
     const context = React.useContext(GlobalContext)
-    const [itemOrdem, setItemOrdem] = React.useState([])
-    const [filtro, setFiltro] = React.useState('')
-
-
+    const luzes = context.userLogado.lde
+    const [filtroNumerico, setFiltroNumerico] = React.useState('')
+    const [filtroAutonomia, setFiltroAutonomia] = React.useState('')
+    const [filtroLocal, setFiltroLocal] = React.useState('')
+    const [filtroAvarias, setFiltroAvarias] = React.useState('')
+    const [resFiltragem, setResFiltragem] = React.useState('')
+    
     function expandir(elem, avaria){
 
         if (avaria){
@@ -28,40 +32,10 @@ const LdE = () => {
     }
 
     function excluirLde(elem, idLde){
-
         const item = context.userLogado.lde.filter((filtro)=>{
             return filtro.id !== idLde.id
         })
-
        context.setUserLogado(prev => ({...prev, lde:[ ...item ]}))
-        
-    }
-    
-    function sort(){
-        setItemOrdem([])
-
-        const numeros = Object.keys(context.userLogado.lde).map((item)=>{
-            return Number(context.userLogado.lde[item].num)
-        })
-  
-        const ordenados = numeros.sort((a,b)=>{
-            return a - b
-        })
-
-        ordenados.forEach((cada)=>{
-            context.userLogado.lde.map((item)=>{
-                if (item.num === String(cada)){
-                    setItemOrdem(prev => ([...prev, item]))
-                }
-            })
-        })
-    }
-
-    function filtrar(){
-        if (filtro === 'numero'){
-            sort()
-            ldeMenu()
-        }
     }
 
     function ldeMenu(){
@@ -72,11 +46,112 @@ const LdE = () => {
             modal.style.left = '0px'
         }
     }
+
+    function limparFiltros(){
+        setFiltroNumerico('')
+        setFiltroAutonomia('')
+        setFiltroAvarias('')
+        setFiltroLocal('')
+        setResFiltragem('')
+        ldeMenu()
+    }
+
+    function crescente(itens){
+        const crescente = []
+        Object.keys(itens).map((item)=>{
+            return Number(itens[item].num)}).sort((a,b)=>{
+                return a - b
+            }).forEach((cada)=>{
+                itens.map((item)=>{
+                    if (item.num === String(cada)){
+                        crescente.push(item)
+                    }
+                })
+            })
+            setResFiltragem(crescente)
+    }
+
+    function dcrescente(itens){
+            const decrescente = []
+            Object.keys(itens).map((item)=>{
+                return Number(itens[item].num)}).sort((a,b)=>{
+                    return b - a
+                }).forEach((cada)=>{
+                    itens.map((item)=>{
+                        if (item.num === String(cada)){
+                            decrescente.push(item)
+                        }
+                    })
+                })
+           setResFiltragem(decrescente)
+    }
+
+    React.useEffect(()=>{
+        if (filtroNumerico === 'Crescente'){
+            crescente(luzes)
+            ldeMenu()
+        }else if (filtroNumerico === 'Decrescente'){
+            dcrescente(luzes)
+            ldeMenu()
+        }
+        setFiltroNumerico('')
+    },[filtroNumerico])
+
+     function autonomia(itens){
+        const res = itens.filter((fill)=>{
+            return fill.dur === filtroAutonomia
+        })
+        setResFiltragem(res)
+    }
     
+    React.useEffect(()=>{
+        if (filtroAutonomia !== ''){
+           autonomia(luzes)
+            ldeMenu()
+        }
+        setFiltroAutonomia('')
+    },[filtroAutonomia])
+
+    function local(itens){
+        const res = itens.filter((fill)=>{
+            return fill.local === filtroLocal
+        })
+        setResFiltragem(res)
+    }
+
+    React.useEffect(()=>{
+        if(filtroLocal){
+            local(luzes)
+            ldeMenu()
+        }
+        setFiltroLocal('')
+    },[filtroLocal])
+
+    function avarias(itens){
+        const res = itens.filter((fill)=>{
+            if (filtroAvarias === 'Com avarias'){
+                return fill.avaria !== ''
+            }else if(filtroAvarias === 'Sem avarias') {
+                return fill.avaria === ''
+            }else{
+                return itens
+            }
+        })
+        setResFiltragem(res)
+    }
+
+    React.useEffect(()=>{
+        if (filtroAvarias){
+            avarias(luzes)
+            ldeMenu()
+        }
+        setFiltroAvarias('')
+    },[filtroAvarias])
+ 
   return (
     <>
 
-<div className='ldeUpperFooter' >
+    <div className='ldeUpperFooter' >
         <Link className='ldeSubFooterBtn' to='/home' >home</Link>
         <Link className='ldeSubFooterBtn' to='/' >logout</Link>
         <div id='ldeMenu' className='ldeSubFooterBtn' onClick={ldeMenu}>
@@ -87,24 +162,19 @@ const LdE = () => {
     </div>
 
     <div className='ldeModal'>
-        {/* <span className='ldeSubFooterBtn' onClick={sort} >filtro por Num</span> */}
-        <span className='notReady' >pesquisar</span>
          
-        <label> Filtrar por:
+        <span>Filtrar por:</span>
+        
+        <Select selectValorInicial={filtroNumerico} selectOnChange={({target})=>setFiltroNumerico(target.value)} optionDisabledValue='Números' options={['Crescente', 'Decrescente']} />
+        <Select selectValorInicial={filtroAutonomia} selectOnChange={({target})=>setFiltroAutonomia(target.value)} optionDisabledValue='Autonomia' options={['1h', '2h', '3h', '4h', '5h', '6h']} />
+        <Select selectValorInicial={filtroLocal} selectOnChange={({target})=>setFiltroLocal(target.value)} optionDisabledValue='Localização' options={['Subsolo', 'Acesso subsolo A', 'Acesso subsolo B', 'Escada A', 'Escada B', 'Escada C', 'Térreo', '2º Pav A', '2º Pav B', '2º Pav Escada C', '3º Pav A', '3º Pav B', '3º Pav Escada C', '4º Pav A', '4º Pav B', '4º Pav Escada C']}  />
+        <Select selectValorInicial={filtroAvarias} selectOnChange={({target})=>setFiltroAvarias(target.value)} optionDisabledValue='Avarias' options={['Com avarias', 'Sem avarias']}  />
 
-        <select id='filtro' value={filtro} onChange={({target})=>setFiltro(target.value)}>
-            <option value='' disabled >- - - - - - - -</option>
-            <option value='numero' >número</option>
-            <option value='local'>pavimento</option>
-            <option value='dur'>autonomia</option>
-        </select>
-        </label>
-
-        <button className='ldeSubFooterBtn' onClick={filtrar}>Filtrar</button>
+        <button className='ldeSubFooterBtn' onClick={limparFiltros} >Limpar filtro</button>
 
     </div>
 
-    {itemOrdem.length === 0 && context.userLogado && context.userLogado.lde.map((item, index)=>{
+    {!resFiltragem && context.userLogado && context.userLogado.lde.map((item, index)=>{
         return <div key={item.id} className='ldeContainer'>
         <div className='contSuperior'  onClick={(e)=>expandir(e.currentTarget, item.avaria)}>
             <div className='ldeUnidade' >
@@ -119,10 +189,14 @@ const LdE = () => {
                 <p>Autonomia</p>
                 <p>{item.dur}</p>
             </div>
+            {item.avaria && <p className='ldeNotificacaoAvaria'>+</p>}
             </div>
-            { item.avaria && <div className='contInferior'>
-                <textarea disabled value={item.avaria} ></textarea>
-            </div>}
+            { item.avaria && <>
+                
+                <div className='contInferior'>
+                    <textarea disabled value={item.avaria} ></textarea>
+                </div>
+            </>}
 
             <div className='cardAcoes'>
                 {/* <span className='notReady' onClick={()=>console.log(context.userLogado)}>Editar</span> */}
@@ -133,8 +207,7 @@ const LdE = () => {
         </div>
     })}
 
-
-    {itemOrdem.length !== 0 && context.userLogado && itemOrdem.map((item, index)=>{
+    {resFiltragem && resFiltragem.map((item, index)=>{
         return <div key={item.id} className='ldeContainer'>
         <div className='contSuperior'  onClick={(e)=>expandir(e.currentTarget, item.avaria)}>
             <div className='ldeUnidade' >
@@ -149,46 +222,22 @@ const LdE = () => {
                 <p>Autonomia</p>
                 <p>{item.dur}</p>
             </div>
+            {item.avaria && <p className='ldeNotificacaoAvaria'>+</p>}
             </div>
-            { item.avaria && <div className='contInferior'>
-                <textarea disabled value={item.avaria} ></textarea>
-            </div>}
+            { item.avaria && <>
+                
+                <div className='contInferior'>
+                    <textarea disabled value={item.avaria} ></textarea>
+                </div>
+            </>}
 
             <div className='cardAcoes'>
-                {/* <span className='notReady' onClick={()=>console.log(context.userLogado)}>Editar</span> */}
                 <Link className='ldeSubFooterBtn' to={`edit/id?id=${item.id}&ind=${index}`}>Editar</Link>
                 <span className='ldeSubFooterBtn' onClick={({currentTarget})=>excluirLde(currentTarget ,item)}>Excluir</span>
                 
             </div>
         </div>
     })}
-
-
-    {/* <div className='ldeSubFooter'>
-        <span className='filtroLdE'>filtrar por 
-            <select>
-                <option selected disabled>- - - - -</option>
-                <optgroup label='local'>
-                <option>subsolo</option>
-                <option>térreo</option>
-                <option>2º pav</option>
-                <option>3º pav</option>
-                <option>4º pav</option>
-                </optgroup>
-                <optgroup label="autonomia">
-                <option>1h</option>
-                <option>2h</option>
-                <option>3h</option>
-                <option>4h</option>
-                <option>5h</option>
-                <option>6h+</option>
-                </optgroup>
-
-
-            </select>
-        </span>
-
-    </div> */}
 
     <div className='ldeSubFooter'>
         <Link className='ldeSubFooterBtn' to='/ldeNovo' >nova LdE</Link>

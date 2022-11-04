@@ -12,16 +12,20 @@ const Log = () => {
     const context = React.useContext(GlobalContext)
     const [nome, setNome] = React.useState('')
     const [senha, setSenha] = React.useState('')
+    const user = {nome:nome, senha: senha}
+
     const [listaUser, setListaUser] = React.useState([])
     const [erroLogin, setErroLogin] = React.useState(null)
     const [formAtivo, setFormAtivo] = React.useState(false)
+
     const [regNome, setRegNome] = React.useState('')
     const [regEmail, setRegEmail] = React.useState('')
     const [regSenha, setRegSenha] = React.useState('')
     const [confSenha, setConfSenha] = React.useState('')
-    const user = {nome:nome, senha: senha}
     const regUser = { cadNome:regNome, cadEmail:regEmail, cadSenha:regSenha, cadConfSenha:confSenha}
+
     const [regValidacoes, setRegValidacoes] = React.useState({vNome: false, vEmail:false, vSenha:false, vConfSenha:false})
+
     const navigate = useNavigate();
     const newUser = {nome: regNome, email:regEmail, senha:regSenha, lde:[]}
     const [deltree, setDeltree] = React.useState(false)
@@ -58,40 +62,6 @@ const Log = () => {
       }
     }
 
-    // React.useEffect(()=>{
-    //   const nabucodonosor = document.querySelectorAll('.morpheus')
-    //   smith(nabucodonosor)
-    // },[])
-    // function smith(v){
-      
-    //   for (let i = 0; i < v.length; i++) {
-    //     v[i].style.display='none';
-        
-    //   }
-    //   v[0].style.display='block'
-      
-    //   setTimeout(() => {
-    //     v[0].style.display='none'
-    //     v[1].style.display='block'
-    //   }, 5000);
-    //   setTimeout(() => {
-    //     v[1].style.display='none'
-    //     v[2].style.display='block'
-    //   }, 10000);
-    //   setTimeout(() => {
-    //     v[2].style.display='none'
-    //     v[3].style.display='block'
-    //   }, 15000);
-    //   setTimeout(() => {
-    //     v[3].classList.add('helloTrinity')
-    //   }, 20000);
-    //   setTimeout(() => {
-    //     document.querySelector('.enterTheMatrix').style.display='none'
-    //   }, 25000);
-
-    // }
-
-
     React.useEffect(()=>{
       const time = setTimeout(() => {
           setErroLogin(null)
@@ -111,124 +81,242 @@ const Log = () => {
 
     if (!formAtivo){
       document.querySelector('#formLogin').classList.add('mudarForm')
+      setRegNome('')
+      setRegEmail('')
+      setRegSenha('')
+      setConfSenha('')
+      setNome('')
+      setSenha('')
+      setRegValidacoes({vNome: false, vEmail:false, vSenha:false, vConfSenha:false})
       setTimeout(() => {
         document.querySelector('#formRegistro').classList.remove('mudarForm')
       }, 350);
       
     }else{
       document.querySelector('#formRegistro').classList.add('mudarForm')
+      setRegNome('')
+      setRegEmail('')
+      setRegSenha('')
+      setConfSenha('')
+      setNome('')
+      setSenha('')
+      setRegValidacoes({vNome: false, vEmail:false, vSenha:false, vConfSenha:false})
       setTimeout(() => {
-
+        
         document.querySelector('#formLogin').classList.remove('mudarForm')
       }, 350);
 
     }
   }
-
-  function handleChange(elem, setter){
-    setter(elem.value)
+  
+  // VALIDAR REGISTRO DE NOME
+  function validarinputNomeRegistrar(){
+    if(context.usuarios.length > 0){
+      context.usuarios.map((item)=>{
+        if (item.nome === regNome){
+          setRegValidacoes({...regValidacoes, vNome:false })
+          document.querySelector('#regNome').classList.add('erroLogin')
+          document.querySelector('#repNome').style.display='block'
+          document.querySelector('#regNome').classList.add('animarErro')
+                setTimeout(() => {
+                  document.querySelector('#regNome').classList.remove('animarErro')
+                }, 300);
+        }else{
+          setRegValidacoes({...regValidacoes, vNome:true })
+          document.querySelector('#regNome').classList.remove('erroLogin')
+          document.querySelector('#repNome').style.display='none'
+        }
+      })
+    }else{
+      setRegValidacoes({...regValidacoes, vNome:true })
+    }
   }
 
-  function valSenha(res) {
-    setRegValidacoes({...regValidacoes, ...res})
+  // VALIDAR REGISTRO DE EMAIL
+  function validarInputEmailRegistrar(){
+    if(regEmail !== '' && context.usuarios.length > 0){
+
+      context.usuarios.map((item)=>{
+        if (item.email === regEmail){
+          setRegValidacoes({...regValidacoes, vEmail:false})
+          document.querySelector('#regEmail').classList.add('erroLogin')
+          document.querySelector('#repEmail').style.display='block'
+          document.querySelector('#regEmail').classList.add('animarErro')
+                setTimeout(() => {
+                  document.querySelector('#regEmail').classList.remove('animarErro')
+                }, 300);
+        }else{
+          setRegValidacoes({...regValidacoes, vEmail:true})
+          document.querySelector('#regEmail').classList.remove('erroLogin')
+          document.querySelector('#repEmail').style.display='none'
+        }
+      })
+    }else{
+      setRegValidacoes({...regValidacoes, vEmail:true})
+      // return
+    }
   }
 
-  function valConfSenha(res){
-    setRegValidacoes({...regValidacoes, ...res})
+  // VALIDAR REGISTRO DE SENHA
+  function validarSenhaRegistrar(){
+    const charNumerico = /([0-9])/g
+    const charEspecial = /(?=.*[!@#$%^&*])/ 
+    const containerDeErro = document.querySelector('.containerErrosCadastro')
+
+    if (regSenha === ''){
+      document.querySelector('#regSenha').classList.add('erroLogin')
+      document.querySelector('#erroSenhaNumero').style.display='block'
+      document.querySelector('#erroSenhaCharEspecial').style.display='block'
+      document.querySelector('#erroSenhaTamanho').style.display='block'
+      containerDeErro.style.display='block'
+    }
+    
+    if (regSenha.match(charNumerico)){
+      document.querySelector('#erroSenhaNumero').style.display='none'
+    }else{
+      document.querySelector('#regSenha').classList.add('erroLogin')
+      document.querySelector('#erroSenhaNumero').style.display='block'
+      document.querySelector('#regSenha').classList.add('animarErro')
+                setTimeout(() => {
+                  document.querySelector('#regSenha').classList.remove('animarErro')
+                }, 300);
+    } 
+
+    if (regSenha.match(charEspecial)){
+      document.querySelector('#erroSenhaCharEspecial').style.display='none'
+    }else{
+      document.querySelector('#regSenha').classList.add('erroLogin')
+      document.querySelector('#erroSenhaCharEspecial').style.display='block'
+      document.querySelector('#regSenha').classList.add('animarErro')
+                setTimeout(() => {
+                  document.querySelector('#regSenha').classList.remove('animarErro')
+                }, 300);
+    }
+
+    if (regSenha.length >= 8){
+      document.querySelector('#erroSenhaTamanho').style.display='none'
+    }else{
+      document.querySelector('#regSenha').classList.add('erroLogin')
+      document.querySelector('#erroSenhaTamanho').style.display='block'
+      document.querySelector('#regSenha').classList.add('animarErro')
+                setTimeout(() => {
+                  document.querySelector('#regSenha').classList.remove('animarErro')
+                }, 300);
+    }
+    
+    if (regSenha.length >= 8 && regSenha.match(charNumerico) && regSenha.match(charEspecial)){
+      document.querySelector('#regSenha').classList.remove('erroLogin')
+      setRegValidacoes(prev=>({...prev, vSenha:true}))
+      containerDeErro.style.display='none'
+      
+    }else{
+      document.querySelector('#regSenha').classList.add('erroLogin')
+      setRegValidacoes(prev=>({...prev, vSenha:false}))
+      containerDeErro.style.display='block'
+      document.querySelector('#regSenha').classList.add('animarErro')
+                setTimeout(() => {
+                  document.querySelector('#regSenha').classList.remove('animarErro')
+                }, 300);
+    }
   }
 
-  function valRegNome(res){
-    setRegValidacoes({...regValidacoes, ...res})
-  }
+  // VALIDAR CONFIRMAÇÃO DE SENHA PARA REGISTRO
+  function conferirSenhaRegistrar(){
+    const msgErro = document.querySelector('#erroSenhaDiferentes')
+    const inputConfirmarSenha = document.querySelector('#confSenha')
 
-  function valRegEmail(res){
-    setRegValidacoes({...regValidacoes, ...res})
+    if (regSenha === confSenha){
+      msgErro.style.display='none'
+      inputConfirmarSenha.classList.remove('erroLogin')
+      setRegValidacoes(prev=>({...prev, vConfSenha:true}))
+      
+    }else{
+      if(inputConfirmarSenha.value!==''){
+        msgErro.style.display='block'
+      }
+      inputConfirmarSenha.classList.add('erroLogin')
+      setRegValidacoes(prev=>({...prev, vConfSenha:false}))
+      
+    }
   }
 
   React.useEffect(()=>{
-   if(regUser.cadConfSenha === '' || regUser.cadSenha !== regUser.cadConfSenha){
-     setRegValidacoes({...regValidacoes, vConfSenha:false})
-     document.querySelector('#confSenha').classList.remove('inputValido')
-    }else{
-     document.querySelector('#confSenha').classList.add('inputValido')
-     setRegValidacoes({...regValidacoes, vConfSenha:true})
-   }
-
-
-   if (regSenha.length >= 8){
-    document.querySelector('#erro3').style.display='none'
-}else{
-    document.querySelector('#erro3').style.display='block'
-}
-
-var charNumerico = /([0-9])/g
-    if (regSenha.match(charNumerico)){
-        document.querySelector('#erro1').style.display='none'
-    }else{
-        document.querySelector('#erro1').style.display='block'
+    if (confSenha !== ''){
+      conferirSenhaRegistrar()
     }
+  },[regSenha, confSenha])
+  
 
-var charEspecial = /(?=.*[!@#$%^&*])/
-    if (regSenha.match(charEspecial)){
-        document.querySelector('#erro2').style.display='none'
+  function senhaVisivel(elem){
+    if(elem.previousElementSibling.getAttribute('type') !== 'text'){
+      elem.previousElementSibling.setAttribute('type', 'text')
+      document.querySelector('.visivelOuNao').innerText='o.o'
+      
     }else{
-        document.querySelector('#erro2').style.display='block'
-    }
+      elem.previousElementSibling.setAttribute('type', 'password')
+      document.querySelector('.visivelOuNao').innerText='-.-'
 
-  },[regUser.cadSenha])
+    }
+  }
+
+  // HABILITAR BOTAO CADASTRAR (Submit no registro)
+  React.useEffect(()=>{
+    if (regValidacoes.vNome && regValidacoes.vEmail && regValidacoes.vSenha && regValidacoes.vConfSenha){
+      document.querySelector('#formRegBtn').classList.remove('registrarNegado')
+    }else{
+      document.querySelector('#formRegBtn').classList.add('registrarNegado')
+    }
+  },[regValidacoes])
 
 
   return (
     <div className='logContainer'>
       <form id='formLogin' >
-        <Input labText='Nome de usuário' labClass='labelNome' id='inpNome' inpTipo='text' onChange={({target})=>handleChange(target, setNome)} value={nome} />
-        <Input labText='Senha' labClass='labelSenha' id='inpSenha' inpTipo='password'  onChange={({target})=>handleChange(target, setSenha)} value={senha}  />
+        <Input labText='Nome de usuário' labClass='labelNome' id='inpNome' inpTipo='text' onChange={({target})=>setNome(target.value)} value={nome} />
+        <Input labText='Senha' labClass='labelSenha' id='inpSenha' inpTipo='password'  onChange={({target})=>setSenha(target.value)} value={senha}  />
         <Button btnId='formBtn' btnText='Logar' btnClass='btnForm' onClick={(event)=>{logar(event)}}  />
+        {erroLogin && <span className='msgErroLogin'>{erroLogin}</span>}
         <span>esqueceu a senha? clique <strong>aqui</strong></span>
         <span>não possui conta? <strong onClick={alternarForm}>registre</strong></span>
         <span className='deltree' onClick={()=>{!deltree?setDeltree(true):window.localStorage.clear()}} >{!deltree? 'excluir os dados salvos?' : 'Tem certeza?'}</span>
-        <span className='erroLogin'>{erroLogin}</span>
 
       </form>
 
       <form id='formRegistro' className='mudarForm'>
-        <Input labText='Nome de usuário' id='regNome' inpTipo='text' onChange={({target})=>handleChange(target, setRegNome)} value={regNome} onBlur={()=>valRegNome(validarRegNome(regUser.cadNome, listaUser))} />
-        <Input labText='Email' id='regEmail' inpTipo='text' onChange={({target})=>handleChange(target, setRegEmail)} value={regEmail} onBlur={()=>valRegEmail(validarRegEmail(regUser.cadEmail, listaUser))} />
-        <Input labText='Senha' id='regSenha' inpTipo='password' onChange={({target})=>handleChange(target, setRegSenha)} value={regSenha} onBlur={()=>valSenha(validarRegSenha(regUser.cadSenha))} onFocus={()=>document.querySelector('.errosInputsLogin').style.display='block'} />
-        <Input labText='Confirmar a senha' id='confSenha' inpTipo='password' onChange={({target})=>handleChange(target, setConfSenha)} value={confSenha} onBlur={()=>valConfSenha(validarConfSenha(regUser.cadSenha, regUser.cadConfSenha))} />
-        <Button btnId='formRegBtn' btnText='Cadastrar' btnClass='btnForm' onClick={submit} />
-        <span>já possui conta? <strong onClick={alternarForm}>login</strong></span>
+        <div className='divRegInputs'>
+          <Input placeholder='MeuNome' labText='Nome de usuário' id='regNome' inpTipo='text' onChange={({target})=>setRegNome(target.value)} value={regNome} onBlur={validarinputNomeRegistrar}  />
+          <p id='repNome'>nome de usuário já cadastrado</p>
+        </div>
 
-        <div className='errosInputsLogin'>
+        <div className='divRegInputs'>
+          <Input placeholder='seunome@email.com' labText='Email' id='regEmail' inpTipo='text' onChange={({target})=>setRegEmail(target.value)} value={regEmail} onBlur={validarInputEmailRegistrar} />
+          <p id='repEmail'>email já cadastrado</p>
+        </div>
 
-          <p id='erro1'>senha precisa pelo menos um número</p>
-          <p id='erro2'>senha precisa pelo menos um char especial</p>
-          <p id='erro3'>senha precisa pelo menos oito chars</p>
-          <p id='erro4'>senhas não conferem</p>
-          <p id='erro5'>email já cadastrado</p>
-          <p id='erro6'>nome de usuário já cadastrado</p>
+        <div className='divRegInputs'>
+          <Input labText='Senha' id='regSenha' inpTipo='password' onChange={({target})=>setRegSenha(target.value)} value={regSenha} onBlur={validarSenhaRegistrar}  />
+          
+          {regSenha && <span className='visivelOuNao' onClick={({currentTarget})=>{senhaVisivel(currentTarget)}} >o.o</span>}
+
+          
+          <div className='containerErrosCadastro'>
+            <p id='erroSenhaNumero'>senha precisa ter número</p>
+            <p id='erroSenhaCharEspecial'>senha precisa ter char especial</p>
+            <p id='erroSenhaTamanho'>senha precisa ter oito chars ou mais</p>
+          </div>
 
         </div>
 
-        {/* <p>Nome: {regNome}</p>
-        <p>Email: {regEmail}</p>
-        <p>Senha: {regSenha}</p>
-        <p>confSenha: {confSenha}</p> */}
-        {/* <span>{regUser.cadSenha}</span> */}
-        
+        <div className='divRegInputs'>
+          <Input labText='Confirmar a senha' id='confSenha' inpTipo='password' onChange={({target})=>setConfSenha(target.value)} value={confSenha} onBlur={conferirSenhaRegistrar} />
+            <p id='erroSenhaDiferentes'>suas senhas não conferem</p>
+          <Button btnId='formRegBtn' btnText='Cadastrar' btnClass='btnForm registrarNegado' onClick={submit} />
+        </div>
+
+        <span className='irParaLogin'>já possui conta? <strong onClick={alternarForm}>login</strong></span>
+
 
       </form>
-
-
-
-      {/* MATRIX  */}
-
-      {/* <div className='enterTheMatrix'>
-        <span className='morpheus'>Wake up, Neo. . .</span>
-        <span className='morpheus'>The Matrix has you. . .</span>
-        <span className='morpheus'>Follow the white rabbit.</span>
-        <span className='morpheus'>Knock, knock, Neo.</span>
-      </div> */}
 
     </div>
   )
