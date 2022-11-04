@@ -30,7 +30,7 @@
 } */
 
 .ldeUnidade{
-    width: 25%;
+    width: 30%;
     height: 80px;
     display: flex;
     justify-content: center;
@@ -193,7 +193,7 @@ label{
 
 .ldeUnidade p:nth-child(1){
     font-size: .8rem;
-    height: 40%;
+    height: 25%;
     margin-top: 5px;
 }
 .ldeUnidade p:nth-child(2){
