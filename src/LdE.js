@@ -40,10 +40,24 @@ const LdE = () => {
 
     function ldeMenu(){
         const modal = document.querySelector('.ldeModal')
-        if ( modal.style.left === '0px'){
-            modal.style.left = '-100%'
+        const menu1 = document.querySelector('#ldeMenuHamburguer1')
+        const menu2 = document.querySelector('#ldeMenuHamburguer2')
+        const menu3 = document.querySelector('#ldeMenuHamburguer3')
+        if ( modal.style.top === '0px'){
+            modal.style.top = '-100%'
+            menu1.style.transform='rotate(0deg)'
+            menu2.style.opacity='1'
+            menu2.style.width='30px'
+            menu3.style.transform='rotate(0deg)'
+            menu3.style.transform='rotate(0deg)'
         }else{
-            modal.style.left = '0px'
+            modal.style.top = '0px'
+            menu1.style.transform='rotate(45deg) translate(9px, 7px)'
+            menu2.style.opacity='0'
+            menu2.style.width='0'
+            menu3.style.transform='rotate(-45deg) translate(5px, -5px)'
+            // menu3.style.transform=''
+
         }
     }
 
@@ -152,16 +166,19 @@ const LdE = () => {
     <>
 
     <div className='ldeUpperFooter' >
-        <Link className='ldeSubFooterBtn' to='/home' >home</Link>
-        <Link className='ldeSubFooterBtn' to='/' >logout</Link>
-        <div id='ldeMenu' className='ldeSubFooterBtn' onClick={ldeMenu}>
-            <span></span>
-            <span></span>
-            <span></span>
+        {/* <Link className='ldeSubFooterBtn' to='/home' >home</Link> */}
+        {/* <Link className='ldeSubFooterBtn' to='/' >logout</Link> */}
+        <div id='ldeMenu'  onClick={ldeMenu}>
+            <span id='ldeMenuHamburguer1'></span>
+            <span id='ldeMenuHamburguer2'></span>
+            <span id='ldeMenuHamburguer3'></span>
         </div>
     </div>
 
     <div className='ldeModal'>
+
+        <Link className='ldeSubFooterBtn' to='/home' >home</Link>
+
          
         <span>Filtrar por:</span>
         
@@ -171,6 +188,8 @@ const LdE = () => {
         <Select selectValorInicial={filtroAvarias} selectOnChange={({target})=>setFiltroAvarias(target.value)} optionDisabledValue='Avarias' options={['Com avarias', 'Sem avarias']}  />
 
         <button className='ldeSubFooterBtn' onClick={limparFiltros} >Limpar filtro</button>
+
+        <Link className='ldeSubFooterBtn' to='/' >logout</Link>
 
     </div>
 
@@ -206,6 +225,11 @@ const LdE = () => {
             </div>
         </div>
     })}
+
+    {resFiltragem && <div className='ldeResumoFiltro'>
+            <p>LdE filtradas</p>
+            <p>{resFiltragem.length}</p>
+        </div>}
 
     {resFiltragem && resFiltragem.map((item, index)=>{
         return <div key={item.id} className='ldeContainer'>

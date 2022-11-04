@@ -8,6 +8,7 @@ import {GlobalContext} from './GlobalContext'
 const Home = () => {
     const navigate = useNavigate()
     const context = React.useContext(GlobalContext)
+    const qtdLde = context.userLogado.lde.length
 
     function nav(dest){
         navigate(dest)
@@ -23,7 +24,7 @@ const Home = () => {
 
         <HomeCard spanCardClass='cardTexto' cardNome='Extintores' />
 
-        <HomeCard spanCardClass='cardTexto' cardNome='Luzes de Emergência' onClick={()=>nav('/lde')} />
+        <HomeCard spanCardClass='cardTexto' cardNome={qtdLde+' Luzes de Emergência'}  onClick={()=>nav('/lde')} />
 
         <HomeCard spanCardClass='cardTexto' cardNome='Hidrantes' />
 

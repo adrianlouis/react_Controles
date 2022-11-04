@@ -201,23 +201,42 @@ label{
     height: 60%;
 }
 
+.ldeResumoFiltro{
+    border: 2px solid #0a0;
+    width: 40%;
+    height: 55px;
+    margin: 0 auto;
+    margin-bottom: 25px;
+}
+.ldeResumoFiltro p:nth-child(1){
+    font-size: .8rem;
+}
+.ldeResumoFiltro p:nth-child(2){
+    color: #0a0;
+}
+
 select{
     border: none;
 }
 
-select{
-    /* border: 1px solid red; */
+.ldeModal select{
     width: 240px;
-    margin-bottom: 15px;
+    margin-bottom: 25px;
     text-align: center;
+    font-size: 1.2rem;
 }
 
 #ldeMenu span{
     display: block;
-    width: 20px;
+    width: 30px;
+    border: 2px solid #050;
+    background-color: #050;
+    margin: 5px;
+}
+
+#ldeMenu:hover span{
     border: 2px solid #0a0;
     background-color: #0a0;
-    margin: 2px;
 }
 
 .ldeModal{
@@ -225,16 +244,21 @@ select{
     height: 100%;
     background-color: #000;
     position: fixed;
-    top: 0;
-    left: -100%;
+    top: -100%;
+    /* left: -100%; */
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: start;
     flex-direction: column;
     z-index: 1;
+    margin-top: 80px;
 }
 .ldeModal span{
     margin: 10px;
+}
+
+.ldeModal a{
+    margin: 20px;
 }
 
 
