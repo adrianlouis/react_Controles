@@ -83,7 +83,8 @@ const LdE = () => {
                 })
             })
             setResFiltragem(crescente)
-    }
+            context.setUserLogado({...context.userLogado, lde:[...crescente]})
+        }
 
     function dcrescente(itens){
             const decrescente = []
@@ -98,6 +99,8 @@ const LdE = () => {
                     })
                 })
            setResFiltragem(decrescente)
+           context.setUserLogado({...context.userLogado, lde:[...decrescente]})
+
     }
 
     React.useEffect(()=>{
@@ -161,6 +164,7 @@ const LdE = () => {
         }
         setFiltroAvarias('')
     },[filtroAvarias])
+
  
   return (
     <>

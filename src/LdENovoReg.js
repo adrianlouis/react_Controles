@@ -32,7 +32,7 @@ const LdENovoReg = () => {
       }
       const ldeNovo = {id:id, num:num, local:pav, dur:dur, avaria:anotacao}
 
-      context.setUserLogado(prev => ({...prev, lde:[ ...prev.lde, ldeNovo ]}))
+      context.setUserLogado(prev => ({...prev, lde:[ldeNovo, ...prev.lde]}))
       context.setUploadLde(true)
       navigate('/lde')
     }
@@ -56,7 +56,7 @@ const LdENovoReg = () => {
 
         <Select selectValorInicial={dur} selectOnChange={({target})=>setDur(target.value)} optionDisabledValue='Autonomia' options={['1h', '2h', '3h', '4h', '5h', '6h']} />
     
-        <label >Anotações</label>
+        <label >Anotações</label> 
         <textarea onChange={({target})=>setAnotacao(target.value)} value={anotacao} />  
         
         <div className='cardAcoes'>
