@@ -24,6 +24,7 @@ const Log = () => {
     const [confSenha, setConfSenha] = React.useState('')
     const regUser = { cadNome:regNome, cadEmail:regEmail, cadSenha:regSenha, cadConfSenha:confSenha}
 
+    const [errosCriacaoDeSenha, setErrosCriacaoDeSenha] = React.useState(['símbolo', 'número', '8 dígitos'])
     const [regValidacoes, setRegValidacoes] = React.useState({vNome: false, vEmail:false, vSenha:false, vConfSenha:false})
 
     const navigate = useNavigate();
@@ -162,58 +163,20 @@ const Log = () => {
     const charNumerico = /([0-9])/g
     const charEspecial = /(?=.*[!@#$%^&*])/ 
     const containerDeErro = document.querySelector('.containerErrosCadastro')
-
-    if (regSenha === ''){
-      document.querySelector('#regSenha').classList.add('erroLogin')
-      document.querySelector('#erroSenhaNumero').style.display='block'
-      document.querySelector('#erroSenhaCharEspecial').style.display='block'
-      document.querySelector('#erroSenhaTamanho').style.display='block'
-      containerDeErro.style.display='block'
-    }
-    
-    if (regSenha.match(charNumerico)){
-      document.querySelector('#erroSenhaNumero').style.display='none'
-    }else{
-      document.querySelector('#regSenha').classList.add('erroLogin')
-      document.querySelector('#erroSenhaNumero').style.display='block'
-      document.querySelector('#regSenha').classList.add('animarErro')
-                setTimeout(() => {
-                  document.querySelector('#regSenha').classList.remove('animarErro')
-                }, 300);
-    } 
-
-    if (regSenha.match(charEspecial)){
-      document.querySelector('#erroSenhaCharEspecial').style.display='none'
-    }else{
-      document.querySelector('#regSenha').classList.add('erroLogin')
-      document.querySelector('#erroSenhaCharEspecial').style.display='block'
-      document.querySelector('#regSenha').classList.add('animarErro')
-                setTimeout(() => {
-                  document.querySelector('#regSenha').classList.remove('animarErro')
-                }, 300);
-    }
-
-    if (regSenha.length >= 8){
-      document.querySelector('#erroSenhaTamanho').style.display='none'
-    }else{
-      document.querySelector('#regSenha').classList.add('erroLogin')
-      document.querySelector('#erroSenhaTamanho').style.display='block'
-      document.querySelector('#regSenha').classList.add('animarErro')
-                setTimeout(() => {
-                  document.querySelector('#regSenha').classList.remove('animarErro')
-                }, 300);
-    }
     
     if (regSenha.length >= 8 && regSenha.match(charNumerico) && regSenha.match(charEspecial)){
       document.querySelector('#regSenha').classList.remove('erroLogin')
       setRegValidacoes(prev=>({...prev, vSenha:true}))
       containerDeErro.style.display='none'
+      document.querySelector('#tipErros').style.display='none'
       
     }else{
+      document.querySelector('#tipErros').style.display='block'
       document.querySelector('#regSenha').classList.add('erroLogin')
       setRegValidacoes(prev=>({...prev, vSenha:false}))
       containerDeErro.style.display='block'
       document.querySelector('#regSenha').classList.add('animarErro')
+
                 setTimeout(() => {
                   document.querySelector('#regSenha').classList.remove('animarErro')
                 }, 300);
@@ -229,6 +192,8 @@ const Log = () => {
       msgErro.style.display='none'
       inputConfirmarSenha.classList.remove('erroLogin')
       setRegValidacoes(prev=>({...prev, vConfSenha:true}))
+      document.querySelector('#formRegBtn').classList.remove('registrarNegado')
+      console.log('pode cadastrar')
       
     }else{
       if(inputConfirmarSenha.value!==''){
@@ -236,6 +201,7 @@ const Log = () => {
       }
       inputConfirmarSenha.classList.add('erroLogin')
       setRegValidacoes(prev=>({...prev, vConfSenha:false}))
+      document.querySelector('#formRegBtn').classList.add('registrarNegado')
       
     }
   }
@@ -270,55 +236,60 @@ const Log = () => {
 
 
   return (
-    <div className='logContainer'>
-      <form id='formLogin' >
-        <Input labText='Nome de usuário' labClass='labelNome' id='inpNome' inpTipo='text' onChange={({target})=>setNome(target.value)} value={nome} />
-        <Input labText='Senha' labClass='labelSenha' id='inpSenha' inpTipo='password'  onChange={({target})=>setSenha(target.value)} value={senha}  />
-        <Button btnId='formBtn' btnText='Logar' btnClass='btnForm' onClick={(event)=>{logar(event)}}  />
-        {erroLogin && <span className='msgErroLogin'>{erroLogin}</span>}
-        <span>esqueceu a senha? clique <strong>aqui</strong></span>
-        <span>não possui conta? <strong onClick={alternarForm}>registre</strong></span>
-        <span className='deltree' onClick={()=>{!deltree?setDeltree(true):window.localStorage.clear()}} >{!deltree? 'excluir os dados salvos?' : 'Tem certeza?'}</span>
+    <>
+      <div className='logContainer'>
+        <form id='formLogin' >
+          <Input labText='Nome de usuário' labClass='labelNome' id='inpNome' inpTipo='text' onChange={({target})=>setNome(target.value)} value={nome} />
+          {' '}
+          <Input labText='Senha' labClass='labelSenha' id='inpSenha' inpTipo='password'  onChange={({target})=>setSenha(target.value)} value={senha}  />
+          <Button btnId='formBtn' btnText='Logar' btnClass='btnForm' onClick={(event)=>{logar(event)}}  />
+          {erroLogin && <span className='msgErroLogin'>{erroLogin}</span>}
+          <span>esqueceu a senha? clique <strong>aqui</strong></span>
+          <span>não possui conta? <strong onClick={alternarForm}>registre</strong></span>
+          <span className='deltree' onClick={()=>{!deltree?setDeltree(true):window.localStorage.clear()}} >{!deltree? 'excluir os dados salvos?' : 'Tem certeza?'}</span>
 
-      </form>
+        </form>
 
-      <form id='formRegistro' className='mudarForm'>
-        <div className='divRegInputs'>
-          <Input placeholder='MeuNome' labText='Nome de usuário' id='regNome' inpTipo='text' onChange={({target})=>setRegNome(target.value)} value={regNome} onBlur={validarinputNomeRegistrar}  />
-          <p id='repNome'>nome de usuário já cadastrado</p>
-        </div>
-
-        <div className='divRegInputs'>
-          <Input placeholder='seunome@email.com' labText='Email' id='regEmail' inpTipo='text' onChange={({target})=>setRegEmail(target.value)} value={regEmail} onBlur={validarInputEmailRegistrar} />
-          <p id='repEmail'>email já cadastrado</p>
-        </div>
-
-        <div className='divRegInputs'>
-          <Input labText='Senha' id='regSenha' inpTipo='password' onChange={({target})=>setRegSenha(target.value)} value={regSenha} onBlur={validarSenhaRegistrar}  />
-          
-          {regSenha && <span className='visivelOuNao' onClick={({currentTarget})=>{senhaVisivel(currentTarget)}} >o.o</span>}
-
-          
-          <div className='containerErrosCadastro'>
-            <p id='erroSenhaNumero'>senha precisa ter número</p>
-            <p id='erroSenhaCharEspecial'>senha precisa ter char especial</p>
-            <p id='erroSenhaTamanho'>senha precisa ter oito chars ou mais</p>
+        <form id='formRegistro' className='mudarForm'>
+          <div className='divRegInputs'>
+            <Input placeholder='MeuNome' labText='Nome de usuário' id='regNome' inpTipo='text' onChange={({target})=>setRegNome(target.value)} value={regNome} onBlur={validarinputNomeRegistrar}  />
+            <p id='repNome'>nome de usuário já cadastrado</p>
           </div>
 
-        </div>
+          <div className='divRegInputs'>
+            <Input placeholder='seunome@email.com' labText='Email' id='regEmail' inpTipo='text' onChange={({target})=>setRegEmail(target.value)} value={regEmail} onBlur={validarInputEmailRegistrar} />
+            <p id='repEmail'>email já cadastrado</p>
+          </div>
 
-        <div className='divRegInputs'>
-          <Input labText='Confirmar a senha' id='confSenha' inpTipo='password' onChange={({target})=>setConfSenha(target.value)} value={confSenha} onBlur={conferirSenhaRegistrar} />
-            <p id='erroSenhaDiferentes'>suas senhas não conferem</p>
-          <Button btnId='formRegBtn' btnText='Cadastrar' btnClass='btnForm registrarNegado' onClick={submit} />
-        </div>
-
-        <span className='irParaLogin'>já possui conta? <strong onClick={alternarForm}>login</strong></span>
+          <div className='divRegInputs'>
+            <Input labText='Senha' id='regSenha' inpTipo='password' onChange={({target})=>setRegSenha(target.value)} value={regSenha} onBlur={validarSenhaRegistrar}  />
 
 
-      </form>
+            {/* {regSenha && <span className='visivelOuNao' onClick={({currentTarget})=>{senhaVisivel(currentTarget)}} >o.o</span>} */}
+            
+            <div className='containerErrosCadastro'>
+              {/* <p>precisa ter <span id='erroSenhaNumero'>número</span> <span id='erroSenhaCharEspecial'>símbolo</span> <span id='erroSenhaTamanho'>8 dígitos</span>  </p>  */}
+              <span id='tipErros'>precisar ter número, símbolo e 8 dígitos</span>
+             
+              
+            </div>
 
-    </div>
+          </div>
+
+          <div id='confirmarSenha' className='divRegInputs'>
+            <Input labText='Confirmar a senha' id='confSenha' inpTipo='password' onChange={({target})=>setConfSenha(target.value)} value={confSenha} onBlur={conferirSenhaRegistrar} />
+              <p id='erroSenhaDiferentes'>suas senhas não conferem</p>
+          </div>
+
+
+          <span className='spanLinkRegParaLogin'>já possui conta? <strong onClick={alternarForm}>login</strong></span>
+            <Button btnId='formRegBtn' btnText='Cadastrar' btnClass='btnForm ' onClick={submit} />
+
+
+
+        </form>
+      </div>
+    </>
   )
 }
 

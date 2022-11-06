@@ -1,12 +1,25 @@
+:root{
+    --verdePadrao: #090;
+    --verdeFoco:#0f0;
+    --teste:#f00;
+}
+
+
 .logContainer{
-    height: 100vh;
-    width: 100vw;
-    background-color: #000;
-    display: flex;
+    /* display: flex;
     justify-content: center;
     flex-direction: column;
-    align-items: center;
+    align-items: center; */
+
+    width: 100vw;
+    height: 100vh;
+    background-image: url('/src/img/mtx2.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
+
+
 
 form{
     display: flex;
@@ -14,57 +27,81 @@ form{
     align-items: center;
     flex-direction: column;
     width: 80%;
-    /* margin: auto auto; */
-    /* background-color: #3333; */
     transition: all .3s;
     padding: 50px 0;
-
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    /* height: 100%;
-    margin-top: 100px; */
-
-    /* border: 1px solid blue; */
+    background-color: #000000bd;
+    border-radius: 30%;
+    /* border: 1px solid red; */
+    box-shadow: black  0 0 35px 15px;
 }
 
+
+
 form label{
-    color: #050;
+    color: var(--verdePadrao);
+    background-color: transparent;
     /* margin: 15px 0 5px 0; */
 }
 
 form input{
     text-align: center;
     background-color: transparent;
-    border: 2px solid #050;
-    color: #0a0;
+    border: 2px solid var(--verdePadrao);
+    color: var(--verdeFoco);
+
 }
 form input:focus{
     outline: none;
-    border: 2px solid #0a0
+    border: 2px solid var(--verdeFoco);
+    background-color: #0009;
+}
+
+form span{
+    color: var(--verdePadrao);
+}
+
+.logContainer strong{
+    cursor: pointer;
+    font-weight: 900;
+    color: var(--verdeFoco);
 }
 
 .btnForm{
     padding: 5px 20px;
     margin: 20px 0;
-    background-color: transparent;
-    color: #050;
-    border: 2px solid #050;
+    background-color: #0009;
+    color: #0b0;
+    border: 2px solid #0b0;
     cursor: pointer;
 }
-.btnForm:active{
-    background-color: #020;
-    color: #0c0;
-    border: 2px solid #0c0;
+
+.btnForm:focus{
+    outline: none;
+    border: 2px solid var(--verdeFoco);
+    color: var(--verdeFoco);
 }
+
+
+
 .btnForm:hover{
-    border-color: #0a0;
+    border-color: var(--verdeFoco);
+    color: Var(--verdeFoco);
 }
-.irParaLogin{
-    position: absolute;
-    /* border: 2px solid blue; */
-    bottom: -40px;
+
+.btnForm:active{
+    background-color: #000;
+    color: #0f0;
+    border: 2px solid #0f0;
+}
+
+
+
+.spanLinkRegParaLogin{
+    margin-top: 35px;
 }
 .msgErroLogin{
     color: #a00;
@@ -85,7 +122,7 @@ form input:focus{
     border: 2px solid #500;
     cursor: not-allowed;
 }
-.registrarNegado:hover{
+.registrarNegado:is(:hover, :focus) {
     color: #aaa;
     border: 2px solid #a00;
 }
@@ -109,18 +146,13 @@ form input:focus{
     padding: 2px 3px
 }
 
-strong{
-    cursor: pointer;
-    font-weight: 900;
-}
-strong:hover, label:hover, button:hover{
-    color: #0a0;
-}
+
 
 p{
     text-align: center;
     /* margin-bottom: 10px; */
     margin-top: 5px;
+    /* visibility: hidden; */
 }
 
 .mudarForm{
@@ -160,9 +192,19 @@ p{
     height: 90px;
 }
 
+.erroValidacaoSenha{
+    /* color: white; */
+    font-size: .9rem;
+}
+
+
+/* .sumirElem{
+    display: none;
+} */
+
 #formRegistro p{
     display: none;
-    color: #500;
+    color: #a00;
 }
 
 #formRegistro .divRegInputs:nth-child(3){
@@ -170,15 +212,31 @@ p{
     /* display: none; */
 }
 
+#formRegistro{
+    justify-content: start;
+}
+
 .containerErrosCadastro{
     position: absolute;
     top: 65px;
     width: 150%;
     /* border: 1px solid blue; */
-    height: 90px;
+    /* height: 90px; */
 }
 
+.containerErrosCadastro span{
+    color: #a00
 
+}
+
+#tipErros{
+    display: none;
+}
+
+/* #confSenha{
+    border: 2px solid blue;
+    margin-bottom: 50px;
+} */
 
 
 
