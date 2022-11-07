@@ -8,6 +8,7 @@ import { GlobalStorage } from './GlobalContext';
 import LdENovoReg from './LdENovoReg';
 import AreaParaTestes from './AreaParaTestes';
 import LdeEdit from './LdeEdit';
+import Hidrantes from './Hidrantes';
 
 function App() {
 
@@ -22,6 +23,7 @@ function App() {
           <Route path='lde' element={<LdE/>} />
           <Route path='ldenovo' element={<LdENovoReg/> } />
           <Route path='/lde/edit/:id' element={<LdeEdit/> } />
+          <Route path='hd' element={<Hidrantes/>} />
           <Route path='testes' element={<AreaParaTestes/>} />
         </Routes>
 

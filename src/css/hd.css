@@ -1,0 +1,48 @@
+.hdContainer{
+    /* border: 1px solid red; */
+    width: 100%;
+    height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.listaDeHds{
+    /* border: 1px solid blue; */
+    width: 100%;
+    height: 100%;
+    /* width: 200px; */
+    /* height: 250px; */
+
+}
+
+.hdInfo{
+    /* border: 1px solid red; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 80px;
+    justify-content: center;
+    width: 100px;
+}
+
+.hdInfo span:nth-child(1){
+    font-size: .8rem;
+}
+
+.hdInfo p{
+    color: #0a0;
+}
+
+
+.hdCard{
+    display: grid;
+    grid-template-columns: auto auto;
+    border: 1px solid green;
+    column-gap: 10px;
+    row-gap: 10px;
+    width: 90%;
+    margin: 20px;
+}

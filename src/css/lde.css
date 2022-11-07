@@ -95,6 +95,7 @@
     height: 100%;
     border: none;
     box-sizing: border-box;
+    background-color: #000;
 }
 
 .cardAcoes{
@@ -142,6 +143,8 @@
 .editarLdE input{
     text-align: center;
     border: 2px solid #050;
+    background-color: #000;
+    margin-bottom: 20px;
 }
 .editarLdE input:focus{
     outline: none;
@@ -222,10 +225,14 @@ select{
     border: none;
     background-color: #000;
     margin-bottom: 20px;
+    width: calc(65% - 4px);
+    border: 2px solid #050;
+    text-align: center;
+
 }
 
 select:focus{
-    border: 1px solid #0a0;
+    border: 2px solid #0a0;
     outline: none;
 }
 

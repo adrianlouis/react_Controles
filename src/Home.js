@@ -14,6 +14,8 @@ const Home = () => {
         navigate(dest)
     }
 
+    console.log(context.userLogado)
+
   return (
     <>
     <Header />
@@ -22,25 +24,25 @@ const Home = () => {
         <div className='cards'>
 
 
-        <HomeCard spanCardClass='cardTexto' cardNome='Extintores' />
+        <HomeCard spanCardClass='cardTexto' divClass='  homeCardInativo homeCardContainer' cardNome='Extintores' />
 
-        <HomeCard spanCardClass='cardTexto' cardNome={qtdLde+' Luzes de Emergência'}  onClick={()=>nav('/lde')} />
+        <HomeCard spanCardClass='cardTexto' divClass='homeCardAtivo homeCardContainer' cardNome={qtdLde+' Luzes de Emergência'}  onClick={()=>nav('/lde')} />
 
-        <HomeCard spanCardClass='cardTexto' cardNome='Hidrantes' />
+        <HomeCard spanCardClass='cardTexto' divClass='homeCardAtivo homeCardContainer' cardNome='Hidrantes' onClick={()=>nav('/hd')} />
 
-        <HomeCard spanCardClass='cardTexto' cardNome='Portas Corta Fogo' />
+        <HomeCard spanCardClass='cardTexto' divClass='homeCardInativo homeCardContainer' cardNome='Portas Corta Fogo' />
 
-        <HomeCard spanCardClass='cardText' cardNome='Garagem' />
+        <HomeCard spanCardClass='cardText' divClass='homeCardInativo homeCardContainer' cardNome='Garagem' />
 
-        <HomeCard spanCardClass='cardText' cardNome='Prestadores' />
+        <HomeCard spanCardClass='cardText' divClass='homeCardInativo homeCardContainer' cardNome='Prestadores' />
 
-        <HomeCard spanCardClass='cardText' cardNome='Salistas' />
+        <HomeCard spanCardClass='cardText' divClass='homeCardInativo homeCardContainer' cardNome='Salistas' />
 
-        <HomeCard spanCardClass='cardText' cardNome='Lojistas' />
+        <HomeCard spanCardClass='cardText' divClass='homeCardInativo homeCardContainer' cardNome='Lojistas' />
 
-        <HomeCard spanCardClass='cardText' cardNome='Medidores de Gás' />
+        <HomeCard spanCardClass='cardText' divClass='homeCardInativo homeCardContainer' cardNome='Medidores de Gás' />
 
-        <HomeCard spanCardClass='cardText' cardNome='Prestadores' />
+        <HomeCard spanCardClass='cardText' divClass='homeCardInativo homeCardContainer' cardNome='Prestadores' />
 
         </div>
       

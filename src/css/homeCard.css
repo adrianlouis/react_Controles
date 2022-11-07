@@ -9,32 +9,33 @@
     user-select: none; /* Standard syntax */
     -webkit-user-select: none; /* Safari */
     -ms-user-select: none; /* IE 10 and IE 11 */
+    cursor: pointer;
 }
 
-.homeCardContainer{
+.homeCardInativo{
     border: 2px solid #500;
 }
 
-.homeCardContainer span{
+.homeCardInativo span{
     color: #555;
 }
 
-.homeCardContainer:hover {
+.homeCardInativo:hover {
     border: 2px solid #a00;
 }
-.homeCardContainer:hover span{
+.homeCardInativo:hover span{
     color: #aaa;
 }
 
-.homeCardContainer:nth-child(2){
+.homeCardAtivo{
     border: #050 2px solid;
 }
-.homeCardContainer:nth-child(2) span{
-    color: #050;
-}
-.homeCardContainer:nth-child(2):hover{
+.homeCardAtivo:hover{
     border: 2px solid #0a0;
 }
-.homeCardContainer:nth-child(2):hover span{
+.homeCardAtivo span{
+    color: #050;
+}
+.homeCardAtivo:hover span{
     color: #0a0;
 }
