@@ -1,48 +1,172 @@
 .hdContainer{
-    /* border: 1px solid red; */
     width: 100%;
     height: 100vh;
-
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-}
-
-.listaDeHds{
-    /* border: 1px solid blue; */
-    width: 100%;
-    height: 100%;
-    /* width: 200px; */
-    /* height: 250px; */
-
 }
 
 .hdInfo{
-    /* border: 1px solid red; */
+    border: 1px solid #0a0;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    height: 80px;
-    justify-content: center;
-    width: 100px;
+    height: 100%;
+    width: 100%;
+}
+
+#hdPecas label{
+    display: block;
 }
 
 .hdInfo span:nth-child(1){
     font-size: .8rem;
+    margin-top: 5px;
 }
 
 .hdInfo p{
     color: #0a0;
 }
 
-
 .hdCard{
     display: grid;
-    grid-template-columns: auto auto;
-    border: 1px solid green;
+    grid-template-areas: "numero local pecas"
+    "abrigo sinal pecas"
+    "validade validade pecas"
+    "avarias avarias avarias"
+    "botoes botoes botoes";
+    align-items: center;
+    border: 1px solid #050;
     column-gap: 10px;
     row-gap: 10px;
     width: 90%;
-    margin: 20px;
+    margin: 40px auto;
+    padding: 5px;
 }
+#hdNum{
+    grid-area: numero
+}
+#hdLocal{
+    grid-area: local;
+}
+#hdAbrigo{
+    grid-area: abrigo;
+}
+#hdSinal{
+    grid-area: sinal;
+}
+#hdPecas{
+    grid-area: pecas;
+}
+#hdValidade{
+    grid-area: validade;
+}
+#hdAvarias{
+    grid-area: avarias;
+    /* display: none; */
+}
+#hdAvariasTxtArea{
+    padding: 5px;
+    width: 95%;
+    height: 100%;
+    border: 1px solid #050;
+    background-color: #000;
+    margin-bottom: 5px;
+    /* display: none; */
+}
+#hdAvariasTxtArea:focus{
+    outline: none;
+    border: 1px solid #0a0
+}
+
+.listaDeHds{
+    width: 90%;
+    height: 100%;
+
+}
+
+#hdActions{
+    border: 1px solid #0a0;
+    width: 100%;
+    grid-area: botoes;
+    height: 40px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+
+
+
+
+.hdNovo{
+    width: 50px;
+    background-color: #000;
+    border: 2px solid #050;
+    text-align: center;
+    margin-bottom: 5px;
+}
+.hdNovo:focus{
+    outline: none;
+}
+.hdLabel{
+    text-align: center;
+    padding: 0;
+    margin: 5px;
+    font-size: .8rem;
+}
+
+.hdCard select{
+    margin: 10px 5px;
+    font-size: .9rem;
+    padding: 2px;
+    width: 90%;
+}
+
+.hdCard input{
+    outline: none;
+    border: 2px solid #050;
+    background-color: #000;
+    margin: 10px auto;
+    text-align: center;
+}
+
+.hdCard:last-child{
+    margin-bottom: 100px;
+}
+
+.hdCard label{
+    display: none;
+}
+
+
+.hdPageEdit{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+input[type='checkbox']:checked {
+    accent-color: #050;
+}
+
+.menu{
+    position: sticky;
+    top: 0;
+    width: 100%;
+    border: 2px solid #050;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: #000;
+    /* margin-bottom: 100px; */
+    padding: 10px 0;
+}
+
+.menu select{
+    width: 30%;
+    margin: unset;
+}
+

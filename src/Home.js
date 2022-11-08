@@ -15,6 +15,7 @@ const Home = () => {
     }
 
     console.log(context.userLogado)
+    // context.setUserLogado({...context.userLogado, hd:[]})
 
   return (
     <>

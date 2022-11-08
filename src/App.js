@@ -9,6 +9,8 @@ import LdENovoReg from './LdENovoReg';
 import AreaParaTestes from './AreaParaTestes';
 import LdeEdit from './LdeEdit';
 import Hidrantes from './Hidrantes';
+import HidranteNovo from './HidranteNovo';
+import HidranteEdit from './HidranteEdit';
 
 function App() {
 
@@ -24,6 +26,9 @@ function App() {
           <Route path='ldenovo' element={<LdENovoReg/> } />
           <Route path='/lde/edit/:id' element={<LdeEdit/> } />
           <Route path='hd' element={<Hidrantes/>} />
+          <Route path='hdnovo' element={<HidranteNovo/> } />
+          <Route path='/hd/:id' element={<HidranteEdit />} />
+
           <Route path='testes' element={<AreaParaTestes/>} />
         </Routes>
 

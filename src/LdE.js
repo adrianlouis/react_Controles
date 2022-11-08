@@ -1,11 +1,12 @@
 import React from 'react'
 import css from './css/lde.css'
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import { GlobalContext } from './GlobalContext'
 import Select from './Select'
 
 const LdE = () => {
     const context = React.useContext(GlobalContext)
+    const navigate = useNavigate()
     const luzes = context.userLogado.lde
     const [filtroNumerico, setFiltroNumerico] = React.useState('')
     const [filtroAutonomia, setFiltroAutonomia] = React.useState('')
@@ -36,6 +37,7 @@ const LdE = () => {
             return filtro.id !== idLde.id
         })
        context.setUserLogado(prev => ({...prev, lde:[ ...item ]}))
+       navigate('/lde')
     }
 
     function ldeMenu(){
