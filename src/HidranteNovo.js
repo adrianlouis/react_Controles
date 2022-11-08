@@ -7,8 +7,8 @@ import Select from "./Select";
 
 const HidranteNovo = () => {
   const context = React.useContext(GlobalContext);
-  // const [id, setId] = React.useState(novoId)
-  const id = novoId();
+  const [id, setId] = React.useState(novoId)
+  // const id = novoId();
   const [num, setNum] = React.useState("");
   const [local, setLocal] = React.useState("");
   const [abrigo, setAbrigo] = React.useState("");
@@ -26,6 +26,8 @@ const HidranteNovo = () => {
     pecas: pecas,
     avarias: avarias,
   };
+
+  console.log(novoHd)
   // const ano = new Date(hdValidade).getUTCFullYear()
   // const mes = new Date(hdValidade).getUTCMonth()+1
   const navigate = useNavigate();
@@ -39,7 +41,7 @@ const HidranteNovo = () => {
 
   // ENCONTRAR ID
   function novoId() {
-    if (context.userLogado.hd.length > 0) {
+    if (context.userLogado.hd) {
       const numeros = Object.keys(context.userLogado.hd).map((item) => {
         return context.userLogado.hd[item].id;
       });
