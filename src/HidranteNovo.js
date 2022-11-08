@@ -30,7 +30,6 @@ const HidranteNovo = () => {
   // const mes = new Date(hdValidade).getUTCMonth()+1
   const navigate = useNavigate();
 
-  console.log(context.userLogado.hd);
 
   if (!context.userLogado.hd) {
     context.setUserLogado({ ...context.userLogado, hd: [] });
