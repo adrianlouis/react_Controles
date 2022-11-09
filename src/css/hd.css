@@ -36,7 +36,6 @@
     "avarias avarias avarias"
     "botoes botoes botoes";
     align-items: center;
-    border: 1px solid #050;
     column-gap: 10px;
     row-gap: 10px;
     width: 90%;
@@ -139,14 +138,6 @@
     display: none;
 }
 
-
-.hdPageEdit{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
-
 input[type='checkbox']:checked {
     accent-color: #050;
 }
@@ -168,5 +159,16 @@ input[type='checkbox']:checked {
 .menu select{
     width: 30%;
     margin: unset;
+}
+
+input{
+    background-color: #000;
+    outline: none;
+    border: 2px solid #050;
+    text-align: center;
+}
+input[type='text']:focus{
+    outline: none;
+    border: 2px solid #0a0;
 }
 

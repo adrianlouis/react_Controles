@@ -56,31 +56,122 @@ const HidranteEdit = () => {
         navigate('/hd')
     }
     
-    // console.log(context.userLogado)
-    console.log(peca)
+    
 
   return (
-    <div className='hdPageEdit'>
-        <Input labText='Hidrante nº'  value={num} onChange={({target})=>setNum(target.value)} />
-        <Select selectValorInicial={local} optionDisabledValue='Local' options={['Subsolo', 'Térreo', '2º Pav A', '2º Pav B']} selectOnChange={({target})=>setLocal(target.value)} />
-        <Select selectValorInicial={abrigo} optionDisabledValue='Abrigo' options={['Ok', 'Nok']} selectOnChange={({target})=>setAbrigo(target.value)} />
-        <Select selectValorInicial={sinal} optionDisabledValue='Sinalização' options={['Ok', 'Nok']} selectOnChange={({target})=>setSinal(target.value)} />
-        <Input labText='Último Reteste' inpTipo='date' id="inputHdValidade" value={hdVal} onChange={({ target }) => setHdVal(target.value)} />
-        <label htmlFor='avarias'>Avarias:
-        </label>
-        <textarea id='avarias' value={avarias} onChange={({target})=>setAvarias(target.value)}></textarea>
+    // <div className='hdPageEdit'>
+<>
+    <div className='hdCard'>
+      <div id="hdNum" className="hdInfo">
+          <span>Hidrante</span>
+          <Input
+            labText="Número do hidrante"
+            labClass="hdLabel"
+            id="numeroHd"
+            inpClass="hdNovo"
+            value={num}
+            onChange={({target})=>setNum(target.value)}
+          />
+        </div>
 
-        <CheckBox
+        <div id="hdLocal" className="hdInfo">
+          <span>Local</span>
+
+          <Select
+            selectValorInicial={local}
+            optionDisabledValue="local"
+            options={['Subsolo', 'Térreo', '2º Pav A', '2º Pav B', '3º Pav A', '3º Pav B', '4º Pav A', '4º Pav B']}
+            selectOnChange={({target})=>setLocal(target.value)}
+          />
+        </div>
+
+        <div id="hdAbrigo" className="hdInfo">
+          <span>Abrigo</span>
+          <Select
+            selectValorInicial={abrigo}
+            optionDisabledValue="Abrigo"
+            options={["Ok", "Nok"]}
+            selectOnChange={({target})=>setAbrigo(target.value)}
+          />
+        </div>
+
+        <div id="hdSinal" className="hdInfo">
+          <span>Sinalização</span>
+          <Select
+            selectValorInicial={sinal}
+            optionDisabledValue="Sinalização"
+            options={["Ok", "Nok"]}
+            selectOnChange={({target})=>setSinal(target.value)}
+          />
+        </div>
+
+        <div id="hdPecas" className="hdInfo">
+          <CheckBox
             itens={["Storz", "Esguicho", "Mangueira"]}
             cbHandleChange={handleChange}
             itensAtuais = {peca}
           />
+        </div>
 
-    <div className='hdActions'>
-        <button onClick={salvarEditado}>Salvar</button>
-        <Link to='/hd'>Voltar</Link>
+        <div id="hdValidade" className="hdInfo">
+          <span>Validade das Mangueiras</span>
+          <Input
+            inpTipo="date"
+            id="inputHdValidade"
+            value={hdVal}
+            onChange={({ target }) => setHdVal(target.value)}
+          />
+        </div>
+
+        <div id="hdAvarias" className="hdInfo">
+          <p>Avarias</p>
+          <textarea
+            id="hdAvariasTxtArea"
+            value={avarias}
+            onChange={({target})=>setAvarias(target.value)}
+          ></textarea>
+        </div>
+
     </div>
-    </div>
+        <div className='hdActions'>
+           <button onClick={salvarEditado}>Salvar</button>
+           <Link to='/hd'>Voltar</Link>
+        </div>
+
+
+    </>
+
+
+      //   <Input inpTipo='text' labText='Número do hidrante'  value={num} onChange={({target})=>setNum(target.value)} />
+
+      //   <label>Local</label>
+      //   <Select selectValorInicial={local} optionDisabledValue='Local' options={['Subsolo', 'Térreo', '2º Pav A', '2º Pav B', '3º Pav A', '3º Pav B', '4º Pav A', '4º Pav B']} selectOnChange={({target})=>setLocal(target.value)} />
+
+      //   <label>Abrigo</label>
+      //   <Select selectValorInicial={abrigo} optionDisabledValue='Abrigo' options={['Ok', 'Nok']} selectOnChange={({target})=>setAbrigo(target.value)} />
+
+      //   <label>Sinalização</label>
+      //   <Select selectValorInicial={sinal} optionDisabledValue='Sinalização' options={['Ok', 'Nok']} selectOnChange={({target})=>setSinal(target.value)} />
+
+      //   <Input labText='Último Reteste' inpTipo='date' id="inputHdValidade" value={hdVal} onChange={({ target }) => setHdVal(target.value)} />
+
+      //   <label htmlFor='avarias'>Avarias:
+      //   </label>
+      //   <textarea id='avarias' value={avarias} onChange={({target})=>setAvarias(target.value)}></textarea>
+
+      //   <CheckBox
+      //       itens={["Storz", "Esguicho", "Mangueira"]}
+      //       cbHandleChange={handleChange}
+      //       itensAtuais = {peca}
+      //     />
+
+      // <div className='hdActions'>
+      //     <button onClick={salvarEditado}>Salvar</button>
+      //     <Link to='/hd'>Voltar</Link>
+      // </div>
+
+
+    // </div>
   )
 }
 

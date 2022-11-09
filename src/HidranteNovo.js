@@ -18,6 +18,8 @@ const HidranteNovo = () => {
   const [pecas, setPecas] = React.useState([]);
   const [avarias, setAvarias] = React.useState("");
 
+  
+
   // ENCONTRAR ID
   function novoId() {
 
@@ -54,6 +56,7 @@ const HidranteNovo = () => {
       pecas: pecas,
       avarias: avarias,
     };
+
     context.setUserLogado({
       ...context.userLogado,
       hd: [novoHd, ...context.userLogado.hd],
@@ -84,7 +87,7 @@ const HidranteNovo = () => {
           <Select
             selectValorInicial={local}
             optionDisabledValue="-----"
-            options={["Subsolo", "Térreo"]}
+            options={['Subsolo', 'Térreo', '2º Pav A', '2º Pav B', '3º Pav A', '3º Pav B', '4º Pav A', '4º Pav B']}
             selectOnChange={({ target }) => setLocal(target.value)}
           />
         </div>
@@ -118,7 +121,6 @@ const HidranteNovo = () => {
 
         <div id="hdValidade" className="hdInfo">
           <span>Validade das Mangueiras</span>
-          {/* <Input inpTipo='date' id='inputHdValidade' value={hdValidade} onChange={({target})=>setHdValidade(target.value)} /> */}
           <Input
             inpTipo="date"
             id="inputHdValidade"

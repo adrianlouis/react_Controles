@@ -10,11 +10,14 @@ const Home = () => {
     const context = React.useContext(GlobalContext)
     const qtdLde = context.userLogado.lde.length
 
+    if(!context.userLogado){
+      navigate('/')
+    }
+
     function nav(dest){
         navigate(dest)
     }
 
-    console.log(context.userLogado)
     // context.setUserLogado({...context.userLogado, hd:[]})
 
   return (
@@ -29,7 +32,7 @@ const Home = () => {
 
         <HomeCard spanCardClass='cardTexto' divClass='homeCardAtivo homeCardContainer' cardNome={qtdLde+' Luzes de Emergência'}  onClick={()=>nav('/lde')} />
 
-        <HomeCard spanCardClass='cardTexto' divClass='homeCardAtivo homeCardContainer' cardNome='Hidrantes' onClick={()=>nav('/hd')} />
+        <HomeCard spanCardClass='cardTexto' divClass='homeCardAtivo homeCardContainer' cardNome={context.userLogado.hd.length+' Hidrantes'} onClick={()=>nav('/hd')} />
 
         <HomeCard spanCardClass='cardTexto' divClass='homeCardInativo homeCardContainer' cardNome='Portas Corta Fogo' />
 

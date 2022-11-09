@@ -7,14 +7,10 @@ export const GlobalContext = React.createContext()
 export const GlobalStorage = ({children}) =>{
     const [upload, setUpload] = React.useState(false)
     const [userLogado, setUserLogado] = React.useState([])
-    // const [usuarios, setUsuarios] = React.useState([])
     const [usuarios, setUsuarios] = useLocalStorage('usuarios', '')
-    // const [user, setUser] = useLocalStorage('user', '')
     const [uploadLde, setUploadLde] = React.useState(false)
     const [lde, setLde] = React.useState([])
-    const [ext, setExt] = React.useState([])
     const navigate = useNavigate()
-    
     
     React.useEffect(()=>{
         if (userLogado.length === 0){
@@ -26,10 +22,7 @@ export const GlobalStorage = ({children}) =>{
             setUsuarios([...item, userLogado ])
         }
             
-    },[userLogado])
-        
-    // console.log(usuarios)
-        
+    },[userLogado])   
         
     return <GlobalContext.Provider value={{uploadLde, setUploadLde, upload, setUpload, lde, setLde, usuarios, setUsuarios, userLogado, setUserLogado}}>{children}</GlobalContext.Provider>
 }
