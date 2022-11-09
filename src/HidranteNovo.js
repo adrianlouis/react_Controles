@@ -6,9 +6,10 @@ import Input from "./Input";
 import Select from "./Select";
 
 const HidranteNovo = () => {
+
   const context = React.useContext(GlobalContext);
+  const navigate = useNavigate();
   const [id, setId] = React.useState(novoId)
-  // const id = novoId();
   const [num, setNum] = React.useState("");
   const [local, setLocal] = React.useState("");
   const [abrigo, setAbrigo] = React.useState("");
@@ -16,40 +17,21 @@ const HidranteNovo = () => {
   const [hdValidade, setHdValidade] = React.useState("");
   const [pecas, setPecas] = React.useState([]);
   const [avarias, setAvarias] = React.useState("");
-  const novoHd = {
-    id: id,
-    num: num,
-    local: local,
-    abrigo: abrigo,
-    sinal: sinal,
-    val: hdValidade,
-    pecas: pecas,
-    avarias: avarias,
-  };
-
-  console.log(novoHd)
-  // const ano = new Date(hdValidade).getUTCFullYear()
-  // const mes = new Date(hdValidade).getUTCMonth()+1
-  const navigate = useNavigate();
-
-
-  if (!context.userLogado.hd) {
-    context.setUserLogado({ ...context.userLogado, hd: [] });
-  }
-
-  // console.log(context.userLogado)
 
   // ENCONTRAR ID
   function novoId() {
-    if (context.userLogado.hd) {
+
+    if (context.userLogado.hd.length > 0) {
       const numeros = Object.keys(context.userLogado.hd).map((item) => {
         return context.userLogado.hd[item].id;
       });
-      return Math.max(...numeros) + 1;
+      return (Math.max(...numeros) + 1);
     } else {
       return 1;
     }
   }
+
+  console.log(id)
 
   function handleChange({ target }) {
     if (target.checked) {
@@ -59,12 +41,19 @@ const HidranteNovo = () => {
     }
   }
 
-  // function checkPecas(peca){
-  //     return pecas.includes(peca)
-  // }
 
   // SALVAR HD NOVO NO USERLOGADO
   function salvarNovoHd() {
+    const novoHd = {
+      id: id,
+      num: num,
+      local: local,
+      abrigo: abrigo,
+      sinal: sinal,
+      val: hdValidade,
+      pecas: pecas,
+      avarias: avarias,
+    };
     context.setUserLogado({
       ...context.userLogado,
       hd: [novoHd, ...context.userLogado.hd],

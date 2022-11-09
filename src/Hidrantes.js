@@ -6,9 +6,9 @@ import Select from "./Select";
 
 const Hidrantes = () => {
   const context = useContext(GlobalContext);
-  // if (!context.userLogado.hd){
-  //   context.userLogado({...context.userLogado, hd:[]})
-  // }
+  if (!context.userLogado.hd){
+    context.setUserLogado({...context.userLogado, hd:[]})
+  }
   console.log(context.userLogado)
   const [ordenar, setOrdenar] = React.useState('')
   const [resFiltragem, setResFiltragem] = React.useState('')

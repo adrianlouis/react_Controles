@@ -193,8 +193,6 @@ const Log = () => {
       inputConfirmarSenha.classList.remove('erroLogin')
       setRegValidacoes(prev=>({...prev, vConfSenha:true}))
       document.querySelector('#formRegBtn').classList.remove('registrarNegado')
-      console.log('pode cadastrar')
-      
     }else{
       if(inputConfirmarSenha.value!==''){
         msgErro.style.display='block'
@@ -234,9 +232,9 @@ const Log = () => {
     }
   },[regValidacoes])
 
-
   return (
     <>
+
       <div className='logContainer'>
         <form id='formLogin' >
           <Input labText='Nome de usuário' labClass='labelNome' id='inpNome' inpTipo='text' onChange={({target})=>setNome(target.value)} value={nome} />
