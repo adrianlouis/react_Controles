@@ -53,12 +53,17 @@ const Log = () => {
         return filtro.nome === user.nome && filtro.senha === user.senha
       })
 
+
       if (item.length === 0){
         setErroLogin('usuário ou senha não confere')
       }else{
         // LOGADO 
         setErroLogin(`Olá, Sr(a). ${item[0].nome}!`)
         context.setUserLogado(...item)
+        if (!context.setUserLogado.ext){
+          context.setUserLogado({...context.setUserLogado, ext:[]})
+
+        }
         setTimeout(() => {
           navigate('/home')
         }, 500);
