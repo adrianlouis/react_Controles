@@ -28,10 +28,12 @@ const Log = () => {
     const [regValidacoes, setRegValidacoes] = React.useState({vNome: false, vEmail:false, vSenha:false, vConfSenha:false})
 
     const navigate = useNavigate();
-    const newUser = {nome: regNome, email:regEmail, senha:regSenha, lde:[]}
+    const newUser = {nome: regNome, email:regEmail, senha:regSenha, lde:[], hd:[], ext:[]}
     const [deltree, setDeltree] = React.useState(false)
 
     // window.localStorage.clear()
+
+    console.log(context.usuarios)
 
     // REGISTRAR
     function submit(e){

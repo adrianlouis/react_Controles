@@ -9,10 +9,7 @@ const Home = () => {
     const navigate = useNavigate()
     const context = React.useContext(GlobalContext)
     const qtdLde = context.userLogado.lde.length
-
-    const [inpteste, setInpteste] = React.useState('')
-
-
+    const qtdExt = context.userLogado.ext.length
 
     if(!context.userLogado){
       navigate('/')
@@ -32,7 +29,7 @@ const Home = () => {
 
         <div className='cards'>
 
-        <HomeCard spanCardClass='cardTexto' divClass='homeCardAtivo homeCardContainer' cardNome={context.userLogado.ext.length+' Extintores'} onClick={()=>nav('/ext')} />
+        <HomeCard spanCardClass='cardTexto' divClass='homeCardAtivo homeCardContainer' cardNome={qtdExt+' Extintores'} onClick={()=>nav('/ext')} />
 
         <HomeCard spanCardClass='cardTexto' divClass='homeCardAtivo homeCardContainer' cardNome={qtdLde+' Luzes de Emergência'}  onClick={()=>nav('/lde')} />
 
