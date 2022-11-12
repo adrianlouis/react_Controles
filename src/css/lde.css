@@ -67,6 +67,8 @@
     padding: 5px 15px;
     text-decoration: none;
     cursor: pointer;
+    border-radius: 10px;
+    box-shadow: #0a0 0 0 4px;
 }
 .ldeSubFooterBtn:hover{
     background-color: #0a0;

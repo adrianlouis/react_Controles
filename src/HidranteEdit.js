@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import CheckBox from './CheckBox'
 import { GlobalContext } from './GlobalContext'
+import InnerHeader from './InnerHeader'
 import Input from './Input'
 import Select from './Select'
 
@@ -21,7 +22,6 @@ const HidranteEdit = () => {
     const [avarias, setAvarias] = React.useState('')
     const [peca, setPeca] = React.useState([])
     const hdEditado = {id:id, num:num, local:local, abrigo:abrigo, sinal:sinal, val:hdVal, avarias:avarias, pecas:peca}
-
 
     React.useEffect(()=>{
         const item = context.userLogado.hd.filter((filtro)=>{
@@ -48,12 +48,12 @@ const HidranteEdit = () => {
       }
 
     function salvarEditado(){
-        const outrosHd = context.userLogado.hd.filter((filtro)=>{
-            return filtro.id !== Number(search.get('id'))
-        })
+      const outrosHd = context.userLogado.hd.filter((filtro)=>{
+        return filtro.id !== Number(search.get('id'))
+      })
 
-        context.setUserLogado({...context.userLogado, hd:[hdEditado, ...outrosHd]})
-        navigate('/hd')
+      context.setUserLogado({...context.userLogado, hd:[hdEditado, ...outrosHd]})
+      navigate('/hd')
     }
     
     
@@ -61,6 +61,8 @@ const HidranteEdit = () => {
   return (
     // <div className='hdPageEdit'>
 <>
+
+    <InnerHeader/>
     <div className='hdCard'>
       <div id="hdNum" className="hdInfo">
           <span>Hidrante</span>
@@ -132,11 +134,12 @@ const HidranteEdit = () => {
           ></textarea>
         </div>
 
-    </div>
-        <div className='hdActions'>
-           <button onClick={salvarEditado}>Salvar</button>
-           <Link to='/hd'>Voltar</Link>
+        <div  id='hdActions'>
+           {/* <button onClick={salvarEditado}>Salvar</button> */}
+           <Link className='ldeSubFooterBtn' to='/hd' onClick={salvarEditado} >Salvar</Link>
+           <Link className='ldeSubFooterBtn' to='/hd'>Voltar</Link>
         </div>
+    </div>
 
 
     </>

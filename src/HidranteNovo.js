@@ -2,6 +2,7 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import CheckBox from "./CheckBox";
 import { GlobalContext } from "./GlobalContext";
+import InnerHeader from "./InnerHeader";
 import Input from "./Input";
 import Select from "./Select";
 
@@ -66,7 +67,9 @@ const HidranteNovo = () => {
 
   return (
     <div>
-      <Link to="/home">Home</Link>
+      {/* <Link className="ldeSubFooterBtn" to="/home">Home</Link> */}
+
+      <InnerHeader />
 
       <div className="hdCard">
         <div id="hdNum" className="hdInfo">
@@ -138,8 +141,11 @@ const HidranteNovo = () => {
           ></textarea>
         </div>
 
-        <button onClick={salvarNovoHd}>Salvar</button>
-        <Link to="/hd">Voltar</Link>
+        <div id='hdActions'>
+
+        <span className="ldeSubFooterBtn" onClick={salvarNovoHd}>Salvar</span>
+        <Link className="ldeSubFooterBtn" to="/hd">Voltar</Link>
+        </div>
       </div>
     </div>
   );

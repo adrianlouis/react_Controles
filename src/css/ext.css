@@ -1,0 +1,114 @@
+.cardExt{
+    width: 90%;
+    margin: 50px auto;
+    grid-auto-columns: 40%;
+    /* grid-auto-rows: 200px; */
+    display: grid;
+    gap: 5px; 
+    grid-template-areas: "numero local"
+    "proxRec proxRet"
+    "mais mais"
+    "avaria avaria"
+    "botoes botoes";
+    justify-content: center;
+
+}
+.cardExt:nth-last-child(2){
+    margin-bottom: 120px;
+    /* display: none; */
+}
+
+textarea{
+    background-color: #000;
+    outline: none;
+    border: 2px solid #050;
+}
+textarea:focus{
+    outline: none;
+    border: 2px solid #0a0;
+}
+
+.extSpanAvarias{
+    padding: 10px 5px; 
+}
+
+#extNum {
+    grid-area: numero;
+    border-top-left-radius: 10px;
+}
+#extTipo {
+    grid-area: tipo;
+}
+#extLocal {
+    grid-area: local;
+    border-top-right-radius: 10px;
+}
+#extProxRec {
+    grid-area: proxRec;
+}
+#extProxRet{
+    grid-area: proxRet;
+}
+#extMais{
+    grid-area: mais;
+}
+#extAvaria{
+    grid-area: avaria;
+}
+#extUltRec{
+    grid-area: ultRec;
+}
+#extUltRet{
+    grid-area: ultRet;
+}
+.extBtns{
+    grid-area: botoes;
+    border: 1px solid #0f0;
+    width: 100%;
+    display: flex;
+    height: 40px;
+    justify-content: space-evenly;
+    border-radius: 0 0 10px 10px;
+    
+}
+
+.extDetail{
+    border: 1px solid #0a0;
+}
+.extDetailSpan{
+    color: #0a0;
+    font-weight: 700;
+}
+
+.extEditarDataRecarga{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    width: calc(65% - 4px);
+}
+
+.containerCriarExt{
+    width: 90%;
+    /* border: 1px solid red; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* display: grid;
+    grid-template-areas: "numero tipo"
+    "local ultRec"
+    "ultRet ultRet"
+    "avaria avaria"; */
+}
+
+.containerCriarExt .hdInfo{
+    margin-bottom: 10px ;
+    padding: 10px 0;
+}
+.containerCriarExt label{
+    display: none;
+}
+.containerCriarExt span{
+    margin-bottom: 10px;
+}

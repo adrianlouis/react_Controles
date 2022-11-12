@@ -3,12 +3,16 @@ import HomeCard from './HomeCard'
 import css from './css/home.css'
 import Header from './Header'
 import {useNavigate} from 'react-router-dom'
-import {GlobalContext} from './GlobalContext'
+import {GlobalContext} from './GlobalContext' 
 
 const Home = () => {
     const navigate = useNavigate()
     const context = React.useContext(GlobalContext)
     const qtdLde = context.userLogado.lde.length
+
+    const [inpteste, setInpteste] = React.useState('')
+
+
 
     if(!context.userLogado){
       navigate('/')
@@ -20,6 +24,7 @@ const Home = () => {
 
     // context.setUserLogado({...context.userLogado, hd:[]})
 
+
   return (
     <>
     <Header />
@@ -27,8 +32,7 @@ const Home = () => {
 
         <div className='cards'>
 
-
-        <HomeCard spanCardClass='cardTexto' divClass='  homeCardInativo homeCardContainer' cardNome='Extintores' />
+        <HomeCard spanCardClass='cardTexto' divClass='homeCardAtivo homeCardContainer' cardNome={context.userLogado.ext.length+' Extintores'} onClick={()=>nav('/ext')} />
 
         <HomeCard spanCardClass='cardTexto' divClass='homeCardAtivo homeCardContainer' cardNome={qtdLde+' Luzes de Emergência'}  onClick={()=>nav('/lde')} />
 

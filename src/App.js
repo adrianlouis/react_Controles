@@ -11,6 +11,9 @@ import LdeEdit from './LdeEdit';
 import Hidrantes from './Hidrantes';
 import HidranteNovo from './HidranteNovo';
 import HidranteEdit from './HidranteEdit';
+import Extintores from './Extintores';
+import ExtNovo from './ExtNovo';
+import ExtEditar from './ExtEditar';
 
 function App() {
 
@@ -28,8 +31,11 @@ function App() {
           <Route path='hd' element={<Hidrantes/>} />
           <Route path='hdnovo' element={<HidranteNovo/> } />
           <Route path='/hd/:id' element={<HidranteEdit />} />
-
+          <Route path='ext' element={<Extintores />} />
           <Route path='testes' element={<AreaParaTestes/>} />
+          <Route path='extnovo' element={<ExtNovo/>} />
+          <Route path='/ext/:extedit' element={<ExtEditar/>} />
+          
         </Routes>
 
       </GlobalStorage>

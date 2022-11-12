@@ -9,7 +9,6 @@ const Hidrantes = () => {
   if (!context.userLogado.hd){
     context.setUserLogado({...context.userLogado, hd:[]})
   }
-  console.log(context.userLogado)
   const [ordenar, setOrdenar] = React.useState('')
   const [resFiltragem, setResFiltragem] = React.useState('')
   const userHds = context.userLogado.hd
@@ -69,9 +68,15 @@ const Hidrantes = () => {
 
         <div className='menu' >
 
+          {/* <div className="menuRow"> */}
             <Link className='ldeSubFooterBtn' to='/home' >home</Link>
-            <Link className='ldeSubFooterBtn' to='/' >logout</Link>
             <Select selectValorInicial='' optionDisabledValue='Ordenar' options={['crescente', 'decrescente']} selectOnChange={({target})=>setOrdenar(target.value)} />
+            <Link className='ldeSubFooterBtn' to='/' >logout</Link>
+          {/* </div> */}
+
+            {/* <div className="menuRow"> */}
+            {/* </div> */}
+
            
         </div>
 
