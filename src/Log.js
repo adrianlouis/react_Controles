@@ -33,8 +33,6 @@ const Log = () => {
 
     // window.localStorage.clear()
 
-    console.log(context.usuarios)
-
     // REGISTRAR
     function submit(e){
       e.preventDefault()
@@ -60,10 +58,6 @@ const Log = () => {
         // LOGADO 
         setErroLogin(`Olá, Sr(a). ${item[0].nome}!`)
         context.setUserLogado(...item)
-        if (!context.setUserLogado.ext){
-          context.setUserLogado({...context.setUserLogado, ext:[]})
-
-        }
         setTimeout(() => {
           navigate('/home')
         }, 500);

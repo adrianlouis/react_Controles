@@ -84,7 +84,7 @@ const Hidrantes = () => {
       <div className="listaDeHds">
         
         {context.userLogado.hd && context.userLogado.hd.map((item)=>{
-            return <div id={item.id} className="hdCard">
+            return <div key={item.id} id={item.id} className="hdCard">
             <div id="hdNum" className="hdInfo">
               <span>Hidrante</span>
               <p>{item.num}</p>

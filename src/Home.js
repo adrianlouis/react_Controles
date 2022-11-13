@@ -6,10 +6,8 @@ import {useNavigate} from 'react-router-dom'
 import {GlobalContext} from './GlobalContext' 
 
 const Home = () => {
-    const navigate = useNavigate()
-    const context = React.useContext(GlobalContext)
-    const qtdLde = context.userLogado.lde.length
-    const qtdExt = context.userLogado.ext.length
+  const navigate = useNavigate()
+  const context = React.useContext(GlobalContext)
 
     if(!context.userLogado){
       navigate('/')
@@ -19,9 +17,6 @@ const Home = () => {
         navigate(dest)
     }
 
-    // context.setUserLogado({...context.userLogado, hd:[]})
-
-
   return (
     <>
     <Header />
@@ -29,9 +24,9 @@ const Home = () => {
 
         <div className='cards'>
 
-        <HomeCard spanCardClass='cardTexto' divClass='homeCardAtivo homeCardContainer' cardNome={qtdExt+' Extintores'} onClick={()=>nav('/ext')} />
+        <HomeCard spanCardClass='cardTexto' divClass='homeCardAtivo homeCardContainer' cardNome={context.userLogado.ext.length+' Extintores'} onClick={()=>nav('/ext')} />
 
-        <HomeCard spanCardClass='cardTexto' divClass='homeCardAtivo homeCardContainer' cardNome={qtdLde+' Luzes de Emergência'}  onClick={()=>nav('/lde')} />
+        <HomeCard spanCardClass='cardTexto' divClass='homeCardAtivo homeCardContainer' cardNome={context.userLogado.lde.length+' Luzes de Emergência'}  onClick={()=>nav('/lde')} />
 
         <HomeCard spanCardClass='cardTexto' divClass='homeCardAtivo homeCardContainer' cardNome={context.userLogado.hd.length+' Hidrantes'} onClick={()=>nav('/hd')} />
 

@@ -93,13 +93,23 @@ textarea:focus{
     /* border: 1px solid red; */
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
     /* display: grid;
     grid-template-areas: "numero tipo"
     "local ultRec"
     "ultRet ultRet"
     "avaria avaria"; */
+}
+
+.containerCriarExt #extNum{
+    margin-top: 10px;
+}
+
+.containerCriarExt #extNum, .containerCriarExt #extLocal{
+    /* border-top-left-radius: unset; */
+    /* margin-top: 10px; */
+    border-radius: 0;
 }
 
 .containerCriarExt .hdInfo{
