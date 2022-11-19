@@ -19,7 +19,9 @@ const Home = () => {
 
   return (
     <>
+    
     <Header />
+
     <div className='homeContainer'>
 
         <div className='cards'>

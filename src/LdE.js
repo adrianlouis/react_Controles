@@ -3,6 +3,7 @@ import css from './css/lde.css'
 import {Link, useNavigate} from 'react-router-dom'
 import { GlobalContext } from './GlobalContext'
 import Select from './Select'
+import Header from './Header'
 
 const LdE = () => {
     const context = React.useContext(GlobalContext)
@@ -171,9 +172,9 @@ const LdE = () => {
   return (
     <>
 
-    <div className='ldeUpperFooter' >
-        {/* <Link className='ldeSubFooterBtn' to='/home' >home</Link> */}
-        {/* <Link className='ldeSubFooterBtn' to='/' >logout</Link> */}
+    <Header />
+
+    {/* <div className='ldeUpperFooter' >
         <div id='ldeMenu'  onClick={ldeMenu}>
             <span id='ldeMenuHamburguer1'></span>
             <span id='ldeMenuHamburguer2'></span>
@@ -197,7 +198,7 @@ const LdE = () => {
 
         <Link className='ldeSubFooterBtn' to='/' >logout</Link>
 
-    </div>
+    </div> */}
 
     {!resFiltragem && context.userLogado && context.userLogado.lde.map((item, index)=>{
         return <div key={item.id} className='ldeContainer'>

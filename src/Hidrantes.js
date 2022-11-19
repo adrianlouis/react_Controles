@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import css from "./css/hd.css";
 import { GlobalContext } from "./GlobalContext";
+import Header from "./Header";
 import Select from "./Select";
 
 const Hidrantes = () => {
@@ -64,22 +65,17 @@ const Hidrantes = () => {
 
 
   return (
+    <>
+      <Header/>
     <div className="hdContainer">
 
-        <div className='menu' >
+        {/* <div className='menu' >
 
-          {/* <div className="menuRow"> */}
-            <Link className='ldeSubFooterBtn' to='/home' >home</Link>
-            <Select selectValorInicial='' optionDisabledValue='Ordenar' options={['crescente', 'decrescente']} selectOnChange={({target})=>setOrdenar(target.value)} />
-            <Link className='ldeSubFooterBtn' to='/' >logout</Link>
-          {/* </div> */}
-
-            {/* <div className="menuRow"> */}
-            {/* </div> */}
-
+          <Link className='ldeSubFooterBtn' to='/home' >home</Link>
+          <Select selectValorInicial='' optionDisabledValue='Ordenar' options={['crescente', 'decrescente']} selectOnChange={({target})=>setOrdenar(target.value)} />
+          <Link className='ldeSubFooterBtn' to='/' >logout</Link>
            
-        </div>
-
+        </div> */}
 
       <div className="listaDeHds">
         
@@ -133,17 +129,12 @@ const Hidrantes = () => {
 
       </div>
 
-      {/* <div className="ldeSubFooter">
-        <Link className="ldeSubFooterBtn" to="/hdnovo">
-          Novo HD
-        </Link>
-      </div> */}
-
       <div className='ldeSubFooter'>
         <Link className='ldeSubFooterBtn' to='/hdnovo' >novo HD</Link>
     </div>
 
     </div>
+    </>
   );
 };
 
