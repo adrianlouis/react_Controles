@@ -4,6 +4,7 @@ import {Link, useNavigate} from 'react-router-dom'
 import { GlobalContext } from './GlobalContext'
 import Select from './Select'
 import Header from './Header'
+import IconesBottom from './IconesBottom'
 
 const LdE = () => {
     const context = React.useContext(GlobalContext)
@@ -14,6 +15,8 @@ const LdE = () => {
     const [filtroLocal, setFiltroLocal] = React.useState('')
     const [filtroAvarias, setFiltroAvarias] = React.useState('')
     const [resFiltragem, setResFiltragem] = React.useState('')
+    const [buscarValue, setBuscarValue] = React.useState('')
+    const [valor, setValor] = React.useState('')
     
     function expandir(elem, avaria){
 
@@ -168,11 +171,35 @@ const LdE = () => {
         setFiltroAvarias('')
     },[filtroAvarias])
 
- 
+    function handleBuscar(el){
+        console.log(el.value)
+    }
+
+    function filtroNum(value){
+        setValor(value)
+
+        const filtrado = context.userLogado.lde.filter((filtro)=>{
+            return filtro.num === value
+        })
+
+        if (filtrado.length > 0){
+            setResFiltragem(filtrado)
+        }else{
+            setResFiltragem('')
+        }
+
+    }
+
+    React.useEffect(()=>{
+        if(valor === ''){
+            console.log('ZERADO')
+        }
+    },[valor])
+    
+    
   return (
     <>
 
-    <Header />
 
     {/* <div className='ldeUpperFooter' >
         <div id='ldeMenu'  onClick={ldeMenu}>
@@ -270,9 +297,12 @@ const LdE = () => {
         </div>
     })}
 
-    <div className='ldeSubFooter'>
+    {/* <div className='ldeSubFooter'>
         <Link className='ldeSubFooterBtn' to='/ldeNovo' >nova LdE</Link>
-    </div>
+    </div> */}
+
+    {/* <IconesBottom buscarChange={({target})=>setBuscarValue(target.value)} buscarValor={buscarValue} novoItem='/ldenovo' iconesDeFiltragem={["fa-solid fa-arrow-down-1-9", "fa-solid fa-clock", "fa-solid fa-circle-info" ]} /> */}
+    <IconesBottom buscarChange={({target})=>filtroNum(target.value)} buscarValor={valor} novoItem='/ldenovo' iconesDeFiltragem={["fa-solid fa-arrow-down-1-9", "fa-solid fa-clock", "fa-solid fa-circle-info" ]} />
       
     </>
   )

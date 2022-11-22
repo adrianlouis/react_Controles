@@ -14,12 +14,14 @@ import HidranteEdit from './HidranteEdit';
 import Extintores from './Extintores';
 import ExtNovo from './ExtNovo';
 import ExtEditar from './ExtEditar';
+import Header from './Header';
 
 function App() {
 
   return (
     <BrowserRouter>
       <GlobalStorage>
+        <Header/>
 
         <Routes>
           {/* <Route path='/' element={<AreaParaTestes/>} /> */}

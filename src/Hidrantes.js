@@ -66,7 +66,6 @@ const Hidrantes = () => {
 
   return (
     <>
-      <Header/>
     <div className="hdContainer">
 
         {/* <div className='menu' >

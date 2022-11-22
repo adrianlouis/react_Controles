@@ -1,6 +1,5 @@
 .header{
     border-bottom: 2px solid #050;
-    height: 90px;
     width: 100%;
     text-align: center;
     display: flex;
@@ -13,7 +12,7 @@
     z-index: 1;
 }
 
-.headerSuperior, .headerInferior{
+.headerSuperior{
     display: flex;
     flex-direction: row;
     justify-content: start;
@@ -65,28 +64,6 @@ i{
     font-size: 1.5rem;
 }
 
-.headerInferior{
-    height: 30px;
-    /* border: 1px solid red; */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    /* width: 100%; */
-
-}
-
-.headerInferior i{
-    /* border-left: 1px solid #050; */
-    /* border-radius: 200px; */
-    padding: 4px;
-    cursor: pointer;
-    /* height: 20px;
-    width: 20px; */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0;
-}
 
 .headerDropdown{
     width: 45%;

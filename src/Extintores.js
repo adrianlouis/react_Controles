@@ -46,6 +46,7 @@ const Extintores = () => {
             // console.log('quem?')
         }
     }
+    
     function toggleFiltrar(){
         if (!toggleFiltrarCont){
             setToggleFiltrarCont(!toggleFiltrarCont)

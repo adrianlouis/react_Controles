@@ -44,25 +44,6 @@ const Header = () => {
         
       </div>
 
-      <div className='headerInferior'>
-
-        <div className='headerDropdown'>
-          {/* {url === 'http://localhost:3000/home'? '' : (<>
-          <div className='headerContainerSelect'>
-            <i className="fa-solid fa-sort"></i> <Select selectValorInicial={filtroAplicado} selectOnChange={({target})=>setFiltroAplicado(target.value)} options={['númerico', 'data']} optionDisabledValue='sem filtro' />
-          </div>
-        </>) } */}
-
-          <i class="fa-solid fa-magnifying-glass"></i>
-
-
-          <i className="fa-solid fa-sort"></i>
-        </div>
-        
-
-
-      </div>
-
       <div id='headerModal' className='headerModal' >
 
         

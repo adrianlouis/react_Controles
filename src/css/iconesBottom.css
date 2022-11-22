@@ -1,0 +1,39 @@
+
+.filtroAtivo{
+    color:#0f0
+}
+
+.modalInativoEsquerda{
+    position: absolute;
+    bottom: 0;
+    background-color: #000;
+    border-top: 2px solid #0a0;
+
+    height: 70px;
+    width: 100%;
+    left: -101%;
+
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+#containerFiltrarLocal select{
+    margin: unset;
+}
+
+
+#containerBuscar, #containerFiltrar, #containerFiltrarLocal{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+
+
+
+
+.modalAtivo{
+    left: 0;
+}
+/* toggleFiltrar */
