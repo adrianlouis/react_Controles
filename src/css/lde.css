@@ -322,4 +322,8 @@ select::selection{
     text-align: center;
 }
 
+i{
+    cursor: pointer;
+}
+
 }

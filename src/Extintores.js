@@ -3,7 +3,7 @@ import { GlobalContext } from './GlobalContext'
 import InnerHeader from './InnerHeader'
 import css from './css/ext.css'
 import InnerFooter from './InnerFooter'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import SelectOptgroup from './SelectOptgroup'
 import Select from './Select'
 import Input from './Input'
@@ -24,11 +24,13 @@ const Extintores = () => {
     const [toggleModal, setToggleModal] = React.useState(false)
     const [filtroEscolhido, setFiltroEscolhido] = React.useState('')
     const [filtroArray, setFiltroArray] = React.useState('')
-
+    const navigate = useNavigate()
     const [filtroAtivo, setFiltroAtivo] = React.useState('')
     const [filtroLocal, setFiltroLocal] = React.useState(false)
     const [filterPlace, setFilterPlace] = React.useState('')
     const extintores = context.userLogado.ext
+
+    const [valor, setValor] = React.useState('')
 
     const [resultadoFiltros, setResultadoFiltros] = React.useState('')
 
@@ -197,8 +199,8 @@ React.useEffect(()=>{
     // }
     console.log(resultadoFiltros)
 
-    function limparFiltros(){
-        setResultadoFiltros('')
+    function filtroNum(valor){
+        console.log(valor)
     }
 
   return (
@@ -267,9 +269,11 @@ React.useEffect(()=>{
             }
 
             <div id='hdActions'>
-                <Link to={`extedit?id=${item.id}`} className='ldeSubFooterBtn' >Editar</Link>
+                {/* <Link to={`extedit?id=${item.id}`} className='ldeSubFooterBtn' >Editar</Link> */}
+                <i class="fa-solid fa-pen-to-square" onClick={()=>navigate(`extedit?id=${item.id}`)}></i>
                 {/* <Link to='/' className='ldeSubFooterBtn' >Excluir</Link> */}
-                <span className='ldeSubFooterBtn' onClick={({currentTarget})=>excluirExtintor(currentTarget, item.id)}>Excluir</span>
+                {/* <span className='ldeSubFooterBtn' onClick={({currentTarget})=>excluirExtintor(currentTarget, item.id)}>Excluir</span> */}
+                <i class="fa-solid fa-trash-can" onClick={({currentTarget})=>excluirExtintor(currentTarget, item.id)}></i>
 
             </div>
 
@@ -366,7 +370,12 @@ React.useEffect(()=>{
 
         </div> */}
 
-        <IconesBottom itens={context.userLogado.ext} novoItem='/extnovo' iconesDeFiltragem={["fa-solid fa-arrow-down-1-9", "fa-solid fa-fire-extinguisher", "fa-solid fa-circle-info", "fa-solid fa-calendar-day", "fa-solid fa-calendar-check"]} />
+        {/* //ANTIGO */}
+        {/* <IconesBottom itens={context.userLogado.ext} novoItem='/extnovo' iconesDeFiltragem={["fa-solid fa-arrow-down-1-9", "fa-solid fa-fire-extinguisher", "fa-solid fa-circle-info", "fa-solid fa-calendar-day", "fa-solid fa-calendar-check"]} /> */}
+
+        {/* //NOVO */}
+        <IconesBottom itens={context.userLogado.ext} buscarChange={({target})=>filtroNum(target.value)} buscarValor={valor} novoItem='/extnovo' iconesDeFiltragem={["fa-solid fa-arrow-down-1-9", "fa-solid fa-fire-extinguisher", "fa-solid fa-location-dot", "fa-solid fa-circle-info", "fa-solid fa-calendar-day", "fa-solid fa-calendar-check"]} indexModalLocal={2} indexAvarias={3} indexNum={0} indexBuscar={1}  selectLocalOptions={['Subsolo', 'Térreo', 'Brigada', '2º Pav A', '2º Pav B', '2º Pav Escada C', '3º Pav A', '3º Pav B', '3º Pav Escada C', '4º Pav A', '4º Pav B', '4º Pav Escada C', 'CMI']} autonomiaOptions={['1h', '2h', '3h', '4h', '5h', '6h']} />
+
 
     </div>
   )

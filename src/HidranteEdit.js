@@ -136,8 +136,10 @@ const HidranteEdit = () => {
 
         <div  id='hdActions'>
            {/* <button onClick={salvarEditado}>Salvar</button> */}
-           <Link className='ldeSubFooterBtn' to='/hd' onClick={salvarEditado} >Salvar</Link>
-           <Link className='ldeSubFooterBtn' to='/hd'>Voltar</Link>
+           {/* <Link className='ldeSubFooterBtn' to='/hd' onClick={salvarEditado} >Salvar</Link> */}
+           <i class="fa-solid fa-angles-left" onClick={()=>navigate('/hd')}></i>
+           <i class="fa-solid fa-floppy-disk" onClick={salvarEditado}></i>
+           {/* <Link className='ldeSubFooterBtn' to='/hd'>Voltar</Link> */}
         </div>
     </div>
 

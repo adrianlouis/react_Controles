@@ -50,11 +50,10 @@ const ExtEditar = () => {
         })
 
         context.setUserLogado({...context.userLogado, ext:[...outrosExtintores, {...editado}]})
-        // console.log(outrosExtintores)
+        navigate('/ext')
     }
 
-    console.log(editado)
-
+    
   return (
     <div>
 
@@ -107,9 +106,14 @@ const ExtEditar = () => {
                 </textarea>
             </div>
 
+            <div id='botoesEdicao' className='hdInfo'>
+            <i class="fa-solid fa-angles-left" onClick={()=>navigate('/ext')}></i>
+            <i class="fa-solid fa-floppy-disk" onClick={salvarExt}></i>
+            </div>
+
         </div>
 
-        <InnerFooter botoes={[['/ext', 'salvar', salvarExt],[ '/ext', 'voltar']]}  />
+        {/* <InnerFooter botoes={[['/ext', 'salvar', salvarExt],[ '/ext', 'voltar']]}  /> */}
 
     </div>
   )

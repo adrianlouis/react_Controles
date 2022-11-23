@@ -60,9 +60,9 @@ const LdENovoReg = () => {
         <textarea onChange={({target})=>setAnotacao(target.value)} value={anotacao} />  
         
         <div className='cardAcoes'>
-            <span className={(num === '' && pav === '' && dur === '' && anotacao === '') ? 'notReady' : 'ldeSubFooterBtn'} onClick={handleSubmit} >Salvar</span>
-            <Link className='ldeSubFooterBtn' to='/lde' >Cancelar</Link>
-                
+            {/* <span className={(num === '' && pav === '' && dur === '' && anotacao === '') ? 'notReady' : 'ldeSubFooterBtn'} onClick={handleSubmit} >Salvar</span> */}
+            <i class="fa-solid fa-angles-left" onClick={()=>navigate('/lde')}></i>
+            <i class="fa-solid fa-floppy-disk" onClick={handleSubmit}></i>    
         </div>
     </div>
     </>

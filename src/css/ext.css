@@ -170,3 +170,7 @@ textarea:focus{
 .filtroAtivo{
     color:#0f0
 }
+
+#botoesEdicao{
+    flex-direction: row;
+}
