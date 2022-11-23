@@ -1,21 +1,43 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import Input from './Input'
 import css from './css/iconesBottom.css'
 import Select from './Select'
+import { GlobalContext } from './GlobalContext'
 
-const IconesBottom = ({novoItem, iconesDeFiltragem, buscarChange, buscarValor }) => {
+const IconesBottom = ({novoItem, iconesDeFiltragem, buscarChange, buscarValor, itens }) => {
 
+    const ctx = useContext(GlobalContext)
     const [toggleBuscar, setToggleBuscar] = React.useState(false)
     const [toggleFiltrar, setToggleFiltrar] = React.useState(false)
     const [filtroAtivo, setFiltroAtivo] = React.useState('')
     const [filtroDeLocal, setFiltroDeLocal] = React.useState('')
     const [searchValue, setSearchValue] = React.useState('')
+    // const lde = itens
+    const [filtroBuscar, setFiltroBuscar] = React.useState('')
     // const [iconesDeFiltragem, setIconesDeFiltragem] = React.useState([])
 
     React.useEffect(()=>{
-        setSearchValue(prev => (buscarValor))
-    },[buscarValor])
+
+        if (filtroBuscar){
+            const resFiltro = itens.filter((filtro)=>{
+                return filtroBuscar === filtro.num
+            })
+
+            ctx.setItensFiltrados(resFiltro)
+        }
+        
+    },[filtroBuscar])
+
+    React.useEffect(()=>{
+        if (filtroDeLocal){
+            const resFiltro = itens.filter((filtro)=>{
+                return filtroDeLocal === filtro.local
+            })
+
+            ctx.setItensFiltrados(resFiltro)
+        }
+    },[filtroDeLocal])
     
     function buscar(){
         if (!toggleBuscar){
@@ -24,7 +46,8 @@ const IconesBottom = ({novoItem, iconesDeFiltragem, buscarChange, buscarValor })
         }else{
             setToggleBuscar(!toggleBuscar)
             document.querySelector('#containerBuscar').classList.remove('modalAtivo')
-            setSearchValue('')
+            setFiltroBuscar('')
+            ctx.setItensFiltrados('')
         }
     }
 
@@ -46,6 +69,7 @@ const IconesBottom = ({novoItem, iconesDeFiltragem, buscarChange, buscarValor })
             document.querySelector('#containerFiltrarLocal').classList.add('modalAtivo')
         }else{
             document.querySelector('#containerFiltrarLocal').classList.remove('modalAtivo')
+            ctx.setItensFiltrados('')
             setFiltroDeLocal('')
         }
     }
@@ -62,7 +86,7 @@ const IconesBottom = ({novoItem, iconesDeFiltragem, buscarChange, buscarValor })
             <div id='containerBuscar' className='modalInativoEsquerda' >
                 <i className="fa-solid fa-angles-left" onClick={buscar}></i>
                 {/* <Input placeholder='Buscar pelo número' onChange={buscarOnChange} /> */}
-                <input placeholder='Buscar pelo número' onChange={buscarChange} value={searchValue}  />
+                <input placeholder='Buscar pelo número' onChange={({target})=>setFiltroBuscar(target.value)} value={filtroBuscar}  />
                 <i className="fa-solid fa-magnifying-glass"  onClick={buscar} ></i>
             </div>
 

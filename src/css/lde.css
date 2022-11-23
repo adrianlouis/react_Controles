@@ -18,7 +18,7 @@
 
 
 
-.ldeContainer:nth-child(1){
+.ldeContainer:nth-child(2){
     margin-top: 25px;
 }
 
@@ -211,13 +211,19 @@ label{
 
 .ldeResumoFiltro{
     border: 2px solid #0a0;
-    width: 40%;
-    height: 55px;
-    margin: 0 auto;
+    width: 75%;
+    height: 100px;
+    margin: 20px auto;
     margin-bottom: 25px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
 }
 .ldeResumoFiltro p:nth-child(1){
-    font-size: .8rem;
+    font-size: 1rem;
+    margin: unset;
 }
 .ldeResumoFiltro p:nth-child(2){
     color: #0a0;

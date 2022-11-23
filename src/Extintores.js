@@ -8,6 +8,7 @@ import SelectOptgroup from './SelectOptgroup'
 import Select from './Select'
 import Input from './Input'
 import Header from './Header'
+import IconesBottom from './IconesBottom'
 
 const Extintores = () => {
 
@@ -227,7 +228,8 @@ React.useEffect(()=>{
 
 
 
-        {!resultadoFiltros && extintores.map((item)=>{
+        {!context.itensFiltrados && extintores.map((item)=>{
+        // {!resultadoFiltros && extintores.map((item)=>{
             return <div className='cardExt'>{console.log(context.userLogado.ext)}
 
             <div id='extNum'  className='hdInfo' > 
@@ -278,7 +280,7 @@ React.useEffect(()=>{
 
         })}
 
-        {resultadoFiltros && resultadoFiltros.map((item)=>{
+        {context.itensFiltrados && context.itensFiltrados.map((item)=>{
             return <div className='cardExt'>
 
             <div id='extNum'  className='hdInfo' > 
@@ -329,8 +331,12 @@ React.useEffect(()=>{
 
         })}
 
+        {context.itensFiltrados && context.itensFiltrados.length === 0 && <div className='ldeResumoFiltro'>
+            <p>Não foi encontrado extintor com o filtro aplicado.</p>
+        </div>}
 
-        <div className='ldeSubFooter'>
+
+        {/* <div className='ldeSubFooter'>
 
             <Link to='/home'><i className="fa-solid fa-house" onClick={limparFiltros}></i></Link>
             <Link to='/extnovo'><i className="fa-solid fa-file-circle-plus"></i></Link>
@@ -358,7 +364,9 @@ React.useEffect(()=>{
                 <Select selectValorInicial={filterPlace} selectOnChange={({target})=>setFilterPlace(target.value)} options={['Subsolo', 'Térreo', 'Brigada', '2º Pav A', '2º Pav B', '3º Pav A', '3º Pav B', '4º Pav A', '4º Pav B', 'CMI']} />
             </div>
 
-        </div>
+        </div> */}
+
+        <IconesBottom itens={context.userLogado.ext} novoItem='/extnovo' iconesDeFiltragem={["fa-solid fa-arrow-down-1-9", "fa-solid fa-fire-extinguisher", "fa-solid fa-circle-info", "fa-solid fa-calendar-day", "fa-solid fa-calendar-check"]} />
 
     </div>
   )

@@ -190,11 +190,11 @@ const LdE = () => {
 
     }
 
-    React.useEffect(()=>{
-        if(valor === ''){
-            console.log('ZERADO')
-        }
-    },[valor])
+    // React.useEffect(()=>{
+    //     if(valor === ''){
+    //         console.log('ZERADO')
+    //     }
+    // },[valor])
     
     
   return (
@@ -227,7 +227,7 @@ const LdE = () => {
 
     </div> */}
 
-    {!resFiltragem && context.userLogado && context.userLogado.lde.map((item, index)=>{
+    {!context.itensFiltrados && context.userLogado && context.userLogado.lde.map((item, index)=>{
         return <div key={item.id} className='ldeContainer'>
         <div className='contSuperior'  onClick={(e)=>expandir(e.currentTarget, item.avaria)}>
             <div className='ldeUnidade' >
@@ -260,12 +260,11 @@ const LdE = () => {
         </div>
     })}
 
-    {resFiltragem && <div className='ldeResumoFiltro'>
-            <p>LdE filtradas</p>
-            <p>{resFiltragem.length}</p>
+    {context.itensFiltrados && context.itensFiltrados.length === 0 && <div className='ldeResumoFiltro'>
+            <p>Não foram encontradas Luzes de Emergência com o número digitado.</p>
         </div>}
 
-    {resFiltragem && resFiltragem.map((item, index)=>{
+    {context.itensFiltrados && context.itensFiltrados.map((item, index)=>{
         return <div key={item.id} className='ldeContainer'>
         <div className='contSuperior'  onClick={(e)=>expandir(e.currentTarget, item.avaria)}>
             <div className='ldeUnidade' >
@@ -302,9 +301,9 @@ const LdE = () => {
     </div> */}
 
     {/* <IconesBottom buscarChange={({target})=>setBuscarValue(target.value)} buscarValor={buscarValue} novoItem='/ldenovo' iconesDeFiltragem={["fa-solid fa-arrow-down-1-9", "fa-solid fa-clock", "fa-solid fa-circle-info" ]} /> */}
-    <IconesBottom buscarChange={({target})=>filtroNum(target.value)} buscarValor={valor} novoItem='/ldenovo' iconesDeFiltragem={["fa-solid fa-arrow-down-1-9", "fa-solid fa-clock", "fa-solid fa-circle-info" ]} />
+    <IconesBottom itens={context.userLogado.lde} buscarChange={({target})=>filtroNum(target.value)} buscarValor={valor} novoItem='/ldenovo' iconesDeFiltragem={["fa-solid fa-arrow-down-1-9", "fa-solid fa-clock", "fa-solid fa-circle-info" ]} />
       
-    </>
+    </> 
   )
 }
 

@@ -11,6 +11,8 @@ export const GlobalStorage = ({children}) =>{
     const [uploadLde, setUploadLde] = React.useState(false)
     const [lde, setLde] = React.useState([])
     const navigate = useNavigate()
+
+    const [itensFiltrados, setItensFiltrados] = React.useState('')  
     
     React.useEffect(()=>{
         if (userLogado.length === 0){
@@ -24,5 +26,5 @@ export const GlobalStorage = ({children}) =>{
             
     },[userLogado])   
         
-    return <GlobalContext.Provider value={{uploadLde, setUploadLde, upload, setUpload, lde, setLde, usuarios, setUsuarios, userLogado, setUserLogado}}>{children}</GlobalContext.Provider>
+    return <GlobalContext.Provider value={{itensFiltrados, setItensFiltrados, uploadLde, setUploadLde, upload, setUpload, lde, setLde, usuarios, setUsuarios, userLogado, setUserLogado}}>{children}</GlobalContext.Provider>
 }
