@@ -16,7 +16,12 @@
     overflow: hidden;
 }
 
-
+#iconeAvaria{
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    font-size: 1rem;
+}
 
 .ldeContainer:nth-child(2){
     margin-top: 25px;

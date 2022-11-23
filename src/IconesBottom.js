@@ -1,24 +1,22 @@
 import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
-import Input from './Input'
 import css from './css/iconesBottom.css'
 import Select from './Select'
 import { GlobalContext } from './GlobalContext'
 
-const IconesBottom = ({novoItem, iconesDeFiltragem, buscarChange, buscarValor, itens }) => {
+const IconesBottom = ({novoItem, iconesDeFiltragem, indexModalLocal, indexAvarias, indexNum, indexAutonomia, selectLocalOptions, autonomiaOptions, itens }) => {
 
     const ctx = useContext(GlobalContext)
     const [toggleBuscar, setToggleBuscar] = React.useState(false)
+    const [toggleAutonomia, setToggleAutonomia] = React.useState(false)
     const [toggleFiltrar, setToggleFiltrar] = React.useState(false)
     const [filtroAtivo, setFiltroAtivo] = React.useState('')
     const [filtroDeLocal, setFiltroDeLocal] = React.useState('')
-    const [searchValue, setSearchValue] = React.useState('')
-    // const lde = itens
+    const [toggleNumOrder, setToggleNumOrder] = React.useState(0)
     const [filtroBuscar, setFiltroBuscar] = React.useState('')
-    // const [iconesDeFiltragem, setIconesDeFiltragem] = React.useState([])
+    const [filtroAutonomia, setFiltroAutonomia] = React.useState('')
 
     React.useEffect(()=>{
-
         if (filtroBuscar){
             const resFiltro = itens.filter((filtro)=>{
                 return filtroBuscar === filtro.num
@@ -28,7 +26,7 @@ const IconesBottom = ({novoItem, iconesDeFiltragem, buscarChange, buscarValor, i
         }
         
     },[filtroBuscar])
-
+        
     React.useEffect(()=>{
         if (filtroDeLocal){
             const resFiltro = itens.filter((filtro)=>{
@@ -38,7 +36,17 @@ const IconesBottom = ({novoItem, iconesDeFiltragem, buscarChange, buscarValor, i
             ctx.setItensFiltrados(resFiltro)
         }
     },[filtroDeLocal])
-    
+
+    React.useEffect(()=>{
+        if (filtroAutonomia){
+            const resFiltro = itens.filter((filtro)=>{
+                return filtroAutonomia === filtro.dur
+            })
+
+            ctx.setItensFiltrados(resFiltro)
+        }
+    },[filtroAutonomia])
+
     function buscar(){
         if (!toggleBuscar){
             setToggleBuscar(!toggleBuscar)
@@ -48,6 +56,18 @@ const IconesBottom = ({novoItem, iconesDeFiltragem, buscarChange, buscarValor, i
             document.querySelector('#containerBuscar').classList.remove('modalAtivo')
             setFiltroBuscar('')
             ctx.setItensFiltrados('')
+        }
+    }
+
+    function autonomia(){
+        if (!toggleAutonomia){
+            document.querySelector('#containerAutonomia').classList.add('modalAtivo')
+            setToggleAutonomia(!toggleAutonomia)
+        }else{
+            document.querySelector('#containerAutonomia').classList.remove('modalAtivo')
+            setFiltroBuscar('')
+            ctx.setItensFiltrados('')
+            setToggleAutonomia(!toggleAutonomia)
         }
     }
 
@@ -65,14 +85,82 @@ const IconesBottom = ({novoItem, iconesDeFiltragem, buscarChange, buscarValor, i
     function handleFilter(filtro){
         setFiltroAtivo(prev => filtro)
         
-        if(filtro === 0){
+        if(filtro === indexModalLocal){
             document.querySelector('#containerFiltrarLocal').classList.add('modalAtivo')
         }else{
             document.querySelector('#containerFiltrarLocal').classList.remove('modalAtivo')
             ctx.setItensFiltrados('')
             setFiltroDeLocal('')
         }
+
+        if(filtro === indexAvarias){
+            
+            const avariados = itens.filter((filtro)=>{
+                if (filtro.avaria){
+                    return filtro
+                }
+            })
+
+            const naoAvariados = itens.filter((filtro)=>{
+                if (!filtro.avaria){
+                    return filtro
+                }
+            })
+
+            if (ctx.itensFiltrados.includes(...avariados)){
+                ctx.setItensFiltrados(naoAvariados)
+            }else if(ctx.itensFiltrados.includes(...naoAvariados)) {
+                ctx.setItensFiltrados('')
+                setFiltroAtivo('')
+            }else{
+                ctx.setItensFiltrados(avariados)
+            }
+        }
+
+        if(filtro === indexNum){
+            const crescente = []
+            Object.keys(itens).map((item)=>{
+                return Number(itens[item].num)}).sort((a,b)=>{
+                    return a - b
+                }).forEach((cada)=>{
+                    itens.map((item)=>{
+                        if (item.num === String(cada)){
+                            crescente.push(item)
+                        }
+                    })
+                })
+
+            const decrescente = []
+            Object.keys(itens).map((item)=>{
+                return Number(itens[item].num)}).sort((a,b)=>{
+                    return b - a
+                }).forEach((cada)=>{
+                    itens.map((item)=>{
+                        if (item.num === String(cada)){
+                            decrescente.push(item)
+                        }
+                    })
+                })   
+
+            if(toggleNumOrder === 0){
+                ctx.setItensFiltrados(crescente)
+                setToggleNumOrder(1)
+            }else if(toggleNumOrder === 1){
+                ctx.setItensFiltrados(decrescente)
+                setToggleNumOrder(2)
+            }else{
+                ctx.setItensFiltrados('')
+                setToggleNumOrder(0)
+                setFiltroAtivo('')
+            }
+
+        }
+
+        if(filtro === indexAutonomia){
+            autonomia()
+        }
     }
+    
 
   return (
     <div>
@@ -85,30 +173,31 @@ const IconesBottom = ({novoItem, iconesDeFiltragem, buscarChange, buscarValor, i
 
             <div id='containerBuscar' className='modalInativoEsquerda' >
                 <i className="fa-solid fa-angles-left" onClick={buscar}></i>
-                {/* <Input placeholder='Buscar pelo número' onChange={buscarOnChange} /> */}
                 <input placeholder='Buscar pelo número' onChange={({target})=>setFiltroBuscar(target.value)} value={filtroBuscar}  />
                 <i className="fa-solid fa-magnifying-glass"  onClick={buscar} ></i>
+            </div>
+
+
+
+            <div id='containerAutonomia' className='modalInativoEsquerda' >
+                <i className="fa-solid fa-angles-left" onClick={autonomia}></i>
+                <Select selectValorInicial={filtroAutonomia} optionDisabledValue='escolha a autonomia' selectOnChange={({target})=>setFiltroAutonomia(target.value)} options={autonomiaOptions} />
+                <i className="fa-solid fa-clock filtroAtivo" onClick={autonomia}></i>
             </div>
 
             <div id='containerFiltrar' className='modalInativoEsquerda' >
                 <i className="fa-solid fa-angles-left" onClick={filtrar}></i>
 
-                <i className={filtroAtivo === 0 ? "fa-solid fa-location-dot filtroAtivo" : "fa-solid fa-location-dot"} onClick={()=>handleFilter(0)}></i>
                 {iconesDeFiltragem.map((item, index)=>{
-                    return <i className={filtroAtivo === (index+1) ? (item + ' filtroAtivo') : (item)} onClick={()=>handleFilter(index+1)}></i>
+                    return <i className={filtroAtivo === (index) ? (item + ' filtroAtivo') : (item)} onClick={()=>handleFilter(index)}></i>
 
                 })}
 
-
-                {/* <i className={filtroAtivo === 1? "fa-solid fa-arrow-down-a-z filtroAtivo" : "fa-solid fa-arrow-down-a-z"} onClick={()=>handleFilter(1)}></i>
-                <i className={filtroAtivo === 3? "fa-solid fa-calendar-days filtroAtivo" : "fa-solid fa-calendar-days"} onClick={()=>handleFilter(3)}></i>
-                <i className={filtroAtivo === 4? "fa-solid fa-calendar-check filtroAtivo" : "fa-solid fa-calendar-check"} onClick={()=>handleFilter(4)}></i>
-                <i className={filtroAtivo === 5? "fa-solid fa-circle-exclamation filtroAtivo" : "fa-solid fa-circle-exclamation"} onClick={()=>handleFilter(5)}></i> */}
             </div>
 
             <div id='containerFiltrarLocal' className='modalInativoEsquerda' >
                 <i className="fa-solid fa-angles-left" onClick={()=>handleFilter('')}></i>
-                <Select selectValorInicial={filtroDeLocal} optionDisabledValue='escolha o local' selectOnChange={({target})=>setFiltroDeLocal(target.value)} options={['Subsolo', 'Térreo', 'Brigada', '2º Pav A', '2º Pav B', '3º Pav A', '3º Pav B', '4º Pav A', '4º Pav B', 'CMI']} />
+                <Select selectValorInicial={filtroDeLocal} optionDisabledValue='escolha o local' selectOnChange={({target})=>setFiltroDeLocal(target.value)} options={selectLocalOptions} />
                 <i className="fa-solid fa-location-dot filtroAtivo" />
             </div>
 

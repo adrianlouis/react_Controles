@@ -242,7 +242,8 @@ const LdE = () => {
                 <p>Autonomia</p>
                 <p>{item.dur}</p>
             </div>
-            {item.avaria && <p className='ldeNotificacaoAvaria'>+</p>}
+            {item.avaria && <i id='iconeAvaria' className="fa-solid fa-circle-exclamation"></i>}
+            {/* {item.avaria && <p className='ldeNotificacaoAvaria'>+</p>} */}
             </div>
             { item.avaria && <>
                 
@@ -279,7 +280,7 @@ const LdE = () => {
                 <p>Autonomia</p>
                 <p>{item.dur}</p>
             </div>
-            {item.avaria && <p className='ldeNotificacaoAvaria'>+</p>}
+            {item.avaria && <i id='iconeAvaria' className="fa-solid fa-circle-exclamation"></i>}
             </div>
             { item.avaria && <>
                 
@@ -301,7 +302,7 @@ const LdE = () => {
     </div> */}
 
     {/* <IconesBottom buscarChange={({target})=>setBuscarValue(target.value)} buscarValor={buscarValue} novoItem='/ldenovo' iconesDeFiltragem={["fa-solid fa-arrow-down-1-9", "fa-solid fa-clock", "fa-solid fa-circle-info" ]} /> */}
-    <IconesBottom itens={context.userLogado.lde} buscarChange={({target})=>filtroNum(target.value)} buscarValor={valor} novoItem='/ldenovo' iconesDeFiltragem={["fa-solid fa-arrow-down-1-9", "fa-solid fa-clock", "fa-solid fa-circle-info" ]} />
+    <IconesBottom itens={context.userLogado.lde} buscarChange={({target})=>filtroNum(target.value)} buscarValor={valor} novoItem='/ldenovo' iconesDeFiltragem={["fa-solid fa-arrow-down-1-9", "fa-solid fa-location-dot", "fa-solid fa-clock", "fa-solid fa-circle-info" ]} indexModalLocal={1} indexAvarias={3} indexNum={0} indexBuscar={1} indexAutonomia={2} selectLocalOptions={['Subsolo', 'Acesso subsolo A', 'Acesso subsolo B', 'Térreo', 'Brigada', 'Escada A', 'Escada B', 'Escada C', '2º Pav A', '2º Pav B', '2º Pav Escada C', '3º Pav A', '3º Pav B', '3º Pav Escada C', '4º Pav A', '4º Pav B', '4º Pav Escada C', 'CMI']} autonomiaOptions={['1h', '2h', '3h', '4h', '5h', '6h']} />
       
     </> 
   )
