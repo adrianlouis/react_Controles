@@ -42,11 +42,9 @@ const Extintores = () => {
         if (!toggleBuscarCont){
             setToggleBuscarCont(!toggleBuscarCont)
             document.querySelector('#containerBuscar').classList.add('toggleFooter')
-            // console.log('oi')
         }else{
             document.querySelector('#containerBuscar').classList.remove('toggleFooter')
             setToggleBuscarCont(!toggleBuscarCont)
-            // console.log('quem?')
         }
     }
     
@@ -54,11 +52,9 @@ const Extintores = () => {
         if (!toggleFiltrarCont){
             setToggleFiltrarCont(!toggleFiltrarCont)
             document.querySelector('#containerFiltrar').classList.add('toggleFooter')
-            // console.log('oi')
         }else{
             document.querySelector('#containerFiltrar').classList.remove('toggleFooter')
             setToggleFiltrarCont(!toggleFiltrarCont)
-            // console.log('quem?')
         }
     }
 
@@ -68,7 +64,6 @@ const Extintores = () => {
         const filtrado = context.userLogado.ext.filter((filtro)=>{
             return filtro.id !== id
         })
-        // console.log(filtrado)
 
         context.setUserLogado({...context.userLogado, ext:[...filtrado]})
     }
@@ -197,7 +192,6 @@ React.useEffect(()=>{
     //     setFiltroAtivo('')
     //     setFilterPlace('')
     // }
-    console.log(resultadoFiltros)
 
     function filtroNum(valor){
         console.log(valor)
@@ -232,7 +226,7 @@ React.useEffect(()=>{
 
         {!context.itensFiltrados && extintores.map((item)=>{
         // {!resultadoFiltros && extintores.map((item)=>{
-            return <div className='cardExt'>{console.log(context.userLogado.ext)}
+            return <div className='cardExt'>
 
             <div id='extNum'  className='hdInfo' > 
                 <span>Extintor tipo {item.tipo}</span>

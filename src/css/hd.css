@@ -42,6 +42,12 @@
     margin: 40px auto;
     padding: 5px;
 }
+
+.hdCard:nth-last-child(2){
+    margin-bottom: 100px;
+}
+
+
 #hdNum{
     grid-area: numero;
     border-top-left-radius: 10px;

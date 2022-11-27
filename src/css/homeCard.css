@@ -29,6 +29,7 @@
 
 .homeCardAtivo{
     border: #050 2px solid;
+    border-radius: 5px;
 }
 .homeCardAtivo:hover{
     border: 2px solid #0a0;

@@ -1,9 +1,10 @@
 import React, { useContext } from 'react'
 import Input from './Input'
-import { Link, useParams, useNavigate, useLocation } from 'react-router-dom'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { GlobalContext } from './GlobalContext';
 import css from './css/lde.css'
 import Select from './Select';
+import AcoesCriandoItem from './AcoesCriandoItem';
 
 const LdeEdit = () => {
 
@@ -52,10 +53,8 @@ const LdeEdit = () => {
 
         <label >Anotações</label>
         <textarea onChange={({target})=>setAvaria(target.value)} value={avaria} />  
-        <div className='cardAcoes'>
-            <span className='ldeSubFooterBtn' onClick={salvarEdicao} >Salvar</span>
-            <Link className='ldeSubFooterBtn' to='/lde' >Cancelar</Link>
-        </div>
+        
+        <AcoesCriandoItem voltar='/lde' salvar={salvarEdicao} />
     </div>
     </div>
   )

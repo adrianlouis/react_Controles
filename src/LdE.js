@@ -190,119 +190,82 @@ const LdE = () => {
 
     }
 
-    // React.useEffect(()=>{
-    //     if(valor === ''){
-    //         console.log('ZERADO')
-    //     }
-    // },[valor])
-    
     
   return (
     <>
 
-
-    {/* <div className='ldeUpperFooter' >
-        <div id='ldeMenu'  onClick={ldeMenu}>
-            <span id='ldeMenuHamburguer1'></span>
-            <span id='ldeMenuHamburguer2'></span>
-            <span id='ldeMenuHamburguer3'></span>
-        </div>
-    </div>
-
-    <div className='ldeModal'>
-
-        <Link className='ldeSubFooterBtn' to='/home' >home</Link>
-
-         
-        <span>Filtrar por:</span>
-        
-        <Select selectValorInicial={filtroNumerico} selectOnChange={({target})=>setFiltroNumerico(target.value)} optionDisabledValue='Números' options={['Crescente', 'Decrescente']} />
-        <Select selectValorInicial={filtroAutonomia} selectOnChange={({target})=>setFiltroAutonomia(target.value)} optionDisabledValue='Autonomia' options={['1h', '2h', '3h', '4h', '5h', '6h']} />
-        <Select selectValorInicial={filtroLocal} selectOnChange={({target})=>setFiltroLocal(target.value)} optionDisabledValue='Localização' options={['Subsolo', 'Acesso subsolo A', 'Acesso subsolo B', 'Escada A', 'Escada B', 'Escada C', 'Térreo', '2º Pav A', '2º Pav B', '2º Pav Escada C', '3º Pav A', '3º Pav B', '3º Pav Escada C', '4º Pav A', '4º Pav B', '4º Pav Escada C']}  />
-        <Select selectValorInicial={filtroAvarias} selectOnChange={({target})=>setFiltroAvarias(target.value)} optionDisabledValue='Avarias' options={['Com avarias', 'Sem avarias']}  />
-
-        <button className='ldeSubFooterBtn' onClick={limparFiltros} >Limpar filtro</button>
-
-        <Link className='ldeSubFooterBtn' to='/' >logout</Link>
-
-    </div> */}
-
-    {!context.itensFiltrados && context.userLogado && context.userLogado.lde.map((item, index)=>{
-        return <div key={item.id} className='ldeContainer'>
-        <div className='contSuperior'  onClick={(e)=>expandir(e.currentTarget, item.avaria)}>
-            <div className='ldeUnidade' >
-                <p>Número</p>
-                <p>{item.num}</p>
-            </div>
-            <div className='ldeUnidade'>
-                <p>Local</p>
-                <p>{item.local}</p>
-            </div>
-            <div className='ldeUnidade'>
-                <p>Autonomia</p>
-                <p>{item.dur}</p>
-            </div>
-            {item.avaria && <i id='iconeAvaria' className="fa-solid fa-circle-exclamation"></i>}
-            {/* {item.avaria && <p className='ldeNotificacaoAvaria'>+</p>} */}
-            </div>
-            { item.avaria && <>
-                
-                <div className='contInferior'>
-                    <textarea disabled value={item.avaria} ></textarea>
+        {!context.itensFiltrados && context.userLogado && context.userLogado.lde.map((item, index)=>{
+            return <div key={item.id} className='ldeContainer'>
+            <div className='contSuperior'  onClick={(e)=>expandir(e.currentTarget, item.avaria)}>
+                <div className='ldeUnidade' >
+                    <p>Número</p>
+                    <p>{item.num}</p>
                 </div>
-            </>}
-
-            <div className='cardAcoes'>
-                {/* <span className='notReady' onClick={()=>console.log(context.userLogado)}>Editar</span> */}
-                <Link className='ldeSubFooterBtn' to={`edit/id?id=${item.id}&ind=${index}`}>Editar</Link>
-                <span className='ldeSubFooterBtn' onClick={({currentTarget})=>excluirLde(currentTarget ,item)}>Excluir</span>
-                
-            </div>
-        </div>
-    })}
-
-    {context.itensFiltrados && context.itensFiltrados.length === 0 && <div className='ldeResumoFiltro'>
-            <p>Não foram encontradas Luzes de Emergência com o número digitado.</p>
-        </div>}
-
-    {context.itensFiltrados && context.itensFiltrados.map((item, index)=>{
-        return <div key={item.id} className='ldeContainer'>
-        <div className='contSuperior'  onClick={(e)=>expandir(e.currentTarget, item.avaria)}>
-            <div className='ldeUnidade' >
-                <p>Número</p>
-                <p>{item.num}</p>
-            </div>
-            <div className='ldeUnidade'>
-                <p>Local</p>
-                <p>{item.local}</p>
-            </div>
-            <div className='ldeUnidade'>
-                <p>Autonomia</p>
-                <p>{item.dur}</p>
-            </div>
-            {item.avaria && <i id='iconeAvaria' className="fa-solid fa-circle-exclamation"></i>}
-            </div>
-            { item.avaria && <>
-                
-                <div className='contInferior'>
-                    <textarea disabled value={item.avaria} ></textarea>
+                <div className='ldeUnidade'>
+                    <p>Local</p>
+                    <p>{item.local}</p>
                 </div>
-            </>}
+                <div className='ldeUnidade'>
+                    <p>Autonomia</p>
+                    <p>{item.dur}</p>
+                </div>
+                {item.avaria && <i id='iconeAvaria' className="fa-solid fa-circle-exclamation"></i>}
+                {/* {item.avaria && <p className='ldeNotificacaoAvaria'>+</p>} */}
+                </div>
+                { item.avaria && <>
+                    
+                    <div className='contInferior'>
+                        <textarea disabled value={item.avaria} ></textarea>
+                    </div>
+                </>}
 
-            <div className='cardAcoes'>
-                <Link className='ldeSubFooterBtn' to={`edit/id?id=${item.id}&ind=${index}`}>Editar</Link>
-                <span className='ldeSubFooterBtn' onClick={({currentTarget})=>excluirLde(currentTarget ,item)}>Excluir</span>
-                
+                <div className='cardAcoes'>
+                    {/* <span className='notReady' onClick={()=>console.log(context.userLogado)}>Editar</span> */}
+                    <Link to={`edit/id?id=${item.id}&ind=${index}`}><i className="fa-solid fa-pen-to-square"></i></Link>
+                    <i className="fa-solid fa-trash-can" onClick={({currentTarget})=>excluirLde(currentTarget ,item)}></i>
+                    
+                </div>
             </div>
-        </div>
-    })}
+        })}
 
-    {/* <div className='ldeSubFooter'>
-        <Link className='ldeSubFooterBtn' to='/ldeNovo' >nova LdE</Link>
-    </div> */}
+        {context.itensFiltrados && context.itensFiltrados.length === 0 && <div className='ldeResumoFiltro'>
+                <p>Não foram encontradas Luzes de Emergência com o número digitado.</p>
+            </div>
+        }
 
-    {/* <IconesBottom buscarChange={({target})=>setBuscarValue(target.value)} buscarValor={buscarValue} novoItem='/ldenovo' iconesDeFiltragem={["fa-solid fa-arrow-down-1-9", "fa-solid fa-clock", "fa-solid fa-circle-info" ]} /> */}
-    <IconesBottom itens={context.userLogado.lde} buscarChange={({target})=>filtroNum(target.value)} buscarValor={valor} novoItem='/ldenovo' iconesDeFiltragem={["fa-solid fa-arrow-down-1-9", "fa-solid fa-location-dot", "fa-solid fa-clock", "fa-solid fa-circle-info" ]} indexModalLocal={1} indexAvarias={3} indexNum={0} indexBuscar={1} indexAutonomia={2} selectLocalOptions={['Subsolo', 'Acesso subsolo A', 'Acesso subsolo B', 'Térreo', 'Brigada', 'Escada A', 'Escada B', 'Escada C', '2º Pav A', '2º Pav B', '2º Pav Escada C', '3º Pav A', '3º Pav B', '3º Pav Escada C', '4º Pav A', '4º Pav B', '4º Pav Escada C', 'CMI']} autonomiaOptions={['1h', '2h', '3h', '4h', '5h', '6h']} />
+        {context.itensFiltrados && context.itensFiltrados.map((item, index)=>{
+            return <div key={item.id} className='ldeContainer'>
+            <div className='contSuperior'  onClick={(e)=>expandir(e.currentTarget, item.avaria)}>
+                <div className='ldeUnidade' >
+                    <p>Número</p>
+                    <p>{item.num}</p>
+                </div>
+                <div className='ldeUnidade'>
+                    <p>Local</p>
+                    <p>{item.local}</p>
+                </div>
+                <div className='ldeUnidade'>
+                    <p>Autonomia</p>
+                    <p>{item.dur}</p>
+                </div>
+                {item.avaria && <i id='iconeAvaria' className="fa-solid fa-circle-exclamation"></i>}
+                </div>
+                { item.avaria && <>
+                    
+                    <div className='contInferior'>
+                        <textarea disabled value={item.avaria} ></textarea>
+                    </div>
+                </>}
+
+                <div className='cardAcoes'>
+                    <Link className='ldeSubFooterBtn' to={`edit/id?id=${item.id}&ind=${index}`}>Editar</Link>
+                    <span className='ldeSubFooterBtn' onClick={({currentTarget})=>excluirLde(currentTarget ,item)}>Excluir</span>
+                    
+                </div>
+            </div>
+        })}
+
+        <IconesBottom itens={context.userLogado.lde} buscarChange={({target})=>filtroNum(target.value)} buscarValor={valor} novoItem='/ldenovo' iconesDeFiltragem={["fa-solid fa-arrow-down-1-9", "fa-solid fa-location-dot", "fa-solid fa-clock", "fa-solid fa-circle-info" ]} indexModalLocal={1} indexAvarias={3} indexNum={0} indexBuscar={1} indexAutonomia={2} selectLocalOptions={['Subsolo', 'Acesso subsolo A', 'Acesso subsolo B', 'Térreo', 'Brigada', 'Escada A', 'Escada B', 'Escada C', '2º Pav A', '2º Pav B', '2º Pav Escada C', '3º Pav A', '3º Pav B', '3º Pav Escada C', '4º Pav A', '4º Pav B', '4º Pav Escada C', 'CMI']} autonomiaOptions={['1h', '2h', '3h', '4h', '5h', '6h']} />
       
     </> 
   )

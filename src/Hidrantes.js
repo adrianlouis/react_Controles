@@ -17,6 +17,10 @@ const Hidrantes = () => {
   const userHds = context.userLogado.hd
   const [valor, setValor] = React.useState('')
 
+  
+  window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
+  
+
   function filtroNum(el){
     setValor(el)
   }
@@ -67,8 +71,6 @@ const Hidrantes = () => {
 
     context.setUserLogado({...context.userLogado, hd:[...res]})
   }
-
-  console.log(context.userLogado.hd)
 
 
   return (
@@ -123,9 +125,9 @@ const Hidrantes = () => {
               <p>{`${new Date(item.val).getUTCMonth()+1} - ${new Date(item.val).getUTCFullYear()}`}</p>
             </div>
   
-            {item.avarias && <div id="hdAvarias" className="hdInfo">
+            {item.avaria && <div id="hdAvarias" className="hdInfo">
               <p>Avarias</p>
-              <textarea id="hdAvariasTxtArea" value={item.avarias}></textarea>
+              <textarea id="hdAvariasTxtArea" value={item.avaria} readOnly={true}></textarea>
             </div>}
 
             <div id="hdActions">
@@ -171,9 +173,9 @@ const Hidrantes = () => {
               <p>{`${new Date(item.val).getUTCMonth()+1} - ${new Date(item.val).getUTCFullYear()}`}</p>
             </div>
   
-            {item.avarias && <div id="hdAvarias" className="hdInfo">
+            {item.avaria && <div id="hdAvarias" className="hdInfo">
               <p>Avarias</p>
-              <textarea id="hdAvariasTxtArea" value={item.avarias}></textarea>
+              <textarea id="hdAvariasTxtArea" value={item.avaria} readOnly={true}></textarea>
             </div>}
 
             <div id="hdActions">
@@ -185,7 +187,7 @@ const Hidrantes = () => {
           </div>
         })}
 
-        <IconesBottom itens={context.userLogado.hd} buscarChange={({target})=>filtroNum(target.value)} buscarValor={valor} novoItem='/hdnovo' iconesDeFiltragem={["fa-solid fa-arrow-down-1-9", "fa-solid fa-shower", "fa-solid fa-location-dot", "fa-solid fa-circle-info", "fa-solid fa-calendar-day", "fa-solid fa-calendar-check"]} indexModalLocal={2} indexAvarias={3} indexNum={0} indexBuscar={1}  selectLocalOptions={['Subsolo', 'Térreo', '2º Pav A', '2º Pav B', '3º Pav A', '3º Pav B', '4º Pav A', '4º Pav B']} autonomiaOptions={['1h', '2h', '3h', '4h', '5h', '6h']} />
+        <IconesBottom itens={context.userLogado.hd} buscarChange={({target})=>filtroNum(target.value)} buscarValor={valor} novoItem='/hdnovo' iconesDeFiltragem={["fa-solid fa-arrow-down-1-9", "fa-solid fa-location-dot", "fa-solid fa-shower", "fa-solid fa-circle-info", "fa-solid fa-wrench"]} indexNum={0} indexModalLocal={1} indexAvarias={3} indexHdPecas={4} indexBuscar={1}   selectLocalOptions={['Subsolo', 'Térreo', '2º Pav A', '2º Pav B', '3º Pav A', '3º Pav B', '4º Pav A', '4º Pav B']} autonomiaOptions={['1h', '2h', '3h', '4h', '5h', '6h']} />
       </div>
 
       {/* <IconesBottom novoItem='/hdnovo' selectLocalOptions={['Subsolo', 'Acesso subsolo A', 'Acesso subsolo B', 'Térreo', 'Brigada', 'Escada A', 'Escada B', 'Escada C', '2º Pav A', '2º Pav B', '2º Pav Escada C', '3º Pav A', '3º Pav B', '3º Pav Escada C', '4º Pav A', '4º Pav B', '4º Pav Escada C', 'CMI']} itens={context.userLogado.hd} iconesDeFiltragem={["fa-solid fa-angles-left"]} autonomiaOptions={['1h']} /> */}

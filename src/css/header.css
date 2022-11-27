@@ -54,6 +54,11 @@
 
 #modalFechar{
     margin-bottom: 30px;
+    position: absolute;
+    top: 15px;
+    left: 20px;
+    margin: 0;
+    font-size: 2rem;
 }
 .headerModal > *{
     margin: 10px auto;

@@ -15,6 +15,7 @@ import Extintores from './Extintores';
 import ExtNovo from './ExtNovo';
 import ExtEditar from './ExtEditar';
 import Header from './Header';
+import Gas from './Gas';
 
 function App() {
 
@@ -37,6 +38,7 @@ function App() {
           <Route path='testes' element={<AreaParaTestes/>} />
           <Route path='extnovo' element={<ExtNovo/>} />
           <Route path='/ext/:extedit' element={<ExtEditar/>} />
+          <Route path='gas' element={<Gas/>} />
           
         </Routes>
 

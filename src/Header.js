@@ -9,7 +9,6 @@ const Header = () => {
   const context = React.useContext(GlobalContext)
   const navigate = useNavigate()
   const [headerModal, setHeaderModal] = React.useState(false)
-  const [filtroAplicado, setFiltroAplicado] = React.useState('sem filtro')
   const url = window.location.href
   
   function modalToggle(){
@@ -27,10 +26,6 @@ const Header = () => {
 
   },[headerModal])
 
-  // modal.addEventListener('click', ()=>{
-  //   console.log('addevent')
-  //   modalToggle()
-  // })
 
   
   return (
@@ -52,11 +47,8 @@ const Header = () => {
 
         <span onClick={()=>handleMenuLink('/home')}>Home</span>
 
-
         <span onClick={()=>handleMenuLink('/')}>Logout</span>
-      {/* <div className='headerModalContent'>
-        s
-      </div> */}
+
       </div>
 
     </div>

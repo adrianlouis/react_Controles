@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
+import AcoesCriandoItem from './AcoesCriandoItem'
 import { GlobalContext } from './GlobalContext'
-import InnerFooter from './InnerFooter'
 import Input from './Input'
 import Select from './Select'
 
@@ -41,8 +41,6 @@ const ExtEditar = () => {
 
     },[])
 
-    console.log(editado)
-    console.log(context.userLogado.ext)
 
     function salvarExt(){
         const outrosExtintores = context.userLogado.ext.filter((filtro)=>{
@@ -106,14 +104,9 @@ const ExtEditar = () => {
                 </textarea>
             </div>
 
-            <div id='botoesEdicao' className='hdInfo'>
-            <i class="fa-solid fa-angles-left" onClick={()=>navigate('/ext')}></i>
-            <i class="fa-solid fa-floppy-disk" onClick={salvarExt}></i>
-            </div>
+            <AcoesCriandoItem voltar='/ext' salvar={salvarExt} />
 
         </div>
-
-        {/* <InnerFooter botoes={[['/ext', 'salvar', salvarExt],[ '/ext', 'voltar']]}  /> */}
 
     </div>
   )

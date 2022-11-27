@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import AcoesCriandoItem from './AcoesCriandoItem'
 import { GlobalContext } from './GlobalContext'
 import Input from './Input'
 import Select from './Select'
@@ -59,12 +60,10 @@ const LdENovoReg = () => {
         <label >Anotações</label> 
         <textarea onChange={({target})=>setAnotacao(target.value)} value={anotacao} />  
         
-        <div className='cardAcoes'>
-            {/* <span className={(num === '' && pav === '' && dur === '' && anotacao === '') ? 'notReady' : 'ldeSubFooterBtn'} onClick={handleSubmit} >Salvar</span> */}
-            <i class="fa-solid fa-angles-left" onClick={()=>navigate('/lde')}></i>
-            <i class="fa-solid fa-floppy-disk" onClick={handleSubmit}></i>    
-        </div>
-    </div>
+      </div>
+
+      <AcoesCriandoItem voltar='/lde' salvar={handleSubmit}/>
+      
     </>
   )
 }

@@ -22,6 +22,13 @@
     margin: unset;
 }
 
+#resFiltro{
+    position: absolute;
+    top: 2px;
+    font-size: .9rem;
+    color: #0f0;
+}
+
 
 #containerBuscar, #containerFiltrar, #containerFiltrarLocal, #containerAutonomia{
     display: flex;

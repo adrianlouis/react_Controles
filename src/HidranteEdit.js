@@ -2,7 +2,6 @@ import React, { useContext } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import CheckBox from './CheckBox'
 import { GlobalContext } from './GlobalContext'
-import InnerHeader from './InnerHeader'
 import Input from './Input'
 import Select from './Select'
 
@@ -21,7 +20,7 @@ const HidranteEdit = () => {
     const [hdVal, setHdVal] = React.useState('')
     const [avarias, setAvarias] = React.useState('')
     const [peca, setPeca] = React.useState([])
-    const hdEditado = {id:id, num:num, local:local, abrigo:abrigo, sinal:sinal, val:hdVal, avarias:avarias, pecas:peca}
+    const hdEditado = {id:id, num:num, local:local, abrigo:abrigo, sinal:sinal, val:hdVal, avaria:avarias, pecas:peca}
 
     React.useEffect(()=>{
         const item = context.userLogado.hd.filter((filtro)=>{
@@ -34,7 +33,7 @@ const HidranteEdit = () => {
         setAbrigo(item[0].abrigo)
         setSinal(item[0].sinal)
         setHdVal(item[0].val)
-        setAvarias(item[0].avarias)
+        setAvarias(item[0].avaria)
         setPeca(item[0].pecas) 
 
     },[])
@@ -62,7 +61,6 @@ const HidranteEdit = () => {
     // <div className='hdPageEdit'>
 <>
 
-    <InnerHeader/>
     <div className='hdCard'>
       <div id="hdNum" className="hdInfo">
           <span>Hidrante</span>

@@ -1,8 +1,8 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import AcoesCriandoItem from "./AcoesCriandoItem";
 import CheckBox from "./CheckBox";
 import { GlobalContext } from "./GlobalContext";
-import InnerHeader from "./InnerHeader";
 import Input from "./Input";
 import Select from "./Select";
 
@@ -55,7 +55,7 @@ const HidranteNovo = () => {
       sinal: sinal,
       val: hdValidade,
       pecas: pecas,
-      avarias: avarias,
+      avaria: avarias,
     };
 
     context.setUserLogado({
@@ -68,8 +68,6 @@ const HidranteNovo = () => {
   return (
     <div>
       {/* <Link className="ldeSubFooterBtn" to="/home">Home</Link> */}
-
-      <InnerHeader />
 
       <div className="hdCard">
         <div id="hdNum" className="hdInfo">
@@ -141,11 +139,8 @@ const HidranteNovo = () => {
           ></textarea>
         </div>
 
-        <div id='hdActions'>
+        <AcoesCriandoItem voltar='/hd' salvar={salvarNovoHd} />
 
-        <span className="ldeSubFooterBtn" onClick={salvarNovoHd}>Salvar</span>
-        <Link className="ldeSubFooterBtn" to="/hd">Voltar</Link>
-        </div>
       </div>
     </div>
   );

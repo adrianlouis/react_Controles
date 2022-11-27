@@ -4,7 +4,7 @@ import css from './css/iconesBottom.css'
 import Select from './Select'
 import { GlobalContext } from './GlobalContext'
 
-const IconesBottom = ({novoItem, iconesDeFiltragem, indexModalLocal, indexAvarias, indexNum, indexAutonomia, selectLocalOptions, autonomiaOptions, itens }) => {
+const IconesBottom = ({novoItem, iconesDeFiltragem, indexModalLocal, indexAvarias, indexNum, indexAutonomia, indexHdPecas, selectLocalOptions, autonomiaOptions, itens }) => {
 
     const ctx = useContext(GlobalContext)
     const [toggleBuscar, setToggleBuscar] = React.useState(false)
@@ -15,6 +15,13 @@ const IconesBottom = ({novoItem, iconesDeFiltragem, indexModalLocal, indexAvaria
     const [toggleNumOrder, setToggleNumOrder] = React.useState(0)
     const [filtroBuscar, setFiltroBuscar] = React.useState('')
     const [filtroAutonomia, setFiltroAutonomia] = React.useState('')
+    const [resultadoFiltro, setResultadoFiltro] = React.useState('')
+
+    React.useEffect(()=>{
+        if (filtroAtivo && filtroAtivo !== 0){
+            setToggleNumOrder(0)
+        }
+    },[filtroAtivo])
 
     React.useEffect(()=>{
         if (filtroBuscar){
@@ -32,19 +39,35 @@ const IconesBottom = ({novoItem, iconesDeFiltragem, indexModalLocal, indexAvaria
             const resFiltro = itens.filter((filtro)=>{
                 return filtroDeLocal === filtro.local
             })
-
+            
             ctx.setItensFiltrados(resFiltro)
+
+            if (handleFilter && resFiltro.length === 1){
+                setResultadoFiltro(resFiltro.length+' item encontrado')
+            }else if (handleFilter && resFiltro.length > 1){
+                setResultadoFiltro(resFiltro.length+' itens encontrados')
+            }else{
+                setResultadoFiltro('')
+            }
         }
     },[filtroDeLocal])
 
     React.useEffect(()=>{
+
         if (filtroAutonomia){
             const resFiltro = itens.filter((filtro)=>{
                 return filtroAutonomia === filtro.dur
             })
 
             ctx.setItensFiltrados(resFiltro)
+            
+            if(resFiltro.length === 1){
+                setResultadoFiltro(resFiltro.length+' luz de emergência')
+            }else if (resFiltro.length > 1){
+                setResultadoFiltro(resFiltro.length+' luzes de emergência')
+            }
         }
+
     },[filtroAutonomia])
 
     function buscar(){
@@ -67,7 +90,10 @@ const IconesBottom = ({novoItem, iconesDeFiltragem, indexModalLocal, indexAvaria
             document.querySelector('#containerAutonomia').classList.remove('modalAtivo')
             setFiltroBuscar('')
             ctx.setItensFiltrados('')
+            setResultadoFiltro('')
+            setFiltroAtivo('')
             setToggleAutonomia(!toggleAutonomia)
+            setFiltroAutonomia('')
         }
     }
 
@@ -78,15 +104,19 @@ const IconesBottom = ({novoItem, iconesDeFiltragem, indexModalLocal, indexAvaria
         }else{
             setToggleFiltrar(!toggleFiltrar)
             setFiltroAtivo('')
+            ctx.setItensFiltrados('')
             document.querySelector('#containerFiltrar').classList.remove('modalAtivo')
         }
     }
-    
+
+
+   
     function handleFilter(filtro){
         setFiltroAtivo(prev => filtro)
         
         if(filtro === indexModalLocal){
             document.querySelector('#containerFiltrarLocal').classList.add('modalAtivo')
+            setResultadoFiltro('')
         }else{
             document.querySelector('#containerFiltrarLocal').classList.remove('modalAtivo')
             ctx.setItensFiltrados('')
@@ -109,11 +139,14 @@ const IconesBottom = ({novoItem, iconesDeFiltragem, indexModalLocal, indexAvaria
 
             if (ctx.itensFiltrados.includes(...avariados)){
                 ctx.setItensFiltrados(naoAvariados)
+                setResultadoFiltro(naoAvariados.length+' itens sem avarias')
             }else if(ctx.itensFiltrados.includes(...naoAvariados)) {
+                setResultadoFiltro('')
                 ctx.setItensFiltrados('')
                 setFiltroAtivo('')
             }else{
                 ctx.setItensFiltrados(avariados)
+                setResultadoFiltro(avariados.length+' itens com avarias')
             }
         }
 
@@ -142,15 +175,19 @@ const IconesBottom = ({novoItem, iconesDeFiltragem, indexModalLocal, indexAvaria
                     })
                 })   
 
+
             if(toggleNumOrder === 0){
                 ctx.setItensFiltrados(crescente)
+                setResultadoFiltro('Itens em ordem crescente')
                 setToggleNumOrder(1)
             }else if(toggleNumOrder === 1){
                 ctx.setItensFiltrados(decrescente)
+                setResultadoFiltro('Itens em ordem decrescente')
                 setToggleNumOrder(2)
             }else{
                 ctx.setItensFiltrados('')
                 setToggleNumOrder(0)
+                setResultadoFiltro('')
                 setFiltroAtivo('')
             }
 
@@ -159,12 +196,31 @@ const IconesBottom = ({novoItem, iconesDeFiltragem, indexModalLocal, indexAvaria
         if(filtro === indexAutonomia){
             autonomia()
         }
+
+        if(filtro === indexHdPecas){
+
+            const hdsFaltandoPecas = []
+
+            ctx.userLogado.hd.map((item)=>{
+                if (item.pecas.includes('Mangueira') && item.pecas.includes('Storz') && item.pecas.includes('Esguicho')){
+                }else{
+                    hdsFaltandoPecas.push(item)
+                }
+                
+            })
+
+            ctx.setItensFiltrados(hdsFaltandoPecas)
+            if(hdsFaltandoPecas.length > 0){
+                setResultadoFiltro(hdsFaltandoPecas.length+' hidrantes faltando peças')
+            }
+
+        }
     }
-    
+
 
   return (
     <div>
-        <div className='ldeSubFooter'>
+        <div  className='ldeSubFooter'>
 
             <Link to='/home'><i className="fa-solid fa-house" ></i></Link>
             <Link to={novoItem}><i className="fa-solid fa-file-circle-plus"></i></Link>
@@ -180,12 +236,14 @@ const IconesBottom = ({novoItem, iconesDeFiltragem, indexModalLocal, indexAvaria
 
 
             <div id='containerAutonomia' className='modalInativoEsquerda' >
+                {resultadoFiltro && filtroAtivo === indexAutonomia && <span id='resFiltro'>{resultadoFiltro}</span>}
                 <i className="fa-solid fa-angles-left" onClick={autonomia}></i>
                 <Select selectValorInicial={filtroAutonomia} optionDisabledValue='escolha a autonomia' selectOnChange={({target})=>setFiltroAutonomia(target.value)} options={autonomiaOptions} />
                 <i className="fa-solid fa-clock filtroAtivo" onClick={autonomia}></i>
             </div>
 
             <div id='containerFiltrar' className='modalInativoEsquerda' >
+                {ctx.itensFiltrados && <span id='resFiltro'>{resultadoFiltro}</span>}
                 <i className="fa-solid fa-angles-left" onClick={filtrar}></i>
 
                 {iconesDeFiltragem.map((item, index)=>{
@@ -196,6 +254,8 @@ const IconesBottom = ({novoItem, iconesDeFiltragem, indexModalLocal, indexAvaria
             </div>
 
             <div id='containerFiltrarLocal' className='modalInativoEsquerda' >
+            {ctx.itensFiltrados && <span id='resFiltro'>{resultadoFiltro}</span>}
+
                 <i className="fa-solid fa-angles-left" onClick={()=>handleFilter('')}></i>
                 <Select selectValorInicial={filtroDeLocal} optionDisabledValue='escolha o local' selectOnChange={({target})=>setFiltroDeLocal(target.value)} options={selectLocalOptions} />
                 <i className="fa-solid fa-location-dot filtroAtivo" />

@@ -32,6 +32,8 @@ const Home = () => {
 
         <HomeCard spanCardClass='cardTexto' divClass='homeCardAtivo homeCardContainer' cardNome={context.userLogado.hd.length+' Hidrantes'} onClick={()=>nav('/hd')} />
 
+        <HomeCard spanCardClass='cardText' divClass='homeCardAtivo homeCardContainer' cardNome='Medidores de Gás' onClick={()=>nav('/gas')} />
+
         <HomeCard spanCardClass='cardTexto' divClass='homeCardInativo homeCardContainer' cardNome='Portas Corta Fogo' />
 
         <HomeCard spanCardClass='cardText' divClass='homeCardInativo homeCardContainer' cardNome='Garagem' />
@@ -42,9 +44,7 @@ const Home = () => {
 
         <HomeCard spanCardClass='cardText' divClass='homeCardInativo homeCardContainer' cardNome='Lojistas' />
 
-        <HomeCard spanCardClass='cardText' divClass='homeCardInativo homeCardContainer' cardNome='Medidores de Gás' />
-
-        <HomeCard spanCardClass='cardText' divClass='homeCardInativo homeCardContainer' cardNome='Prestadores' />
+        <HomeCard spanCardClass='cardText' divClass='homeCardInativo homeCardContainer' cardNome='Escoltas' />
 
         </div>
       
