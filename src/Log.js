@@ -28,7 +28,7 @@ const Log = () => {
     const [regValidacoes, setRegValidacoes] = React.useState({vNome: false, vEmail:false, vSenha:false, vConfSenha:false})
 
     const navigate = useNavigate();
-    const newUser = {nome: regNome, email:regEmail, senha:regSenha, lde:[], hd:[], ext:[]}
+    const newUser = {nome: regNome, email:regEmail, senha:regSenha, lde:[], hd:[], ext:[], gas:[]}
     const [deltree, setDeltree] = React.useState(false)
 
     // window.localStorage.clear()
@@ -56,8 +56,10 @@ const Log = () => {
         setErroLogin('usuário ou senha não confere')
       }else{
         // LOGADO 
+        console.log(context.userLogado)
         setErroLogin(`Olá, Sr(a). ${item[0].nome}!`)
-        context.setUserLogado(...item)
+
+
         setTimeout(() => {
           navigate('/home')
         }, 500);

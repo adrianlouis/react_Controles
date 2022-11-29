@@ -16,6 +16,7 @@ import ExtNovo from './ExtNovo';
 import ExtEditar from './ExtEditar';
 import Header from './Header';
 import Gas from './Gas';
+import GasNovo from './GasNovo';
 
 function App() {
 
@@ -26,19 +27,24 @@ function App() {
 
         <Routes>
           {/* <Route path='/' element={<AreaParaTestes/>} /> */}
+          <Route path='testes' element={<AreaParaTestes/>} />
           <Route path='/' element={<Log/>} />
           <Route path='home' element={<Home/>} />
+
           <Route path='lde' element={<LdE/>} />
           <Route path='ldenovo' element={<LdENovoReg/> } />
           <Route path='/lde/edit/:id' element={<LdeEdit/> } />
+
           <Route path='hd' element={<Hidrantes/>} />
           <Route path='hdnovo' element={<HidranteNovo/> } />
           <Route path='/hd/:id' element={<HidranteEdit />} />
+
           <Route path='ext' element={<Extintores />} />
-          <Route path='testes' element={<AreaParaTestes/>} />
           <Route path='extnovo' element={<ExtNovo/>} />
           <Route path='/ext/:extedit' element={<ExtEditar/>} />
+
           <Route path='gas' element={<Gas/>} />
+          <Route path='gasnovo' element={<GasNovo/>} />
           
         </Routes>
 
