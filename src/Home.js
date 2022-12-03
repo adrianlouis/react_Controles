@@ -12,7 +12,7 @@ const Home = () => {
     if(!context.userLogado){
       navigate('/')
     }
-
+console.log(context.userLogado)
     function nav(dest){
         navigate(dest)
     }

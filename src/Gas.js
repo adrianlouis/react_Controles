@@ -9,15 +9,15 @@ import { GlobalContext } from './GlobalContext'
 const Gas = () => {
 
     const ctx = useContext(GlobalContext) 
-    const [showContent, setShowContent] = React.useState(false)
     const navigate = useNavigate()
     const gases = ctx.userLogado.gas 
     const funcaoNum = ()=> ordemNumerica(gases)
     const novoItem = ()=>navigate('/gasnovo')
  
 
-    function handleContent(){
-        setShowContent(!showContent)
+    function handleContent(content){
+        const element = content.firstElementChild.nextSibling
+        element.classList.contains('hideContent') ? element.classList.remove('hideContent') : element.classList.add('hideContent')
     }
 
     function home(){
@@ -35,7 +35,7 @@ const Gas = () => {
             return <>
                 <div key={item.id} className='gasCard' onClick={({currentTarget})=>handleContent(currentTarget)}>
 
-                <div className='gasCardData'>
+                <div className='gasCardData' >
                     <div>
                     <span>Data: </span>
                     <span>{item.diaCriado}</span>
@@ -48,7 +48,7 @@ const Gas = () => {
                     </div>
                 </div>
 
-                {showContent && <div className='gasCardContent'>
+                <div  className='gasCardContent hideContent'>
 
                 <div className='gasCardWrapper'>
                     <span>Loja 128: </span>
@@ -86,7 +86,7 @@ const Gas = () => {
                 </div>
 
 
-                </div>}
+                </div>
 
                 <div className='act'>
                     <i className="fa-solid fa-trash-can"></i>

@@ -12,6 +12,7 @@ const Log = () => {
     const context = React.useContext(GlobalContext)
     const [nome, setNome] = React.useState('')
     const [senha, setSenha] = React.useState('')
+
     const user = {nome:nome, senha: senha}
 
     const [listaUser, setListaUser] = React.useState([])
@@ -28,7 +29,7 @@ const Log = () => {
     const [regValidacoes, setRegValidacoes] = React.useState({vNome: false, vEmail:false, vSenha:false, vConfSenha:false})
 
     const navigate = useNavigate();
-    const newUser = {nome: regNome, email:regEmail, senha:regSenha, lde:[], hd:[], ext:[], gas:[]}
+    const newUser = {nome: regNome, email:regEmail, senha:regSenha, lde:[], hd:[], ext:[], gas:[], pcf:[], gar:[], pre:[], sal:[], loj:[], aco:[]}
     const [deltree, setDeltree] = React.useState(false)
 
     // window.localStorage.clear()
@@ -57,7 +58,18 @@ const Log = () => {
       }else{
         // LOGADO 
         console.log(context.userLogado)
-        setErroLogin(`Olá, Sr(a). ${item[0].nome}!`)
+
+        //PATCH PARA USERLOGADO
+        if (!item.gas){
+          
+          context.setUserLogado({...item, gas:[]})
+        }else{
+          context.setUserLogado(...item)
+
+        }
+
+
+        setErroLogin(`Bem-vindo, ${item[0].nome}!`)
 
 
         setTimeout(() => {
