@@ -12,10 +12,16 @@ const Home = () => {
     if(!context.userLogado){
       navigate('/')
     }
-console.log(context.userLogado)
     function nav(dest){
-        navigate(dest)
+      navigate(dest)
     }
+    
+
+    // patch para usuarios antigos
+    if(!context.userLogado.gas){
+      context.setUserLogado({...context.userLogado, gas:[]})
+    }
+
 
   return (
     <>
