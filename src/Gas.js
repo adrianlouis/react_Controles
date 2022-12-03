@@ -13,10 +13,11 @@ const Gas = () => {
     const gases = ctx.userLogado.gas 
     const funcaoNum = ()=> ordemNumerica(gases)
     const novoItem = ()=>navigate('/gasnovo')
+    const [confirmarDel, setConfirmarDel] = React.useState(false)
  
 
     function handleContent(content){
-        const element = content.firstElementChild.nextSibling
+        const element = content.nextSibling
         element.classList.contains('hideContent') ? element.classList.remove('hideContent') : element.classList.add('hideContent')
     }
 
@@ -28,70 +29,104 @@ const Gas = () => {
         console.log('dah')
     }
 
+    function deletar(id){
+        
+        document.querySelector('#botoes'+id).classList.add('hideContent')
+        document.querySelector('#confirmarDel'+id).classList.remove('hideContent')
+    }
+    function confDel(id, bool){
+        if(bool){
+            const res = gases.filter((filtro)=>{
+            return filtro.id !== id
+        })
+        ctx.setUserLogado({...ctx.userLogado, gas:[...res]})
+        }else{
+            document.querySelector('#botoes'+id).classList.remove('hideContent')
+            document.querySelector('#confirmarDel'+id).classList.add('hideContent')
+        }
+    }
+
+
   return (
     <div className='gasContainer'>
 
         {ctx.userLogado.gas.map((item)=>{
             return <>
-                <div key={item.id} className='gasCard' onClick={({currentTarget})=>handleContent(currentTarget)}>
+                <div key={item.id} className='gasCard' >
 
-                <div className='gasCardData' >
-                    <div>
-                    <span>Data: </span>
-                    <span>{item.diaCriado}</span>
+                    <div className='gasCardData' onClick={({currentTarget})=>handleContent(currentTarget)} >
+
+                        <div>
+                            <span>Data: </span>
+                            <span>{item.diaCriado}</span>
+                        </div>
+                            
+                        <div>
+                            <span>Hora: </span>
+                            <span>{item.horaCriado}</span>
+                        </div>
+
                     </div>
-                        
-                    <div>
-                    <span>Hora: </span>
-                    <span>{item.horaCriado}</span>
+
+                    <div className='hideContent'>
+
+                        <div  className='gasCardContent '>
+
+                            <div className='gasCardWrapper'>
+                                <span>Loja 128: </span>
+                                <span>{item.l128}</span>
+                            </div>
+
+                            <div className='gasCardWrapper'>
+                                <span>Loja 132: </span>
+                                <span>{item.l132}</span>
+                            </div>
+
+                            <div className='gasCardWrapper'>
+                                <span>Loja 137: </span>
+                                <span>{item.l137}</span>
+                            </div>
+
+                            <div className='gasCardWrapper'>
+                                <span>Loja 141: </span>
+                                <span>{item.l141}</span>
+                            </div>
+
+                            <div className='gasCardWrapper'>
+                                <span>Loja 152: </span>
+                                <span>{item.l152}</span>
+                            </div>
+
+                            <div className='gasCardWrapper'>
+                                <span>Loja 154: </span>
+                                <span>{item.l154}</span>
+                            </div>
+
+                            <div className='gasCardWrapper'>
+                                <span>Loja 157: </span>
+                                <span>{item.l157}</span>
+                            </div>
+
+                        </div>
+
+                        <div id={'botoes'+item.id} className='act'>
+                            <i className="fa-solid fa-trash-can" onClick={()=>deletar(item.id)} ></i>
+                            <i className="fa-solid fa-pen-to-square" ></i>
+                        </div>
+
+                        <div id={'confirmarDel'+item.id} className='confirmarDelContainer hideContent  '>
+                            <div>
+                                <span>Deseja excluir este item?</span>
+                            </div>
+
+                            <div className='escolhasDel'>
+                                <i className="fa-solid fa-thumbs-down" onClick={()=>confDel(item.id, false)}></i>
+                                <i className="fa-solid fa-thumbs-up" onClick={()=>confDel(item.id, true)}></i>
+                            </div>
+
+                        </div>
 
                     </div>
-                </div>
-
-                <div  className='gasCardContent hideContent'>
-
-                <div className='gasCardWrapper'>
-                    <span>Loja 128: </span>
-                    <span>{item.l128}</span>
-                </div>
-
-                <div className='gasCardWrapper'>
-                    <span>Loja 132: </span>
-                    <span>{item.l132}</span>
-                </div>
-
-                <div className='gasCardWrapper'>
-                    <span>Loja 137: </span>
-                    <span>{item.l137}</span>
-                </div>
-
-                <div className='gasCardWrapper'>
-                    <span>Loja 141: </span>
-                    <span>{item.l141}</span>
-                </div>
-
-                <div className='gasCardWrapper'>
-                    <span>Loja 152: </span>
-                    <span>{item.l152}</span>
-                </div>
-
-                <div className='gasCardWrapper'>
-                    <span>Loja 154: </span>
-                    <span>{item.l154}</span>
-                </div>
-
-                <div className='gasCardWrapper'>
-                    <span>Loja 157: </span>
-                    <span>{item.l157}</span>
-                </div>
-
-
-                </div>
-
-                <div className='act'>
-                    <i className="fa-solid fa-trash-can"></i>
-                    <i className="fa-solid fa-pen-to-square"></i>
-                </div>
 
                 </div>
             </>
