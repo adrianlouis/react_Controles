@@ -59,15 +59,7 @@ const Log = () => {
         // LOGADO 
         console.log(context.userLogado)
 
-        //PATCH PARA USERLOGADO
-        if (!item.gas){
-          
-          context.setUserLogado({...item, gas:[]})
-        }else{
           context.setUserLogado(...item)
-
-        }
-
 
         setErroLogin(`Bem-vindo, ${item[0].nome}!`)
 
