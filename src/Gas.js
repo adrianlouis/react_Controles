@@ -13,7 +13,18 @@ const Gas = () => {
     const gases = ctx.userLogado.gas 
     const funcaoNum = ()=> ordemNumerica(gases)
     const novoItem = ()=>navigate('/gasnovo')
-    const [confirmarDel, setConfirmarDel] = React.useState(false)
+    const [inputDisabled, setInputDisabled] = React.useState(true)
+    const [tempMarcacao, setTempMarcacao] = React.useState({
+        l128:'',
+        l132:'',
+        l137:'',
+        l141:'',
+        l152:'',
+        l154:'',
+        l157:''
+    }) 
+    const [testeDis, setTesteDis] = React.useState('')
+    
  
 
     function handleContent(content){
@@ -47,12 +58,16 @@ const Gas = () => {
     }
 
 
+    
+    console.log(ctx.userLogado.gas)
+
+  
+
   return (
     <div className='gasContainer'>
 
         {ctx.userLogado.gas.map((item)=>{
-            return <>
-                <div key={item.id} className='gasCard' >
+            return <div key={item.id} className='gasCard' >
 
                     <div className='gasCardData' onClick={({currentTarget})=>handleContent(currentTarget)} >
 
@@ -72,7 +87,7 @@ const Gas = () => {
 
                         <div  className='gasCardContent '>
 
-                            <div className='gasCardWrapper'>
+                            <div className='gasCardWrapper' >
                                 <span>Loja 128: </span>
                                 <span>{item.l128}</span>
                             </div>
@@ -80,6 +95,7 @@ const Gas = () => {
                             <div className='gasCardWrapper'>
                                 <span>Loja 132: </span>
                                 <span>{item.l132}</span>
+
                             </div>
 
                             <div className='gasCardWrapper'>
@@ -102,7 +118,7 @@ const Gas = () => {
                                 <span>{item.l154}</span>
                             </div>
 
-                            <div className='gasCardWrapper'>
+                            <div className='gasCardWrapper' >
                                 <span>Loja 157: </span>
                                 <span>{item.l157}</span>
                             </div>
@@ -111,7 +127,8 @@ const Gas = () => {
 
                         <div id={'botoes'+item.id} className='act'>
                             <i className="fa-solid fa-trash-can" onClick={()=>deletar(item.id)} ></i>
-                            <i className="fa-solid fa-pen-to-square" ></i>
+                            {inputDisabled && <i className="fa-solid fa-pen-to-square" onClick={()=>navigate(`gasedit?id=${item.id}`)} ></i>}
+                            {!inputDisabled && <i className="fa-solid fa-floppy-disk"  ></i>}
                         </div>
 
                         <div id={'confirmarDel'+item.id} className='confirmarDelContainer hideContent  '>
@@ -129,7 +146,7 @@ const Gas = () => {
                     </div>
 
                 </div>
-            </>
+            
         })}
 
 

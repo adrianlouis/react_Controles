@@ -42,6 +42,19 @@
     gap: 5px;
 }
 
+.gasCardContentEdit{
+
+    /* border: 1px solid red; */
+    height: 100%;
+}
+
+.gasCardContentEdit .gasCardWrapper{
+    margin: 20px 0;
+}
+.gasCardContentEdit .gasCardWrapper:nth-last-child(2){
+    margin-bottom: 500px;
+}
+
 .gasCardWrapper{
     /* border: 1px solid green; */
     height: 10px;
@@ -95,4 +108,13 @@
     color: red;
     font-size: 3rem;
     margin-bottom: 150px;
+}
+
+.inputGas{
+    width: 100px;
+    border: none;
+    color: #0a0;
+}
+.inputGasEditavel{
+    border: 1px solid #0a0;
 }

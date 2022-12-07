@@ -17,6 +17,7 @@ import ExtEditar from './ExtEditar';
 import Header from './Header';
 import Gas from './Gas';
 import GasNovo from './GasNovo';
+import GasEdit from './GasEdit';
 
 function App() {
 
@@ -45,6 +46,7 @@ function App() {
 
           <Route path='gas' element={<Gas/>} />
           <Route path='gasnovo' element={<GasNovo/>} />
+          <Route path='/gas/:gasnovo' element={<GasEdit/>}/> 
           
         </Routes>
 
