@@ -25,9 +25,7 @@ const GasNovo = () => {
         l154:'',
         l157:''
     })
-    // ctx.setUserLogado({...ctx.userLogado, gas:[]})
 
-    console.log(medidores)
     // ENCONTRAR ID
   function novoId() {
 
@@ -51,32 +49,32 @@ const GasNovo = () => {
     <div className='medidoresContainer'>
         <label htmlFor='l128'>
         Loja 128
-      <input id='l128' value={medidores.l128} onChange={({target})=>setMedidores({...medidores, l128:target.value})} ></input>
         </label>
+      <input id='l128' value={medidores.l128} onChange={({target})=>setMedidores({...medidores, l128:target.value})} ></input>
         <label htmlFor='l132'>
             Loja 132 
-        <input id='l132' value={medidores.l132} onChange={({target})=>setMedidores({ ...medidores, l132:target.value })}></input>
         </label>
+        <input id='l132' value={medidores.l132} onChange={({target})=>setMedidores({ ...medidores, l132:target.value })}></input>
         <label htmlFor='l137'>
             Loja 137
-      <input id='l137' value={medidores.l137} onChange={({target})=>setMedidores({ ...medidores, l137:target.value })}></input>
         </label>
+      <input id='l137' value={medidores.l137} onChange={({target})=>setMedidores({ ...medidores, l137:target.value })}></input>
         <label htmlFor='l141'>
             Loja 141
-      <input id='l141' value={medidores.l141} onChange={({target})=>setMedidores({ ...medidores, l141:target.value })}></input>
         </label>
+      <input id='l141' value={medidores.l141} onChange={({target})=>setMedidores({ ...medidores, l141:target.value })}></input>
         <label htmlFor='l152'>
             Loja 152
-      <input id='l152' value={medidores.l152} onChange={({target})=>setMedidores({ ...medidores, l152:target.value })}></input>
         </label>
+      <input id='l152' value={medidores.l152} onChange={({target})=>setMedidores({ ...medidores, l152:target.value })}></input>
         <label htmlFor='l154'>
             Loja 154
-      <input id='l154' value={medidores.l154} onChange={({target})=>setMedidores({ ...medidores, l154:target.value })}></input>
         </label>
+      <input id='l154' value={medidores.l154} onChange={({target})=>setMedidores({ ...medidores, l154:target.value })}></input>
         <label htmlFor='l157'>
             Loja 157
-      <input id='l157' value={medidores.l157} onChange={({target})=>setMedidores({ ...medidores, l157:target.value })}></input>
         </label>
+      <input id='l157' value={medidores.l157} onChange={({target})=>setMedidores({ ...medidores, l157:target.value })}></input>
 
 
         <AcoesCriandoItem voltar='/gas' salvar={save} />

@@ -58,11 +58,6 @@ const Gas = () => {
     }
 
 
-    
-    console.log(ctx.userLogado.gas)
-
-  
-
   return (
     <div className='gasContainer'>
 

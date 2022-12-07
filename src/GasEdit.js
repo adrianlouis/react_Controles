@@ -9,7 +9,7 @@ const GasEdit = () => {
     const navigate = useNavigate()
     const location = useLocation()
     const search = new URLSearchParams(location.search)
-    const [gas, setGas] = React.useState('')
+    // const [gas, setGas] = React.useState('')
     const [editado, setEditado] = React.useState({
         id: '',
         diaCriado:'',
@@ -27,11 +27,9 @@ const GasEdit = () => {
         const item = ctx.userLogado.gas.filter((filtro)=>{
             return filtro.id === Number(search.get('id'))
         })
-        setGas(item)
-        setEditado({...editado, id:item[0].id, horaCriado:item[0].horaCriado, diaCriado:item[0].diaCriado})
+        // setGas(item)
+        setEditado({...editado, id:item[0].id, horaCriado:item[0].horaCriado, diaCriado:item[0].diaCriado, l128:item[0].l128, l132:item[0].l132, l137:item[0].l137, l141:item[0].l141, l152:item[0].l152, l154:item[0].l154, l157:item[0].l157})
     },[])
-
-    console.log(editado)
 
     function handleSave(){
 
@@ -53,38 +51,38 @@ const GasEdit = () => {
 
             <div className='gasCardWrapper' >
                 <span>Loja 128: </span>
-                <input value={gas.l128} onChange={({target})=>setEditado({...editado, l128:target.value})} />
+                <input value={editado.l128} onChange={({target})=>setEditado({...editado, l128:target.value})} />
             </div>
 
             <div className='gasCardWrapper'>
                 <span>Loja 132: </span>
-                <input value={gas.l132} onChange={({target})=>setEditado({...editado, l132:target.value})}/>
+                <input value={editado.l132} onChange={({target})=>setEditado({...editado, l132:target.value})}/>
 
             </div>
 
             <div className='gasCardWrapper'>
                 <span>Loja 137: </span>
-                <input value={gas.l137} onChange={({target})=>setEditado({...editado, l137:target.value})}/>
+                <input value={editado.l137} onChange={({target})=>setEditado({...editado, l137:target.value})}/>
             </div>
 
             <div className='gasCardWrapper'>
                 <span>Loja 141: </span>
-                <input value={gas.l141} onChange={({target})=>setEditado({...editado, l141:target.value})}/>
+                <input value={editado.l141} onChange={({target})=>setEditado({...editado, l141:target.value})}/>
             </div>
 
             <div className='gasCardWrapper'>
                 <span>Loja 152: </span>
-                <input value={gas.l152} onChange={({target})=>setEditado({...editado, l152:target.value})}/>
+                <input value={editado.l152} onChange={({target})=>setEditado({...editado, l152:target.value})}/>
             </div>
 
             <div className='gasCardWrapper'>
                 <span>Loja 154: </span>
-                <input value={gas.l154} onChange={({target})=>setEditado({...editado, l154:target.value})}/>
+                <input value={editado.l154} onChange={({target})=>setEditado({...editado, l154:target.value})}/>
             </div>
 
             <div className='gasCardWrapper' >
                 <span>Loja 157: </span>
-                <input value={gas.l157} onChange={({target})=>setEditado({...editado, l157:target.value})}/>
+                <input value={editado.l157} onChange={({target})=>setEditado({...editado, l157:target.value})}/>
             </div>
 
             <AcoesCriandoItem voltar='/gas' salvar={()=>handleSave()} />
