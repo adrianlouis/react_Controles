@@ -8,7 +8,6 @@
     border: 1px solid #050;
     padding: 10px;
     width: 80%;
-    /* height: 80px; */
     margin-top: 15px;
     /* display: grid;
     grid-template-columns: auto auto ; */
@@ -122,4 +121,59 @@
 }
 .inputGasEditavel{
     border: 1px solid #0a0;
+}
+
+
+/* NOVO CSS PARA GASNOVO  */
+
+.gasNovoContainer{
+    background-color: #333;
+    width: 100%;
+    height: 400px;
+    padding-top: 30px;
+}
+.gasNovoCard{
+    width: 90%;
+    background-color: #ddd;
+    border-radius: 20px;
+    /* height: 200px; */
+    /* margin-top: 30px; */
+}
+.gasNovoHora{
+    /* border: 1px solid red; */
+    /* padding-left: 10px ; */
+    text-align: center;
+    /* margin-top: 10px ; */
+    padding-top: 5px;
+}
+.gasNovoMedidores{
+    /* border: 1px solid blue; */
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.gasNovoUnd{
+    /* background-color: #888; */
+    width: 100px;
+    height: 60px;
+}
+.gasNovoUnd p{
+    font-size: .8rem;
+}
+.novoGasInput{
+    width: 120px;
+    border-radius: 5px;
+    border: none;
+    border: 2px solid #050;
+}
+.novoGasInput:focus{
+    border: 2px solid #0a0;
+}
+
+
+.testContainer{
+    background-color: #222;
+    width: 100%;
+    height: 100vh;
 }

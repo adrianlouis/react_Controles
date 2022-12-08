@@ -5,27 +5,17 @@ import IconesBottom from './IconesBottom'
 import IconsBottom from './IconsBottom'
 import {ordemNumerica} from './funcoes/filtroFuncoes'
 import { GlobalContext } from './GlobalContext'
+import Select from './Select'
 
 const Gas = () => {
 
     const ctx = useContext(GlobalContext) 
     const navigate = useNavigate()
     const gases = ctx.userLogado.gas 
-    const funcaoNum = ()=> ordemNumerica(gases)
+    // const funcaoNum = ()=> ordemNumerica(gases)
     const novoItem = ()=>navigate('/gasnovo')
     const [inputDisabled, setInputDisabled] = React.useState(true)
-    const [tempMarcacao, setTempMarcacao] = React.useState({
-        l128:'',
-        l132:'',
-        l137:'',
-        l141:'',
-        l152:'',
-        l154:'',
-        l157:''
-    }) 
-    const [testeDis, setTesteDis] = React.useState('')
-    
- 
+    const [inputBuscarMes, setInputBuscarMes] = React.useState('')
 
     function handleContent(content){
         const element = content.nextSibling
@@ -57,9 +47,16 @@ const Gas = () => {
         }
     }
 
+    window.scrollTo(0,0)
+
+    function funcaoNum(){
+        console.log('ordenar por num')
+    }
+
 
   return (
     <div className='gasContainer'>
+
 
         {ctx.userLogado.gas.map((item)=>{
             return <div key={item.id} className='gasCard' >
@@ -148,7 +145,7 @@ const Gas = () => {
         
 
 
-        <IconsBottom modalFiltro={[{icone:"fa-solid fa-arrow-down-1-9", acao:funcaoNum}, {icone:"fa-solid fa-calendar-day", acao:sel}]} modalBuscar={{valorInicial:'', acao:sel, disabled:'Selecione um item', opt:['a', 'b']}} iconesDefault={[{icone:"fa-solid fa-house", acao:home}, {icone:"fa-solid fa-file-circle-plus", acao:novoItem }]} />
+        <IconsBottom   iconesDefault={[{icone:"fa-solid fa-house", acao:home}, {icone:"fa-solid fa-file-circle-plus", acao:novoItem }]} />
         {/* <IconesBottom /> */}
 
     </div>

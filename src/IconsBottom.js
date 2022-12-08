@@ -41,7 +41,7 @@ const IconsBottom = ({  iconesDefault, modalBuscar, modalFiltro}) => {
 
 
 
-        <i className="fa-solid fa-sliders" onClick={toggleFilter} ></i>
+       {modalFiltro && <> <i className="fa-solid fa-sliders" onClick={toggleFilter} ></i>
 
         <div className={modalFilter? 'modalFooter ativarModal' : 'modalFooter'}>
             
@@ -52,6 +52,7 @@ const IconsBottom = ({  iconesDefault, modalBuscar, modalFiltro}) => {
             })}
 
         </div>
+        </>}
 
     </div>
   )

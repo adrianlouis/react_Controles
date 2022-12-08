@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import Log from './Log.js';
-import {BrowserRouter, Routes, Route} from 'react-router-dom'
+import {BrowserRouter, Routes, Route, useLocation} from 'react-router-dom'
 import Home from './Home.js';
 import LdE from './LdE.js';
 import { GlobalStorage } from './GlobalContext';
@@ -18,13 +18,20 @@ import Header from './Header';
 import Gas from './Gas';
 import GasNovo from './GasNovo';
 import GasEdit from './GasEdit';
+import React from 'react';
 
 function App() {
+  // const location = useLocation()
+
+  // React.useEffect(()=>{
+  //   console.log('RENDER')
+
+  // },[location])
 
   return (
     <BrowserRouter>
       <GlobalStorage>
-        <Header/>
+        {/* <Header/> */}
 
         <Routes>
           {/* <Route path='/' element={<AreaParaTestes/>} /> */}
