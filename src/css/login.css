@@ -1,0 +1,149 @@
+h1{
+    font-size: 1.5rem;
+}
+
+form{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-direction: column;
+    width: 95%;
+    transition: all .3s;
+    padding-bottom: 20px;
+    margin-top: 20px;
+    
+    background-color: #111;
+    /* border: 1px solid red; */
+    color: #0a0;
+}
+
+form h1{
+    margin: 25px;
+}
+
+form input{
+    text-align: center;
+    background-color: transparent;
+    border: 2px solid var(--verdePadrao);
+    color: var(--verdeFoco);
+
+}
+form input:focus{
+    outline: none;
+    /* border: 2px solid var(--verdeFoco); */
+    background-color: transparent;
+    color: #ddd;
+}
+form input::placeholder{
+    color: #777;
+}
+
+form span{
+    color: var(--verdePadrao);
+}
+
+.formLinks{
+    /* border: 1px solid blue; */
+    width: 320px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+.formLinks span{
+    cursor: pointer;
+}
+
+.loginContainer{
+    width: 100%;
+    height: 100vh;
+    /* border: 1px solid red; */
+    margin: auto;
+    text-align: center;
+
+    display: flex;
+    justify-content: start;
+    flex-direction: column;
+    align-items: center;
+    /* box-shadow: none; */
+}
+.loginContainer .regInputWrapper{
+    margin: 10px 0;
+}
+
+.loginBtns{
+    border: none;
+    width: 320px;
+    height: 40px;
+    /* border-radius: 20px; */
+    margin: 10px 0;
+    background-color: #050;
+    color: #ddd;
+    cursor: pointer;
+    font-weight: 900;
+}
+.loginBtns:hover{
+    box-shadow: #0a0 0 0 5px;
+    background-color: #0a0 ;
+}
+.loginBtns:active{
+    box-shadow: #aaa 0 0 3px, inset #444 1px 1px 5px, inset #111 -5px -5px 5px;
+
+}
+
+
+
+.regInputWrapper{
+    display: flex;
+    justify-content: start;
+    text-align: center;
+    align-items: center;
+    width: 300px;
+    height: 40px;
+    background-color: #222;
+    padding: 0 10px;
+}
+
+.regInputWrapper i{
+    font-size: 1.1rem;
+    /* border: 1px solid blue; */
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    /* color: #0a0; */
+}
+.regInput{
+    margin: 0;
+    border: none;
+    width: unset;
+    
+}
+.regInputWrapper input:focus{
+    border: none;
+}
+
+/* input:focus:first-child{
+    height: 300px;
+} */
+
+.regBtnsContainer{
+    /* border: 1px solid red; */
+    position: absolute;
+    bottom: 80px;
+    display: flex;
+    flex-direction: column;
+}
+
+.regInvalido{
+    color: #a00;
+}
+.btnInvalido{
+    background-color: #500;
+    cursor: not-allowed;
+}
+.btnInvalido:hover{
+    background-color: #a00;
+    box-shadow: #a00 0 0 5px;
+}

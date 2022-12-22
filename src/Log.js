@@ -32,18 +32,20 @@ const Log = () => {
     const newUser = {nome: regNome, email:regEmail, senha:regSenha, lde:[], hd:[], ext:[], gas:[], pcf:[], gar:[], pre:[], sal:[], loj:[], aco:[]}
     const [deltree, setDeltree] = React.useState(false)
 
+
+    const [form, setForm] = React.useState(false)
+
     // window.localStorage.clear()
 
     // REGISTRAR
-    function submit(e){
-      e.preventDefault()
-      if (regValidacoes.vNome && regValidacoes.vEmail && regValidacoes.vSenha && regValidacoes.vConfSenha){
-        context.setUsuarios([...context.usuarios, {...newUser}])
-        context.setUserLogado(newUser)
-        // context.setUpload(true)
-        navigate('/home')
-      }
-    }
+    // function submit(e){
+    //   e.preventDefault()
+    //   if (regValidacoes.vNome && regValidacoes.vEmail && regValidacoes.vSenha && regValidacoes.vConfSenha){
+    //     context.setUsuarios([...context.usuarios, {...newUser}])
+    //     context.setUserLogado(newUser)
+    //     navigate('/home')
+    //   }
+    // }
 
     function logar(e){
       e.preventDefault()
@@ -84,190 +86,188 @@ const Log = () => {
     }
   },[ listaUser ])
 
-  function alternarForm(){
-    formAtivo? setFormAtivo(false) : setFormAtivo(true)
+  // function alternarForm(){
+  //   formAtivo? setFormAtivo(false) : setFormAtivo(true)
 
-    if (!formAtivo){
-      document.querySelector('#formLogin').classList.add('mudarForm')
-      setRegNome('')
-      setRegEmail('')
-      setRegSenha('')
-      setConfSenha('')
-      setNome('')
-      setSenha('')
-      setRegValidacoes({vNome: false, vEmail:false, vSenha:false, vConfSenha:false})
-      setTimeout(() => {
-        document.querySelector('#formRegistro').classList.remove('mudarForm')
-      }, 350);
+  //   if (!formAtivo){
+  //     document.querySelector('#formLogin').classList.add('mudarForm')
+  //     setRegNome('')
+  //     setRegEmail('')
+  //     setRegSenha('')
+  //     setConfSenha('')
+  //     setNome('')
+  //     setSenha('')
+  //     setRegValidacoes({vNome: false, vEmail:false, vSenha:false, vConfSenha:false})
+  //     setTimeout(() => {
+  //       document.querySelector('#formRegistro').classList.remove('mudarForm')
+  //     }, 350);
       
-    }else{
-      document.querySelector('#formRegistro').classList.add('mudarForm')
-      setRegNome('')
-      setRegEmail('')
-      setRegSenha('')
-      setConfSenha('')
-      setNome('')
-      setSenha('')
-      setRegValidacoes({vNome: false, vEmail:false, vSenha:false, vConfSenha:false})
-      setTimeout(() => {
+  //   }else{
+  //     document.querySelector('#formRegistro').classList.add('mudarForm')
+  //     setRegNome('')
+  //     setRegEmail('')
+  //     setRegSenha('')
+  //     setConfSenha('')
+  //     setNome('')
+  //     setSenha('')
+  //     setRegValidacoes({vNome: false, vEmail:false, vSenha:false, vConfSenha:false})
+  //     setTimeout(() => {
         
-        document.querySelector('#formLogin').classList.remove('mudarForm')
-      }, 350);
+  //       document.querySelector('#formLogin').classList.remove('mudarForm')
+  //     }, 350);
 
-    }
-  }
+  //   }
+  // }
   
   // VALIDAR REGISTRO DE NOME
-  function validarinputNomeRegistrar(){
-    if(context.usuarios.length > 0){
-      context.usuarios.map((item)=>{
-        if (item.nome === regNome){
-          setRegValidacoes({...regValidacoes, vNome:false })
-          document.querySelector('#regNome').classList.add('erroLogin')
-          document.querySelector('#repNome').style.display='block'
-          document.querySelector('#regNome').classList.add('animarErro')
-                setTimeout(() => {
-                  document.querySelector('#regNome').classList.remove('animarErro')
-                }, 300);
-        }else{
-          setRegValidacoes({...regValidacoes, vNome:true })
-          document.querySelector('#regNome').classList.remove('erroLogin')
-          document.querySelector('#repNome').style.display='none'
-        }
-      })
-    }else{
-      setRegValidacoes({...regValidacoes, vNome:true })
-    }
-  }
+  
+  // function validarinputNomeRegistrar(){
+  //   if(context.usuarios.length > 0){
+  //     context.usuarios.map((item)=>{
+  //       if (item.nome === regNome){
+  //         setRegValidacoes({...regValidacoes, vNome:false })
+  //         document.querySelector('#regNome').classList.add('erroLogin')
+  //         document.querySelector('#repNome').style.display='block'
+  //         document.querySelector('#regNome').classList.add('animarErro')
+  //               setTimeout(() => {
+  //                 document.querySelector('#regNome').classList.remove('animarErro')
+  //               }, 300);
+  //       }else{
+  //         setRegValidacoes({...regValidacoes, vNome:true })
+  //         document.querySelector('#regNome').classList.remove('erroLogin')
+  //         document.querySelector('#repNome').style.display='none'
+  //       }
+  //     })
+  //   }else{
+  //     setRegValidacoes({...regValidacoes, vNome:true })
+  //   }
+  // }
 
   // VALIDAR REGISTRO DE EMAIL
-  function validarInputEmailRegistrar(){
-    if(regEmail !== '' && context.usuarios.length > 0){
+  // function validarInputEmailRegistrar(){
+  //   if(regEmail !== '' && context.usuarios.length > 0){
 
-      context.usuarios.map((item)=>{
-        if (item.email === regEmail){
-          setRegValidacoes({...regValidacoes, vEmail:false})
-          document.querySelector('#regEmail').classList.add('erroLogin')
-          document.querySelector('#repEmail').style.display='block'
-          document.querySelector('#regEmail').classList.add('animarErro')
-                setTimeout(() => {
-                  document.querySelector('#regEmail').classList.remove('animarErro')
-                }, 300);
-        }else{
-          setRegValidacoes({...regValidacoes, vEmail:true})
-          document.querySelector('#regEmail').classList.remove('erroLogin')
-          document.querySelector('#repEmail').style.display='none'
-        }
-      })
-    }else{
-      setRegValidacoes({...regValidacoes, vEmail:true})
-      // return
-    }
-  }
+  //     context.usuarios.map((item)=>{
+  //       if (item.email === regEmail){
+  //         setRegValidacoes({...regValidacoes, vEmail:false})
+  //         document.querySelector('#regEmail').classList.add('erroLogin')
+  //         document.querySelector('#repEmail').style.display='block'
+  //         document.querySelector('#regEmail').classList.add('animarErro')
+  //               setTimeout(() => {
+  //                 document.querySelector('#regEmail').classList.remove('animarErro')
+  //               }, 300);
+  //       }else{
+  //         setRegValidacoes({...regValidacoes, vEmail:true})
+  //         document.querySelector('#regEmail').classList.remove('erroLogin')
+  //         document.querySelector('#repEmail').style.display='none'
+  //       }
+  //     })
+  //   }else{
+  //     setRegValidacoes({...regValidacoes, vEmail:true})
+  //   }
+  // }
 
   // VALIDAR REGISTRO DE SENHA
-  function validarSenhaRegistrar(){
-    const charNumerico = /([0-9])/g
-    const charEspecial = /(?=.*[!@#$%^&*])/ 
-    const containerDeErro = document.querySelector('.containerErrosCadastro')
+  // function validarSenhaRegistrar(){
+  //   const charNumerico = /([0-9])/g
+  //   const charEspecial = /(?=.*[!@#$%^&*])/ 
+  //   const containerDeErro = document.querySelector('.containerErrosCadastro')
     
-    if (regSenha.length >= 8 && regSenha.match(charNumerico) && regSenha.match(charEspecial)){
-      document.querySelector('#regSenha').classList.remove('erroLogin')
-      setRegValidacoes(prev=>({...prev, vSenha:true}))
-      containerDeErro.style.display='none'
-      document.querySelector('#tipErros').style.display='none'
+  //   if (regSenha.length >= 8 && regSenha.match(charNumerico) && regSenha.match(charEspecial)){
+  //     document.querySelector('#regSenha').classList.remove('erroLogin')
+  //     setRegValidacoes(prev=>({...prev, vSenha:true}))
+  //     containerDeErro.style.display='none'
+  //     document.querySelector('#tipErros').style.display='none'
       
-    }else{
-      document.querySelector('#tipErros').style.display='block'
-      document.querySelector('#regSenha').classList.add('erroLogin')
-      setRegValidacoes(prev=>({...prev, vSenha:false}))
-      containerDeErro.style.display='block'
-      document.querySelector('#regSenha').classList.add('animarErro')
+  //   }else{
+  //     document.querySelector('#tipErros').style.display='block'
+  //     document.querySelector('#regSenha').classList.add('erroLogin')
+  //     setRegValidacoes(prev=>({...prev, vSenha:false}))
+  //     containerDeErro.style.display='block'
+  //     document.querySelector('#regSenha').classList.add('animarErro')
 
-                setTimeout(() => {
-                  document.querySelector('#regSenha').classList.remove('animarErro')
-                }, 300);
-    }
-  }
+  //               setTimeout(() => {
+  //                 document.querySelector('#regSenha').classList.remove('animarErro')
+  //               }, 300);
+  //   }
+  // }
 
   // VALIDAR CONFIRMAÇÃO DE SENHA PARA REGISTRO
-  function conferirSenhaRegistrar(){
-    const msgErro = document.querySelector('#erroSenhaDiferentes')
-    const inputConfirmarSenha = document.querySelector('#confSenha')
+  // function conferirSenhaRegistrar(){
+  //   const msgErro = document.querySelector('#erroSenhaDiferentes')
+  //   const inputConfirmarSenha = document.querySelector('#confSenha')
 
-    if (regSenha === confSenha){
-      msgErro.style.display='none'
-      inputConfirmarSenha.classList.remove('erroLogin')
-      setRegValidacoes(prev=>({...prev, vConfSenha:true}))
-      document.querySelector('#formRegBtn').classList.remove('registrarNegado')
-    }else{
-      if(inputConfirmarSenha.value!==''){
-        msgErro.style.display='block'
-      }
-      inputConfirmarSenha.classList.add('erroLogin')
-      setRegValidacoes(prev=>({...prev, vConfSenha:false}))
-      document.querySelector('#formRegBtn').classList.add('registrarNegado')
+  //   if (regSenha === confSenha){
+  //     msgErro.style.display='none'
+  //     inputConfirmarSenha.classList.remove('erroLogin')
+  //     setRegValidacoes(prev=>({...prev, vConfSenha:true}))
+  //     document.querySelector('#formRegBtn').classList.remove('registrarNegado')
+  //   }else{
+  //     if(inputConfirmarSenha.value!==''){
+  //       msgErro.style.display='block'
+  //     }
+  //     inputConfirmarSenha.classList.add('erroLogin')
+  //     setRegValidacoes(prev=>({...prev, vConfSenha:false}))
+  //     document.querySelector('#formRegBtn').classList.add('registrarNegado')
       
-    }
-  }
+  //   }
+  // }
 
-  React.useEffect(()=>{
-    if (confSenha !== ''){
-      conferirSenhaRegistrar()
-    }
-  },[regSenha, confSenha])
+  // React.useEffect(()=>{
+  //   if (confSenha !== ''){
+  //     conferirSenhaRegistrar()
+  //   }
+  // },[regSenha, confSenha])
   
 
-  function senhaVisivel(elem){
-    if(elem.previousElementSibling.getAttribute('type') !== 'text'){
-      elem.previousElementSibling.setAttribute('type', 'text')
-      document.querySelector('.visivelOuNao').innerText='o.o'
-      
-    }else{
-      elem.previousElementSibling.setAttribute('type', 'password')
-      document.querySelector('.visivelOuNao').innerText='-.-'
 
-    }
-  }
+
 
   // HABILITAR BOTAO CADASTRAR (Submit no registro)
-  React.useEffect(()=>{
-    if (regValidacoes.vNome && regValidacoes.vEmail && regValidacoes.vSenha && regValidacoes.vConfSenha){
-      document.querySelector('#formRegBtn').classList.remove('registrarNegado')
-    }else{
-      document.querySelector('#formRegBtn').classList.add('registrarNegado')
-    }
-  },[regValidacoes])
+  // React.useEffect(()=>{
+  //   if (regValidacoes.vNome && regValidacoes.vEmail && regValidacoes.vSenha && regValidacoes.vConfSenha){
+  //     document.querySelector('#formRegBtn').classList.remove('registrarNegado')
+  //   }else{
+  //     document.querySelector('#formRegBtn').classList.add('registrarNegado')
+  //   }
+  // },[regValidacoes])
+
+
+
+ 
 
   return (
     <>
 
       <div className='logContainer'>
-        <form id='formLogin' >
+        {!form && <form id='formLogin' >
           <Input labText='Nome de usuário' labClass='labelNome' id='inpNome' inpTipo='text' onChange={({target})=>setNome(target.value)} value={nome} />
           {' '}
           <Input labText='Senha' labClass='labelSenha' id='inpSenha' inpTipo='password'  onChange={({target})=>setSenha(target.value)} value={senha}  />
           <Button btnId='formBtn' btnText='Logar' btnClass='btnForm' onClick={(event)=>{logar(event)}}  />
           {erroLogin && <span className='msgErroLogin'>{erroLogin}</span>}
           <span>esqueceu a senha? clique <strong>aqui</strong></span>
-          <span>não possui conta? <strong onClick={alternarForm}>registre</strong></span>
+          <span>não possui conta? <strong onClick={()=>setForm(!form)}>registre</strong></span>
           <span className='deltree' onClick={()=>{!deltree?setDeltree(true):window.localStorage.clear()}} >{!deltree? 'excluir os dados salvos?' : 'Tem certeza?'}</span>
 
-        </form>
+        </form>}
 
-        <form id='formRegistro' className='mudarForm'>
+        {form && <form id='formRegistro' className='mudarForm'>
           <div className='divRegInputs'>
-            <Input placeholder='MeuNome' labText='Nome de usuário' id='regNome' inpTipo='text' onChange={({target})=>setRegNome(target.value)} value={regNome} onBlur={validarinputNomeRegistrar}  />
+            {/* <Input placeholder='MeuNome' labText='Nome de usuário' id='regNome' inpTipo='text' onChange={({target})=>setRegNome(target.value)} value={regNome} onBlur={validarinputNomeRegistrar}  /> */}
+            <Input placeholder='MeuNome' labText='Nome de usuário' id='regNome' inpTipo='text' onChange={({target})=>setRegNome(target.value)} value={regNome}   />
             <p id='repNome'>nome de usuário já cadastrado</p>
           </div>
 
           <div className='divRegInputs'>
-            <Input placeholder='seunome@email.com' labText='Email' id='regEmail' inpTipo='text' onChange={({target})=>setRegEmail(target.value)} value={regEmail} onBlur={validarInputEmailRegistrar} />
+            {/* <Input placeholder='seunome@email.com' labText='Email' id='regEmail' inpTipo='text' onChange={({target})=>setRegEmail(target.value)} value={regEmail} onBlur={validarInputEmailRegistrar} /> */}
+            <Input placeholder='seunome@email.com' labText='Email' id='regEmail' inpTipo='text' onChange={({target})=>setRegEmail(target.value)} value={regEmail}  />
             <p id='repEmail'>email já cadastrado</p>
           </div>
 
           <div className='divRegInputs'>
-            <Input labText='Senha' id='regSenha' inpTipo='password' onChange={({target})=>setRegSenha(target.value)} value={regSenha} onBlur={validarSenhaRegistrar}  />
+            {/* <Input labText='Senha' id='regSenha' inpTipo='password' onChange={({target})=>setRegSenha(target.value)} value={regSenha} onBlur={validarSenhaRegistrar}  /> */}
+            <Input labText='Senha' id='regSenha' inpTipo='password' onChange={({target})=>setRegSenha(target.value)} value={regSenha}   />
 
 
             {/* {regSenha && <span className='visivelOuNao' onClick={({currentTarget})=>{senhaVisivel(currentTarget)}} >o.o</span>} */}
@@ -282,17 +282,19 @@ const Log = () => {
           </div>
 
           <div id='confirmarSenha' className='divRegInputs'>
-            <Input labText='Confirmar a senha' id='confSenha' inpTipo='password' onChange={({target})=>setConfSenha(target.value)} value={confSenha} onBlur={conferirSenhaRegistrar} />
+            {/* <Input labText='Confirmar a senha' id='confSenha' inpTipo='password' onChange={({target})=>setConfSenha(target.value)} value={confSenha} onBlur={conferirSenhaRegistrar} /> */}
+            <Input labText='Confirmar a senha' id='confSenha' inpTipo='password' onChange={({target})=>setConfSenha(target.value)} value={confSenha}  />
               <p id='erroSenhaDiferentes'>suas senhas não conferem</p>
           </div>
 
 
-          <span className='spanLinkRegParaLogin'>já possui conta? <strong onClick={alternarForm}>login</strong></span>
-            <Button btnId='formRegBtn' btnText='Cadastrar' btnClass='btnForm ' onClick={submit} />
+          <span className='spanLinkRegParaLogin'>já possui conta? <strong onClick={()=>setForm(!form)}>login</strong></span>
+            {/* <Button btnId='formRegBtn' btnText='Cadastrar' btnClass='btnForm ' onClick={submit} /> */}
+            <Button btnId='formRegBtn' btnText='Cadastrar' btnClass='btnForm '  />
 
 
 
-        </form>
+        </form>}
       </div>
     </>
   )

@@ -219,7 +219,7 @@ const IconesBottom = ({novoItem, iconesDeFiltragem, indexModalLocal, indexAvaria
 
 
   return (
-    <div>
+    <div id='iconesBottom'>
         <div  className='ldeSubFooter'>
 
             <Link to='/home'><i className="fa-solid fa-house" ></i></Link>
@@ -228,7 +228,7 @@ const IconesBottom = ({novoItem, iconesDeFiltragem, indexModalLocal, indexAvaria
             <i className="fa-solid fa-sliders" onClick={filtrar}></i>
 
             <div id='containerBuscar' className='modalInativoEsquerda' >
-                <i className="fa-solid fa-angles-left" onClick={buscar}></i>
+                <i className="fa-solid fa-angles-left" onClick={buscar} placeholder='buscar'></i>
                 <input placeholder='Buscar pelo número' onChange={({target})=>setFiltroBuscar(target.value)} value={filtroBuscar}  />
                 <i className="fa-solid fa-magnifying-glass"  onClick={buscar} ></i>
             </div>

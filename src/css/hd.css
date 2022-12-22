@@ -17,7 +17,25 @@
 
 #hdPecas label{
     display: block;
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    /* align-items: center;
+    margin: 0;
+    width: 100%;
+    justify-content: space-evenly; */
 }
+
+/* .pecasCheck{
+    background-color: red;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+    text-align: start;
+} */
 
 .hdInfo span:nth-child(1){
     font-size: .8rem;
@@ -26,6 +44,9 @@
 
 .hdInfo p{
     color: #0a0;
+}
+.hdInfo span{
+    color: #050;
 }
 
 .hdCard{
@@ -41,7 +62,12 @@
     width: 90%;
     margin: 40px auto;
     padding: 5px;
+    color: #050;
 }
+.hdCard :is(input, select){
+    color: #0a0;
+}
+
 
 .hdCard:nth-last-child(2){
     margin-bottom: 100px;
@@ -64,7 +90,10 @@
 #hdPecas{
     grid-area: pecas;
     border-top-right-radius: 10px;
+    justify-content: space-evenly;
 }
+
+
 #hdValidade{
     grid-area: validade;
 }
@@ -79,7 +108,7 @@
     border: 1px solid #050;
     background-color: #000;
     margin-bottom: 5px;
-    /* display: none; */
+    color: #0a0;
 }
 #hdAvariasTxtArea:focus{
     outline: none;
@@ -102,6 +131,7 @@
     align-items: center;
     padding: 5px 0;
     border-radius: 0 0 10px 10px;
+    color: #050;
 }
 
 .menuRow{
@@ -114,7 +144,9 @@
 }
 
 
-
+#inputHdValidade{
+    width: 200px;
+}
 
 .hdNovo{
     width: 50px;
@@ -185,9 +217,13 @@ input{
     outline: none;
     border: 2px solid #050;
     text-align: center;
+    width: 300px;
 }
 input[type='text']:focus{
     outline: none;
     border: 2px solid #0a0;
 }
+/* #hdPecas input[type='checkbox']{
+    color: red;
+} */
 

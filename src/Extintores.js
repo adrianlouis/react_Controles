@@ -34,8 +34,10 @@ const Extintores = () => {
 
     const [resultadoFiltros, setResultadoFiltros] = React.useState('')
 
-    function toggleDetail(){
-        setToggle(!toggle)
+    function toggleDetail(el){
+       const avaria = el.nextSibling.classList
+       avaria.toggle('avariaInvisible')
+        
     }
 
     function toggleBuscar(){
@@ -207,7 +209,7 @@ React.useEffect(()=>{
         </div> */}
 
 
-        {toggleModal && <div className='modalFiltro'>
+        {/* {toggleModal && <div className='modalFiltro'>
             <span className='ldeSubFooterBtn' onClick={()=>setToggleModal(!toggleModal)}>fechar</span>
 
             <Select selectValorInicial={selectFiltro} selectOnChange={({target})=>setSelectFiltro(target.value)} optionDisabledValue='- - - - -' options={['Local', 'Reteste', 'Recarga', 'Tipo', 'Número']} />
@@ -218,7 +220,7 @@ React.useEffect(()=>{
             {selectFiltro === 'Tipo' && <Select value='' selectOnChange={({target})=>setFiltroEscolhido(target.value)} optionDisabledValue='- - - - -' options={['A', 'B', 'C' ]} /> }
 
             <span className='ldeSubFooterBtn' onClick={()=>aplicarFltro(filtroEscolhido)}>Aplicar filtro</span>
-        </div>}
+        </div>} */}
 
 
 
@@ -250,17 +252,16 @@ React.useEffect(()=>{
  
             </div>
 
-            {item.avaria && <div id='extMais' className='hdInfo extDetail' onClick={toggleDetail}>
+            {item.avaria && <div id='extMais' className='hdInfo extDetail' onClick={({currentTarget})=>toggleDetail(currentTarget)}>
                 <span className='extDetailSpan'>{toggle?'esconder avarias':'mostrar avarias'}</span>
                 </div>
             }
 
-
-            {item.avaria && toggle && <div id='extAvaria' className='hdInfo' >
+            <div id='extAvaria' className='hdInfo avariaInvisible' >
                 <span>Avarias</span>
                 <p className='extSpanAvarias'>{item.avaria}</p>
-                </div>
-            }
+            </div>
+            
 
             <div id='hdActions'>
                 {/* <Link to={`extedit?id=${item.id}`} className='ldeSubFooterBtn' >Editar</Link> */}
@@ -303,17 +304,17 @@ React.useEffect(()=>{
  
             </div>
 
-            {item.avaria && <div id='extMais' className='hdInfo extDetail' onClick={toggleDetail}>
+            {item.avaria && <div id='extMais' className='hdInfo extDetail' onClick={({currentTarget})=>toggleDetail(currentTarget)}>
                 <span className='extDetailSpan'>{toggle?'esconder avarias':'mostrar avarias'}</span>
                 </div>
             }
 
 
-            {item.avaria && toggle && <div id='extAvaria' className='hdInfo' >
+            <div id='extAvaria' className='hdInfo avariaInvisible' >
                 <span>Avarias</span>
                 <p className='extSpanAvarias'>{item.avaria}</p>
-                </div>
-            }
+            </div>
+            
 
             <div id='hdActions'>
                 <Link to={`extedit?id=${item.id}`} className='ldeSubFooterBtn' >Editar</Link>

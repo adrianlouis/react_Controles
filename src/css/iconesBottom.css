@@ -1,4 +1,9 @@
-
+#iconesBottom i {
+    color: #0a0;
+}
+#iconesBottom input::placeholder, #iconesBottom select{
+    color: #050;
+}
 .filtroAtivo{
     color:#0f0
 }

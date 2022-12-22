@@ -42,6 +42,8 @@ const ExtNovo = () => {
 
         <div className='containerCriarExt'>
 
+            <h1>Adicionar Extintor</h1>
+
             <div id='extNum' className='hdInfo'>
                 <span>Número</span>
                 <Input  inpTipo='text' onChange={({target})=>setNum(target.value)} value={num} />

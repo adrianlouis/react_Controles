@@ -20,20 +20,9 @@ const LdE = () => {
     
     function expandir(elem, avaria){
 
-        if (avaria){
-            if ( elem.parentNode.style.height !== '250px'){
-                elem.parentNode.style.height = '250px'
-            }else{
-                elem.parentNode.style.height = '80px'
-            }
-        }else{
-            if (elem.parentNode.style.height !== '125px'){
-                elem.parentNode.style.height = '125px'
-            }else{
-                elem.parentNode.style.height = '80px'
+        const avarias = elem.parentNode.classList
+        avarias.toggle('ldeContainerAvaria')
 
-            }
-        }
     }
 
     function excluirLde(elem, idLde){
@@ -196,7 +185,7 @@ const LdE = () => {
 
         {!context.itensFiltrados && context.userLogado && context.userLogado.lde.map((item, index)=>{
             return <div key={item.id} className='ldeContainer'>
-            <div className='contSuperior'  onClick={(e)=>expandir(e.currentTarget, item.avaria)}>
+            <div className='contSuperior'  onClick={({currentTarget})=>expandir(currentTarget, item.avaria)}>
                 <div className='ldeUnidade' >
                     <p>Número</p>
                     <p>{item.num}</p>
@@ -209,11 +198,11 @@ const LdE = () => {
                     <p>Autonomia</p>
                     <p>{item.dur}</p>
                 </div>
+
                 {item.avaria && <i id='iconeAvaria' className="fa-solid fa-circle-exclamation"></i>}
-                {/* {item.avaria && <p className='ldeNotificacaoAvaria'>+</p>} */}
                 </div>
+
                 { item.avaria && <>
-                    
                     <div className='contInferior'>
                         <textarea disabled value={item.avaria} ></textarea>
                     </div>

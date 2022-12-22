@@ -1,7 +1,7 @@
 .cardExt{
     width: 90%;
     margin: 50px auto;
-    grid-auto-columns: 40%;
+    grid-auto-columns: 45%;
     /* grid-auto-rows: 200px; */
     display: grid;
     gap: 5px; 
@@ -11,12 +11,15 @@
     "avaria avaria"
     "botoes botoes";
     justify-content: center;
+    color: #050;
 
 }
 .cardExt:nth-last-child(2){
     margin-bottom: 120px;
     /* display: none; */
 }
+
+
 
 textarea{
     background-color: #000;
@@ -80,6 +83,7 @@ textarea:focus{
 .extDetailSpan{
     color: #0a0;
     font-weight: 700;
+    cursor: pointer;
 }
 
 .extEditarDataRecarga{
@@ -97,12 +101,18 @@ textarea:focus{
     flex-direction: column;
     justify-content: start;
     align-items: center;
+    margin: 0 auto;
     margin-bottom: 100px;
+
+    /* background-color: #111; */
     /* display: grid;
     grid-template-areas: "numero tipo"
     "local ultRec"
     "ultRet ultRet"
     "avaria avaria"; */
+}
+.containerCriarExt *{
+    color: #050;
 }
 
 .containerCriarExt #extNum{
@@ -113,6 +123,25 @@ textarea:focus{
     /* border-top-left-radius: unset; */
     /* margin-top: 10px; */
     border-radius: 0;
+}
+
+.hdInfo{
+    /* background-color: #111; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* border: none; */
+}
+.hdInfo input{
+    width: calc(65% - 4px);
+
+}
+.hdInfo input[type='checkbox']{
+    width: 20px;
+    margin: 5px;
+}
+.avariaInvisible{
+    display: none;
 }
 
 .containerCriarExt .hdInfo{

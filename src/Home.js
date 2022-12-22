@@ -16,7 +16,6 @@ const Home = () => {
       navigate(dest)
     }
     
-
     // patch para usuarios antigos
     if(!context.userLogado.gas){
       context.setUserLogado({...context.userLogado, gas:[]})

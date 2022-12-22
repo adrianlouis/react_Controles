@@ -1,6 +1,12 @@
 .gasContainer{
     /* min-height: 100vh; */
     min-width: 100vw;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+
+    color: #050;
 
 }
 
@@ -14,6 +20,8 @@
     gap: 10px;
     border-radius: 10px;
     /* background-color: #ddd; */
+    margin: 15px auto;
+    color: #050;
 }
 
 
@@ -23,8 +31,8 @@
     border-radius: 5px;
     padding: 5px 0;
     display: flex;
-    align-items: flex-start;
-    justify-content: start;
+    align-items: center;
+    justify-content: space-evenly;
     margin: unset;
     text-align: left;
     
@@ -63,6 +71,7 @@
     flex-direction: column;
     justify-content: center;
     margin: unset;
+    align-items: center;
 }
 
 .gasCardWrapper span:nth-child(1){
@@ -109,8 +118,6 @@
 }
 
 .gasCard:nth-last-child(2){
-    color: red;
-    font-size: 3rem;
     margin-bottom: 150px;
 }
 
