@@ -15,6 +15,9 @@ form{
     background-color: #111;
     /* border: 1px solid red; */
     color: #0a0;
+
+    box-shadow: #000 3px 3px 3px, inset #222 3px 3px 3px;
+    border-radius: 10px;
 }
 
 form h1{
@@ -74,21 +77,23 @@ form span{
     border: none;
     width: 320px;
     height: 40px;
-    /* border-radius: 20px; */
+    border-radius: 5px;
     margin: 10px 0;
     background-color: #050;
     color: #ddd;
     cursor: pointer;
     font-weight: 900;
+    box-shadow: inset #2a2 5px 5px 5px, #000 5px 5px 5px;
 }
 .loginBtns:hover{
-    box-shadow: #0a0 0 0 5px;
-    background-color: #0a0 ;
-}
-.loginBtns:active{
-    box-shadow: #aaa 0 0 3px, inset #444 1px 1px 5px, inset #111 -5px -5px 5px;
+    background-color: #080 ;
+    box-shadow: inset #2d2 5px 5px 5px, #000 5px 5px 5px;
 
 }
+/* .loginBtns:active{
+    box-shadow: #aaa 0 0 3px, inset #444 1px 1px 5px, inset #111 -5px -5px 5px;
+
+} */
 
 
 
@@ -101,6 +106,11 @@ form span{
     height: 40px;
     background-color: #222;
     padding: 0 10px;
+    box-shadow: #000 3px 3px 3px, inset #333 3px 3px 3px;
+
+}
+.neoMorphLoginInput{
+    box-shadow: inset #000 3px 3px 3px, inset #333 -3px -3px 3px;
 }
 
 .regInputWrapper i{
@@ -112,24 +122,17 @@ form span{
     justify-content: center;
     align-items: center;
     margin: 0;
-    /* color: #0a0; */
 }
 .regInput{
     margin: 0;
     border: none;
     width: unset;
-    
 }
 .regInputWrapper input:focus{
     border: none;
 }
 
-/* input:focus:first-child{
-    height: 300px;
-} */
-
 .regBtnsContainer{
-    /* border: 1px solid red; */
     position: absolute;
     bottom: 80px;
     display: flex;
@@ -142,8 +145,11 @@ form span{
 .btnInvalido{
     background-color: #500;
     cursor: not-allowed;
+    box-shadow: inset #a22 5px 5px 5px, #000 5px 5px 5px;
 }
 .btnInvalido:hover{
     background-color: #a00;
-    box-shadow: #a00 0 0 5px;
+    /* box-shadow: #a00 0 0 5px; */
+    box-shadow: inset #c44 5px 5px 5px, #000 5px 5px 5px;
+
 }

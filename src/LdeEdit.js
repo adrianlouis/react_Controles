@@ -46,7 +46,7 @@ const LdeEdit = () => {
   return (
     <div>
       <div className='editarLdE' >
-        <Input id='editarLdENum' labText='Número da LdE' inpTipo='text' onChange={({target})=>setNum(target.value)} value={num} />
+        <Input id='editarLdENum' labText='Número da LdE' inpTipo='tel' onChange={({target})=>setNum(target.value)} value={num} />
 
         <Select selectValorInicial={local} selectOnChange={({target})=>setLocal(target.value)}  options={['Subsolo', 'Acesso subsolo A', 'Acesso subsolo B', 'Escada A', 'Escada B', 'Escada C', 'Térreo', '2º Pav A', '2º Pav B', '2º Pav Escada C', '3º Pav A', '3º Pav B', '3º Pav Escada C', '4º Pav A', '4º Pav B', '4º Pav Escada C']} />
         <Select selectValorInicial={dur} selectOnChange={({target})=>setDur(target.value)} optionDisabledValue='Autonomia' options={['1h', '2h', '3h', '4h', '5h', '6h']} />

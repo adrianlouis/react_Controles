@@ -160,44 +160,44 @@ const GasNovo = () => {
                         <div  className='gasCardContent '>
 
                             <div className='gasCardWrapper' >
-                                <span>Loja 128: </span>
+                                <span>Loja 128</span>
                                 <input className='novoGasInput' type='tel' placeholder='00000000' maxLength={8} value={medidores.l128} onChange={({target})=>setMedidores({...medidores, l128:target.value})} />
                             </div>
 
                             <div className='gasCardWrapper'>
-                                <span>Loja 132: </span>
-                                <input className='novoGasInput' placeholder='00000000' maxLength={8} value={medidores.l132} onChange={({target})=>setMedidores({...medidores, l132:target.value})} />
+                                <span>Loja 132</span>
+                                <input className='novoGasInput' type='tel' placeholder='00000000' maxLength={8} value={medidores.l132} onChange={({target})=>setMedidores({...medidores, l132:target.value})} />
 
 
                             </div>
 
                             <div className='gasCardWrapper'>
-                                <span>Loja 137: </span>
-                                <input className='novoGasInput' placeholder='00000000' maxLength={8} value={medidores.l137} onChange={({target})=>setMedidores({...medidores, l137:target.value})} />
+                                <span>Loja 137</span>
+                                <input className='novoGasInput' type='tel' placeholder='00000000' maxLength={8} value={medidores.l137} onChange={({target})=>setMedidores({...medidores, l137:target.value})} />
 
                             </div>
 
                             <div className='gasCardWrapper'>
-                                <span>Loja 141: </span>
-                                <input className='novoGasInput' placeholder='00000000' maxLength={8} value={medidores.l141} onChange={({target})=>setMedidores({...medidores, l141:target.value})} />
+                                <span>Loja 141</span>
+                                <input className='novoGasInput' type='tel' placeholder='00000000' maxLength={8} value={medidores.l141} onChange={({target})=>setMedidores({...medidores, l141:target.value})} />
 
                             </div>
 
                             <div className='gasCardWrapper'>
-                                <span>Loja 152: </span>
-                                <input className='novoGasInput' placeholder='00000000' maxLength={8} value={medidores.l152} onChange={({target})=>setMedidores({...medidores, l152:target.value})} />
+                                <span>Loja 152</span>
+                                <input className='novoGasInput' type='tel' placeholder='00000000' maxLength={8} value={medidores.l152} onChange={({target})=>setMedidores({...medidores, l152:target.value})} />
 
                             </div>
 
                             <div className='gasCardWrapper'>
-                                <span>Loja 154: </span>
-                                <input className='novoGasInput' placeholder='00000000' maxLength={8} value={medidores.l154} onChange={({target})=>setMedidores({...medidores, l154:target.value})} />
+                                <span>Loja 154</span>
+                                <input className='novoGasInput' type='tel' placeholder='00000000' maxLength={8} value={medidores.l154} onChange={({target})=>setMedidores({...medidores, l154:target.value})} />
 
                             </div>
 
                             <div className='gasCardWrapper' >
-                                <span>Loja 157: </span>
-                                <input className='novoGasInput' placeholder='00000000' maxLength={8} value={medidores.l157} onChange={({target})=>setMedidores({...medidores, l157:target.value})} />
+                                <span>Loja 157</span>
+                                <input className='novoGasInput' type='tel' placeholder='00000000' maxLength={8} value={medidores.l157} onChange={({target})=>setMedidores({...medidores, l157:target.value})} />
 
                             </div>
 

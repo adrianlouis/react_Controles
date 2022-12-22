@@ -21,8 +21,8 @@ const Login = () => {
     const [regexRegSenha, setRegexRegSenha] = React.useState({num:false, esp:false, tamanho:false})
     const [logPWVisible, setLogPWVisible] = React.useState(false)
 
-    function handleInputBlur(n){
-
+    function handleInputBlur(el, n){
+        aplicarCss(el)
         //NOME
         if (n === 1){
             const userExist = usuarios.filter((filtro)=>{
@@ -57,7 +57,7 @@ const Login = () => {
     React.useEffect(()=>{
         setLoginInput({nome:'', senha:''})
         setRegInput({nome:'', email:'', senha:'', confSenha:''})
-        setRegMsg({nome:'', email:'', senha:''})
+        setRegMsg({nome:false, email:false, senha:false})
         setRegOk({nome:false, email:false, senha:false, confSenha:false})
     },[form])
 
@@ -102,16 +102,24 @@ const Login = () => {
     function handleLogin(e){
         e.preventDefault()
         const ftr = usuarios.filter((filtro)=>{
-            return filtro.nome === loginInput.nome && filtro.senha === loginInput.senha
+            return filtro.nome === loginInput.nome
         })
 
-        if(ftr.length === 1){
+        if(ftr.length === 1 && ftr[0].senha === loginInput.senha ){
             ctx.setUserLogado(...ftr)
             navigate('/home')
-
-        }else{
+        }
+        if(ftr.length === 1 && ftr[0].senha !== loginInput.senha){
+            setLoginMsg('Senha errada')
+        }
+        if(ftr.length === 0){
             setLoginMsg('Usuário não encontrado')
         }
+        
+        
+        // else{
+        //     setLoginMsg('Usuário não encontrado')
+        // }
     }
 
     function handleRegistrar(){
@@ -121,7 +129,9 @@ const Login = () => {
         }
     }
 
-    function handleBlurSenha( n){
+    function handleBlurSenha(el, n){
+        aplicarCss(el)
+
         if (n===1){
             if (!regexRegSenha.num && regInput.senha != '' || !regexRegSenha.esp && regInput.senha != '' || !regexRegSenha.tamanho && regInput.senha != ''){
                 setToggleSenhaErro({...toggleSenhaErro, senha:true})
@@ -159,6 +169,11 @@ React.useEffect(()=>{
     return ()=> clearTimeout(timer)
 },[loginMsg])
 
+function aplicarCss(el){
+    const elem = el.parentElement.classList
+    elem.toggle('neoMorphLoginInput')
+}
+
   return (
     <>
 
@@ -178,12 +193,12 @@ React.useEffect(()=>{
             <h1>Login</h1>
                 <div className='regInputWrapper'>
                     <i className="fa-solid fa-user"></i>
-                    <input className='regInput' type='text' placeholder='nome de usuário' value={loginInput.nome} onChange={({target})=>setLoginInput({...loginInput, nome:target.value})} required />
+                    <input className='regInput' type='text' placeholder='nome de usuário' value={loginInput.nome} onChange={({target})=>setLoginInput({...loginInput, nome:target.value})} onFocus={({currentTarget})=>aplicarCss(currentTarget)} onBlur={({currentTarget})=>aplicarCss(currentTarget)} required />
                 </div>
 
                 <div className='regInputWrapper'>
                     <i className='fa-solid fa-key'></i>
-                    <input className='regInput' type={logPWVisible?'text':'password'} placeholder='senha' value={loginInput.senha} onChange={({target})=>setLoginInput({...loginInput, senha:target.value})} required />
+                    <input className='regInput' type={logPWVisible?'text':'password'} placeholder='senha' value={loginInput.senha} onChange={({target})=>setLoginInput({...loginInput, senha:target.value})} onFocus={({currentTarget})=>aplicarCss(currentTarget)} onBlur={({currentTarget})=>aplicarCss(currentTarget)} required />
                     {!logPWVisible && <i className="fa-solid fa-eye-slash" onClick={()=>setLogPWVisible(!logPWVisible)}></i>}
                     {logPWVisible && <i className="fa-solid fa-eye" onClick={()=>{setLogPWVisible(!logPWVisible)}}></i>}
 
@@ -208,18 +223,18 @@ React.useEffect(()=>{
             <h1>Registrar</h1>
                 <div className='regInputWrapper'>
                     <i className={regOk.nome?"fa-solid fa-user ":"fa-solid fa-user regInvalido"}></i>
-                    <input className={regOk.nome?'regInput ':'regInput regInvalido'} type='text' placeholder='usuário' value={regInput.nome} onChange={({target})=>setRegInput({...regInput, nome:target.value})} onBlur={()=>handleInputBlur(1)} required/>
+                    <input className={regOk.nome?'regInput ':'regInput regInvalido'} type='text' placeholder='usuário' value={regInput.nome} onChange={({target})=>setRegInput({...regInput, nome:target.value})} onBlur={({currentTarget})=>handleInputBlur(currentTarget, 1)} onFocus={({currentTarget})=>aplicarCss(currentTarget)} required/>
                 </div>
 
                 <div className='regInputWrapper'>
                     <i className={regOk.email?"fa-solid fa-envelope ":"fa-solid fa-envelope regInvalido"}></i>
-                    <input className={regOk.email?'regInput ':'regInput regInvalido'} type='email' placeholder='usuario@email.com' value={regInput.email} onChange={({target})=>setRegInput({...regInput, email:target.value})} onBlur={()=>handleInputBlur(2)} required />
+                    <input className={regOk.email?'regInput ':'regInput regInvalido'} type='email' placeholder='usuario@email.com' value={regInput.email} onChange={({target})=>setRegInput({...regInput, email:target.value})} onBlur={({currentTarget})=>handleInputBlur(currentTarget, 2)} onFocus={({currentTarget})=>aplicarCss(currentTarget)} required />
                 </div>
 
 {/* //SENHA */}
                 <div className='regInputWrapper'>
                     <i className={regOk.senha?"fa-solid fa-key ":"fa-solid fa-key regInvalido"}></i>
-                    <input className={regOk.senha?'regInput  ':'regInput regInvalido'} type={!pwVisible?'password':'text'} placeholder='abc1@def' value={regInput.senha} onChange={({target})=>setRegInput({...regInput, senha:target.value})} onBlur={({currentTarget})=>handleBlurSenha( 1)}  required />
+                    <input className={regOk.senha?'regInput  ':'regInput regInvalido'} type={!pwVisible?'password':'text'} placeholder='abc1@def' value={regInput.senha} onChange={({target})=>setRegInput({...regInput, senha:target.value})} onBlur={({currentTarget})=>handleBlurSenha(currentTarget, 1)} onFocus={({currentTarget})=>aplicarCss(currentTarget)} required />
                     {!pwVisible && <i className="fa-solid fa-eye-slash" onClick={()=>setPwVisible(!pwVisible)}></i>}
                     {pwVisible && <i className="fa-solid fa-eye" onClick={()=>{setPwVisible(!pwVisible)}}></i>}
                 </div>
@@ -227,7 +242,7 @@ React.useEffect(()=>{
 {/* //CONFSENHA */}
                 <div className='regInputWrapper'>
                     <i className={regOk.senha && regOk.confSenha?'fa-solid fa-key ':'fa-solid fa-key regInvalido'}></i>
-                    <input disabled={regOk.senha?false:true} className={regOk.confSenha?'regInput ':'regInput regInvalido'} type={!pwVisible?'password':'text'} placeholder='abc1@def' value={regInput.confSenha} onChange={({target})=>setRegInput({...regInput, confSenha:target.value})} onBlur={()=>handleBlurSenha( 2)} required />
+                    <input disabled={regOk.senha?false:true} style={regOk.senha? {}: {cursor:'not-allowed'}} className={regOk.confSenha?'regInput ':'regInput regInvalido'} type={!pwVisible?'password':'text'} placeholder='abc1@def' value={regInput.confSenha} onChange={({target})=>setRegInput({...regInput, confSenha:target.value})} onBlur={({currentTarget})=>handleBlurSenha(currentTarget, 2)} onFocus={({currentTarget})=>aplicarCss(currentTarget)} required />
                     {!pwVisible && <i className="fa-solid fa-eye-slash" onClick={()=>setPwVisible(!pwVisible)}></i>}
                     {pwVisible && <i className="fa-solid fa-eye" onClick={()=>{setPwVisible(!pwVisible)}}></i>}
                 </div>

@@ -210,8 +210,8 @@ const LdE = () => {
 
                 <div className='cardAcoes'>
                     {/* <span className='notReady' onClick={()=>console.log(context.userLogado)}>Editar</span> */}
-                    <Link to={`edit/id?id=${item.id}&ind=${index}`}><i className="fa-solid fa-pen-to-square"></i></Link>
-                    <i className="fa-solid fa-trash-can" onClick={({currentTarget})=>excluirLde(currentTarget ,item)}></i>
+                    <Link to={`edit/id?id=${item.id}&ind=${index}`}><i className="fa-solid fa-pen-to-square neoMorphBtnPadrao"></i></Link>
+                    <i className="fa-solid fa-trash-can neoMorphBtnPadrao" onClick={({currentTarget})=>excluirLde(currentTarget ,item)}></i>
                     
                 </div>
             </div>

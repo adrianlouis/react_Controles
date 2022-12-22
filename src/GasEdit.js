@@ -114,43 +114,43 @@ const GasEdit = () => {
                         <div  className='gasCardContent '>
 
                             <div className='gasCardWrapper' >
-                                <span>Loja 128: </span>
+                                <span>Loja 128</span>
                                 <input className='novoGasInput' type='tel' placeholder='00000000' maxLength={8} value={editado.l128} onChange={({target})=>setEditado({...editado, l128:target.value})} />
                             </div>
 
                             <div className='gasCardWrapper'>
-                                <span>Loja 132: </span>
+                                <span>Loja 132</span>
                                 <input className='novoGasInput' type='tel' placeholder='00000000' maxLength={8} value={editado.l132} onChange={({target})=>setEditado({...editado, l132:target.value})} />
 
 
                             </div>
 
                             <div className='gasCardWrapper'>
-                                <span>Loja 137: </span>
+                                <span>Loja 137</span>
                                 <input className='novoGasInput' type='tel' placeholder='00000000' maxLength={8} value={editado.l137} onChange={({target})=>setEditado({...editado, l137:target.value})} />
 
                             </div>
 
                             <div className='gasCardWrapper'>
-                                <span>Loja 141: </span>
+                                <span>Loja 141</span>
                                 <input className='novoGasInput' type='tel' placeholder='00000000' maxLength={8} value={editado.l141} onChange={({target})=>setEditado({...editado, l141:target.value})} />
 
                             </div>
 
                             <div className='gasCardWrapper'>
-                                <span>Loja 152: </span>
+                                <span>Loja 152</span>
                                 <input className='novoGasInput' type='tel' placeholder='00000000' maxLength={8} value={editado.l152} onChange={({target})=>setEditado({...editado, l152:target.value})} />
 
                             </div>
 
                             <div className='gasCardWrapper'>
-                                <span>Loja 154: </span>
+                                <span>Loja 154</span>
                                 <input className='novoGasInput' type='tel' placeholder='00000000' maxLength={8} value={editado.l154} onChange={({target})=>setEditado({...editado, l154:target.value})} />
 
                             </div>
 
                             <div className='gasCardWrapper' >
-                                <span>Loja 157: </span>
+                                <span>Loja 157</span>
                                 <input className='novoGasInput' type='tel' placeholder='00000000' maxLength={8} value={editado.l157} onChange={({target})=>setEditado({...editado, l157:target.value})} />
 
                             </div>

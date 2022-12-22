@@ -79,48 +79,47 @@ const Gas = () => {
 
                         <div  className='gasCardContent '>
 
-                            <div className='gasCardWrapper' >
-                                <span>Loja 128: </span>
+                            {item.l128 && <div className='gasCardWrapper' >
+                                <span>Loja 128</span>
                                 <span>{item.l128}</span>
-                            </div>
+                            </div>}
 
-                            <div className='gasCardWrapper'>
-                                <span>Loja 132: </span>
+                            {item.l132 &&<div className='gasCardWrapper'>
+                                <span>Loja 132</span>
                                 <span>{item.l132}</span>
+                            </div>}
 
-                            </div>
-
-                            <div className='gasCardWrapper'>
-                                <span>Loja 137: </span>
+                            {item.l137 && <div className='gasCardWrapper'>
+                                <span>Loja 137</span>
                                 <span>{item.l137}</span>
-                            </div>
+                            </div>}
 
-                            <div className='gasCardWrapper'>
-                                <span>Loja 141: </span>
+                            {item.l141 && <div className='gasCardWrapper'>
+                                <span>Loja 141</span>
                                 <span>{item.l141}</span>
-                            </div>
+                            </div>}
 
-                            <div className='gasCardWrapper'>
-                                <span>Loja 152: </span>
+                            {item.l152 && <div className='gasCardWrapper'>
+                                <span>Loja 152</span>
                                 <span>{item.l152}</span>
-                            </div>
+                            </div>}
 
-                            <div className='gasCardWrapper'>
-                                <span>Loja 154: </span>
+                            {item.l154 && <div className='gasCardWrapper'>
+                                <span>Loja 154</span>
                                 <span>{item.l154}</span>
-                            </div>
+                            </div>}
 
-                            <div className='gasCardWrapper' >
-                                <span>Loja 157: </span>
+                            {item.l157 && <div className='gasCardWrapper' >
+                                <span>Loja 157</span>
                                 <span>{item.l157}</span>
-                            </div>
+                            </div>}
 
                         </div>
 
                         <div id={'botoes'+item.id} className='act'>
-                            <i className="fa-solid fa-trash-can" onClick={()=>deletar(item.id)} ></i>
-                            {inputDisabled && <i className="fa-solid fa-pen-to-square" onClick={()=>navigate(`gasedit?id=${item.id}`)} ></i>}
-                            {!inputDisabled && <i className="fa-solid fa-floppy-disk"  ></i>}
+                            {inputDisabled && <i className="fa-solid fa-pen-to-square neoMorphBtnPadrao" onClick={()=>navigate(`gasedit?id=${item.id}`)} ></i>}
+                            {!inputDisabled && <i className="fa-solid fa-floppy-disk neoMorphBtnPadrao"  ></i>}
+                            <i className="fa-solid fa-trash-can neoMorphBtnPadrao" onClick={()=>deletar(item.id)} ></i>
                         </div>
 
                         <div id={'confirmarDel'+item.id} className='confirmarDelContainer hideContent  '>
@@ -129,8 +128,8 @@ const Gas = () => {
                             </div>
 
                             <div className='escolhasDel'>
-                                <i className="fa-solid fa-thumbs-down" onClick={()=>confDel(item.id, false)}></i>
-                                <i className="fa-solid fa-thumbs-up" onClick={()=>confDel(item.id, true)}></i>
+                                <i className="fa-solid fa-thumbs-up neoMorphBtnPadrao" onClick={()=>confDel(item.id, true)}></i>
+                                <i className="fa-solid fa-thumbs-down neoMorphBtnPadrao" onClick={()=>confDel(item.id, false)}></i>
                             </div>
 
                         </div>

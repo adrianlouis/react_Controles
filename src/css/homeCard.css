@@ -1,7 +1,7 @@
 .homeCardContainer{
     width: 150px;
-    height: 50px;
-    border: 2px solid #050;
+    height: 70px;
+    border: 2px solid transparent;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -10,29 +10,37 @@
     -webkit-user-select: none; /* Safari */
     -ms-user-select: none; /* IE 10 and IE 11 */
     cursor: pointer;
+
+    box-shadow:  #0007 2px 2px 2px, inset #2227 2px 2px 2px;
+    /* box-shadow: #0007 5px 5px 10px 5px, #2227 -5px -5px 10px 5px; */
+    border-radius: 10px;
 }
 
 .homeCardInativo{
-    border: 2px solid #500;
+    cursor: not-allowed;
 }
 
 .homeCardInativo span{
     color: #555;
 }
 
-.homeCardInativo:hover {
-    border: 2px solid #a00;
-}
+/* .homeCardInativo:hover {
+    box-shadow:  #000 5px 5px 5px, inset #333 5px 5px 5px;
+
+} */
 .homeCardInativo:hover span{
     color: #aaa;
 }
 
-.homeCardAtivo{
+/* .homeCardAtivo{
     border: #050 2px solid;
     border-radius: 5px;
-}
+} */
 .homeCardAtivo:hover{
-    border: 2px solid #0a0;
+    /* border: 2px solid #0a0; */
+    box-shadow:  #0007 3px 3px 3px, inset #3337 3px 3px 3px;
+    transform: translate(-2px, -2px);
+
 }
 .homeCardAtivo span{
     color: #050;
