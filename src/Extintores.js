@@ -306,7 +306,7 @@ React.useEffect(()=>{
  
             </div>
 
-            {item.avaria && <div id='extMais' className='hdInfo extDetail' onClick={({currentTarget})=>toggleDetail(currentTarget)}>
+            {item.avaria && <div id='extMais' className='hdInfo extDetail shadow' onClick={({currentTarget})=>toggleDetail(currentTarget)}>
                 <span className='extDetailSpan'>{toggle?'esconder avarias':'mostrar avarias'}</span>
                 </div>
             }
@@ -318,10 +318,18 @@ React.useEffect(()=>{
             </div>
             
 
-            <div id='hdActions'>
-                <Link to={`extedit?id=${item.id}`} className='ldeSubFooterBtn' >Editar</Link>
-                {/* <Link to='/' className='ldeSubFooterBtn' >Excluir</Link> */}
+            {/* <div id='hdActions'>
+                <Link to={`extedit?id=${item.id}`} className='ldeSubFooterBtn ' >Editar</Link>
                 <span className='ldeSubFooterBtn' onClick={({currentTarget})=>excluirExtintor(currentTarget, item.id)}>Excluir</span>
+
+            </div> */}
+
+            <div id='hdActions'>
+                {/* <Link to={`extedit?id=${item.id}`} className='ldeSubFooterBtn' >Editar</Link> */}
+                <i class="fa-solid fa-pen-to-square" onClick={()=>navigate(`extedit?id=${item.id}`)}></i>
+                {/* <Link to='/' className='ldeSubFooterBtn' >Excluir</Link> */}
+                {/* <span className='ldeSubFooterBtn' onClick={({currentTarget})=>excluirExtintor(currentTarget, item.id)}>Excluir</span> */}
+                <i class="fa-solid fa-trash-can" onClick={({currentTarget})=>excluirExtintor(currentTarget, item.id)}></i>
 
             </div>
 

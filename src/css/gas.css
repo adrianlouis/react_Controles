@@ -105,25 +105,19 @@
     padding: 20px 0;
 }
 
-.act i, .neoMorphBtnPadrao {
+.act i, .escolhasDel i {
     color: #ddd;
-    /* border: 1px solid purple; */
-    width: 100px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
 
     display: flex;
     justify-content: center;
     align-items: center;
 
-    border-radius: 10px;
+    border-radius: 50%;
     box-shadow: #000 3px 3px 3px,  #222 -3px -3px 3px;
 }
 
-.neoMorphBtnPadrao:hover{
-    box-shadow: #000 5px 5px 5px,  #333 -1px -1px 1px;
-    transform: translate(-2px, -2px);
-
-}
 .confirmarDelContainer{
     display: flex;
     align-items: center;

@@ -87,9 +87,8 @@ const ExtEditar = () => {
 
             <span>Último reteste</span>
             <Input
-                inpTipo="number"
-                min='2015'
-                max='2035'
+                inpTipo="tel"
+                maxLength='4'
 
                 value={ultRet}
                 onChange={({target}) => setUltRet(target.value)}

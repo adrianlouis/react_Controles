@@ -117,9 +117,9 @@ const Gas = () => {
                         </div>
 
                         <div id={'botoes'+item.id} className='act'>
-                            {inputDisabled && <i className="fa-solid fa-pen-to-square neoMorphBtnPadrao" onClick={()=>navigate(`gasedit?id=${item.id}`)} ></i>}
-                            {!inputDisabled && <i className="fa-solid fa-floppy-disk neoMorphBtnPadrao"  ></i>}
-                            <i className="fa-solid fa-trash-can neoMorphBtnPadrao" onClick={()=>deletar(item.id)} ></i>
+                            {inputDisabled && <i className="fa-solid fa-pen-to-square shadow" onClick={()=>navigate(`gasedit?id=${item.id}`)} ></i>}
+                            {!inputDisabled && <i className="fa-solid fa-floppy-disk shadow"  ></i>}
+                            <i className="fa-solid fa-trash-can shadow" onClick={()=>deletar(item.id)} ></i>
                         </div>
 
                         <div id={'confirmarDel'+item.id} className='confirmarDelContainer hideContent  '>
@@ -128,8 +128,8 @@ const Gas = () => {
                             </div>
 
                             <div className='escolhasDel'>
-                                <i className="fa-solid fa-thumbs-up neoMorphBtnPadrao" onClick={()=>confDel(item.id, true)}></i>
-                                <i className="fa-solid fa-thumbs-down neoMorphBtnPadrao" onClick={()=>confDel(item.id, false)}></i>
+                                <i className="fa-solid fa-thumbs-up shadow" onClick={()=>confDel(item.id, true)}></i>
+                                <i className="fa-solid fa-thumbs-down shadow" onClick={()=>confDel(item.id, false)}></i>
                             </div>
 
                         </div>

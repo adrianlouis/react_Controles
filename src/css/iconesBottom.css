@@ -1,8 +1,17 @@
+
 #iconesBottom i {
-    color: #0a0;
+    color: #ddd;
+    width: 40px;
+    height: 40px;
+    /* border: 1px solid red; */
+    box-shadow: #0007 2px 2px 2px, #3337 -2px -2px 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
 }
 #iconesBottom input::placeholder, #iconesBottom select{
-    color: #050;
+    color: #ddd;
 }
 .filtroAtivo{
     color:#0f0
@@ -11,8 +20,8 @@
 .modalInativoEsquerda{
     position: absolute;
     bottom: 0;
-    background-color: #000;
-    border-top: 2px solid #0a0;
+    background-color: #222;
+    /* border-top: 2px solid #0a0; */
 
     height: 70px;
     width: 100%;
@@ -29,9 +38,9 @@
 
 #resFiltro{
     position: absolute;
-    top: 2px;
+    top: 0px;
     font-size: .9rem;
-    color: #0f0;
+    color: #ddd;
 }
 
 
