@@ -29,6 +29,7 @@ form input{
     background-color: transparent;
     border: 2px solid var(--verdePadrao);
     color: var(--verdeFoco);
+    box-shadow: none;
 
 }
 form input:focus{

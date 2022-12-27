@@ -69,7 +69,7 @@ const HidranteNovo = () => {
     <div>
       {/* <Link className="ldeSubFooterBtn" to="/home">Home</Link> */}
 
-      <div className="hdCard">
+      <div className="hdCard shadow">
         <div id="hdNum" className="hdInfo">
           <span>Hidrante</span>
           <Input
@@ -77,6 +77,8 @@ const HidranteNovo = () => {
             labClass="hdLabel"
             id="numeroHd"
             inpClass="hdNovo"
+            inpTipo='tel'
+            maxLength='5'
             value={num}
             onChange={({ target }) => setNum(target.value)}
           />
@@ -131,7 +133,7 @@ const HidranteNovo = () => {
         </div>
 
         <div id="hdAvarias" className="hdInfo">
-          <p>Avarias</p>
+          <span>Avarias</span>
           <textarea
             id="hdAvariasTxtArea"
             value={avarias}

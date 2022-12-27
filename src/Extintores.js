@@ -8,7 +8,7 @@ import SelectOptgroup from './SelectOptgroup'
 import Select from './Select'
 import Input from './Input'
 import Header from './Header'
-import IconesBottom from './IconesBottom'
+import IconesBottom from './IconesBottom' 
 
 const Extintores = () => {
 
@@ -36,7 +36,9 @@ const Extintores = () => {
 
     function toggleDetail(el){
        const avaria = el.nextSibling.classList
+       el.classList.toggle('shadowInset')
        avaria.toggle('avariaInvisible')
+       setToggle(!toggle)
         
     }
 
@@ -252,7 +254,7 @@ React.useEffect(()=>{
  
             </div>
 
-            {item.avaria && <div id='extMais' className='hdInfo extDetail' onClick={({currentTarget})=>toggleDetail(currentTarget)}>
+            {item.avaria && <div id='extMais' className='hdInfo extDetail shadow' onClick={({currentTarget})=>toggleDetail(currentTarget)}>
                 <span className='extDetailSpan'>{toggle?'esconder avarias':'mostrar avarias'}</span>
                 </div>
             }

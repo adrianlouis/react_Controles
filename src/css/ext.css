@@ -11,7 +11,9 @@
     "avaria avaria"
     "botoes botoes";
     justify-content: center;
-    color: #050;
+    /* color: #050; */
+    box-shadow: #0007 3px 3px 3px, #3337 -3px -3px 3px;
+border-radius: 20px;
 
 }
 .cardExt:nth-last-child(2){
@@ -22,15 +24,17 @@
 
 
 textarea{
-    background-color: #000;
+    background-color: transparent;
     outline: none;
-    border: 2px solid #050;
+    border: 2px solid transparent;
     /* margin-bottom: 80px; */
+    border-radius: 5px;
     height: 80px;
+    box-shadow: #000 inset 2px 2px 2px, #333 inset -2px -2px 2px;
 }
 textarea:focus{
     outline: none;
-    border: 2px solid #0a0;
+    border: 2px solid #777;
 }
 
 .extSpanAvarias{
@@ -39,14 +43,14 @@ textarea:focus{
 
 #extNum {
     grid-area: numero;
-    border-top-left-radius: 10px;
+    /* border-top-left-radius: 10px; */
 }
 #extTipo {
     grid-area: tipo;
 }
 #extLocal {
     grid-area: local;
-    border-top-right-radius: 10px;
+    /* border-top-right-radius: 10px; */
 }
 #extProxRec {
     grid-area: proxRec;
@@ -78,12 +82,22 @@ textarea:focus{
 }
 
 .extDetail{
-    border: 1px solid #0a0;
+    /* border: 1px solid #0a0; */
+    border-radius: 20px;
 }
 .extDetailSpan{
-    color: #0a0;
+    color: #777;
     font-weight: 700;
     cursor: pointer;
+}
+
+.shadow{
+    box-shadow: #0007  2px 2px 2px, #3337  -2px -2px 2px;
+
+}
+.shadowInset{
+    box-shadow: #0007 inset 3px 3px 3px, #3337 inset -3px -3px 3px;
+
 }
 
 .extEditarDataRecarga{
@@ -112,7 +126,7 @@ textarea:focus{
     "avaria avaria"; */
 }
 .containerCriarExt *{
-    color: #050;
+    color: #777;
 }
 
 .containerCriarExt #extNum{
@@ -131,6 +145,8 @@ textarea:focus{
     justify-content: center;
     align-items: center;
     /* border: none; */
+    /* box-shadow: 5px 5px 5px #000, -5px -5px 5px #222;
+    border-radius: 10px; */
 }
 .hdInfo input{
     width: calc(65% - 4px);
@@ -142,6 +158,8 @@ textarea:focus{
 }
 .avariaInvisible{
     display: none;
+    box-shadow: #0007 3px 3px 3px, #3337 -3px -3px 3px;
+
 }
 
 .containerCriarExt .hdInfo{

@@ -8,7 +8,7 @@
 }
 
 .hdInfo{
-    border: 1px solid #0a0;
+    /* border: 1px solid #0a0; */
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -43,11 +43,11 @@
 }
 
 .hdInfo p{
-    color: #0a0;
+    color: #ddd;
 }
-.hdInfo span{
+/* .hdInfo span{
     color: #050;
-}
+} */
 
 .hdCard{
     display: grid;
@@ -62,10 +62,12 @@
     width: 90%;
     margin: 40px auto;
     padding: 5px;
-    color: #050;
+    color: #777;
+    border-radius: 10px;
+
 }
 .hdCard :is(input, select){
-    color: #0a0;
+    color: #aaa;
 }
 
 
@@ -76,7 +78,7 @@
 
 #hdNum{
     grid-area: numero;
-    border-top-left-radius: 10px;
+    /* border-top-left-radius: 10px; */
 }
 #hdLocal{
     grid-area: local;
@@ -89,7 +91,7 @@
 }
 #hdPecas{
     grid-area: pecas;
-    border-top-right-radius: 10px;
+    /* border-top-right-radius: 10px; */
     justify-content: space-evenly;
 }
 
@@ -105,14 +107,14 @@
     padding: 5px;
     width: 95%;
     height: 100%;
-    border: 1px solid #050;
-    background-color: #000;
+    /* border: 1px solid #050; */
+    /* background-color: # ; */
     margin-bottom: 5px;
-    color: #0a0;
+    color: #ddd;
 }
 #hdAvariasTxtArea:focus{
     outline: none;
-    border: 1px solid #0a0
+    /* border: 1px solid #0a0 */
 }
 
 .listaDeHds{
@@ -122,16 +124,26 @@
 }
 
 #hdActions{
-    border: 1px solid #0a0;
+    /* border: 1px solid #0a0; */
     width: 100%;
     grid-area: botoes;
-    height: 40px;
+    height: 70px;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
     padding: 5px 0;
     border-radius: 0 0 10px 10px;
-    color: #050;
+    color: #777;
+}
+#hdActions i{
+    /* border: 1px solid red; */
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    box-shadow: #0007 3px 3px 3px, #3337 -3px -3px 3px;
 }
 
 .menuRow{
@@ -150,8 +162,8 @@
 
 .hdNovo{
     width: 50px;
-    background-color: #000;
-    border: 2px solid #050;
+    /* background-color: #000;
+    border: 2px solid #050; */
     text-align: center;
     margin-bottom: 5px;
 }
@@ -174,8 +186,8 @@
 
 .hdCard input{
     outline: none;
-    border: 2px solid #050;
-    background-color: #000;
+    /* border: 2px solid #050; */
+    /* background-color: #00; */
     margin: 10px auto;
     text-align: center;
 }
@@ -213,15 +225,20 @@ input[type='checkbox']:checked {
 }
 
 input{
-    background-color: #000;
-    outline: none;
-    border: 2px solid #050;
+    background-color: transparent;
+    outline: transparent;
+    padding: 2px;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    color: #777;
     text-align: center;
     width: 300px;
+    box-shadow: #000 inset 2px 2px 2px, inset #333 -2px -2px 2px;
 }
-input[type='text']:focus{
+input[type='text']:focus, input[type='tel']:focus{
     outline: none;
-    border: 2px solid #0a0;
+    border: 2px solid #777;
+    color: #ddd;
 }
 /* #hdPecas input[type='checkbox']{
     color: red;

@@ -46,7 +46,7 @@ const ExtNovo = () => {
 
             <div id='extNum' className='hdInfo'>
                 <span>Número</span>
-                <Input  inpTipo='text' onChange={({target})=>setNum(target.value)} value={num} />
+                <Input  inpTipo='tel' onChange={({target})=>setNum(target.value)} value={num} />
             </div>
 
             <div id='extTipo' className='hdInfo'>
@@ -70,12 +70,10 @@ const ExtNovo = () => {
 
             <div id='extUltRet' className='hdInfo'>
 
-                <span>Último reteste</span>
+                <span>Último reteste dah</span>
                 <Input
-                    inpTipo="number"
-                    min='2015'
-                    max='2035'
-
+                    inpTipo="tel"
+                    maxLength='4'
                     value={ultRet}
                     onChange={({target}) => setUltRet(target.value)}
                 />

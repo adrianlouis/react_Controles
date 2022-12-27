@@ -92,42 +92,42 @@ const Hidrantes = () => {
         </div>}
         
         {!context.itensFiltrados && context.userLogado.hd && context.userLogado.hd.map((item)=>{
-            return <div key={item.id} id={item.id} className="hdCard">
-            <div id="hdNum" className="hdInfo">
+            return <div key={item.id} id={item.id} className="hdCard shadow">
+            <div id="hdNum" className="hdInfo shadow">
               <span>Hidrante</span>
               <p>{item.num}</p>
             </div>
   
-            <div id="hdLocal" className="hdInfo">
+            <div id="hdLocal" className="hdInfo shadow">
               <span>Local</span>
               <p>{item.local}</p>
             </div>
   
-            <div id="hdAbrigo" className="hdInfo">
+            <div id="hdAbrigo" className="hdInfo shadow">
               <span>Abrigo</span>
               <p>{item.abrigo}</p>
             </div>
   
-            <div id="hdSinal" className="hdInfo">
+            <div id="hdSinal" className="hdInfo shadow">
               <span>Sinalização</span>
               <p>{item.sinal}</p>
             </div>
   
-            <div id="hdPecas" className="hdInfo">
+            <div id="hdPecas" className="hdInfo shadow">
               <span>Peças:</span>
               {item.pecas.map((peca)=>{
                 return <p>{peca}</p>
               })}
             </div>
   
-            <div id="hdValidade" className="hdInfo">
+            <div id="hdValidade" className="hdInfo shadow">
               <span>Validade das Mangueiras</span>
               <p>{`${new Date(item.val).getUTCMonth()+1} - ${new Date(item.val).getUTCFullYear()}`}</p>
             </div>
   
             {item.avaria && <div id="hdAvarias" className="hdInfo">
               <p>Avarias</p>
-              <textarea id="hdAvariasTxtArea" value={item.avaria} readOnly={true}></textarea>
+              <textarea disabled id="hdAvariasTxtArea" value={item.avaria} readOnly={true}></textarea>
             </div>}
 
             <div id="hdActions">
