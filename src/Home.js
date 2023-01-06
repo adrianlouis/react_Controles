@@ -45,7 +45,7 @@ const Home = () => {
 
         <HomeCard spanCardClass='cardText' divClass='homeCardInativo homeCardContainer' cardNome='Prestadores' />
 
-        <HomeCard spanCardClass='cardText' divClass='homeCardInativo homeCardContainer' cardNome='Salistas' />
+        <HomeCard spanCardClass='cardText' divClass='homeCardAtivo homeCardContainer' cardNome='Salistas' onClick={()=>nav('/sala')} />
 
         <HomeCard spanCardClass='cardText' divClass='homeCardInativo homeCardContainer' cardNome='Lojistas' />
 

@@ -20,6 +20,7 @@ import GasNovo from './GasNovo';
 import GasEdit from './GasEdit';
 import React from 'react';
 import Login from './Login';
+import Salas from './Salas';
 
 function App() {
   // const location = useLocation()
@@ -55,7 +56,9 @@ function App() {
 
           <Route path='gas' element={<Gas/>} />
           <Route path='gasnovo' element={<GasNovo/>} />
-          <Route path='/gas/:gasnovo' element={<GasEdit/>}/> 
+          <Route path='/gas/:gasnovo' element={<GasEdit/>}/>
+
+          <Route path='sala' element={<Salas/>} />
           
         </Routes>
 
