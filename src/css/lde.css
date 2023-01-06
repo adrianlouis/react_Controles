@@ -143,6 +143,9 @@
     /* position: absolute; */
 
 }
+.mainFooterBar{
+    justify-content: space-evenly;
+}
 
 .cardAcoes{
     width: 100%;

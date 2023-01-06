@@ -33,7 +33,7 @@ const MenuFooter = ({mainIcons, mainFiltro, itens, filtroLocais, FiltroOptDisVal
     <>
       <div className='ldeSubFooter'>
 
-        {context.modalFooter === 0 && <div id='mainIcons' className='barrasFooter'>
+        {context.modalFooter === 0 && <div id='mainIcons' className='barrasFooter mainFooterBar'>
             {mainIcons.map((item, ind)=>{
                 return <span key={item+ind} onClick={item.click} >{item.i}</span>
             })}
