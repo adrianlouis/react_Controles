@@ -33,7 +33,7 @@ const ExtNovo = () => {
     }
 
     function salvarExt(){
-        context.setUserLogado({...context.userLogado, ext:[...context.userLogado.ext, extNovo]})
+        context.setUserLogado({...context.userLogado, ext:[extNovo, ...context.userLogado.ext]})
         navigate('/ext')
     }
 
@@ -70,7 +70,7 @@ const ExtNovo = () => {
 
             <div id='extUltRet' className='hdInfo'>
 
-                <span>Último reteste dah</span>
+                <span>Próximo reteste</span>
                 <Input
                     inpTipo="tel"
                     maxLength='4'

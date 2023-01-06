@@ -4,7 +4,8 @@ import css from './css/iconesBottom.css'
 import Select from './Select'
 import { GlobalContext } from './GlobalContext'
 
-const IconesBottom = ({novoItem, iconesDeFiltragem, indexModalLocal, indexAvarias, indexNum, indexAutonomia, indexHdPecas, selectLocalOptions, autonomiaOptions, itens }) => {
+// const IconesBottom = ({novoItem, iconesDeFiltragem, indexModalLocal, indexAvarias, indexNum, indexAutonomia, indexHdPecas, selectLocalOptions, autonomiaOptions, itens }) => {
+const IconesBottom = ({mainIcones, novoItem, iconesDeFiltragem, indexModalLocal, indexAvarias, indexNum, indexAutonomia, indexHdPecas, selectLocalOptions, autonomiaOptions, itens }) => {
 
     const ctx = useContext(GlobalContext)
     const [toggleBuscar, setToggleBuscar] = React.useState(false)
@@ -102,7 +103,7 @@ const IconesBottom = ({novoItem, iconesDeFiltragem, indexModalLocal, indexAvaria
             setToggleFiltrar(!toggleFiltrar)
             document.querySelector('#containerFiltrar').classList.add('modalAtivo')
         }else{
-            setToggleFiltrar(!toggleFiltrar)
+            // setToggleFiltrar(!toggleFiltrar)
             setFiltroAtivo('')
             ctx.setItensFiltrados('')
             document.querySelector('#containerFiltrar').classList.remove('modalAtivo')
@@ -112,7 +113,7 @@ const IconesBottom = ({novoItem, iconesDeFiltragem, indexModalLocal, indexAvaria
 
    
     function handleFilter(filtro){
-        setFiltroAtivo(prev => filtro)
+        setFiltroAtivo(filtro)
         
         if(filtro === indexModalLocal){
             document.querySelector('#containerFiltrarLocal').classList.add('modalAtivo')
@@ -220,7 +221,7 @@ const IconesBottom = ({novoItem, iconesDeFiltragem, indexModalLocal, indexAvaria
 
   return (
     <div id='iconesBottom'>
-        <div  className='ldeSubFooter'>
+        {/* <div  className='ldeSubFooter'>
 
             <Link to='/home'><i className="fa-solid fa-house" ></i></Link>
             <Link to={novoItem}><i className="fa-solid fa-file-circle-plus"></i></Link>
@@ -244,6 +245,7 @@ const IconesBottom = ({novoItem, iconesDeFiltragem, indexModalLocal, indexAvaria
 
             <div id='containerFiltrar' className='modalInativoEsquerda' >
                 {ctx.itensFiltrados && <span id='resFiltro'>{resultadoFiltro}</span>}
+
                 <i className="fa-solid fa-angles-left" onClick={filtrar}></i>
 
                 {iconesDeFiltragem.map((item, index)=>{
@@ -258,10 +260,22 @@ const IconesBottom = ({novoItem, iconesDeFiltragem, indexModalLocal, indexAvaria
 
                 <i className="fa-solid fa-angles-left" onClick={()=>handleFilter('')}></i>
                 <Select selectValorInicial={filtroDeLocal} optionDisabledValue='escolha o local' selectOnChange={({target})=>setFiltroDeLocal(target.value)} options={selectLocalOptions} />
-                <i className="fa-solid fa-location-dot filtroAtivo" />
             </div>
 
+        </div> */}
+
+        <div className='ldeSubFooter'>
+
+        {mainIcones.map((icones)=>{
+            return <>
+            <span onClick={icones.click} onFocus={icones.focus} onBlur={icones.blur} >{icones.icon}</span>
+            </>
+        })}
+
+
         </div>
+
+
     </div>
   )
 }

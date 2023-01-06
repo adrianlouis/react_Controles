@@ -38,7 +38,6 @@ const ExtEditar = () => {
         setUltRet(ultRet)
         setAvaria(avaria)
 
-
     },[])
 
 
@@ -47,7 +46,29 @@ const ExtEditar = () => {
             return filtro.id !== id 
         })
 
+        context.setItensFiltrados('')
+
+        // ARRAY COM OS EXTINTORES FILTRADOS COM EXCEÇÃO DO EDITADO
+        // const filtradosSemEditado = context.itensFiltrados.filter((f)=>{
+        //     return f.id !== editado.id
+        // })
+
+        // ARR SERÁ OS ITENS FILTRADOS E O EDITADO
+        // const arr = []
+        // context.itensFiltrados.map((m)=>{
+        //     if (m.id !== editado.id){
+        //         arr.push(m)
+        //     }else{
+        //         arr.push(editado)
+        //     }
+        // })
+
+
         context.setUserLogado({...context.userLogado, ext:[...outrosExtintores, {...editado}]})
+
+        // PASSANDO ARR PARA RENDERIZAR OS FILTRADOS COM O RECÉM EDITADO
+        // context.setItensFiltrados(arr)
+
         navigate('/ext')
     }
 

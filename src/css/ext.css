@@ -2,16 +2,15 @@
     width: 90%;
     margin: 50px auto;
     grid-auto-columns: 45%;
-    /* grid-auto-rows: 200px; */
     display: grid;
     gap: 5px; 
     grid-template-areas: "numero local"
+    "tipo agente"
     "proxRec proxRet"
     "mais mais"
     "avaria avaria"
     "botoes botoes";
     justify-content: center;
-    /* color: #050; */
     box-shadow: #0007 3px 3px 3px, #3337 -3px -3px 3px;
     border-radius: 20px;
     background-color: #3333;
@@ -48,6 +47,9 @@ textarea:focus{
 }
 #extTipo {
     grid-area: tipo;
+}
+#extAgente {
+    grid-area: agente;
 }
 #extLocal {
     grid-area: local;
