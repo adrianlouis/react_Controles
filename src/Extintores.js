@@ -131,6 +131,51 @@ const Extintores = () => {
         // context.setTipoFiltro()
     }
 
+    function reteste(){
+        const anoReteste = extintores.filter((f)=>{
+            if (Number(f.ultRec.ano) <= new Date().getFullYear()){
+                return f
+            }
+        })
+
+        // const mesReteste = extintores.filter((f)=>{
+        //     if (Number(f.ultRec.mes) >= new Date().getMonth()){
+        //         return f
+        //     }
+        // })
+
+        // const mesReteste = new Date().getMonth()
+        const mesReteste = Date('Dec')
+
+        console.log(mesReteste)
+    }
+
+
+    // ATUALIZAR MES DE STRING PARA NUMBER, PARA TRABALHAR COM DATE()
+    
+    // extintores.map((m)=>{
+
+    //     const outros = extintores.filter((f)=>{
+    //         return f.id !== m.id
+    //     })
+
+
+    //     const mesSalvo = m.ultRec.mes
+    //     if (mesSalvo === 'Ago'){
+
+            // context.setUserLogado({...context.userLogado, ext:[...outros, {...m, ultRec:{...m.ultRec, mes:0}} ]})
+            // console.log('EXT '+m.id+' MODIFICADO')
+            // console.log({...context.userLogado, ext:[{...m, ultRec:{...m.ultRec, mes:0}}, ...outros ]})
+    //     }
+
+    // })
+
+    // extintores.map((m)=>{
+    //     console.log(new Date(m.ultRec.mes + '10 2023'))
+    // })
+
+    const mes = new Date("8 10 2023")
+    console.log(mes)
 
   return (
     <div>
@@ -267,7 +312,7 @@ const Extintores = () => {
                 {i: <i className="fa-solid fa-fire-extinguisher" onClick={()=>context.setModalFooter(4)}></i>},
                 {i: <i className="fa-solid fa-location-dot" onClick={()=>context.setModalFooter(3)}></i>},
                 {i: <i className="fa-solid fa-circle-info" onClick={()=>handleAvaria()} ></i>},
-                {i: <i className="fa-solid fa-calendar-day"></i>},
+                {i: <i className="fa-solid fa-calendar-day" onClick={()=>reteste()} ></i>},
                 {i: <i className="fa-solid fa-calendar-check" onClick={()=>hidrostatico()}></i>},
             ]
         }
