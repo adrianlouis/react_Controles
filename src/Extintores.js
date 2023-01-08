@@ -17,6 +17,24 @@ const Extintores = () => {
     const navigate = useNavigate()
     const [extintores, setExtintores] = React.useState(context.userLogado.ext)
     const [selectLocal, setSelectLocal] = React.useState('')
+    const [classes, setClasses] = React.useState({classeA:'', classeB:'', classeC:''})
+    const [selectExtTipo, setSelectExtTipo] = React.useState('')
+
+    const extClasseA = extintores.filter((f)=>{
+        if (f.tipo === 'A'){
+            return f
+        }
+    })
+    const extClasseB = extintores.filter((f)=>{
+        if (f.tipo === 'B'){
+            return f
+        }
+    })
+    const extClasseC = extintores.filter((f)=>{
+        if (f.tipo === 'C'){
+            return f
+        }
+    })
 
     function toggleDetail(el){
        const avaria = el.nextSibling.classList
@@ -36,8 +54,29 @@ const Extintores = () => {
     }
 
     React.useEffect(()=>{
+        if (selectExtTipo === 'A'){
+            context.setItensFiltrados(extClasseA)
+            context.setTipoFiltro('classe A')
+        }else if (selectExtTipo === 'B'){
+            context.setItensFiltrados(extClasseB)
+            context.setTipoFiltro('classe B')
+        }else if (selectExtTipo === 'C'){
+            context.setItensFiltrados(extClasseC)
+            context.setTipoFiltro('classe C')
+        }
+    },[selectExtTipo])
+
+    React.useEffect(()=>{
         setExtintores(context.userLogado.ext)
     },[context.userLogado])
+
+    React.useEffect(()=>{
+        context.setItensFiltrados('')
+        setSelectExtTipo('')
+        // setSelectLocal('')
+        context.setTipoFiltro('')
+        setSelectLocal('')
+    },[context.modalFooter])
 
     // FILTRAR EXTINTORES COM AVARIA USANDO FUNÇÃO EXTERNA 
     function handleAvaria(){
@@ -45,30 +84,53 @@ const Extintores = () => {
 
         if(context.itensFiltrados === ''){
             context.setItensFiltrados(itens[0])
-            context.setTipoFiltro('avariados')
+            context.setTipoFiltro('com avarias')
         }else if (JSON.stringify(itens[0]) === JSON.stringify(context.itensFiltrados)){
             context.setItensFiltrados(itens[1])
-            context.setTipoFiltro('não avariados')
+            context.setTipoFiltro('sem avarias')
         }else{
             context.setTipoFiltro('')
             context.setItensFiltrados('')
         }
     }
 
+
     // APLICAR FILTRO CRESCENTE, DEPOIS DECRESCENTE, DEPOIS REMOVER O FILTRO AO CLICAR NO MESMO ICONE
-    function handleOrdem(){
-        const res = ordemCrescenteDecrescente(context.userLogado.ext)
-        if (context.itensFiltrados === ''){
-            context.setItensFiltrados(res[0])
-            context.setTipoFiltro('ordem numérica crescente')
-        }else if (JSON.stringify(context.itensFiltrados) === JSON.stringify(res[0])){
-            context.setItensFiltrados(res[1])
-            context.setTipoFiltro('ordem numérica decrescente')
+    // function handleOrdem(i){
+    //     const res = ordemCrescenteDecrescente(context.userLogado.ext)
+    //     if (context.itensFiltrados === ''){
+    //         context.setItensFiltrados(res[0])
+    //         i.setAttribute('class', 'fa-solid fa-arrow-down-1-9 ')
+    //     }else if (JSON.stringify(context.itensFiltrados) === JSON.stringify(res[0])){
+    //         context.setItensFiltrados(res[1])
+    //         i.setAttribute('class', 'fa-solid fa-arrow-down-9-1')
+    //     }else{
+    //         context.setTipoFiltro('')
+    //         context.setItensFiltrados('')
+    //         i.setAttribute('class', 'fa-solid fa-arrow-down-1-9')
+
+
+    //     }
+    // }
+
+  
+    function hidrostatico(){
+        const res = extintores.filter((f)=>{
+            if (f.ultRet < new Date().getFullYear()){
+                return f
+            }
+        })
+
+        if (JSON.stringify(res) !== JSON.stringify(context.itensFiltrados)){
+            context.setItensFiltrados(res)
+            context.setTipoFiltro(' com reteste vencido')
         }else{
-            context.setTipoFiltro('')
             context.setItensFiltrados('')
         }
+
+        // context.setTipoFiltro()
     }
+
 
   return (
     <div>
@@ -201,25 +263,28 @@ const Extintores = () => {
 
         mainFiltro={
             [
-                {i: <i className="fa-solid fa-arrow-down-1-9" onClick={()=>handleOrdem()}></i>},
-                {i: <i className="fa-solid fa-fire-extinguisher"></i>},
+                // {i: <i className="fa-solid fa-arrow-down-1-9 filtroAtivo" onClick={({currentTarget})=>handleOrdem(currentTarget)}></i>},
+                {i: <i className="fa-solid fa-fire-extinguisher" onClick={()=>context.setModalFooter(4)}></i>},
                 {i: <i className="fa-solid fa-location-dot" onClick={()=>context.setModalFooter(3)}></i>},
                 {i: <i className="fa-solid fa-circle-info" onClick={()=>handleAvaria()} ></i>},
                 {i: <i className="fa-solid fa-calendar-day"></i>},
-                {i: <i className="fa-solid fa-calendar-check"></i>},
+                {i: <i className="fa-solid fa-calendar-check" onClick={()=>hidrostatico()}></i>},
             ]
         }
 
         itens = {context.userLogado.ext}
 
         filtroLocais={['Subsolo', 'Térreo', 'Brigada', '2º Pav A', '2º Pav B', '2º Pav C', '3º Pav A', '3º Pav B', '3º Pav C', '4º Pav A', '4º Pav B', '4º Pav C', 'CMI']}
+        selExtTipo={['A', 'B', 'C']}
 
         FiltroOptDisValue={'Escolha o local'}
+        selExtTipoPlaceholder={'Escolha a classe do extintor'}
 
         filtroLocalValue={selectLocal}
+        selExtTipoValue={selectExtTipo}
 
         filtroHandleChange={({target})=>setSelectLocal(target.value)}
-
+        selExtTipoChange={({target})=>setSelectExtTipo(target.value)}
 
         
         />

@@ -4,6 +4,7 @@ import css from "./css/hd.css";
 import { GlobalContext } from "./GlobalContext";
 import Header from "./Header";
 import IconesBottom from "./IconesBottom";
+import MenuFooter from "./MenuFooter";
 import Select from "./Select";
 
 const Hidrantes = () => {
@@ -116,7 +117,7 @@ const Hidrantes = () => {
             <div id="hdPecas" className="hdInfo shadow">
               <span>Peças:</span>
               {item.pecas.map((peca)=>{
-                return <p>{peca}</p>
+                return <p key={peca.id}>{peca}</p>
               })}
             </div>
   
@@ -187,7 +188,20 @@ const Hidrantes = () => {
           </div>
         })}
 
-        <IconesBottom itens={context.userLogado.hd} buscarChange={({target})=>filtroNum(target.value)} buscarValor={valor} novoItem='/hdnovo' iconesDeFiltragem={["fa-solid fa-arrow-down-1-9", "fa-solid fa-location-dot", "fa-solid fa-shower", "fa-solid fa-circle-info", "fa-solid fa-wrench"]} indexNum={0} indexModalLocal={1} indexAvarias={3} indexHdPecas={4} indexBuscar={1}   selectLocalOptions={['Subsolo', 'Térreo', '2º Pav A', '2º Pav B', '3º Pav A', '3º Pav B', '4º Pav A', '4º Pav B']} autonomiaOptions={['1h', '2h', '3h', '4h', '5h', '6h']} />
+        <MenuFooter 
+          mainIcons={
+            [
+              {i: <Link to='/home'><i className="fa-solid fa-house"></i></Link>},
+              {i: <Link to='/hdnovo'><i className="fa-solid fa-file-circle-plus"></i></Link>},
+              {i: <i className="fa-solid fa-magnifying-glass"></i>},
+              {i: <i className="fa-solid fa-sliders" ></i>}
+            ]
+          }
+
+          itens = {context.userLogado.hd}
+        />
+
+        {/* <IconesBottom itens={context.userLogado.hd} buscarChange={({target})=>filtroNum(target.value)} buscarValor={valor} novoItem='/hdnovo' iconesDeFiltragem={["fa-solid fa-arrow-down-1-9", "fa-solid fa-location-dot", "fa-solid fa-shower", "fa-solid fa-circle-info", "fa-solid fa-wrench"]} indexNum={0} indexModalLocal={1} indexAvarias={3} indexHdPecas={4} indexBuscar={1}   selectLocalOptions={['Subsolo', 'Térreo', '2º Pav A', '2º Pav B', '3º Pav A', '3º Pav B', '4º Pav A', '4º Pav B']} autonomiaOptions={['1h', '2h', '3h', '4h', '5h', '6h']} /> */}
       </div>
 
       {/* <IconesBottom novoItem='/hdnovo' selectLocalOptions={['Subsolo', 'Acesso subsolo A', 'Acesso subsolo B', 'Térreo', 'Brigada', 'Escada A', 'Escada B', 'Escada C', '2º Pav A', '2º Pav B', '2º Pav Escada C', '3º Pav A', '3º Pav B', '3º Pav Escada C', '4º Pav A', '4º Pav B', '4º Pav Escada C', 'CMI']} itens={context.userLogado.hd} iconesDeFiltragem={["fa-solid fa-angles-left"]} autonomiaOptions={['1h']} /> */}

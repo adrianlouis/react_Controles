@@ -5,6 +5,7 @@ import { GlobalContext } from './GlobalContext'
 import Select from './Select'
 import Header from './Header'
 import IconesBottom from './IconesBottom'
+import MenuFooter from './MenuFooter'
 
 const LdE = () => {
     const context = React.useContext(GlobalContext)
@@ -254,7 +255,22 @@ const LdE = () => {
             </div>
         })}
 
-        <IconesBottom itens={context.userLogado.lde} buscarChange={({target})=>filtroNum(target.value)} buscarValor={valor} novoItem='/ldenovo' iconesDeFiltragem={["fa-solid fa-arrow-down-1-9", "fa-solid fa-location-dot", "fa-solid fa-clock", "fa-solid fa-circle-info" ]} indexModalLocal={1} indexAvarias={3} indexNum={0} indexBuscar={1} indexAutonomia={2} selectLocalOptions={['Subsolo', 'Acesso subsolo A', 'Acesso subsolo B', 'Térreo', 'Brigada', 'Escada A', 'Escada B', 'Escada C', '2º Pav A', '2º Pav B', '2º Pav Escada C', '3º Pav A', '3º Pav B', '3º Pav Escada C', '4º Pav A', '4º Pav B', '4º Pav Escada C', 'CMI']} autonomiaOptions={['1h', '2h', '3h', '4h', '5h', '6h']} />
+        <MenuFooter 
+        
+        mainIcons={
+            [
+              {i: <Link to='/home'><i className="fa-solid fa-house"></i></Link>},
+              {i: <Link to='/ldenovo'><i className="fa-solid fa-file-circle-plus"></i></Link>},
+              {i: <i className="fa-solid fa-magnifying-glass"></i>},
+              {i: <i className="fa-solid fa-sliders" ></i>}
+            ]
+          }
+
+          itens = {context.userLogado.lde}
+        
+        />
+
+        {/* <IconesBottom itens={context.userLogado.lde} buscarChange={({target})=>filtroNum(target.value)} buscarValor={valor} novoItem='/ldenovo' iconesDeFiltragem={["fa-solid fa-arrow-down-1-9", "fa-solid fa-location-dot", "fa-solid fa-clock", "fa-solid fa-circle-info" ]} indexModalLocal={1} indexAvarias={3} indexNum={0} indexBuscar={1} indexAutonomia={2} selectLocalOptions={['Subsolo', 'Acesso subsolo A', 'Acesso subsolo B', 'Térreo', 'Brigada', 'Escada A', 'Escada B', 'Escada C', '2º Pav A', '2º Pav B', '2º Pav Escada C', '3º Pav A', '3º Pav B', '3º Pav Escada C', '4º Pav A', '4º Pav B', '4º Pav Escada C', 'CMI']} autonomiaOptions={['1h', '2h', '3h', '4h', '5h', '6h']} /> */}
       
     </> 
   )

@@ -34,8 +34,6 @@ const HidranteNovo = () => {
     }
   }
 
-  console.log(id)
-
   function handleChange({ target }) {
     if (target.checked) {
       setPecas([...pecas, target.value]);
