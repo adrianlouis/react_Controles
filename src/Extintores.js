@@ -12,6 +12,7 @@ const Extintores = () => {
     const context = useContext(GlobalContext)
     if (!context.userLogado.ext){
         context.setUserLogado({...context.userLogado, ext:[] })
+        
     }
 
     const [toggle, setToggle] = React.useState(false)
