@@ -4,6 +4,7 @@ import AcoesCriandoItem from './AcoesCriandoItem'
 import { GlobalContext } from './GlobalContext'
 import Input from './Input'
 import Select from './Select'
+import {mesParaNumero, mesParaString } from './funcoes/extDatas'
 
 const ExtEditar = () => {
 
@@ -21,6 +22,7 @@ const ExtEditar = () => {
     const [ultRet , setUltRet ] = React.useState('')
     const [avaria , setAvaria ] = React.useState('')
     const editado = { id:id, num:num, tipo:tipo, local:local, ultRec:{mes, ano}, ultRet:ultRet, avaria:avaria }
+    const {ext} = context.userLogado
 
     React.useEffect(()=>{
         const item = context.userLogado.ext.filter((filtro)=>{
@@ -28,50 +30,33 @@ const ExtEditar = () => {
         })
 
         const {id, num, tipo, local, ultRec:{mes, ano}, ultRet, avaria} = item[0]
+        const mesEmString = mesParaString(mes).slice(0,3)
 
         setId(id)
         setNum(num)
         setTipo(tipo)
         setLocal(local)
-        setMes(mes)
+        setMes(mesEmString)
         setAno(ano)
         setUltRet(ultRet)
         setAvaria(avaria)
 
     },[])
 
-
     function salvarExt(){
-        const outrosExtintores = context.userLogado.ext.filter((filtro)=>{
-            return filtro.id !== id 
+
+        const extEditado = {...editado, ultRec:{...editado.ultRec, mes: mesParaNumero(mes)}}
+        const res = ext.map((m)=>{
+            if (m.id !== extEditado.id){
+                return m
+            }else{
+                return extEditado
+            }
         })
-
+        context.setUserLogado({...context.userLogado, ext:[...res]})
         context.setItensFiltrados('')
-
-        // ARRAY COM OS EXTINTORES FILTRADOS COM EXCEÇÃO DO EDITADO
-        // const filtradosSemEditado = context.itensFiltrados.filter((f)=>{
-        //     return f.id !== editado.id
-        // })
-
-        // ARR SERÁ OS ITENS FILTRADOS E O EDITADO
-        // const arr = []
-        // context.itensFiltrados.map((m)=>{
-        //     if (m.id !== editado.id){
-        //         arr.push(m)
-        //     }else{
-        //         arr.push(editado)
-        //     }
-        // })
-
-
-        context.setUserLogado({...context.userLogado, ext:[...outrosExtintores, {...editado}]})
-
-        // PASSANDO ARR PARA RENDERIZAR OS FILTRADOS COM O RECÉM EDITADO
-        // context.setItensFiltrados(arr)
-
         navigate('/ext')
     }
-
     
   return (
     <div>
@@ -79,23 +64,23 @@ const ExtEditar = () => {
       <div className='containerCriarExt'>
 
             <div id='extNum' className='hdInfo'>
-                <span>Número</span>
+                <span>número</span>
                 <Input  inpTipo='text' onChange={({target})=>setNum(target.value)} value={num} />
             </div>
 
             <div id='extTipo' className='hdInfo'>
-                <span>Tipo</span>
+                <span>tipo</span>
                 <Select selectValorInicial={tipo} selectOnChange={({target})=>setTipo(target.value)} optionDisabledValue='-----' options={['A', 'B', 'C']} />
             </div>
 
             <div id='extLocal' className='hdInfo'>
-                <span>Local</span>
+                <span>local</span>
                 <Select selectValorInicial={local} selectOnChange={({target})=>setLocal(target.value)} optionDisabledValue='-----' options={['Subsolo', 'Térreo', 'Brigada', '2º Pav A', '2º Pav B', '3º Pav A', '3º Pav B', '4º Pav A', '4º Pav B', 'CMI']} />
             </div>
 
             <div id='extUltRec' className='hdInfo'>
 
-            <span>Última recarga</span>
+            <span>última recarga</span>
             
                 <div className='extEditarDataRecarga'>
                 <Select selectValorInicial={mes} selectOnChange={({target})=>setMes(target.value)} optionDisabledValue=' mês ' options={['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez']} />
@@ -106,11 +91,10 @@ const ExtEditar = () => {
 
             <div id='extUltRet' className='hdInfo'>
 
-            <span>Último reteste</span>
+            <span>último reteste</span>
             <Input
                 inpTipo="tel"
                 maxLength='4'
-
                 value={ultRet}
                 onChange={({target}) => setUltRet(target.value)}
                 />
@@ -118,9 +102,8 @@ const ExtEditar = () => {
             </div>
 
             <div id='extAvaria' className='hdInfo'>
-                <span>Avarias</span>
+                <span>avarias</span>
                 <textarea value={avaria} onChange={({target})=>setAvaria(target.value)}>
-
                 </textarea>
             </div>
 

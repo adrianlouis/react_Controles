@@ -4,6 +4,7 @@ import AcoesCriandoItem from './AcoesCriandoItem'
 import { GlobalContext } from './GlobalContext'
 import Input from './Input'
 import Select from './Select'
+import { mesParaNumero } from './funcoes/extDatas'
 
 const ExtNovo = () => {
 
@@ -11,15 +12,19 @@ const ExtNovo = () => {
     const navigate= useNavigate()
     const [num, setNum] = React.useState('')
     const [tipo, setTipo] = React.useState('')
+
     const [mesRec, setMesRec] = React.useState('')
     const [anoRec, setAnoRec] = React.useState('')
     const ultRec = {mes:mesRec, ano:anoRec}
+
     const [local, setLocal] = React.useState('')
     const [ultRet, setUltRet] = React.useState('')
     const [avaria, setAvaria] = React.useState('')
 
+    const [novoMes, setNovoMes] = React.useState('')
 
-    const extNovo = {id:findId(), num:num, tipo:tipo, local:local, ultRec:ultRec, ultRet:ultRet, avaria:avaria }
+
+    const extNovo = {id:findId(), num:num, tipo:tipo, local:local, ultRec:{...ultRec, mes:mesParaNumero()}, ultRet:ultRet, avaria:avaria }
 
     function findId(){
         if (context.userLogado.ext.length > 0){
@@ -64,7 +69,17 @@ const ExtNovo = () => {
                 <span>Última recarga</span>
                 <div className='extEditarDataRecarga'>
                     <Select selectValorInicial={mesRec} selectOnChange={({target})=>setMesRec(target.value)} optionDisabledValue=' mês ' options={['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez']} />
+
+
+
                     <Select selectValorInicial={anoRec} selectOnChange={({target})=>setAnoRec(target.value)} optionDisabledValue=' ano ' options={[2020, 2021, 2022, 2023, 2024, 2025]} />
+
+                    {/* <Input 
+                        inpTipo='month'
+                        value={novoMes}
+                        onChange={({target})=>setNovoMes(target.value)}
+                    /> */}
+
                 </div>
             </div>
 

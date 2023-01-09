@@ -4,7 +4,8 @@ import css from './css/ext.css'
 import { Link, useNavigate } from 'react-router-dom'
 import MenuFooter from './MenuFooter'
 
-import {itemAvariado, ordemCrescenteDecrescente} from './funcoes/filtroFuncoes'
+import {itemAvariado} from './funcoes/filtroFuncoes'
+import { mesParaString } from './funcoes/extDatas'
 
 const Extintores = () => {
 
@@ -17,7 +18,6 @@ const Extintores = () => {
     const navigate = useNavigate()
     const [extintores, setExtintores] = React.useState(context.userLogado.ext)
     const [selectLocal, setSelectLocal] = React.useState('')
-    const [classes, setClasses] = React.useState({classeA:'', classeB:'', classeC:''})
     const [selectExtTipo, setSelectExtTipo] = React.useState('')
 
     const extClasseA = extintores.filter((f)=>{
@@ -73,7 +73,6 @@ const Extintores = () => {
     React.useEffect(()=>{
         context.setItensFiltrados('')
         setSelectExtTipo('')
-        // setSelectLocal('')
         context.setTipoFiltro('')
         setSelectLocal('')
     },[context.modalFooter])
@@ -94,25 +93,6 @@ const Extintores = () => {
         }
     }
 
-
-    // APLICAR FILTRO CRESCENTE, DEPOIS DECRESCENTE, DEPOIS REMOVER O FILTRO AO CLICAR NO MESMO ICONE
-    // function handleOrdem(i){
-    //     const res = ordemCrescenteDecrescente(context.userLogado.ext)
-    //     if (context.itensFiltrados === ''){
-    //         context.setItensFiltrados(res[0])
-    //         i.setAttribute('class', 'fa-solid fa-arrow-down-1-9 ')
-    //     }else if (JSON.stringify(context.itensFiltrados) === JSON.stringify(res[0])){
-    //         context.setItensFiltrados(res[1])
-    //         i.setAttribute('class', 'fa-solid fa-arrow-down-9-1')
-    //     }else{
-    //         context.setTipoFiltro('')
-    //         context.setItensFiltrados('')
-    //         i.setAttribute('class', 'fa-solid fa-arrow-down-1-9')
-
-
-    //     }
-    // }
-
   
     function hidrostatico(){
         const res = extintores.filter((f)=>{
@@ -128,7 +108,6 @@ const Extintores = () => {
             context.setItensFiltrados('')
         }
 
-        // context.setTipoFiltro()
     }
 
     function reteste(){
@@ -137,81 +116,84 @@ const Extintores = () => {
                 return f
             }
         })
-
-        // const mesReteste = extintores.filter((f)=>{
-        //     if (Number(f.ultRec.mes) >= new Date().getMonth()){
-        //         return f
-        //     }
-        // })
-
-        // const mesReteste = new Date().getMonth()
-        const mesReteste = Date('Dec')
-
-        console.log(mesReteste)
     }
 
 
-    // ATUALIZAR MES DE STRING PARA NUMBER, PARA TRABALHAR COM DATE()
-    
-    // extintores.map((m)=>{
+    function att(){
+        // ATUALIZAÇÃO DOS MESES EM EXT DO USER LOGADO - REMOVER APOS O PRIMEIRO CLICK DO USER
+const meses = extintores.map((m)=>{
+    if (m.ultRec.mes === 'Jan'){
+        return 0
+    }else if (m.ultRec.mes === 'Fev'){
+        return 1
+    }else if (m.ultRec.mes === 'Mar'){
+        return 2
+    }else if (m.ultRec.mes === 'Abr'){
+        return 3
+    }else if (m.ultRec.mes === 'Mai'){
+        return 4
+    }else if (m.ultRec.mes === 'Jun'){
+        return 5
+    }else if (m.ultRec.mes === 'Jul'){
+        return 6
+    }else if (m.ultRec.mes === 'Ago'){
+        return 7
+    }else if (m.ultRec.mes === 'Set'){
+        return 8
+    }else if (m.ultRec.mes === 'Out'){
+        return 9
+    }else if (m.ultRec.mes === 'Nov'){
+        return 10
+    }else if (m.ultRec.mes === 'Dez'){
+        return 11
+    }
+})
+const conversao = extintores.map((m, i)=>{
+    return {...m, ultRec:{...m.ultRec, mes:meses[i]}}
+})
+context.setUserLogado({...context.userLogado, ext:[...conversao]})
+}
 
-    //     const outros = extintores.filter((f)=>{
-    //         return f.id !== m.id
-    //     })
-
-
-    //     const mesSalvo = m.ultRec.mes
-    //     if (mesSalvo === 'Ago'){
-
-            // context.setUserLogado({...context.userLogado, ext:[...outros, {...m, ultRec:{...m.ultRec, mes:0}} ]})
-            // console.log('EXT '+m.id+' MODIFICADO')
-            // console.log({...context.userLogado, ext:[{...m, ultRec:{...m.ultRec, mes:0}}, ...outros ]})
-    //     }
-
-    // })
-
-    // extintores.map((m)=>{
-    //     console.log(new Date(m.ultRec.mes + '10 2023'))
-    // })
-
-    const mes = new Date("8 10 2023")
-    console.log(mes)
 
   return (
     <div>
+
+        <button onClick={()=>att()} >Att</button>
   
         {!context.itensFiltrados && extintores.map((item)=>{
             return <div key={item.id+'ext'} className='cardExt'>
 
             <div id='extNum'  className='hdInfo' > 
-                <span>Extintor número</span>
+                <span>extintor número</span>
                 <p>{item.num}</p>
             </div>
 
             <div id='extLocal' className='hdInfo' >
-                <span>Local:</span>
+                <span>local</span>
                 <p>{item.local}</p>
             </div>
 
             <div id='extTipo' className='hdInfo' >
-                <span>Tipo:</span>
+                <span>classe:</span>
                 <p>{item.tipo}</p>
             </div>
 
             <div id='extAgente' className='hdInfo' >
-                <span>Agente extintor:</span>
+                <span>tipo</span>
                 {item.tipo === 'A' && <p>AP</p>}
                 {item.tipo === 'B' && <p>PQS</p>}
                 {item.tipo === 'C' && <p>CO²</p>}
             </div>
 
             <div id='extProxRec' className='hdInfo' >
-                <span>Ult. Rec</span>
-                <p>{item.ultRec.mes} - {item.ultRec.ano}</p>
+                <span>última recarga</span>
+                <p>{mesParaString(item.ultRec.mes)} de {item.ultRec.ano}</p>
+                {/* <p>{attd(item.ultRec.mes)} de {item.ultRec.ano}</p> */}
+                {/* <p>{new Date(item.ultRec.mes+1+' 1 '+item.ultRec.ano)}</p> */}
             </div>
 
             <div id='extProxRet' className='hdInfo' >
-                <span>Ult. Ret</span>
+                <span>próximo reteste</span>
                 <p>{item.ultRet}</p>
             </div>
 
@@ -221,7 +203,7 @@ const Extintores = () => {
             }
 
             <div id='extAvaria' className='hdInfo avariaInvisible' >
-                <span>Avarias</span>
+                <span>avarias</span>
                 <p className='extSpanAvarias'>{item.avaria}</p>
             </div>
             
@@ -239,36 +221,37 @@ const Extintores = () => {
             return <div key={item.id+'ext'} className='cardExt'>
 
             <div id='extNum'  className='hdInfo' > 
-                <span>Extintor tipo {item.tipo}</span>
+                <span>extintor número</span>
                 <p>{item.num}</p>
             </div>
 
             <div id='extLocal' className='hdInfo' >
-                <span>Local:</span>
+                <span>local</span>
                 <p>{item.local}</p>
             </div>
 
             <div id='extTipo' className='hdInfo' >
-                <span>Tipo:</span>
+                <span>classe:</span>
                 <p>{item.tipo}</p>
             </div>
 
             <div id='extAgente' className='hdInfo' >
-                <span>Agente extintor:</span>
+                <span>tipo</span>
                 {item.tipo === 'A' && <p>AP</p>}
                 {item.tipo === 'B' && <p>PQS</p>}
                 {item.tipo === 'C' && <p>CO²</p>}
             </div>
 
             <div id='extProxRec' className='hdInfo' >
-                <span>Ult. Rec</span>
-                <p>{item.ultRec.mes} - {item.ultRec.ano}</p>
+                <span>última recarga</span>
+                <p>{mesParaString(item.ultRec.mes)} de {item.ultRec.ano}</p>
+                {/* <p>{attd(item.ultRec.mes)} de {item.ultRec.ano}</p> */}
+                {/* <p>{new Date(item.ultRec.mes+1+' 1 '+item.ultRec.ano)}</p> */}
             </div>
 
             <div id='extProxRet' className='hdInfo' >
-                <span>Ult. Ret</span>
+                <span>próximo reteste</span>
                 <p>{item.ultRet}</p>
-
             </div>
 
             {item.avaria && <div id='extMais' className='hdInfo extDetail shadow' onClick={({currentTarget})=>toggleDetail(currentTarget)}>
@@ -277,13 +260,14 @@ const Extintores = () => {
             }
 
             <div id='extAvaria' className='hdInfo avariaInvisible' >
-                <span>Avarias</span>
+                <span>avarias</span>
                 <p className='extSpanAvarias'>{item.avaria}</p>
             </div>
-
+            
             <div id='hdActions'>
                 <i className="fa-solid fa-pen-to-square" onClick={()=>navigate(`extedit?id=${item.id}`)}></i>
                 <i className="fa-solid fa-trash-can" onClick={({currentTarget})=>excluirExtintor(currentTarget, item.id)}></i>
+
             </div>
         </div>
 
