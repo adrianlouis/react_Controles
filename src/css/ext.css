@@ -11,9 +11,10 @@
     "avaria avaria"
     "botoes botoes";
     justify-content: center;
-    box-shadow: #0007 3px 3px 3px, #3337 -3px -3px 3px;
-    border-radius: 20px;
+    box-shadow: #0007 10px 10px 10px, #0007 -5px -5px 10px, inset #3337 10px 10px 20px, inset #0007 -10px -10px 20px;    border-radius: 20px;
+    border-radius: 50px;
     background-color: #3333;
+    padding: 20px 5px;
 
 }
 .cardExt:nth-last-child(2){
@@ -63,9 +64,12 @@ textarea:focus{
 }
 #extMais{
     grid-area: mais;
+    border-radius: 20px;
 }
 #extAvaria{
     grid-area: avaria;
+    box-shadow: inset #0007 3px 3px 5px, inset #3337 -3px -3px 5px;
+    border-radius: 10px;
 }
 #extUltRec{
     grid-area: ultRec;
@@ -95,7 +99,7 @@ textarea:focus{
 }
 
 .shadow{
-    box-shadow: #0007  2px 2px 2px, #3337  -2px -2px 2px;
+    box-shadow: #0007  2px 2px 15px, #3337  -1px -1px 1px;
 
 }
 .shadowInset{
