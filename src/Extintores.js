@@ -120,8 +120,8 @@ const Extintores = () => {
     }
 
 
+    // ATUALIZAÇÃO DOS MESES EM EXT DO USER LOGADO - REMOVER APOS O PRIMEIRO CLICK DO USER
     function att(){
-        // ATUALIZAÇÃO DOS MESES EM EXT DO USER LOGADO - REMOVER APOS O PRIMEIRO CLICK DO USER
 const meses = extintores.map((m)=>{
     if (m.ultRec.mes === 'Jan'){
         return 0
@@ -159,7 +159,7 @@ context.setUserLogado({...context.userLogado, ext:[...conversao]})
   return (
     <div>
 
-        <button onClick={()=>att()} >Att</button>
+        {/* <button onClick={()=>att()} >Att</button> */}
   
         {!context.itensFiltrados && extintores.map((item)=>{
             return <div key={item.id+'ext'} className='cardExt'>
