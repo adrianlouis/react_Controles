@@ -91,7 +91,7 @@ const ExtEditar = () => {
 
             <div id='extUltRet' className='hdInfo'>
 
-            <span>último reteste</span>
+            <span>próximo reteste</span>
             <Input
                 inpTipo="tel"
                 maxLength='4'
