@@ -24,7 +24,7 @@ const ExtNovo = () => {
     const [novoMes, setNovoMes] = React.useState('')
 
 
-    const extNovo = {id:findId(), num:num, tipo:tipo, local:local, ultRec:{...ultRec, mes:mesParaNumero()}, ultRet:ultRet, avaria:avaria }
+    const extNovo = {id:findId(), num:num, tipo:tipo, local:local, ultRec:{...ultRec, mes:mesParaNumero(mesRec)}, ultRet:ultRet, avaria:avaria }
 
     function findId(){
         if (context.userLogado.ext.length > 0){
@@ -38,6 +38,7 @@ const ExtNovo = () => {
     }
 
     function salvarExt(){
+        // console.log(extNovo)
         context.setUserLogado({...context.userLogado, ext:[extNovo, ...context.userLogado.ext]})
         navigate('/ext')
     }

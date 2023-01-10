@@ -42,7 +42,6 @@ const Extintores = () => {
        el.classList.toggle('shadowInset')
        avaria.toggle('avariaInvisible')
        setToggle(!toggle)
-        
     }
 
     function excluirExtintor(elem, id){
@@ -52,6 +51,12 @@ const Extintores = () => {
         })
 
         context.setUserLogado({...context.userLogado, ext:[...filtrado]})
+
+        if (context.itensFiltrados){
+            const nFiltrados = context.itensFiltrados.filter((f)=>{if(f.id !== id){return f}})
+            context.setItensFiltrados(nFiltrados)
+        }
+
     }
 
     React.useEffect(()=>{
@@ -111,12 +116,28 @@ const Extintores = () => {
 
     }
 
-    function reteste(){
-        const anoReteste = extintores.filter((f)=>{
+    // FUNÇÃO PARA FILTRAR EXTINTORES COM RECARGA VENCIDA OU NO MÊS DE VENCER
+    function recarga(){
+
+        const extRecargaVencida = extintores.filter((f)=>{
             if (Number(f.ultRec.ano) <= new Date().getFullYear()){
                 return f
             }
+        }).sort((a, b)=>{
+            return a.ultRec.ano - b.ultRec.ano
+        }).filter((f)=>{
+            if (f.ultRec.mes <= new Date().getMonth() && Number(f.ultRec.ano) === new Date().getFullYear() || Number(f.ultRec.ano) < new Date().getFullYear() ){
+                return f
+            }
         })
+
+       if (JSON.stringify(context.itensFiltrados) !== JSON.stringify(extRecargaVencida)){
+            context.setItensFiltrados(extRecargaVencida)
+            context.setTipoFiltro(' com recarga vencida')
+       }else{
+            context.setItensFiltrados('')
+            context.setTipoFiltro('')
+       }
     }
 
 
@@ -297,7 +318,7 @@ context.setUserLogado({...context.userLogado, ext:[...conversao]})
                 {i: <i className="fa-solid fa-fire-extinguisher" onClick={()=>context.setModalFooter(4)}></i>},
                 {i: <i className="fa-solid fa-location-dot" onClick={()=>context.setModalFooter(3)}></i>},
                 {i: <i className="fa-solid fa-circle-info" onClick={()=>handleAvaria()} ></i>},
-                {i: <i className="fa-solid fa-calendar-day" onClick={()=>reteste()} ></i>},
+                {i: <i className="fa-solid fa-calendar-day" onClick={()=>recarga()} ></i>},
                 {i: <i className="fa-solid fa-calendar-check" onClick={()=>hidrostatico()}></i>},
             ]
         }
