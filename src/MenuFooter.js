@@ -5,7 +5,7 @@ import { GlobalContext } from './GlobalContext'
 import Select from './Select'
 import {itemPorLocal, buscar} from './funcoes/filtroFuncoes'
 
-const MenuFooter = ({selExtTipoValue, selExtTipoChange, selExtTipo, selExtTipoPlaceholder, mainIcons, mainFiltro, itens, filtroLocais, FiltroOptDisValue, filtroHandleChange, filtroLocalValue}) => {
+const MenuFooter = ({buscarPlaceholder, selExtTipoValue, selExtTipoChange, selExtTipo, selExtTipoPlaceholder, mainIcons, mainFiltro, itens, filtroLocais, FiltroOptDisValue, filtroHandleChange, filtroLocalValue}) => {
 
     const context = useContext(GlobalContext)
     const [inputBuscarValor, setInputBuscarValor] = React.useState('')
@@ -46,7 +46,7 @@ const MenuFooter = ({selExtTipoValue, selExtTipoChange, selExtTipo, selExtTipoPl
         {/* MODAL BUSCAR */}
         {context.modalFooter === 1 && <div id='contBuscar' className='barrasFooter'>
             <i className="fa-solid fa-backward" onClick={()=>context.setModalFooter(0)} ></i>
-            <input placeholder='Buscar pelo Número' value={inputBuscarValor} onChange={({target})=>inputBuscar(target.value)} />
+            <input placeholder={buscarPlaceholder} value={inputBuscarValor} onChange={({target})=>inputBuscar(target.value)} />
             <i className="fa-solid fa-magnifying-glass"  ></i>
         </div>}
 

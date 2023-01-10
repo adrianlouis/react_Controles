@@ -1,21 +1,26 @@
 import React, { useContext } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import css from './css/gas.css'
 import IconesBottom from './IconesBottom'
 import IconsBottom from './IconsBottom'
 import {ordemNumerica} from './funcoes/filtroFuncoes'
 import { GlobalContext } from './GlobalContext'
 import Select from './Select'
+import MenuFooter from './MenuFooter'
 
 const Gas = () => {
 
     const ctx = useContext(GlobalContext) 
     const navigate = useNavigate()
-    const gases = ctx.userLogado.gas 
+     
     // const funcaoNum = ()=> ordemNumerica(gases)
     const novoItem = ()=>navigate('/gasnovo')
     const [inputDisabled, setInputDisabled] = React.useState(true)
     const [inputBuscarMes, setInputBuscarMes] = React.useState('')
+
+    const gases = ctx.userLogado.gas.sort((a,b)=>{
+        return b.id - a.id
+    })
 
     function handleContent(content){
         const element = content.nextSibling
@@ -143,8 +148,25 @@ const Gas = () => {
 
         
 
+        <MenuFooter
+            mainIcons={
+                [
+                    {i: <Link to='/home'><i className="fa-solid fa-house"></i></Link>},
+                    {i: <Link to='/gasnovo'><i className="fa-solid fa-file-circle-plus"></i></Link>},
+                    {i: <i className="fa-solid fa-magnifying-glass"></i>,
+                    click: ()=>{ctx.setModalFooter(1)} },
+                    {i: <i className="fa-solid fa-sliders" ></i>,
+                    click: ()=>ctx.setModalFooter(2)},
+                    {i:<i className="fa-solid fa-door-open"></i>}
+                ]
+            }
 
-        <IconsBottom   iconesDefault={[{icone:"fa-solid fa-house", acao:home}, {icone:"fa-solid fa-file-circle-plus", acao:novoItem }]} />
+            itens={gases}
+
+            buscarPlaceholder='data'
+        />
+
+        {/* <IconsBottom   iconesDefault={[{icone:"fa-solid fa-house", acao:home}, {icone:"fa-solid fa-file-circle-plus", acao:novoItem }]} /> */}
         {/* <IconesBottom /> */}
 
     </div>

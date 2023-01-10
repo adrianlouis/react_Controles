@@ -309,6 +309,7 @@ context.setUserLogado({...context.userLogado, ext:[...conversao]})
                 click: ()=>{context.setModalFooter(1)} },
                 {i: <i className="fa-solid fa-sliders" ></i>,
                 click: ()=>context.setModalFooter(2)},
+                {i:<i className="fa-solid fa-door-open"></i>}
             ]
         }
 
@@ -324,6 +325,8 @@ context.setUserLogado({...context.userLogado, ext:[...conversao]})
         }
 
         itens = {context.userLogado.ext}
+
+        buscarPlaceholder='Buscar pelo Número'
 
         filtroLocais={['Subsolo', 'Térreo', 'Brigada', '2º Pav A', '2º Pav B', '2º Pav C', '3º Pav A', '3º Pav B', '3º Pav C', '4º Pav A', '4º Pav B', '4º Pav C', 'CMI']}
         selExtTipo={['A', 'B', 'C']}

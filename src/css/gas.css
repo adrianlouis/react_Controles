@@ -23,7 +23,8 @@
     margin: 15px auto;
     color: #050;
 
-    box-shadow: #0007 5px 5px 5px,#2227 -5px -5px 5px;
+    /* box-shadow: #0007 5px 5px 5px,#2227 -5px -5px 5px; */
+    box-shadow: #0007 5px 5px 5px, #4447 -2px -2px 2px, inset #3337 10px 10px 20px, inset #0007 -10px -10px 20px;
 }
 /* .gasCard:hover{
     box-shadow: #0007 7px 7px 7px,#2227 -3px -3px 3px;
