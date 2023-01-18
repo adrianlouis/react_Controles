@@ -6,6 +6,7 @@ import Select from './Select'
 import Header from './Header'
 import IconesBottom from './IconesBottom'
 import MenuFooter from './MenuFooter'
+import { extFiltroNum, filtroAvaria} from './funcoes/filtroFuncoes'
 
 const LdE = () => {
     const context = React.useContext(GlobalContext)
@@ -18,6 +19,11 @@ const LdE = () => {
     const [resFiltragem, setResFiltragem] = React.useState('')
     const [buscarValue, setBuscarValue] = React.useState('')
     const [valor, setValor] = React.useState('')
+    const [selectLocal, setSelectLocal] = React.useState('')
+    const [selectLdeBateria, setSelectLdeBateria] = React.useState('')
+
+
+    const [ind, setInd] = React.useState(0)
     
     function expandir(elem, avaria){
 
@@ -180,6 +186,36 @@ const LdE = () => {
 
     }
 
+    function handleFiltroNum(){
+        if (ind === 0){
+            setInd(1)
+            context.setTipoFiltro('em ordem crescente')
+        }else if (ind === 1){
+            setInd( 2)
+            context.setTipoFiltro('em ordem decrescente')
+        }else{
+            setInd(0)
+            context.setTipoFiltro('')
+        }
+
+        extFiltroNum( context.setItensFiltrados, context.userLogado.lde, ind)
+    }
+
+    function iconeBateria(bateria){
+        if (bateria === '1h' || bateria === ''){
+            return <i className="fa-solid fa-battery-empty"></i>
+        }else if (bateria === '2h'){
+            return <i className="fa-solid fa-battery-quarter"></i>
+        }else if (bateria === '3h'){
+            return <i className="fa-solid fa-battery-half"></i>
+        }else if (bateria === '4h'){
+            return <i className="fa-solid fa-battery-three-quarters"></i>
+        }else if (bateria === '5h'){
+            return <i className="fa-solid fa-battery-full"></i>
+        }else if (bateria === '6h'){
+            return <i className="fa-solid fa-battery-full"></i>
+        }
+    }
     
   return (
     <>
@@ -188,16 +224,16 @@ const LdE = () => {
             return <div key={item.id} className='ldeContainer'>
             <div className='contSuperior'  onClick={({currentTarget})=>expandir(currentTarget, item.avaria)}>
                 <div className='ldeUnidade' >
-                    <p>Número</p>
+                    <i className="fa-solid fa-hashtag"></i>
                     <p>{item.num}</p>
                 </div>
                 <div className='ldeUnidade'>
-                    <p>Local</p>
+                    <i className="fa-solid fa-location-dot"/>   
                     <p>{item.local}</p>
                 </div>
                 <div className='ldeUnidade'>
-                    <p>Autonomia</p>
-                    <p>{item.dur}</p>
+                    {iconeBateria(item.dur)}
+                    <p>{item.dur} </p>
                 </div>
 
                 {item.avaria && <i id='iconeAvaria' className="fa-solid fa-circle-exclamation"></i>}
@@ -227,15 +263,15 @@ const LdE = () => {
             return <div key={item.id} className='ldeContainer'>
             <div className='contSuperior'  onClick={(e)=>expandir(e.currentTarget, item.avaria)}>
                 <div className='ldeUnidade' >
-                    <p>Número</p>
+                    <i className="fa-solid fa-hashtag"></i>
                     <p>{item.num}</p>
                 </div>
                 <div className='ldeUnidade'>
-                    <p>Local</p>
+                    <i className="fa-solid fa-location-dot"/> 
                     <p>{item.local}</p>
                 </div>
                 <div className='ldeUnidade'>
-                    <p>Autonomia</p>
+                    {iconeBateria(item.dur)}
                     <p>{item.dur}</p>
                 </div>
                 {item.avaria && <i id='iconeAvaria' className="fa-solid fa-circle-exclamation"></i>}
@@ -261,12 +297,41 @@ const LdE = () => {
             [
               {i: <Link to='/home'><i className="fa-solid fa-house"></i></Link>},
               {i: <Link to='/ldenovo'><i className="fa-solid fa-file-circle-plus"></i></Link>},
-              {i: <i className="fa-solid fa-magnifying-glass"></i>},
-              {i: <i className="fa-solid fa-sliders" ></i>}
+              {i: <i className="fa-solid fa-magnifying-glass"></i>,
+            click: ()=>{context.setModalFooter(1)}},
+              {i: <i className="fa-solid fa-sliders" ></i>,
+              click: ()=>context.setModalFooter(2)},
             ]
           }
 
+          mainFiltro={
+            [
+                {i: <i class="fa-solid fa-hashtag" onClick={()=>handleFiltroNum()} ></i>},
+                {i: <i className="fa-solid fa-location-dot" onClick={()=>context.setModalFooter(3)} ></i>},
+                {i: <i className="fa-solid fa-battery-three-quarters" onClick={()=>context.setModalFooter(5)} ></i>},
+                {i: <i className="fa-solid fa-circle-info"  onClick={()=>filtroAvaria(context.userLogado.lde, context)} ></i>},
+            ]
+        }
+
           itens = {context.userLogado.lde}
+
+          buscarPlaceholder='Buscar pelo Número'
+
+          //FILTRO DE LOCAL
+          filtroOptDisValue={'Escolha o local'} 
+          filtroLocalValue={selectLocal}
+          filtroHandleChange={({target})=>setSelectLocal(target.value)}
+
+            //FILTRO DE BATERIA
+            selLdeBateria={['1 hora', '2 horas', '3 horas', '4 horas', '5 horas', '6 horas']}
+            selLdePlaceholder='Escolha a duração'
+            selectLdeBateria={selectLdeBateria}
+            selLdeBateriaChange={({target})=>setSelectLdeBateria(target.value)}
+            // selExtTipoChange={({target})=>setSelectExtTipo(target.value)}
+
+
+          filtroLocais={['Subsolo', 'Acesso subsolo A', 'Acesso subsolo B', 'Escada A', 'Escada B', 'Escada C', 'Térreo', '2º Pav A', '2º Pav B', '2º Pav Escada C', '3º Pav A', '3º Pav B', '3º Pav Escada C', '4º Pav A', '4º Pav B', '4º Pav Escada C']}
+
         
         />
 

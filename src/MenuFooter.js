@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom'
 import css from './css/lde.css'
 import { GlobalContext } from './GlobalContext'
 import Select from './Select'
-import {itemPorLocal, buscar} from './funcoes/filtroFuncoes'
+import {itemPorLocal, buscar, filtroLdeBateria} from './funcoes/filtroFuncoes'
 
-const MenuFooter = ({buscarPlaceholder, selExtTipoValue, selExtTipoChange, selExtTipo, selExtTipoPlaceholder, mainIcons, mainFiltro, itens, filtroLocais, FiltroOptDisValue, filtroHandleChange, filtroLocalValue}) => {
+const MenuFooter = ({selectLdeBateria, selLdeBateriaChange, selLdePlaceholder, selLdeBateria, buscarPlaceholder, selExtTipoValue, selExtTipoChange, selExtTipo, selExtTipoPlaceholder, mainIcons, mainFiltro, itens, filtroLocais, filtroOptDisValue, filtroHandleChange, filtroLocalValue}) => {
 
     const context = useContext(GlobalContext)
     const [inputBuscarValor, setInputBuscarValor] = React.useState('')
@@ -26,10 +26,18 @@ const MenuFooter = ({buscarPlaceholder, selExtTipoValue, selExtTipoChange, selEx
         }
     },[filtroLocalValue])
 
+    // SETAR LDE FILTRADOS POR BATERIA
+    React.useEffect(()=>{
+
+        filtroLdeBateria(selectLdeBateria, context.userLogado.lde, context)
+
+    },[selectLdeBateria])
+
     // LIMPAR ITENS FILTRADOS E INPUT CADA VEZ QUE MUDAR O MODAL DO FOOTER
     React.useEffect(()=>{
         setInputBuscarValor('')
         context.setItensFiltrados('')
+        // setSelectExtTipo('')
     },[context.modalFooter])
 
   return (
@@ -64,20 +72,26 @@ const MenuFooter = ({buscarPlaceholder, selExtTipoValue, selExtTipoChange, selEx
         {/* MODAL LOCAL */}
        {context.modalFooter === 3 && <div id='contLocal' className='barrasFooter'>
             <i className="fa-solid fa-backward" onClick={()=>context.setModalFooter(2)} ></i>
-            <Select options={filtroLocais} optionDisabledValue={FiltroOptDisValue} selectOnChange={filtroHandleChange} selectValorInicial={filtroLocalValue} />
+            <Select options={filtroLocais} optionDisabledValue={filtroOptDisValue} selectOnChange={filtroHandleChange} selectValorInicial={filtroLocalValue} />
         </div>}
 
         {/* MODAL TIPO DE EXTINTOR */}
         {context.modalFooter === 4 && <div id='contExtTipo' className='barrasFooter'>
             <i className="fa-solid fa-backward" onClick={()=>context.setModalFooter(2)} ></i>
             <Select options={selExtTipo} optionDisabledValue={selExtTipoPlaceholder} selectOnChange={selExtTipoChange} selectValorInicial={selExtTipoValue} />
-            
             </div>}
 
         {/* SPAN SOBRE O RESULTADO DOS FILTROS */}
         {context.itensFiltrados && <span id='resultadoFiltro'>
             {context.itensFiltrados.length} {context.itensFiltrados.length === 0 || context.itensFiltrados.length === 1?'item':'itens'} {context.tipoFiltro}
         </span>}
+
+        {/* MODAL BATERIA DE LUZ DE EMERGENCIA */}
+        {context.modalFooter === 5 && <div id='contLdeBateria' className='barrasFooter'>
+                <i className="fa-solid fa-backward" onClick={()=>context.setModalFooter(2)} ></i>
+
+                <Select options={selLdeBateria} optionDisabledValue={selLdePlaceholder} selectOnChange={selLdeBateriaChange} selectValorInicial={selectLdeBateria} />
+            </div>}
 
       </div>
     </>

@@ -21,7 +21,6 @@ const Home = () => {
       context.setUserLogado({...context.userLogado, gas:[]})
     }
 
-
   return (
     <>
     

@@ -65,6 +65,10 @@ textarea:focus{
 #extMais{
     grid-area: mais;
     border-radius: 20px;
+    padding: 0;
+}
+#extMais span{
+    transform: translateY(-3px);
 }
 #extAvaria{
     grid-area: avaria;
@@ -154,7 +158,8 @@ textarea:focus{
     /* border: none; */
     /* box-shadow: 5px 5px 5px #000, -5px -5px 5px #222;
     border-radius: 10px; */
-    border-radius: 5px;
+    /* border-radius: 5px; */
+    padding: 10px 0;
 }
 .hdInfo input{
     width: calc(65% - 4px);

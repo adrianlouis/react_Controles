@@ -4,7 +4,7 @@ import css from './css/ext.css'
 import { Link, useNavigate } from 'react-router-dom'
 import MenuFooter from './MenuFooter'
 
-import {itemAvariado} from './funcoes/filtroFuncoes'
+import {itemAvariado, extFiltroNum} from './funcoes/filtroFuncoes'
 import { mesParaString } from './funcoes/extDatas'
 
 const Extintores = () => {
@@ -81,6 +81,7 @@ const Extintores = () => {
         setSelectExtTipo('')
         context.setTipoFiltro('')
         setSelectLocal('')
+        setSelectExtTipo('')
     },[context.modalFooter])
 
     // FILTRAR EXTINTORES COM AVARIA USANDO FUNÇÃO EXTERNA 
@@ -176,7 +177,6 @@ const conversao = extintores.map((m, i)=>{
 context.setUserLogado({...context.userLogado, ext:[...conversao]})
 }
 
-
   return (
     <div>
 
@@ -186,36 +186,36 @@ context.setUserLogado({...context.userLogado, ext:[...conversao]})
             return <div key={item.id+'ext'} className='cardExt'>
 
             <div id='extNum'  className='hdInfo' > 
-                <span>extintor número</span>
+                <i className="fa-solid fa-hashtag"></i>
                 <p>{item.num}</p>
             </div>
 
             <div id='extLocal' className='hdInfo' >
-                <span>local</span>
+                <i className="fa-solid fa-location-dot"/>
                 <p>{item.local}</p>
             </div>
 
             <div id='extTipo' className='hdInfo' >
-                <span>classe:</span>
+                <i className="fa-solid fa-fire-extinguisher"></i>
                 <p>{item.tipo}</p>
             </div>
 
             <div id='extAgente' className='hdInfo' >
-                <span>tipo</span>
+                <i className="fa-solid fa-flask-vial"></i>
                 {item.tipo === 'A' && <p>AP</p>}
                 {item.tipo === 'B' && <p>PQS</p>}
                 {item.tipo === 'C' && <p>CO²</p>}
             </div>
 
             <div id='extProxRec' className='hdInfo' >
-                <span>última recarga</span>
+                <i className="fa-solid fa-calendar-day"></i>
                 <p>{mesParaString(item.ultRec.mes)} de {item.ultRec.ano}</p>
                 {/* <p>{attd(item.ultRec.mes)} de {item.ultRec.ano}</p> */}
                 {/* <p>{new Date(item.ultRec.mes+1+' 1 '+item.ultRec.ano)}</p> */}
             </div>
 
             <div id='extProxRet' className='hdInfo' >
-                <span>próximo reteste</span>
+                <i className="fa-solid fa-calendar-check"></i>
                 <p>{item.ultRet}</p>
             </div>
 
@@ -315,7 +315,8 @@ context.setUserLogado({...context.userLogado, ext:[...conversao]})
 
         mainFiltro={
             [
-                // {i: <i className="fa-solid fa-arrow-down-1-9 filtroAtivo" onClick={({currentTarget})=>handleOrdem(currentTarget)}></i>},
+                // {i: <i className="fa-solid fa-arrow-down-1-9 filtroAtivo" ></i>},
+                
                 {i: <i className="fa-solid fa-fire-extinguisher" onClick={()=>context.setModalFooter(4)}></i>},
                 {i: <i className="fa-solid fa-location-dot" onClick={()=>context.setModalFooter(3)}></i>},
                 {i: <i className="fa-solid fa-circle-info" onClick={()=>handleAvaria()} ></i>},
@@ -331,7 +332,7 @@ context.setUserLogado({...context.userLogado, ext:[...conversao]})
         filtroLocais={['Subsolo', 'Térreo', 'Brigada', '2º Pav A', '2º Pav B', '2º Pav C', '3º Pav A', '3º Pav B', '3º Pav C', '4º Pav A', '4º Pav B', '4º Pav C', 'CMI']}
         selExtTipo={['A', 'B', 'C']}
 
-        FiltroOptDisValue={'Escolha o local'}
+        filtroOptDisValue={'Escolha o local'}
         selExtTipoPlaceholder={'Escolha a classe do extintor'}
 
         filtroLocalValue={selectLocal}

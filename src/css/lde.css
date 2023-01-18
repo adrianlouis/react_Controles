@@ -26,12 +26,14 @@
 .ldeContainer *{
     color: #888;
 }
-
+.ldeUnidade i{
+    font-size: 1rem;
+}
 
 #iconeAvaria{
     position: absolute;
-    bottom: 5px;
-    right: 5px;
+    bottom: 15px;
+    right: 8px;
     font-size: 1rem;
 }
 
@@ -63,6 +65,7 @@
     justify-content: space-between;
     align-items: flex-start;
     position: relative;
+    padding-top: 8px;
 }
 
 .ldeSubFooter, .ldeUpperFooter{
@@ -119,7 +122,8 @@
     border-radius: 10px;
     border: none;
     box-sizing: border-box;
-    background-color: transparent;
+    background-color: #0005;
+    /* background-color: transparent; */
 
     /* color: #0a0; */
 
