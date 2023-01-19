@@ -243,36 +243,36 @@ context.setUserLogado({...context.userLogado, ext:[...conversao]})
             return <div key={item.id+'ext'} className='cardExt'>
 
             <div id='extNum'  className='hdInfo' > 
-                <span>extintor número</span>
+                <i className="fa-solid fa-hashtag"></i>
                 <p>{item.num}</p>
             </div>
 
             <div id='extLocal' className='hdInfo' >
-                <span>local</span>
+                <i className="fa-solid fa-location-dot"/>
                 <p>{item.local}</p>
             </div>
 
             <div id='extTipo' className='hdInfo' >
-                <span>classe:</span>
+                <i className="fa-solid fa-fire-extinguisher"></i>
                 <p>{item.tipo}</p>
             </div>
 
             <div id='extAgente' className='hdInfo' >
-                <span>tipo</span>
+                <i className="fa-solid fa-flask-vial"></i>
                 {item.tipo === 'A' && <p>AP</p>}
                 {item.tipo === 'B' && <p>PQS</p>}
                 {item.tipo === 'C' && <p>CO²</p>}
             </div>
 
             <div id='extProxRec' className='hdInfo' >
-                <span>última recarga</span>
+                <i className="fa-solid fa-calendar-day"></i>
                 <p>{mesParaString(item.ultRec.mes)} de {item.ultRec.ano}</p>
                 {/* <p>{attd(item.ultRec.mes)} de {item.ultRec.ano}</p> */}
                 {/* <p>{new Date(item.ultRec.mes+1+' 1 '+item.ultRec.ano)}</p> */}
             </div>
 
             <div id='extProxRet' className='hdInfo' >
-                <span>próximo reteste</span>
+                <i className="fa-solid fa-calendar-check"></i>
                 <p>{item.ultRet}</p>
             </div>
 
@@ -309,7 +309,7 @@ context.setUserLogado({...context.userLogado, ext:[...conversao]})
                 click: ()=>{context.setModalFooter(1)} },
                 {i: <i className="fa-solid fa-sliders" ></i>,
                 click: ()=>context.setModalFooter(2)},
-                {i:<i className="fa-solid fa-door-open"></i>}
+                {i: <Link to='/'><i className="fa-solid fa-door-open"></i></Link>},
             ]
         }
 

@@ -37,8 +37,13 @@
     text-align: start;
 } */
 
-.hdInfo span:nth-child(1){
+/* .hdInfo span:nth-child(1){
     font-size: .8rem;
+    margin-top: 5px;
+} */
+
+.hdInfo i{
+    font-size: 1rem;
     margin-top: 5px;
     /* padding: unset; */
 }
@@ -60,7 +65,8 @@
     align-items: center;
     column-gap: 10px;
     row-gap: 10px;
-    width: 90%;
+    width: 75%;
+    /* width: 90%; */
     margin: 40px auto;
     padding: 5px;
     color: #777;

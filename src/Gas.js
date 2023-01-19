@@ -7,17 +7,17 @@ import {ordemNumerica} from './funcoes/filtroFuncoes'
 import { GlobalContext } from './GlobalContext'
 import Select from './Select'
 import MenuFooter from './MenuFooter'
+import {ordemCrescenteDecrescente} from './funcoes/filtroFuncoes'
 
 const Gas = () => {
+    // const funcaoNum = ()=> ordemNumerica(gases)
+    // const novoItem = ()=>navigate('/gasnovo')
+    // const [inputBuscarMes, setInputBuscarMes] = React.useState('')
 
     const ctx = useContext(GlobalContext) 
     const navigate = useNavigate()
-     
-    // const funcaoNum = ()=> ordemNumerica(gases)
-    const novoItem = ()=>navigate('/gasnovo')
     const [inputDisabled, setInputDisabled] = React.useState(true)
-    const [inputBuscarMes, setInputBuscarMes] = React.useState('')
-
+    const [toogle, setToogle] = React.useState(true)
     const gases = ctx.userLogado.gas.sort((a,b)=>{
         return b.id - a.id
     })
@@ -58,12 +58,22 @@ const Gas = () => {
         console.log('ordenar por num')
     }
 
+    function gasOrdenar(el){
+        if (el.getAttribute('class') !== "fa-solid fa-arrow-down-9-1"){
+            el.setAttribute('class', "fa-solid fa-arrow-down-9-1")
+            setToogle(!toogle)
+        }else{
+            el.setAttribute('class', 'fa-solid fa-arrow-down-1-9')
+            setToogle(!toogle)
+        }
+    }
+
 
   return (
     <div className='gasContainer'>
 
 
-        {ctx.userLogado.gas.map((item)=>{
+        {(toogle ? gases : gases.reverse()).map((item)=>{
             return <div key={item.id} className='gasCard' >
 
                     <div className='gasCardData' onClick={({currentTarget})=>handleContent(currentTarget)} >
@@ -153,17 +163,19 @@ const Gas = () => {
                 [
                     {i: <Link to='/home'><i className="fa-solid fa-house"></i></Link>},
                     {i: <Link to='/gasnovo'><i className="fa-solid fa-file-circle-plus"></i></Link>},
-                    {i: <i className="fa-solid fa-magnifying-glass"></i>,
-                    click: ()=>{ctx.setModalFooter(1)} },
-                    {i: <i className="fa-solid fa-sliders" ></i>,
-                    click: ()=>ctx.setModalFooter(2)},
-                    {i:<i className="fa-solid fa-door-open"></i>}
+                    {i:<i className="fa-solid fa-arrow-down-1-9" onClick={({currentTarget})=>gasOrdenar(currentTarget)}></i>},
+                    // {i: <i className="fa-solid fa-magnifying-glass"></i>,
+                    // click: ()=>{ctx.setModalFooter(1)} },
+                    // {i: <i className="fa-solid fa-sliders" ></i>,
+                    // click: ()=>ctx.setModalFooter(2)},
+                    {i: <Link to='/'><i className="fa-solid fa-door-open"></i></Link>},
                 ]
             }
 
             itens={gases}
 
             buscarPlaceholder='data'
+            filtroLocal=''
         />
 
         {/* <IconsBottom   iconesDefault={[{icone:"fa-solid fa-house", acao:home}, {icone:"fa-solid fa-file-circle-plus", acao:novoItem }]} /> */}

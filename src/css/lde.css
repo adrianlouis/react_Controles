@@ -123,6 +123,7 @@
     border: none;
     box-sizing: border-box;
     background-color: #0005;
+    resize: none;
     /* background-color: transparent; */
 
     /* color: #0a0; */

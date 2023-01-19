@@ -1,6 +1,5 @@
 import React, { useContext } from 'react'
-import { Link } from 'react-router-dom'
-import css from './css/lde.css'
+// import css from './css/lde.css'
 import { GlobalContext } from './GlobalContext'
 import Select from './Select'
 import {itemPorLocal, buscar} from './funcoes/filtroFuncoes'

@@ -1,11 +1,5 @@
 // RETORNA ITENS COM AVARIAS E SEM AVARIAS
-
-import React from "react"
-import { GlobalContext } from "../GlobalContext"
-
-
 export  function itemAvariado(itens){
-    console.log(itens)
     const avariados = itens.filter((f)=>{
         if (f.avaria){
             return f
@@ -70,7 +64,7 @@ export function ordemCrescenteDecrescente(itens){
         // context.setItensFiltrados(crescente)
 }
 
-export function extFiltroNum(funcao, ctx, ind){
+export function filtroNum(funcao, ctx, ind){
 
     if (ind === 0){
         // ORDEM CRESCENTE
@@ -147,6 +141,35 @@ export function filtroAvaria(itens, ctx){
         ctx.setTipoFiltro('')
 
         
+    }
+}
+
+export function validade(itens, ctx){
+    const dataHoje = new Date()
+
+    const elemVencidos = itens.filter((f)=>{
+        const dataElem = new Date(f.val)
+        if (dataElem <= dataHoje){
+            return f
+        }
+    })
+
+    const elemVencendo = itens.filter((f)=>{
+        const dataElem = new Date(f.val)
+        if (dataElem.getFullYear() === dataHoje.getFullYear() && dataElem > dataHoje){
+            return f
+        }
+    })
+
+    if (JSON.stringify(ctx.itensFiltrados) !== JSON.stringify(elemVencidos) && JSON.stringify(ctx.itensFiltrados) !== JSON.stringify(elemVencendo)){
+         ctx.setItensFiltrados(elemVencidos)
+         ctx.setTipoFiltro('com validade vencida')
+        }else if(JSON.stringify(ctx.itensFiltrados) === JSON.stringify(elemVencidos)){
+            ctx.setItensFiltrados(elemVencendo)
+            ctx.setTipoFiltro('vencem este ano')
+        }else{
+            ctx.setItensFiltrados('')
+            ctx.setTipoFiltro('')
     }
 }
 
