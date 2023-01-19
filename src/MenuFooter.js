@@ -3,13 +3,13 @@ import { Link } from 'react-router-dom'
 import css from './css/lde.css'
 import { GlobalContext } from './GlobalContext'
 import Select from './Select'
-import {itemPorLocal, buscar, filtroLdeBateria} from './funcoes/filtroFuncoes'
+import {itemPorLocal, buscar} from './funcoes/filtroFuncoes'
 
-const MenuFooter = ({selectLdeBateria, selLdeBateriaChange, selLdePlaceholder, selLdeBateria, buscarPlaceholder, selExtTipoValue, selExtTipoChange, selExtTipo, selExtTipoPlaceholder, mainIcons, mainFiltro, itens, filtroLocais, filtroOptDisValue, filtroHandleChange, filtroLocalValue}) => {
+const MenuFooter = ({filtroTipoDeExt, ldeSelect, filtroLocal, buscarPlaceholder, mainIcons, mainFiltro, itens}) => {
 
     const context = useContext(GlobalContext)
     const [inputBuscarValor, setInputBuscarValor] = React.useState('')
-    
+
     // BUSCAR ITENS PELO NUM
     function inputBuscar(v){
         setInputBuscarValor(v)
@@ -18,26 +18,18 @@ const MenuFooter = ({selectLdeBateria, selLdeBateriaChange, selLdePlaceholder, s
 
     // SETAR ITENS FILTRADOS POR LOCAL
     React.useEffect(()=>{
-        if (filtroLocalValue !== ''){
-            const filtroLocal = itemPorLocal(itens, filtroLocalValue)
-            context.setItensFiltrados(filtroLocal)
-            context.setTipoFiltro(' - '+filtroLocalValue)
+        if (filtroLocal.value !== ''){
+            const res = itemPorLocal(itens, filtroLocal.value)
+            context.setItensFiltrados(res)
+            context.setTipoFiltro(' - '+filtroLocal.value)
 
         }
-    },[filtroLocalValue])
-
-    // SETAR LDE FILTRADOS POR BATERIA
-    React.useEffect(()=>{
-
-        filtroLdeBateria(selectLdeBateria, context.userLogado.lde, context)
-
-    },[selectLdeBateria])
+    },[filtroLocal.value])
 
     // LIMPAR ITENS FILTRADOS E INPUT CADA VEZ QUE MUDAR O MODAL DO FOOTER
     React.useEffect(()=>{
         setInputBuscarValor('')
         context.setItensFiltrados('')
-        // setSelectExtTipo('')
     },[context.modalFooter])
 
   return (
@@ -51,7 +43,7 @@ const MenuFooter = ({selectLdeBateria, selLdeBateriaChange, selLdePlaceholder, s
             })}
         </div >}
 
-        {/* MODAL BUSCAR */}
+        {/* MODAL DE BUSCAR */}
         {context.modalFooter === 1 && <div id='contBuscar' className='barrasFooter'>
             <i className="fa-solid fa-backward" onClick={()=>context.setModalFooter(0)} ></i>
             <input placeholder={buscarPlaceholder} value={inputBuscarValor} onChange={({target})=>inputBuscar(target.value)} />
@@ -69,16 +61,16 @@ const MenuFooter = ({selectLdeBateria, selLdeBateriaChange, selLdePlaceholder, s
             })}
         </div>}
 
-        {/* MODAL LOCAL */}
-       {context.modalFooter === 3 && <div id='contLocal' className='barrasFooter'>
+        {/* MODAL DE LOCAL */}
+       {filtroLocal && context.modalFooter === 3 && <div id='contLocal' className='barrasFooter'>
             <i className="fa-solid fa-backward" onClick={()=>context.setModalFooter(2)} ></i>
-            <Select options={filtroLocais} optionDisabledValue={filtroOptDisValue} selectOnChange={filtroHandleChange} selectValorInicial={filtroLocalValue} />
+            <Select options={filtroLocal.opt} optionDisabledValue={filtroLocal.placeholder} selectOnChange={filtroLocal.change} selectValorInicial={filtroLocal.value} />
         </div>}
 
         {/* MODAL TIPO DE EXTINTOR */}
-        {context.modalFooter === 4 && <div id='contExtTipo' className='barrasFooter'>
+        {filtroTipoDeExt && context.modalFooter === 4 && <div id='contExtTipo' className='barrasFooter'>
             <i className="fa-solid fa-backward" onClick={()=>context.setModalFooter(2)} ></i>
-            <Select options={selExtTipo} optionDisabledValue={selExtTipoPlaceholder} selectOnChange={selExtTipoChange} selectValorInicial={selExtTipoValue} />
+            <Select options={filtroTipoDeExt.opt} optionDisabledValue={filtroTipoDeExt.placeholder} selectOnChange={filtroTipoDeExt.change} selectValorInicial={filtroTipoDeExt.value} />
             </div>}
 
         {/* SPAN SOBRE O RESULTADO DOS FILTROS */}
@@ -87,11 +79,10 @@ const MenuFooter = ({selectLdeBateria, selLdeBateriaChange, selLdePlaceholder, s
         </span>}
 
         {/* MODAL BATERIA DE LUZ DE EMERGENCIA */}
-        {context.modalFooter === 5 && <div id='contLdeBateria' className='barrasFooter'>
-                <i className="fa-solid fa-backward" onClick={()=>context.setModalFooter(2)} ></i>
-
-                <Select options={selLdeBateria} optionDisabledValue={selLdePlaceholder} selectOnChange={selLdeBateriaChange} selectValorInicial={selectLdeBateria} />
-            </div>}
+        {ldeSelect && context.modalFooter === 5 && <div id='contLdeBateria' className='barrasFooter'>
+            <i className="fa-solid fa-backward" onClick={()=>context.setModalFooter(2)} ></i>
+            <Select options={ldeSelect.opt} optionDisabledValue={ldeSelect.placeholder} selectOnChange={ldeSelect.change} selectValorInicial={ldeSelect.value} />
+        </div>}
 
       </div>
     </>

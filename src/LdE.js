@@ -6,7 +6,7 @@ import Select from './Select'
 import Header from './Header'
 import IconesBottom from './IconesBottom'
 import MenuFooter from './MenuFooter'
-import { extFiltroNum, filtroAvaria} from './funcoes/filtroFuncoes'
+import { extFiltroNum, filtroAvaria, filtroLdeBateria} from './funcoes/filtroFuncoes'
 
 const LdE = () => {
     const context = React.useContext(GlobalContext)
@@ -62,6 +62,8 @@ const LdE = () => {
 
         }
     }
+
+   
 
     function limparFiltros(){
         setFiltroNumerico('')
@@ -216,6 +218,19 @@ const LdE = () => {
             return <i className="fa-solid fa-battery-full"></i>
         }
     }
+
+    // SETAR LDE FILTRADOS POR BATERIA
+    React.useEffect(()=>{
+        if (selectLdeBateria){
+            filtroLdeBateria(selectLdeBateria, context.userLogado.lde, context)
+        }
+    },[selectLdeBateria])
+
+    // LIMPAR ESCOLHA DO SELECT DO FILTRO POR BATERIA
+    React.useEffect(()=>{
+        setSelectLdeBateria('')
+        setSelectLocal('')
+    },[context.modalFooter])
     
   return (
     <>
@@ -302,37 +317,36 @@ const LdE = () => {
               {i: <i className="fa-solid fa-sliders" ></i>,
               click: ()=>context.setModalFooter(2)},
             ]
-          }
+            }
 
           mainFiltro={
             [
-                {i: <i class="fa-solid fa-hashtag" onClick={()=>handleFiltroNum()} ></i>},
+                {i: <i className="fa-solid fa-hashtag" onClick={()=>handleFiltroNum()} ></i>},
                 {i: <i className="fa-solid fa-location-dot" onClick={()=>context.setModalFooter(3)} ></i>},
                 {i: <i className="fa-solid fa-battery-three-quarters" onClick={()=>context.setModalFooter(5)} ></i>},
                 {i: <i className="fa-solid fa-circle-info"  onClick={()=>filtroAvaria(context.userLogado.lde, context)} ></i>},
             ]
-        }
+            }
 
           itens = {context.userLogado.lde}
 
           buscarPlaceholder='Buscar pelo Número'
 
-          //FILTRO DE LOCAL
-          filtroOptDisValue={'Escolha o local'} 
-          filtroLocalValue={selectLocal}
-          filtroHandleChange={({target})=>setSelectLocal(target.value)}
+            //FILTRO BATERIA
+            ldeSelect = {{
+                opt:['1 hora', '2 horas', '3 horas', '4 horas', '5 horas', '6 horas'],
+                placeholder:'Escolha a duração',
+                change:({target})=>setSelectLdeBateria(target.value),
+                value:selectLdeBateria}
+            }
 
-            //FILTRO DE BATERIA
-            selLdeBateria={['1 hora', '2 horas', '3 horas', '4 horas', '5 horas', '6 horas']}
-            selLdePlaceholder='Escolha a duração'
-            selectLdeBateria={selectLdeBateria}
-            selLdeBateriaChange={({target})=>setSelectLdeBateria(target.value)}
-            // selExtTipoChange={({target})=>setSelectExtTipo(target.value)}
-
-
-          filtroLocais={['Subsolo', 'Acesso subsolo A', 'Acesso subsolo B', 'Escada A', 'Escada B', 'Escada C', 'Térreo', '2º Pav A', '2º Pav B', '2º Pav Escada C', '3º Pav A', '3º Pav B', '3º Pav Escada C', '4º Pav A', '4º Pav B', '4º Pav Escada C']}
-
-        
+            //FILTRO DE LOCAL
+            filtroLocal = {{
+                opt:['Subsolo', 'Acesso subsolo A', 'Acesso subsolo B', 'Escada A', 'Escada B', 'Escada C', 'Térreo', '2º Pav A', '2º Pav B', '2º Pav Escada C', '3º Pav A', '3º Pav B', '3º Pav Escada C', '4º Pav A', '4º Pav B', '4º Pav Escada C'],
+                placeholder:'Escolha o local',
+                change:({target})=>setSelectLocal(target.value),
+                value:selectLocal
+            }}
         />
 
         {/* <IconesBottom itens={context.userLogado.lde} buscarChange={({target})=>filtroNum(target.value)} buscarValor={valor} novoItem='/ldenovo' iconesDeFiltragem={["fa-solid fa-arrow-down-1-9", "fa-solid fa-location-dot", "fa-solid fa-clock", "fa-solid fa-circle-info" ]} indexModalLocal={1} indexAvarias={3} indexNum={0} indexBuscar={1} indexAutonomia={2} selectLocalOptions={['Subsolo', 'Acesso subsolo A', 'Acesso subsolo B', 'Térreo', 'Brigada', 'Escada A', 'Escada B', 'Escada C', '2º Pav A', '2º Pav B', '2º Pav Escada C', '3º Pav A', '3º Pav B', '3º Pav Escada C', '4º Pav A', '4º Pav B', '4º Pav Escada C', 'CMI']} autonomiaOptions={['1h', '2h', '3h', '4h', '5h', '6h']} /> */}

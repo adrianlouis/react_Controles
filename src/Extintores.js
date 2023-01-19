@@ -4,7 +4,7 @@ import css from './css/ext.css'
 import { Link, useNavigate } from 'react-router-dom'
 import MenuFooter from './MenuFooter'
 
-import {itemAvariado, extFiltroNum} from './funcoes/filtroFuncoes'
+import {itemAvariado} from './funcoes/filtroFuncoes'
 import { mesParaString } from './funcoes/extDatas'
 
 const Extintores = () => {
@@ -329,17 +329,21 @@ context.setUserLogado({...context.userLogado, ext:[...conversao]})
 
         buscarPlaceholder='Buscar pelo Número'
 
-        filtroLocais={['Subsolo', 'Térreo', 'Brigada', '2º Pav A', '2º Pav B', '2º Pav C', '3º Pav A', '3º Pav B', '3º Pav C', '4º Pav A', '4º Pav B', '4º Pav C', 'CMI']}
-        selExtTipo={['A', 'B', 'C']}
+       //FILTRO POR TIPO DE EXTINTOR
+       filtroTipoDeExt={{
+            opt:['A', 'B', 'C'],
+            placeholder:'Escolha a classe do extintor',
+            change:({target})=>setSelectExtTipo(target.value),
+            value:selectExtTipo
+       }}
 
-        filtroOptDisValue={'Escolha o local'}
-        selExtTipoPlaceholder={'Escolha a classe do extintor'}
-
-        filtroLocalValue={selectLocal}
-        selExtTipoValue={selectExtTipo}
-
-        filtroHandleChange={({target})=>setSelectLocal(target.value)}
-        selExtTipoChange={({target})=>setSelectExtTipo(target.value)}
+        //FILTRO DE LOCAL
+        filtroLocal = {{
+            opt:['Subsolo', 'Térreo', 'Brigada', '2º Pav A', '2º Pav B', '2º Pav C', '3º Pav A', '3º Pav B', '3º Pav C', '4º Pav A', '4º Pav B', '4º Pav C', 'CMI'],
+            placeholder:'Escolha o local',
+            change:({target})=>setSelectLocal(target.value),
+            value:selectLocal
+        }}
 
         
         />
