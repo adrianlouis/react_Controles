@@ -7,7 +7,7 @@ import {ordemNumerica} from './funcoes/filtroFuncoes'
 import { GlobalContext } from './GlobalContext'
 import Select from './Select'
 import MenuFooter from './MenuFooter'
-import {ordemCrescenteDecrescente} from './funcoes/filtroFuncoes'
+import {ordemCrescenteDecrescente, Filtro} from './funcoes/filtroFuncoes'
 
 const Gas = () => {
     // const funcaoNum = ()=> ordemNumerica(gases)
@@ -21,6 +21,9 @@ const Gas = () => {
     const gases = ctx.userLogado.gas.sort((a,b)=>{
         return b.id - a.id
     })
+
+    const ava = new Filtro(ctx.userLogado.ext, "Subsolo")
+    // console.log(ava.local())
 
     function handleContent(content){
         const element = content.nextSibling

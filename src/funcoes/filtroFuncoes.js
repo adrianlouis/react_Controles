@@ -1,3 +1,100 @@
+// TENTATIVA COM CONSTRUCTOR FUNCTION
+
+export function Filtro(itens, local){
+
+    this.avariados = function (){
+        return itens.filter((f)=>{
+            if (f.avaria){
+                return f
+            }
+        })
+    }
+
+    this.naoAvariados = function (){
+        return itens.filter((f)=>{
+            if (!f.avaria){
+                return f
+            }
+        })
+    }
+
+    this.crescente = function (){
+        const crescente = []
+        Object.keys(itens).map((item)=>{
+        return Number(itens[item].num)}).sort((a,b)=>{
+            return a - b
+        }).forEach((cada)=>{
+            itens.map((item)=>{
+                if (item.num === String(cada)){
+                    crescente.push(item)
+                }
+            })
+        })
+        return crescente
+    }
+
+    this.decrescente = function(){
+        return this.crescente().reverse()
+    }
+
+    this.local = function(){
+        return itens.filter((f)=>{
+            if (f.local === local){
+                return f
+            }
+        })
+    }
+
+    this.sinalOk = () =>{
+        return itens.filter((f)=>{
+            if (f.sinal === 'Ok'){
+                return f
+            }
+        })
+    }
+
+    this.sinalNok = () =>{
+        return itens.filter((f)=>{
+            if (f.sinal === 'Nok'){
+                return f
+            }
+        })
+    }
+    
+    this.abrigoOk = () =>{
+        return itens.filter((f)=>{
+            if (f.abrigo === 'Ok'){
+                return f
+            }
+        })
+    }
+
+    this.abrigoNok = () =>{
+        return itens.filter((f)=>{
+            if (f.abrigo === 'Nok'){
+                return f
+            }
+        })
+    }
+
+    this.hdPecasOk=()=>{
+        return itens.filter((f)=>{
+            if (f.pecas.includes('Esguicho') && f.pecas.includes('Storz') && f.pecas.includes('Mangueira')){
+                return f
+            }
+        })
+    }
+
+    this.hdPecasNok=()=>{
+        return itens.filter((f)=>{
+            if (!f.pecas.includes('Esguicho') || !f.pecas.includes('Storz') || !f.pecas.includes('Mangueira')){
+                return f
+            }
+        })
+    }
+
+}
+
 // RETORNA ITENS COM AVARIAS E SEM AVARIAS
 export  function itemAvariado(itens){
     const avariados = itens.filter((f)=>{

@@ -8,7 +8,6 @@
 }
 
 .hdInfo{
-    /* border: 1px solid #0a0; */
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -65,8 +64,7 @@
     align-items: center;
     column-gap: 10px;
     row-gap: 10px;
-    width: 75%;
-    /* width: 90%; */
+    width: 90%;
     margin: 40px auto;
     padding: 5px;
     color: #777;
@@ -118,6 +116,7 @@
     /* background-color: # ; */
     margin-bottom: 5px;
     color: #ddd;
+    resize: none;
 }
 #hdAvariasTxtArea:focus{
     outline: none;

@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import css from "./css/hd.css";
 import { GlobalContext } from "./GlobalContext";
 import MenuFooter from "./MenuFooter";
-import {filtroNum, filtroAvaria, validade} from "./funcoes/filtroFuncoes"
+import {Filtro, filtroNum, filtroAvaria, validade} from "./funcoes/filtroFuncoes"
 
 const Hidrantes = () => {
   const context = useContext(GlobalContext);
@@ -16,16 +16,11 @@ const Hidrantes = () => {
   const userHds = context.userLogado.hd
   const [valor, setValor] = React.useState('')
   const [ind, setInd] = React.useState('')
+  const filtrados = new Filtro(context.userLogado.hd)
 
   const [selectLocal, setSelectLocal] = React.useState('')
 
-  
   window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
-  
-
-  // function filtroNum(el){
-  //   setValor(el)
-  // }
 
   React.useEffect(()=>{
     if(ordenar){
@@ -89,7 +84,49 @@ const Hidrantes = () => {
     }
 
     filtroNum( context.setItensFiltrados, context.userLogado.hd, ind)
-}
+  }
+
+  function handleAbrigo(){
+    if (JSON.stringify(context.itensFiltrados) !== JSON.stringify(filtrados.abrigoOk()) && JSON.stringify(context.itensFiltrados) !== JSON.stringify(filtrados.abrigoNok()) ){
+      context.setItensFiltrados(filtrados.abrigoNok())
+      context.setTipoFiltro('com problema no abrigo')
+      window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
+    }else if (JSON.stringify(context.itensFiltrados) === JSON.stringify(filtrados.abrigoNok())){
+      context.setItensFiltrados(filtrados.abrigoOk())
+      context.setTipoFiltro('sem problema no abrigo')
+      window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
+    }else{
+      context.setItensFiltrados('')
+      context.setTipoFiltro('')
+      window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
+    }
+  }
+
+  function handleSinal(){
+    if (JSON.stringify(context.itensFiltrados) !== JSON.stringify(filtrados.sinalOk()) && JSON.stringify(context.itensFiltrados) !== JSON.stringify(filtrados.sinalNok())){
+      context.setItensFiltrados(filtrados.sinalNok())
+      context.setTipoFiltro('com problema na sinalização')
+    }else if (JSON.stringify(context.itensFiltrados) === JSON.stringify(filtrados.sinalNok())){
+      context.setItensFiltrados(filtrados.sinalOk())
+      context.setTipoFiltro('sem problema na sinalização')
+    }else{
+      context.setItensFiltrados('')
+      context.setTipoFiltro('')
+    }
+  }
+
+  function handlePecas(){
+    if (JSON.stringify(context.itensFiltrados) !== JSON.stringify(filtrados.hdPecasOk()) && JSON.stringify(context.itensFiltrados) !== JSON.stringify(filtrados.hdPecasNok())){
+      context.setItensFiltrados(filtrados.hdPecasNok())
+      context.setTipoFiltro('faltando peça')
+    }else if (JSON.stringify(context.itensFiltrados) === JSON.stringify(filtrados.hdPecasNok())){
+      context.setItensFiltrados(filtrados.hdPecasOk())
+      context.setTipoFiltro('com todas as peças')
+    }else{
+      context.setItensFiltrados('')
+      context.setTipoFiltro('')
+    }
+  }
 
 
   return (
@@ -215,9 +252,9 @@ const Hidrantes = () => {
             [
               {i: <i className="fa-solid fa-hashtag" onClick={()=>handleFiltroNum()} ></i>},                
                 {i: <i className="fa-solid fa-location-dot" onClick={()=>context.setModalFooter(3)}></i>},
-                {i:<i className="fa-solid fa-signs-post"></i>},
-                {i:<i className="fa-solid fa-house-flood-water"></i>},
-                {i:<i className="fa-solid fa-wrench"></i>},
+                {i:<i className="fa-solid fa-signs-post" onClick={()=>handleSinal()}></i>},
+                {i:<i className="fa-solid fa-house-flood-water" onClick={()=>handleAbrigo()}></i>},
+                {i:<i className="fa-solid fa-wrench" onClick={()=>handlePecas()}></i>},
                 {i: <i className="fa-solid fa-circle-info"  onClick={()=>filtroAvaria(context.userLogado.hd, context)} ></i>},
                 {i: <i className="fa-solid fa-calendar-check" onClick={()=>validade(context.userLogado.hd, context)}></i>},
             ]

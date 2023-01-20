@@ -4,7 +4,7 @@ import css from './css/ext.css'
 import { Link, useNavigate } from 'react-router-dom'
 import MenuFooter from './MenuFooter'
 
-import {itemAvariado} from './funcoes/filtroFuncoes'
+import {itemAvariado, Filtro} from './funcoes/filtroFuncoes'
 import { mesParaString } from './funcoes/extDatas'
 
 const Extintores = () => {
@@ -88,11 +88,14 @@ const Extintores = () => {
     function handleAvaria(){
         const itens = itemAvariado(context.userLogado.ext)
 
+        const ext = new Filtro(context.userLogado.ext)
+
         if(context.itensFiltrados === ''){
-            context.setItensFiltrados(itens[0])
+            context.setItensFiltrados(ext.avariados())
+            // context.setItensFiltrados(itens[0])
             context.setTipoFiltro('com avarias')
-        }else if (JSON.stringify(itens[0]) === JSON.stringify(context.itensFiltrados)){
-            context.setItensFiltrados(itens[1])
+        }else if (JSON.stringify(ext.avariados()) === JSON.stringify(context.itensFiltrados)){
+            context.setItensFiltrados(ext.naoAvariados())
             context.setTipoFiltro('sem avarias')
         }else{
             context.setTipoFiltro('')
@@ -140,7 +143,6 @@ const Extintores = () => {
             context.setTipoFiltro('')
        }
     }
-
 
     // ATUALIZAÇÃO DOS MESES EM EXT DO USER LOGADO - REMOVER APOS O PRIMEIRO CLICK DO USER
     function att(){
@@ -319,6 +321,7 @@ context.setUserLogado({...context.userLogado, ext:[...conversao]})
                 
                 {i: <i className="fa-solid fa-fire-extinguisher" onClick={()=>context.setModalFooter(4)}></i>},
                 {i: <i className="fa-solid fa-location-dot" onClick={()=>context.setModalFooter(3)}></i>},
+                // {i: <i className="fa-solid fa-circle-info" onClick={()=>handleAvaria()} ></i>},
                 {i: <i className="fa-solid fa-circle-info" onClick={()=>handleAvaria()} ></i>},
                 {i: <i className="fa-solid fa-calendar-day" onClick={()=>recarga()} ></i>},
                 {i: <i className="fa-solid fa-calendar-check" onClick={()=>hidrostatico()}></i>},
