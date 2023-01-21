@@ -23,12 +23,14 @@ import Login from './Login';
 import Salas from './Salas';
 
 function App() {
-  // const location = useLocation()
+   // const location = useLocation()
 
   // React.useEffect(()=>{
   //   console.log('RENDER')
 
   // },[location])
+
+  
 
   return (
     <BrowserRouter>

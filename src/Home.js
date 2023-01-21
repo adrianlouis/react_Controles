@@ -3,11 +3,52 @@ import HomeCard from './HomeCard'
 import css from './css/home.css'
 import Header from './Header'
 import {useNavigate} from 'react-router-dom'
-import {GlobalContext} from './GlobalContext' 
+import {GlobalContext} from './GlobalContext'
+//FIREBASE CMDS
+import { db } from './firebase-config';
+import { collection, getDocs, addDoc, updateDoc, doc, deleteDoc } from 'firebase/firestore';
 
 const Home = () => {
   const navigate = useNavigate()
   const context = React.useContext(GlobalContext)
+  const [newUser, setNewUser] = React.useState({name:'', email:'', planos:[...context.userLogado.hd]})
+  //FIREBASE CMDS
+  const [users, setUsers] = React.useState([]);
+  const usersCollectionRef = collection(db, "users" )
+
+  //CREATE
+  const criarUser = async () =>{
+    await addDoc(usersCollectionRef, newUser )
+  }
+
+  //READ
+  React.useEffect(()=>{
+
+    const getUsers = async () => {
+      const data = await getDocs(usersCollectionRef);
+      setUsers(data.docs.map((docs)=>({...docs.data(), id:docs.id})))
+    }
+
+    getUsers() 
+
+  },[])
+
+  //UPDATE
+  const updateUser = async (id, email) =>{
+
+    const userDoc = doc(db, "users", id)
+    const novosCampos = newUser 
+    await updateDoc(userDoc, novosCampos)
+
+  }
+
+  //DELETE
+  const deleteUser = async (id) =>{
+    const userDoc = doc(db, "users", id)
+    await deleteDoc(userDoc)
+  }
+
+ 
 
     if(!context.userLogado){
       navigate('/')
@@ -28,7 +69,24 @@ const Home = () => {
 
     <div className='homeContainer'>
 
+
         <div className='cards'>
+
+        <input type='text' placeholder='Nome...' onChange={({target})=>setNewUser({...newUser, name:target.value})} />
+        <input type='text' placeholder='Email...' onChange={({target})=>setNewUser({...newUser, email:target.value})} />
+
+        <button onClick={criarUser}>SALVAR</button>
+
+      <ul>
+        {users.map((m, i)=>{
+          return <div  key={m.name+i}>
+          <li>{m.name}</li>
+          <li>{m.email}</li>
+          <button onClick={()=>{updateUser(m.id, m.email)}}>mudar email</button>
+          <button onClick={()=>deleteUser(m.id)}>deletar</button>
+          </div>
+        })}
+      </ul>
 
         <HomeCard spanCardClass='cardTexto' divClass='homeCardAtivo homeCardContainer' cardNome={context.userLogado.ext.length+' Extintores'} onClick={()=>nav('/ext')} />
 

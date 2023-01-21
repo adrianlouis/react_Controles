@@ -41,7 +41,7 @@ const Salas = () => {
             </div>
         </div>
 
-        <MenuFooter 
+        {/* <MenuFooter 
 
             mainIcons={
                 [
@@ -56,7 +56,7 @@ const Salas = () => {
 
             itens={context.userLogado.ext}
 
-        />
+        /> */}
 
     </div>
   )
