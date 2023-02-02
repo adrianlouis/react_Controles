@@ -5,6 +5,7 @@ import { GlobalContext } from './GlobalContext';
 import css from './css/lde.css'
 import Select from './Select';
 import AcoesCriandoItem from './AcoesCriandoItem';
+import { updateBd } from './crudFireBase';
 
 const LdeEdit = () => {
 
@@ -32,14 +33,17 @@ const LdeEdit = () => {
     },[])
     
     function salvarEdicao(){
-        const teste = Object.keys(context.userLogado.lde).map((item, ind)=>{
+        const ldeEditado = Object.keys(context.userLogado.lde).map((item, ind)=>{
             if (ind !== Number(index)){
                 return context.userLogado.lde[item]
             }else{
                 return itemEditado
             }
         })
-        context.setUserLogado({...context.userLogado, lde:teste})
+
+        updateBd(context.userLogado.id, {lde:ldeEditado})
+
+        context.setUserLogado({...context.userLogado, lde:ldeEditado})
         navigate('/lde')
     }
     

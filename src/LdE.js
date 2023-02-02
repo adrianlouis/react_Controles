@@ -12,9 +12,25 @@ const LdE = () => {
     const [selectLdeBateria, setSelectLdeBateria] = React.useState('')
     const [ind, setInd] = React.useState(0)
     
-    function expandir(elem){
-        const avarias = elem.parentNode.classList
-        avarias.toggle('ldeContainerAvaria')
+    function expandir(elem, avaria){
+        // const avarias = elem.parentNode.classList
+        // avarias.toggle('ldeContainerAvaria')
+        // console.log(elem.parentNode)
+        if (avaria !== ''){
+            if (elem.parentNode.style.height === '260px'){
+                elem.parentNode.style.height = '80px'
+            }else{
+                elem.parentNode.style.height = '260px'
+            }
+            
+        }else{
+           if ( elem.parentNode.style.height === '170px'){
+            elem.parentNode.style.height = '80px'
+           }else{
+            elem.parentNode.style.height = '170px'
+           }
+
+        }
     }
 
     function excluirLde(idLde){
@@ -74,7 +90,7 @@ const LdE = () => {
 
         {!context.itensFiltrados && context.userLogado && context.userLogado.lde.map((item, index)=>{
             return <div key={item.id} className='ldeContainer'>
-            <div className='contSuperior'  onClick={({currentTarget})=>expandir(currentTarget)}>
+            <div className='contSuperior'  onClick={({currentTarget})=>expandir(currentTarget, item.avaria)}>
                 <div className='ldeUnidade' >
                     <i className="fa-solid fa-hashtag"></i>
                     <p>{item.num}</p>

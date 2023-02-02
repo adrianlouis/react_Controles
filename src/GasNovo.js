@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import AcoesCriandoItem from './AcoesCriandoItem'
 import css from './css/gas.css'
 import { GlobalContext } from './GlobalContext'
+import{updateBd} from './crudFireBase'
 
 const GasNovo = () => {
 
@@ -47,10 +48,18 @@ const GasNovo = () => {
   }
 
     function save(){
+
+        const novoArrGas = {gas:[...ctx.userLogado.gas, medidores]}
+        updateBd(ctx.userLogado.id, novoArrGas)
+        console.log(medidores)
+
         ctx.setUserLogado({...ctx.userLogado, gas:[...ctx.userLogado.gas, medidores]})
         navigate('/gas')
     }
-
+    
+    React.useEffect(()=>{
+        updateBd(ctx.userLogado.id, {gas:[...ctx.userLogado.gas]})
+    },[ctx.userLogado.gas])
     
 
 

@@ -5,15 +5,28 @@ import { GlobalContext } from './GlobalContext'
 import Input from './Input'
 import Select from './Select'
 
+import { db } from './firebase-config';
+import { collection, getDocs, addDoc, updateDoc, doc, deleteDoc } from 'firebase/firestore';
+
+import {updateBd} from './crudFireBase'
+
+
 const LdENovoReg = () => {
 
   const context = React.useContext(GlobalContext)
   const navigate = useNavigate()
-  const [id, setId] = React.useState(novoId)
+  // const [id, setId] = React.useState(novoId)
   const [num, setNum] = React.useState('')
   const [pav, setPav] = React.useState('')
   const [dur, setDur] = React.useState('')
   const [anotacao, setAnotacao] = React.useState('')
+  // const {id} = context.userLogado.id
+  // const fbId = context.userLogado.id
+  const sheets = context.userLogado.sheets
+
+  // console.log(fbId)
+
+   
 
     // ENCONTRAR PROXIMO ID
      function novoId(){ if (context.userLogado.lde.length > 0){
@@ -26,18 +39,23 @@ const LdENovoReg = () => {
       }
     }
 
+    
     // ADICIONAR LDE NO USUARIO LOGADO
-    function handleSubmit(){
+    function handleSubmit(id){
       if (num === '' && pav === '' && dur === '' && anotacao === ''){
         return
       }
-      const ldeNovo = {id:id, num:num, local:pav, dur:dur, avaria:anotacao}
 
-      context.setUserLogado(prev => ({...prev, lde:[ldeNovo, ...prev.lde]}))
-      context.setUploadLde(true)
+      const ldeNovo = {id:novoId(), num:num, local:pav, dur:dur, avaria:anotacao}
+      context.setUserLogado({...context.userLogado, lde:[...context.userLogado.lde, ldeNovo]})
+
       navigate('/lde')
     }
 
+    React.useEffect(()=>{
+      updateBd(context.userLogado.id, {lde:[...context.userLogado.lde]})
+  },[context.userLogado.lde])
+  
     function validarNumeros(elem){
       const validacao = /[0-9]/
       if (elem.value.match(validacao)){
@@ -62,7 +80,7 @@ const LdENovoReg = () => {
         
       </div>
 
-      <AcoesCriandoItem voltar='/lde' salvar={handleSubmit}/>
+      <AcoesCriandoItem voltar='/lde' salvar={()=>handleSubmit(context.userLogado.id)}/>
       
     </>
   )

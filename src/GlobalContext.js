@@ -2,6 +2,10 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import useLocalStorage from './useLocalStorage'
 
+import { db } from './firebase-config';
+import { collection, getDocs, addDoc, updateDoc, doc, deleteDoc } from 'firebase/firestore';
+
+
 export const GlobalContext = React.createContext()
 
 export const GlobalStorage = ({children}) =>{
@@ -15,6 +19,44 @@ export const GlobalStorage = ({children}) =>{
 
     const [itensFiltrados, setItensFiltrados] = React.useState('')  
     const [tipoFiltro, setTipoFiltro] = React.useState('')
+
+    const [users, setUsers] = React.useState([]);
+    const usersCollectionRef = collection(db, "users" )
+
+    //CREATE
+    // const criarUser = async () =>{
+    //     await addDoc(usersCollectionRef, newUser )
+    // }
+    
+      //READ
+      
+        React.useEffect(()=>{
+
+        const getUsers = async () => {
+        const data = await getDocs(usersCollectionRef);
+        setUsers(data.docs.map((docs)=>({...docs.data(), id:docs.id})))
+        }
+
+        getUsers() 
+
+    },[])
+
+    //UPDATE
+    // const updateUser = async (id, email) =>{
+
+    // const userDoc = doc(db, "users", id)
+    // const novosCampos = newUser 
+    // await updateDoc(userDoc, novosCampos)
+
+    // }
+
+    //DELETE
+    const deleteUser = async (id) =>{
+    const userDoc = doc(db, "users", id)
+    await deleteDoc(userDoc)
+    }
+
+
     
     React.useEffect(()=>{
         if (userLogado.length === 0){
@@ -25,8 +67,15 @@ export const GlobalStorage = ({children}) =>{
             })
             setUsuarios([...item, userLogado ])
         }
+
+        const getUsers = async () => {
+            const data = await getDocs(usersCollectionRef);
+            setUsers(data.docs.map((docs)=>({...docs.data(), id:docs.id})))
+            }
+    
+            getUsers() 
             
-    },[userLogado])   
+        },[userLogado])   
         
-    return <GlobalContext.Provider value={{tipoFiltro, setTipoFiltro, modalFooter, setModalFooter, itensFiltrados, setItensFiltrados, uploadLde, setUploadLde, upload, setUpload, lde, setLde, usuarios, setUsuarios, userLogado, setUserLogado}}>{children}</GlobalContext.Provider>
+    return <GlobalContext.Provider value={{users, setUsers, tipoFiltro, setTipoFiltro, modalFooter, setModalFooter, itensFiltrados, setItensFiltrados, uploadLde, setUploadLde, upload, setUpload, lde, setLde, usuarios, setUsuarios, userLogado, setUserLogado}}>{children}</GlobalContext.Provider>
 }

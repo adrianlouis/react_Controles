@@ -5,6 +5,7 @@ import { GlobalContext } from './GlobalContext'
 import Input from './Input'
 import Select from './Select'
 import { mesParaNumero } from './funcoes/extDatas'
+import {updateBd} from './crudFireBase'
 
 const ExtNovo = () => {
 
@@ -21,9 +22,6 @@ const ExtNovo = () => {
     const [ultRet, setUltRet] = React.useState('')
     const [avaria, setAvaria] = React.useState('')
 
-    const [novoMes, setNovoMes] = React.useState('')
-
-
     const extNovo = {id:findId(), num:num, tipo:tipo, local:local, ultRec:{...ultRec, mes:mesParaNumero(mesRec)}, ultRet:ultRet, avaria:avaria }
 
     function findId(){
@@ -37,13 +35,22 @@ const ExtNovo = () => {
         }
     }
 
+    
     function salvarExt(){
-        // console.log(extNovo)
+
+        const novoObjExt = {ext:[...context.userLogado.ext, extNovo]}
+        updateBd(context.userLogado.id, novoObjExt)
+
         context.setUserLogado({...context.userLogado, ext:[extNovo, ...context.userLogado.ext]})
+        
         navigate('/ext')
     }
+    
+    React.useEffect(()=>{
+        updateBd(context.userLogado.id, {ext:[...context.userLogado.ext]})
+    },[context.userLogado.ext])
 
-  return (
+    return (
     <div>
 
         <div className='containerCriarExt'>

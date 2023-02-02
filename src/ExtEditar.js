@@ -5,6 +5,7 @@ import { GlobalContext } from './GlobalContext'
 import Input from './Input'
 import Select from './Select'
 import {mesParaNumero, mesParaString } from './funcoes/extDatas'
+import { updateBd } from './crudFireBase'
 
 const ExtEditar = () => {
 
@@ -53,7 +54,11 @@ const ExtEditar = () => {
                 return extEditado
             }
         })
+
+        updateBd(context.userLogado.id, {ext:res})
+
         context.setUserLogado({...context.userLogado, ext:[...res]})
+        
         context.setItensFiltrados('')
         navigate('/ext')
     }

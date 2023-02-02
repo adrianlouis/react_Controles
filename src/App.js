@@ -21,6 +21,8 @@ import GasEdit from './GasEdit';
 import React from 'react';
 import Login from './Login';
 import Salas from './Salas';
+import Profile from './Profile';
+
 
 function App() {
    // const location = useLocation()
@@ -38,6 +40,8 @@ function App() {
         {/* <Header/> */}
 
         <Routes>
+          <Route path='perfil' element={<Profile/>} />
+
           {/* <Route path='/' element={<AreaParaTestes/>} /> */}
           <Route path='testes' element={<AreaParaTestes/>} />
           {/* <Route path='/' element={<Log/>} /> */}

@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import CheckBox from './CheckBox'
+import { updateBd } from './crudFireBase'
 import { GlobalContext } from './GlobalContext'
 import Input from './Input'
 import Select from './Select'
@@ -50,6 +51,9 @@ const HidranteEdit = () => {
       const outrosHd = context.userLogado.hd.filter((filtro)=>{
         return filtro.id !== Number(search.get('id'))
       })
+
+      const novoArrHd = {hd:[hdEditado, ...outrosHd]}
+      updateBd(context.userLogado.id, novoArrHd)
 
       context.setUserLogado({...context.userLogado, hd:[hdEditado, ...outrosHd]})
       navigate('/hd')

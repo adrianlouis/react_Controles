@@ -5,6 +5,7 @@ import CheckBox from "./CheckBox";
 import { GlobalContext } from "./GlobalContext";
 import Input from "./Input";
 import Select from "./Select";
+import { updateBd } from "./crudFireBase";
 
 const HidranteNovo = () => {
 
@@ -60,8 +61,16 @@ const HidranteNovo = () => {
       ...context.userLogado,
       hd: [novoHd, ...context.userLogado.hd],
     });
+
+    const attBd = {hd:[...context.userLogado.hd, novoHd]}
+    updateBd(context.userLogado.id, attBd)
+
     navigate("/hd");
   }
+
+  React.useEffect(()=>{
+    updateBd(context.userLogado.id, {hd:[...context.userLogado.hd]})
+},[context.userLogado.hd])
 
   return (
     <div>

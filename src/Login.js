@@ -2,6 +2,10 @@ import React, { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import css from './css/login.css'
 import { GlobalContext } from './GlobalContext'
+//FIREBASE CMDS
+import { db } from './firebase-config';
+import {collection, addDoc, getDocs} from '@firebase/firestore'
+
 
 const Login = () => {
 
@@ -20,13 +24,73 @@ const Login = () => {
     const [regOk, setRegOk] = React.useState({nome:false, email:false, senha:false, confSenha:false})
     const [regexRegSenha, setRegexRegSenha] = React.useState({num:false, esp:false, tamanho:false})
     const [logPWVisible, setLogPWVisible] = React.useState(false)
+    
+    
+    // const [newUser, setNewUser] = React.useState({name:regInput.nome, email:regInput.email, sheets: [{aco:[], ext:[], gar:[], gas:[], hd:[], lde:[], loj:[], pcf:[], pre:[], sal:[]}]})
+
+    const newUser = {nome:regInput.nome, email:regInput.email, senha:regInput.senha, aco:[], ext:[], gar:[], gas:[], hd:[], lde:[], loj:[], pcf:[], pre:[], sal:[]}
+
+    const criarUser = async ()=>{
+        await addDoc(collection(db, "users"), newUser)
+    }
+
+
+
+    function handleLogin(e){
+        e.preventDefault()
+
+        const ftr = ctx.users.filter((f)=>{
+            return f.nome === loginInput.nome
+        })
+
+        if(ftr.length === 1 && ftr[0].senha === loginInput.senha ){
+            ctx.setUserLogado(...ftr)
+            navigate('/home')
+            // navigate('/home')
+        }
+        if(ftr.length === 1 && ftr[0].senha !== loginInput.senha){
+            setLoginMsg('Senha errada')
+        }
+        if(ftr.length === 0){
+            setLoginMsg('Usuário não encontrado')
+        }
+        // console.log(ftr)
+        // console.log(ctx.userLogado.sheets.ext)
+    }
+
+    function handleRegistrar(e){
+
+        e.preventDefault()
+       
+        if (regOk.nome && regOk.email && regOk.senha && regOk.confSenha){
+            // ctx.setUsuarios([...ctx.usuarios, {nome:regInput.nome, email:regInput.email, senha:regInput.senha, aco:[], ext:[], gar:[], gas:[], hd:[], lde:[], loj:[], pcf:[], pre:[], sal:[] }])
+            criarUser()
+            // setNewUser({nome:regInput.nome, email:regInput.email, senha:regInput.senha,  })
+        }
+
+        const getUsers = async () => {
+            const data = await getDocs(collection(db, 'users'));
+            ctx.setUsers(data.docs.map((docs)=>({...docs.data(), id:docs.id})))
+          }
+
+          getUsers()
+          setForm(1)
+    }
+
+  
+  
+
+
+
+
+
 
     function handleInputBlur(el, n){
         aplicarCss(el)
         //NOME
         if (n === 1){
-            const userExist = usuarios.filter((filtro)=>{
-                return filtro.nome === regInput.nome
+            const userExist = ctx.users.filter((f)=>{
+                return f.nome === regInput.nome
             })
 
             if (userExist.length === 0 && regInput.nome !== ''){
@@ -40,8 +104,8 @@ const Login = () => {
 
         //EMAIL
         if (n === 2){
-            const emailExist = usuarios.filter((filtro)=>{
-                return filtro.email === regInput.email
+            const emailExist = ctx.users.filter((f)=>{
+                return f.email === regInput.email
             })
 
             if (emailExist.length === 0 && regInput.email !== ''){
@@ -99,35 +163,9 @@ const Login = () => {
         }
     },[regexRegSenha])
 
-    function handleLogin(e){
-        e.preventDefault()
-        const ftr = usuarios.filter((filtro)=>{
-            return filtro.nome === loginInput.nome
-        })
+   
 
-        if(ftr.length === 1 && ftr[0].senha === loginInput.senha ){
-            ctx.setUserLogado(...ftr)
-            navigate('/home')
-        }
-        if(ftr.length === 1 && ftr[0].senha !== loginInput.senha){
-            setLoginMsg('Senha errada')
-        }
-        if(ftr.length === 0){
-            setLoginMsg('Usuário não encontrado')
-        }
-        
-        
-        // else{
-        //     setLoginMsg('Usuário não encontrado')
-        // }
-    }
-
-    function handleRegistrar(){
-       
-        if (regOk.nome && regOk.email && regOk.senha && regOk.confSenha){
-            ctx.setUsuarios([...ctx.usuarios, {nome:regInput.nome, email:regInput.email, senha:regInput.senha, aco:[], ext:[], gar:[], gas:[], hd:[], lde:[], loj:[], pcf:[], pre:[], sal:[] }])
-        }
-    }
+   
 
     function handleBlurSenha(el, n){
         aplicarCss(el)
@@ -189,8 +227,9 @@ function aplicarCss(el){
         </div>}
 
         {form === 1 && <div className='loginContainer'>
-            <form>
+            <form onSubmit={(e)=>handleLogin(e)}>
             <h1>Login</h1>
+
                 <div className='regInputWrapper'>
                     <i className="fa-solid fa-user"></i>
                     <input className='regInput' type='text' placeholder='nome de usuário' value={loginInput.nome} onChange={({target})=>setLoginInput({...loginInput, nome:target.value})} onFocus={({currentTarget})=>aplicarCss(currentTarget)} onBlur={({currentTarget})=>aplicarCss(currentTarget)} required />
@@ -199,9 +238,7 @@ function aplicarCss(el){
                 <div className='regInputWrapper'>
                     <i className='fa-solid fa-key'></i>
                     <input className='regInput' type={logPWVisible?'text':'password'} placeholder='senha' value={loginInput.senha} onChange={({target})=>setLoginInput({...loginInput, senha:target.value})} onFocus={({currentTarget})=>aplicarCss(currentTarget)} onBlur={({currentTarget})=>aplicarCss(currentTarget)} required />
-                    {!logPWVisible && <i className="fa-solid fa-eye-slash" onClick={()=>setLogPWVisible(!logPWVisible)}></i>}
-                    {logPWVisible && <i className="fa-solid fa-eye" onClick={()=>{setLogPWVisible(!logPWVisible)}}></i>}
-
+                    <i className={logPWVisible? "fa-solid fa-eye" : "fa-solid fa-eye-slash"} onClick={()=>setLogPWVisible(!logPWVisible)} />
                 </div>
 
                 <div className='formLinks'>
@@ -209,17 +246,16 @@ function aplicarCss(el){
                     <span onClick={()=>setForm(2)} >registrar</span>
                 </div>
 
-                <button className={loginInput.nome !== '' && loginInput.senha !== '' ? 'loginBtns' : 'loginBtns btnInvalido'} onClick={(e)=>handleLogin(e)} >Entrar</button>
-
-
+                <button className={loginInput.nome !== '' && loginInput.senha !== '' ? 'loginBtns' : 'loginBtns btnInvalido'}  >Entrar</button>
 
                 <span className='regInvalido'>{loginMsg}</span>
+
             </form>
         </div> }
 
         {form === 2 && <div className='loginContainer'>
             
-            <form>
+            <form onSubmit={(event)=>handleRegistrar(event)}>
             <h1>Registrar</h1>
                 <div className='regInputWrapper'>
                     <i className={regOk.nome?"fa-solid fa-user ":"fa-solid fa-user regInvalido"}></i>
@@ -235,16 +271,14 @@ function aplicarCss(el){
                 <div className='regInputWrapper'>
                     <i className={regOk.senha?"fa-solid fa-key ":"fa-solid fa-key regInvalido"}></i>
                     <input className={regOk.senha?'regInput  ':'regInput regInvalido'} type={!pwVisible?'password':'text'} placeholder='abc1@def' value={regInput.senha} onChange={({target})=>setRegInput({...regInput, senha:target.value})} onBlur={({currentTarget})=>handleBlurSenha(currentTarget, 1)} onFocus={({currentTarget})=>aplicarCss(currentTarget)} required />
-                    {!pwVisible && <i className="fa-solid fa-eye-slash" onClick={()=>setPwVisible(!pwVisible)}></i>}
-                    {pwVisible && <i className="fa-solid fa-eye" onClick={()=>{setPwVisible(!pwVisible)}}></i>}
+                    <i className={pwVisible? "fa-solid fa-eye" : "fa-solid fa-eye-slash"} onClick={()=>setPwVisible(!pwVisible)}></i>
                 </div>
                 
 {/* //CONFSENHA */}
                 <div className='regInputWrapper'>
                     <i className={regOk.senha && regOk.confSenha?'fa-solid fa-key ':'fa-solid fa-key regInvalido'}></i>
                     <input disabled={regOk.senha?false:true} style={regOk.senha? {}: {cursor:'not-allowed'}} className={regOk.confSenha?'regInput ':'regInput regInvalido'} type={!pwVisible?'password':'text'} placeholder='abc1@def' value={regInput.confSenha} onChange={({target})=>setRegInput({...regInput, confSenha:target.value})} onBlur={({currentTarget})=>handleBlurSenha(currentTarget, 2)} onFocus={({currentTarget})=>aplicarCss(currentTarget)} required />
-                    {!pwVisible && <i className="fa-solid fa-eye-slash" onClick={()=>setPwVisible(!pwVisible)}></i>}
-                    {pwVisible && <i className="fa-solid fa-eye" onClick={()=>{setPwVisible(!pwVisible)}}></i>}
+                    <i className={pwVisible? "fa-solid fa-eye" : "fa-solid fa-eye-slash"} onClick={()=>setPwVisible(!pwVisible)}></i>
                 </div>
 
                 <div className='formLinks'>
@@ -261,7 +295,7 @@ function aplicarCss(el){
 
                 {toggleConfSenhaTexto && !regOk.confSenha && <span className='regInvalido'>Senhas não conferem</span>}
                 
-                <button className={regOk.nome && regOk.email && regOk.senha && regOk.confSenha ? 'loginBtns' : 'loginBtns btnInvalido'} onClick={()=>handleRegistrar()} >Registrar</button>
+                <button className={regOk.nome && regOk.email && regOk.senha && regOk.confSenha ? 'loginBtns' : 'loginBtns btnInvalido'} onClick={(event)=>handleRegistrar(event)} >Registrar</button>
 
             </form>
 

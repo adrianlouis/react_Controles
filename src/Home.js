@@ -4,51 +4,14 @@ import css from './css/home.css'
 import Header from './Header'
 import {useNavigate} from 'react-router-dom'
 import {GlobalContext} from './GlobalContext'
-//FIREBASE CMDS
-import { db } from './firebase-config';
-import { collection, getDocs, addDoc, updateDoc, doc, deleteDoc } from 'firebase/firestore';
+
+import js from './img/silverhand.jpg'
 
 const Home = () => {
   const navigate = useNavigate()
   const context = React.useContext(GlobalContext)
-  const [newUser, setNewUser] = React.useState({name:'', email:'', planos:[...context.userLogado.hd]})
-  //FIREBASE CMDS
-  const [users, setUsers] = React.useState([]);
-  const usersCollectionRef = collection(db, "users" )
+  const [fotoPerfil, setFotoPerfil] = React.useState('')
 
-  //CREATE
-  const criarUser = async () =>{
-    await addDoc(usersCollectionRef, newUser )
-  }
-
-  //READ
-  React.useEffect(()=>{
-
-    const getUsers = async () => {
-      const data = await getDocs(usersCollectionRef);
-      setUsers(data.docs.map((docs)=>({...docs.data(), id:docs.id})))
-    }
-
-    getUsers() 
-
-  },[])
-
-  //UPDATE
-  const updateUser = async (id, email) =>{
-
-    const userDoc = doc(db, "users", id)
-    const novosCampos = newUser 
-    await updateDoc(userDoc, novosCampos)
-
-  }
-
-  //DELETE
-  const deleteUser = async (id) =>{
-    const userDoc = doc(db, "users", id)
-    await deleteDoc(userDoc)
-  }
-
- 
 
     if(!context.userLogado){
       navigate('/')
@@ -56,28 +19,80 @@ const Home = () => {
     function nav(dest){
       navigate(dest)
     }
-    
-    // patch para usuarios antigos
-    if(!context.userLogado.gas){
-      context.setUserLogado({...context.userLogado, gas:[]})
+
+    function escolherFoto(){
+      document.querySelector('#fotoPerfil').click()
     }
+
+    function handleFotoPerfil(elem){
+      console.log(elem.files[0])
+
+      // setFotoPerfil(elem.value)
+      // elem.style.backgroundImage=`url(${fotoPerfil})`
+
+      // document.querySelector('#fototeste').src = elem.files[0] 
+
+    }
+
 
   return (
     <>
     
     {/* <Header /> */}
 
+    <div className='mainContainerHome'>
+
+      <div className='profilePic'>
+        <div className='homeUserImg' onClick={()=>escolherFoto()}  ><i id='editIconFoto' className="fa-solid fa-pen"></i><input id='fotoPerfil' type='file' onChange={({target})=>handleFotoPerfil(target)} ></input> </div>
+        
+      </div>
+
+      {/* <img id='fototeste' src=''></img> */}
+
+      <div className='profileNomes'>
+        <span className='homeUserNome'>{(context.userLogado.nome).charAt(0).toUpperCase() + (context.userLogado.nome).slice(1)}</span>
+        <span className='homeUserNick'  >@louiskrad</span>
+        <span className='homeUserQuote' spellCheck={false} contentEditable>“This is why you don’t bring back fallen warriors, sooner or later they’re going to see everything they fought for’s turned to shit.”</span>
+      </div>
+      {/* <i className="fa-solid fa-users"></i> */}
+    </div>
+
+    <div className='profileScroller'>
+      <div className='profileScrollerIcons'>
+        <div className='profIcons'><i className="fa-solid fa-fire-extinguisher" onClick={()=>navigate('/ext')}></i></div>
+        <div className='profIcons'><i className="fa-solid fa-lightbulb" onClick={()=>navigate('/lde')}></i></div>
+        <div className='profIcons'><i className="fa-solid fa-gauge" onClick={()=>navigate('/gas')}></i></div>
+        <div className='profIcons'><i className="fa-solid fa-faucet" onClick={()=>navigate('/hd')}></i></div>
+        <div className='profIcons'><i className="fa-solid fa-door-closed" onClick={()=>navigate('/sala')}></i></div>
+        
+        {/* <div className='profIcons'><i className="fa-solid fa-truck"></i></div>
+        <div className='profIcons'><i className="fa-solid fa-car-rear"></i></div>
+        <div className='profIcons'><i className="fa-solid fa-trowel"></i></div>
+        <div className='profIcons'><i className="fa-solid fa-screwdriver-wrench"></i></div> */}
+        
+        
+        
+        
+        
+       
+        
+        
+      </div>
+    </div>
+
     <div className='homeContainer'>
 
 
         <div className='cards'>
 
-        <input type='text' placeholder='Nome...' onChange={({target})=>setNewUser({...newUser, name:target.value})} />
+        {/* <HomeCard spanCardClass='cardTexto' divClass='homeCardAtivo' cardNome={<i className="fa-solid fa-user"></i>} onClick={()=>nav('/perfil')} /> */}
+
+        {/* <input type='text' placeholder='Nome...' onChange={({target})=>setNewUser({...newUser, name:target.value})} />
         <input type='text' placeholder='Email...' onChange={({target})=>setNewUser({...newUser, email:target.value})} />
 
-        <button onClick={criarUser}>SALVAR</button>
+        <button onClick={criarUser}>SALVAR</button> */}
 
-      <ul>
+      {/* <ul>
         {users.map((m, i)=>{
           return <div  key={m.name+i}>
           <li>{m.name}</li>
@@ -86,7 +101,7 @@ const Home = () => {
           <button onClick={()=>deleteUser(m.id)}>deletar</button>
           </div>
         })}
-      </ul>
+      </ul> */}
 
         <HomeCard spanCardClass='cardTexto' divClass='homeCardAtivo homeCardContainer' cardNome={context.userLogado.ext.length+' Extintores'} onClick={()=>nav('/ext')} />
 

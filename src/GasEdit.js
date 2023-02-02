@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import AcoesCriandoItem from './AcoesCriandoItem'
+import { updateBd } from './crudFireBase'
 import { GlobalContext } from './GlobalContext'
 
 const GasEdit = () => {
@@ -40,6 +41,8 @@ const GasEdit = () => {
                 return item
             }
         })
+
+        updateBd(ctx.userLogado.id, {gas:outrosGases})
            
         ctx.setUserLogado({...ctx.userLogado, gas:[...outrosGases]})
         navigate('/gas')
