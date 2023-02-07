@@ -49,15 +49,30 @@ margin: 10px;
     width: 80px;
     height: 80px;
     border-radius: 50px;
-    background-image: url('../img/silverhand.jpg');
+    /* background-image: url('../img/silverhand.jpg'); */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     border: 3px solid #d1d1d1;
-
+    overflow: hidden;
     /* border: 1px solid white; */
     position: relative;
     transition: all .3s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.postNick, .postNickComp{
+    font-size: .8rem;
+    text-align: left;
+    margin: 0 0 20px;
+}
+.postNickComp{
+    color: #616161;
+}
+.postMsg{
+    text-align: left;
 }
 
 
@@ -90,6 +105,12 @@ margin: 10px;
     flex-direction: column;
 
     padding: 0 5px;
+}
+
+.profileNomes span:last-child{
+    font-weight: 700;
+    font-size: .8rem;
+    margin: 10px 0;
 }
 
 .homeUserNome{
@@ -148,4 +169,66 @@ margin: 10px;
 
 .homeUserImg input{
     visibility: hidden;
+}
+
+
+.profLastPost{
+    margin: 10px 10px 20px 10px;
+    /* border: 1px solid #aaa7; */
+    background-color: #222;
+    padding: 10px ;
+    border-radius: 10px;
+    color: #d1d1d1;
+
+    box-shadow: #0007 5px 5px 10px;
+}
+.profLastPostFooter{
+display: flex;
+justify-content: space-between;
+align-items: flex-end;
+margin-top: 15px;
+}
+.profLastPostFooter p{
+    font-size: .8rem;
+}
+
+.profMenu{
+    position: absolute;
+    right: 20px;
+    top: 15px;
+
+}
+
+.profTitles{
+    margin: 10px;
+}
+
+.profLastPostFooter i{
+    font-size: 1.2rem;
+    margin-right: 10px;
+}
+
+.picIcons{
+    /* border: 1px solid green; */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    /* align-items: center; */
+}
+.picIcons i{
+    margin: 5px ;
+    font-size: 1rem;
+}
+.picIcons i:hover{
+    color: #d1d1d1;
+}
+
+.iconsNames{
+    margin: 0;
+    position: absolute;
+    /* border: 1px solid red; */
+    /* top: 100px; */
+    transform: translate(0, 20px);
+    font-size: .8rem;
+
 }

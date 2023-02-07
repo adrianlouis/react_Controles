@@ -46,7 +46,11 @@ function App() {
           <Route path='testes' element={<AreaParaTestes/>} />
           {/* <Route path='/' element={<Log/>} /> */}
           <Route path='/' element={<Login/>} />
-          <Route path='home' element={<Home/>} />
+          <Route path='home' element={<Home/>} >
+            <Route path='lde' element={<LdE/>} />
+            <Route path='hd' element={<Hidrantes/>} />
+
+            </Route>
 
           <Route path='lde' element={<LdE/>} />
           <Route path='ldenovo' element={<LdENovoReg/> } />
