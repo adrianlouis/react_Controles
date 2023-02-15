@@ -16,6 +16,7 @@ const HidranteNovo = () => {
   const [local, setLocal] = React.useState("");
   const [abrigo, setAbrigo] = React.useState("");
   const [sinal, setSinal] = React.useState("");
+  const [placa, setPlaca] = React.useState('');
   const [hdValidade, setHdValidade] = React.useState("");
   const [pecas, setPecas] = React.useState([]);
   const [avarias, setAvarias] = React.useState("");
@@ -52,6 +53,7 @@ const HidranteNovo = () => {
       local: local,
       abrigo: abrigo,
       sinal: sinal,
+      placa: placa,
       val: hdValidade,
       pecas: pecas,
       avaria: avarias,
@@ -62,96 +64,144 @@ const HidranteNovo = () => {
       hd: [novoHd, ...context.userLogado.hd],
     });
 
-    const attBd = {hd:[...context.userLogado.hd, novoHd]}
-    updateBd(context.userLogado.id, attBd)
+    updateBd(context.userLogado.id, {hd:[...context.userLogado.hd, novoHd]})
 
     navigate("/hd");
+
   }
+
+  function handleCheck(item){
+    if (pecas.includes(item)){
+      const peca = pecas.filter((f)=>{
+        return f !== item
+      })
+      setPecas(peca)
+    }else{
+      setPecas([...pecas, item])
+    }
+  }
+
+  console.log(pecas)
 
   React.useEffect(()=>{
     updateBd(context.userLogado.id, {hd:[...context.userLogado.hd]})
 },[context.userLogado.hd])
 
   return (
-    <div>
-      {/* <Link className="ldeSubFooterBtn" to="/home">Home</Link> */}
+    <div className='extCard'>
+    <fieldset className='fieldsetFlexRow'>
+      <legend>Hidrante</legend>
+      <div>
 
-      <div className="hdCard shadow">
-        <div id="hdNum" className="hdInfo">
-          <span>Hidrante</span>
-          <Input
-            labText="Número"
-            labClass="hdLabel"
-            id="numeroHd"
-            inpClass="hdNovo"
-            inpTipo='tel'
-            maxLength='5'
-            value={num}
-            onChange={({ target }) => setNum(target.value)}
-          />
-        </div>
+      <p className='cardTextoPqn'>número</p>
+      <Input
+          id="numeroHd"
+          inpClass="hdNovo"
+          value={num}
+          onChange={({target})=>setNum(target.value)}
+        />
+      </div>
 
-        <div id="hdLocal" className="hdInfo">
-          <span>Local</span>
-
-          <Select
-            selectValorInicial={local}
-            optionDisabledValue="-----"
-            options={['Subsolo', 'Térreo', '2º Pav A', '2º Pav B', '3º Pav A', '3º Pav B', '4º Pav A', '4º Pav B']}
-            selectOnChange={({ target }) => setLocal(target.value)}
-          />
-        </div>
-
-        <div id="hdAbrigo" className="hdInfo">
-          <span>Abrigo</span>
-          <Select
-            selectValorInicial={abrigo}
-            optionDisabledValue="-----"
-            options={["Ok", "Nok"]}
-            selectOnChange={({ target }) => setAbrigo(target.value)}
-          />
-        </div>
-
-        <div id="hdSinal" className="hdInfo">
-          <span>Sinalização</span>
-          <Select
-            selectValorInicial={sinal}
-            optionDisabledValue="-----"
-            options={["Ok", "Nok"]}
-            selectOnChange={({ target }) => setSinal(target.value)}
-          />
-        </div>
-
-        <div id="hdPecas" className="hdInfo">
-          <CheckBox
-            itens={["Storz", "Esguicho", "Mangueira"]}
-            cbHandleChange={handleChange}
-          />
-        </div>
-
-        <div id="hdValidade" className="hdInfo">
-          <span>Validade das Mangueiras</span>
-          <Input
-            inpTipo="date"
-            id="inputHdValidade"
-            value={hdValidade}
-            onChange={({ target }) => setHdValidade(target.value)}
-          />
-        </div>
-
-        <div id="hdAvarias" className="hdInfo">
-          <span>Avarias</span>
-          <textarea
-            id="hdAvariasTxtArea"
-            value={avarias}
-            onChange={({ target }) => setAvarias(target.value)}
-          ></textarea>
-        </div>
-
-        <AcoesCriandoItem voltar='/hd' salvar={salvarNovoHd} />
+      <div>
+      <p className='cardTextoPqn'>local</p>
+      <Select
+          selectValorInicial={local}
+          optionDisabledValue="local"
+          options={['Subsolo', 'Térreo', '2º Pav A', '2º Pav B', '3º Pav A', '3º Pav B', '4º Pav A', '4º Pav B']}
+          selectOnChange={({target})=>setLocal(target.value)}
+        />
 
       </div>
-    </div>
+
+      <div>
+        <p className='cardTextoPqn'>abrigo</p>
+      <Select
+          selectValorInicial={abrigo}
+          options={["Ok", "Nok"]}
+          selectOnChange={({target})=>setAbrigo(target.value)}
+        />
+      </div>
+
+    </fieldset>
+
+    <fieldset className='fieldsetFlexRow'>
+      <legend>Peças</legend>
+      <div>
+
+<label className='pecasLabel' htmlFor='esguicho'>
+          Esguicho
+          <input id='esguicho' type='checkbox' value={pecas.includes('Esguicho')} checked={pecas.includes('Esguicho')} onChange={()=>handleCheck('Esguicho')}/>
+          </label>
+
+          <label className='pecasLabel' htmlFor='mangueira'>
+          Mangueira
+          <input id='mangueira' type='checkbox' value={pecas.includes('Mangueira')} checked={pecas.includes('Mangueira')} onChange={()=>handleCheck('Mangueira')}/>
+          </label>
+
+          <label className='pecasLabel' htmlFor='storz'>
+          Storz
+          <input id='storz' type='checkbox' value={pecas.includes('Storz')} checked={pecas.includes('Storz')} onChange={()=>handleCheck('Storz')} />
+          </label>
+
+      </div>
+
+    </fieldset>
+
+    <fieldset className='fieldsetFlexRow'>
+      <legend>Sinalização</legend>
+      <div>
+        <p className='cardTextoPqn'>placa de sinalização</p>
+        <Select
+          selectValorInicial={placa}
+          options={["Ok", "Nok"]}
+          selectOnChange={({target})=>setPlaca(target.value)}
+        />
+      </div>
+
+      <div>
+        <p className='cardTextoPqn'>marcação no chão</p>
+        <Select
+          selectValorInicial={sinal}
+          options={["Ok", "Nok"]}
+          selectOnChange={({target})=>setSinal(target.value)}
+        />
+      </div>
+    </fieldset>
+
+    <fieldset className='fieldsetFlexRow'>
+      <legend>Próximo Reteste Hidrostático</legend>
+      <Input
+          inpTipo="date"
+          id="inputHdValidade"
+          value={hdValidade}
+          onChange={({ target }) => setHdValidade(target.value)}
+        />
+    </fieldset>
+
+    <fieldset className='fieldsetFlexRow'>
+      <legend>Avaria</legend>
+      <textarea
+          id="hdAvariasTxtArea"
+          value={avarias}
+          onChange={({target})=>setAvarias(target.value)}
+        ></textarea>
+    </fieldset>
+
+    <fieldset className='fieldsetAcoes fieldsetFlexRow'>
+      <div className='btnAcoesWrapper'>
+        <i className="fa-solid fa-angles-left" onClick={()=>navigate('/hd')}></i>
+        <p>cancelar</p>
+      </div>
+
+      <div className='btnAcoesWrapper'>
+        <i className="fa-solid fa-floppy-disk" onClick={()=>salvarNovoHd()}></i>
+        <p>salvar</p>
+      </div>
+
+    </fieldset>
+
+  </div>
+
   );
 };
 

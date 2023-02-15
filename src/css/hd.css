@@ -112,8 +112,6 @@
     padding: 5px;
     width: 95%;
     height: 100%;
-    /* border: 1px solid #050; */
-    /* background-color: # ; */
     margin-bottom: 5px;
     color: #ddd;
     resize: none;
@@ -250,4 +248,62 @@ input[type='text']:focus, input[type='tel']:focus{
 /* #hdPecas input[type='checkbox']{
     color: red;
 } */
+
+
+
+
+
+
+
+.extCard select, .extCard input{
+    margin: 2px 18px 0;
+    padding: 5px;
+    width: 50px;
+    background-color: #111;
+    color: #777;
+    font-size: 1rem;
+}
+.extCard select{
+    width: 90px;
+}
+.extCard input[type='checkbox']{
+    color: red;
+    /* display: none; */
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    text-align: center;
+    border: 1px solid red;
+    width: 20px;
+
+    /* margin: 0;
+    padding: 0; */
+}
+
+.pecasLabel{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 300px;
+
+
+}
+
+#hdAvariasTxtArea{
+    height: 100px;
+}
+
+.fieldsetFlexRow div label{
+    padding: 0;
+    margin: 0;
+}
+
+
+
+
+
+
+
+
+
 

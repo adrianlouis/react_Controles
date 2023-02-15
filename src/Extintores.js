@@ -179,121 +179,252 @@ const conversao = extintores.map((m, i)=>{
 context.setUserLogado({...context.userLogado, ext:[...conversao]})
 }
 
+function tipoClasse(tipo){
+    if (tipo === 'A'){
+        return 'AP'
+    }else if (tipo === 'B'){
+        return 'PQS'
+    }else if (tipo === 'C') {
+        return 'CO²'
+    }
+}
+
   return (
     <div>
 
         {/* <button onClick={()=>att()} >Att</button> */}
   
         {!context.itensFiltrados && extintores.map((item)=>{
-            return <div key={item.id+'ext'} className='cardExt'>
+            return <div key={item.id+'ext'} className='extCard'>
 
-            <div id='extNum'  className='hdInfo' > 
-                <i className="fa-solid fa-hashtag"></i>
-                <p>{item.num}</p>
-            </div>
+                <fieldset className='fieldsetFlexRow'>
 
-            <div id='extLocal' className='hdInfo' >
-                <i className="fa-solid fa-location-dot"/>
-                <p>{item.local}</p>
-            </div>
+                    <legend>Extintor {item.num}</legend>
 
-            <div id='extTipo' className='hdInfo' >
-                <i className="fa-solid fa-fire-extinguisher"></i>
-                <p>{item.tipo}</p>
-            </div>
+                    <div>
+                        <p className='cardTextoPqn'>tipo</p>
+                        <p>{item.tipo}</p>
+                    </div>
 
-            <div id='extAgente' className='hdInfo' >
-                <i className="fa-solid fa-flask-vial"></i>
-                {item.tipo === 'A' && <p>AP</p>}
-                {item.tipo === 'B' && <p>PQS</p>}
-                {item.tipo === 'C' && <p>CO²</p>}
-            </div>
+                    <div>
+                        <p className='cardTextoPqn'>classe </p>
+                        <p>{tipoClasse(item.tipo)} </p>
+                    </div>
 
-            <div id='extProxRec' className='hdInfo' >
-                <i className="fa-solid fa-calendar-day"></i>
-                <p>{mesParaString(item.ultRec.mes)} de {item.ultRec.ano}</p>
-                {/* <p>{attd(item.ultRec.mes)} de {item.ultRec.ano}</p> */}
-                {/* <p>{new Date(item.ultRec.mes+1+' 1 '+item.ultRec.ano)}</p> */}
-            </div>
+                    <div>
+                        <p className='cardTextoPqn'>local</p>
+                        <p> {item.local} </p>
+                    </div>
 
-            <div id='extProxRet' className='hdInfo' >
-                <i className="fa-solid fa-calendar-check"></i>
-                <p>{item.ultRet}</p>
-            </div>
+                </fieldset>
 
-            {item.avaria && <div id='extMais' className='hdInfo extDetail shadow' onClick={({currentTarget})=>toggleDetail(currentTarget)}>
-                <span className='extDetailSpan'>{toggle?'esconder avarias':'mostrar avarias'}</span>
+                <fieldset className='fieldsetFlexRow'>
+
+
+                <legend>Datas</legend>
+                <div>
+
+                <p className='cardTextoPqn'>próx. recarga</p>
+                <p>{mesParaString(item.ultRec.mes)} de {Number(item.ultRec.ano) + 1}</p>
                 </div>
-            }
+                <div>
 
-            <div id='extAvaria' className='hdInfo avariaInvisible' >
-                <span>avarias</span>
-                <p className='extSpanAvarias'>{item.avaria}</p>
+                <p className='cardTextoPqn'>próx. reteste</p>
+                <p> {item.ultRet} </p>
+                </div>
+                </fieldset>
+
+                {item.avaria && <fieldset className='cardAvaria'>
+                    <legend>Avarias</legend>
+                {/* <p className='cardTextoPqn'>avarias:</p> */}
+                <p >{item.avaria} </p>
+
+                </fieldset>}
+
+                <fieldset className='fieldsetAcoes fieldsetFlexRow'>
+                    <div className='btnAcoesWrapper'>
+                        <i className="fa-solid fa-pen-to-square" onClick={()=>navigate(`extedit?id=${item.id}`)}></i>
+                        <p>editar</p>
+                    </div>
+                    <div className='btnAcoesWrapper'>
+                        <i className="fa-solid fa-trash-can" onClick={({currentTarget})=>excluirExtintor(currentTarget, item.id)}></i>
+                        <p>excluir</p>
+                    </div>
+
+                </fieldset>
             </div>
             
-            <div id='hdActions'>
-                <i className="fa-solid fa-pen-to-square" onClick={()=>navigate(`extedit?id=${item.id}`)}></i>
-                <i className="fa-solid fa-trash-can" onClick={({currentTarget})=>excluirExtintor(currentTarget, item.id)}></i>
+            
+        //     <div key={item.id+'ext'} className='cardExt'>
 
-            </div>
-        </div>
+        //     <div id='extNum'  className='hdInfo' > 
+        //         <i className="fa-solid fa-hashtag"></i>
+        //         <p>{item.num}</p>
+        //     </div>
+
+        //     <div id='extLocal' className='hdInfo' >
+        //         <i className="fa-solid fa-location-dot"/>
+        //         <p>{item.local}</p>
+        //     </div>
+
+        //     <div id='extTipo' className='hdInfo' >
+        //         <i className="fa-solid fa-fire-extinguisher"></i>
+        //         <p>{item.tipo}</p>
+        //     </div>
+
+        //     <div id='extAgente' className='hdInfo' >
+        //         <i className="fa-solid fa-flask-vial"></i>
+        //         {item.tipo === 'A' && <p>AP</p>}
+        //         {item.tipo === 'B' && <p>PQS</p>}
+        //         {item.tipo === 'C' && <p>CO²</p>}
+        //     </div>
+
+        //     <div id='extProxRec' className='hdInfo' >
+        //         <i className="fa-solid fa-calendar-day"></i>
+        //         <p>{mesParaString(item.ultRec.mes)} de {item.ultRec.ano}</p>
+        //         {/* <p>{attd(item.ultRec.mes)} de {item.ultRec.ano}</p> */}
+        //         {/* <p>{new Date(item.ultRec.mes+1+' 1 '+item.ultRec.ano)}</p> */}
+        //     </div>
+
+        //     <div id='extProxRet' className='hdInfo' >
+        //         <i className="fa-solid fa-calendar-check"></i>
+        //         <p>{item.ultRet}</p>
+        //     </div>
+
+        //     {item.avaria && <div id='extMais' className='hdInfo extDetail shadow' onClick={({currentTarget})=>toggleDetail(currentTarget)}>
+        //         <span className='extDetailSpan'>{toggle?'esconder avarias':'mostrar avarias'}</span>
+        //         </div>
+        //     }
+
+        //     <div id='extAvaria' className='hdInfo avariaInvisible' >
+        //         <span>avarias</span>
+        //         <p className='extSpanAvarias'>{item.avaria}</p>
+        //     </div>
+            
+        //     <div id='hdActions'>
+        //         <i className="fa-solid fa-pen-to-square" onClick={()=>navigate(`extedit?id=${item.id}`)}></i>
+        //         <i className="fa-solid fa-trash-can" onClick={({currentTarget})=>excluirExtintor(currentTarget, item.id)}></i>
+
+        //     </div>
+        // </div>
 
 
         })}
 
         {context.itensFiltrados && context.itensFiltrados.map((item)=>{
-            return <div key={item.id+'ext'} className='cardExt'>
+            return <div key={item.id+'ext'} className='extCard'>
 
-            <div id='extNum'  className='hdInfo' > 
-                <i className="fa-solid fa-hashtag"></i>
-                <p>{item.num}</p>
-            </div>
+            <fieldset className='fieldsetFlexRow'>
 
-            <div id='extLocal' className='hdInfo' >
-                <i className="fa-solid fa-location-dot"/>
-                <p>{item.local}</p>
-            </div>
+                <legend>Extintor {item.num}</legend>
 
-            <div id='extTipo' className='hdInfo' >
-                <i className="fa-solid fa-fire-extinguisher"></i>
-                <p>{item.tipo}</p>
-            </div>
-
-            <div id='extAgente' className='hdInfo' >
-                <i className="fa-solid fa-flask-vial"></i>
-                {item.tipo === 'A' && <p>AP</p>}
-                {item.tipo === 'B' && <p>PQS</p>}
-                {item.tipo === 'C' && <p>CO²</p>}
-            </div>
-
-            <div id='extProxRec' className='hdInfo' >
-                <i className="fa-solid fa-calendar-day"></i>
-                <p>{mesParaString(item.ultRec.mes)} de {item.ultRec.ano}</p>
-                {/* <p>{attd(item.ultRec.mes)} de {item.ultRec.ano}</p> */}
-                {/* <p>{new Date(item.ultRec.mes+1+' 1 '+item.ultRec.ano)}</p> */}
-            </div>
-
-            <div id='extProxRet' className='hdInfo' >
-                <i className="fa-solid fa-calendar-check"></i>
-                <p>{item.ultRet}</p>
-            </div>
-
-            {item.avaria && <div id='extMais' className='hdInfo extDetail shadow' onClick={({currentTarget})=>toggleDetail(currentTarget)}>
-                <span className='extDetailSpan'>{toggle?'esconder avarias':'mostrar avarias'}</span>
+                <div>
+                    <p className='cardTextoPqn'>tipo</p>
+                    <p>{item.tipo}</p>
                 </div>
-            }
 
-            <div id='extAvaria' className='hdInfo avariaInvisible' >
-                <span>avarias</span>
-                <p className='extSpanAvarias'>{item.avaria}</p>
-            </div>
-            
-            <div id='hdActions'>
-                <i className="fa-solid fa-pen-to-square" onClick={()=>navigate(`extedit?id=${item.id}`)}></i>
-                <i className="fa-solid fa-trash-can" onClick={({currentTarget})=>excluirExtintor(currentTarget, item.id)}></i>
+                <div>
+                    <p className='cardTextoPqn'>classe </p>
+                    <p>{tipoClasse(item.tipo)} </p>
+                </div>
 
+                <div>
+                    <p className='cardTextoPqn'>local</p>
+                    <p> {item.local} </p>
+                </div>
+
+            </fieldset>
+
+            <fieldset className='fieldsetFlexRow'>
+
+
+            <legend>Datas</legend>
+            <div>
+
+            <p className='cardTextoPqn'>próx. recarga</p>
+            <p>{mesParaString(item.ultRec.mes)} de {Number(item.ultRec.ano) + 1}</p>
             </div>
+            <div>
+
+            <p className='cardTextoPqn'>próx. reteste</p>
+            <p> {item.ultRet} </p>
+            </div>
+            </fieldset>
+
+            {item.avaria && <fieldset className='cardAvaria'>
+                <legend>Avarias</legend>
+            {/* <p className='cardTextoPqn'>avarias:</p> */}
+            <p >{item.avaria} </p>
+
+            </fieldset>}
+
+            <fieldset className='fieldsetAcoes fieldsetFlexRow'>
+                <div className='btnAcoesWrapper'>
+                    <i className="fa-solid fa-pen-to-square" onClick={()=>navigate(`extedit?id=${item.id}`)}></i>
+                    <p>editar</p>
+                </div>
+                <div className='btnAcoesWrapper'>
+                    <i className="fa-solid fa-trash-can" onClick={({currentTarget})=>excluirExtintor(currentTarget, item.id)}></i>
+                    <p>excluir</p>
+                </div>
+
+            </fieldset>
         </div>
+            
+            
+            
+        //     <div key={item.id+'ext'} className='cardExt'>
+
+        //     <div id='extNum'  className='hdInfo' > 
+        //         <i className="fa-solid fa-hashtag"></i>
+        //         <p>{item.num}</p>
+        //     </div>
+
+        //     <div id='extLocal' className='hdInfo' >
+        //         <i className="fa-solid fa-location-dot"/>
+        //         <p>{item.local}</p>
+        //     </div>
+
+        //     <div id='extTipo' className='hdInfo' >
+        //         <i className="fa-solid fa-fire-extinguisher"></i>
+        //         <p>{item.tipo}</p>
+        //     </div>
+
+        //     <div id='extAgente' className='hdInfo' >
+        //         <i className="fa-solid fa-flask-vial"></i>
+        //         {item.tipo === 'A' && <p>AP</p>}
+        //         {item.tipo === 'B' && <p>PQS</p>}
+        //         {item.tipo === 'C' && <p>CO²</p>}
+        //     </div>
+
+        //     <div id='extProxRec' className='hdInfo' >
+        //         <i className="fa-solid fa-calendar-day"></i>
+        //         <p>{mesParaString(item.ultRec.mes)} de {item.ultRec.ano}</p>
+        //         {/* <p>{attd(item.ultRec.mes)} de {item.ultRec.ano}</p> */}
+        //         {/* <p>{new Date(item.ultRec.mes+1+' 1 '+item.ultRec.ano)}</p> */}
+        //     </div>
+
+        //     <div id='extProxRet' className='hdInfo' >
+        //         <i className="fa-solid fa-calendar-check"></i>
+        //         <p>{item.ultRet}</p>
+        //     </div>
+
+        //     {item.avaria && <div id='extMais' className='hdInfo extDetail shadow' onClick={({currentTarget})=>toggleDetail(currentTarget)}>
+        //         <span className='extDetailSpan'>{toggle?'esconder avarias':'mostrar avarias'}</span>
+        //         </div>
+        //     }
+
+        //     <div id='extAvaria' className='hdInfo avariaInvisible' >
+        //         <span>avarias</span>
+        //         <p className='extSpanAvarias'>{item.avaria}</p>
+        //     </div>
+            
+        //     <div id='hdActions'>
+        //         <i className="fa-solid fa-pen-to-square" onClick={()=>navigate(`extedit?id=${item.id}`)}></i>
+        //         <i className="fa-solid fa-trash-can" onClick={({currentTarget})=>excluirExtintor(currentTarget, item.id)}></i>
+
+        //     </div>
+        // </div>
 
         })}
 

@@ -40,17 +40,14 @@ function App() {
         {/* <Header/> */}
 
         <Routes>
+          <Route path='/' element={<Login/>} />
           <Route path='perfil' element={<Profile/>} />
 
           {/* <Route path='/' element={<AreaParaTestes/>} /> */}
           <Route path='testes' element={<AreaParaTestes/>} />
           {/* <Route path='/' element={<Log/>} /> */}
-          <Route path='/' element={<Login/>} />
-          <Route path='home' element={<Home/>} >
-            <Route path='lde' element={<LdE/>} />
-            <Route path='hd' element={<Hidrantes/>} />
-
-            </Route>
+          <Route path='home' element={<Home/>} />
+            
 
           <Route path='lde' element={<LdE/>} />
           <Route path='ldenovo' element={<LdENovoReg/> } />

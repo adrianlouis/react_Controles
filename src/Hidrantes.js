@@ -14,7 +14,6 @@ const Hidrantes = () => {
   const [ordenar, setOrdenar] = React.useState('')
   const [resFiltragem, setResFiltragem] = React.useState('')
   const userHds = context.userLogado.hd
-  const [valor, setValor] = React.useState('')
   const [ind, setInd] = React.useState('')
   const filtrados = new Filtro(context.userLogado.hd)
 
@@ -140,97 +139,132 @@ const Hidrantes = () => {
         </div>}
         
         {!context.itensFiltrados && context.userLogado.hd && context.userLogado.hd.map((item)=>{
-            return <div key={item.id} id={item.id} className="hdCard shadow">
-            <div id="hdNum" className="hdInfo shadow">
-              <i className="fa-solid fa-hashtag"></i>
-              <p>{item.num}</p>
-            </div>
-  
-            <div id="hdLocal" className="hdInfo shadow">
-              <i className="fa-solid fa-location-dot"></i>
-              <p>{item.local}</p>
-            </div>
-  
-            <div id="hdAbrigo" className="hdInfo shadow">
-              <i className="fa-solid fa-house-flood-water"></i>
-              <p>{item.abrigo}</p>
-            </div>
-  
-            <div id="hdSinal" className="hdInfo shadow">
-              <i className="fa-solid fa-signs-post"></i>
-              <p>{item.sinal}</p>
-            </div>
-  
-            <div id="hdPecas" className="hdInfo shadow">
-              <i className="fa-solid fa-wrench"></i>
-              {item.pecas.map((peca)=>{
+          return <div key={item.id} className="extCard">
+
+            <fieldset className='fieldsetFlexRow'>
+              <legend>Hidrante {item.num}</legend>
+              <div>
+                <p className='cardTextoPqn'>local</p>
+                <p>{item.local ? item.local : 'Não informado'}</p>
+              </div>
+
+              <div>
+                <p className="cardTextoPqn">abrigo</p>
+                <p>{item.abrigo ? item.abrigo : 'Não informado'}</p>
+              </div>
+
+              
+            </fieldset>
+
+            <fieldset className="fieldsetFlexRow">
+              <legend>Sinalização</legend>
+              <div>
+                <p className="cardTextoPqn">marcação no chão</p>
+                <p>{item.sinal ? item.sinal : 'Não informado'}</p>
+              </div>
+
+              <div>
+                <p className="cardTextoPqn">placa de sinalização</p>
+                <p>{item.placa ? item.placa : 'Não informado'}</p>
+              </div>
+            </fieldset>
+
+            <fieldset className="fieldsetFlexRow">
+              <legend>Peças</legend>
+              <div className="pecasDiv">
+                {item.pecas.length === 0 && <p>Nenhuma peça</p>}
+                {item.pecas.map((peca)=>{
                 return <p key={peca.id}>{peca}</p>
               })}
-            </div>
-  
-            <div id="hdValidade" className="hdInfo shadow">
-              <i className="fa-solid fa-calendar-check"></i>
-              <p>{`${new Date(item.val).getUTCMonth()+1} - ${new Date(item.val).getUTCFullYear()}`}</p>
-            </div>
-  
-            {item.avaria && <div id="hdAvarias" className="hdInfo">
-              <p>Avarias</p>
-              <textarea disabled id="hdAvariasTxtArea" value={item.avaria} readOnly={true}></textarea>
-            </div>}
+              </div>
+            </fieldset>
 
-            <div id="hdActions">
-                <i className="fa-solid fa-pen-to-square" onClick={()=>{navigate(`id?id=${item.id}`)}}></i>
-                <i className="fa-solid fa-trash-can" onClick={({currentTarget})=>excluirHd(currentTarget, item)}></i>
-            </div>
+            <fieldset className="fieldsetFlexRow">
+              <legend>Reteste Hidrostático</legend>
+              <div>
+                <p>{item.val ? new Date(item.val).toLocaleDateString('pt-br', {month:'long', year:'numeric'}) : 'Não informado'}</p>
+              </div>
+            </fieldset>
 
+            {item.avaria && <fieldset className="fieldsetFlexRow">
+              <legend>Avaria</legend>
+              <div>
+                <p>{item.avaria}</p>
+              </div>
+              
+              </fieldset>}
+
+              <fieldset className='fieldsetAcoes fieldsetFlexRow'>
+                  <div className='btnAcoesWrapper'>
+                    <i className="fa-solid fa-pen-to-square" onClick={()=>{navigate(`id?id=${item.id}`)}}></i>
+                    <p>editar</p>
+                  </div>
+                  <div className='btnAcoesWrapper'>
+                    <i className="fa-solid fa-trash-can" onClick={({currentTarget})=>excluirHd(currentTarget, item)}></i>
+                    <p>excluir</p>
+                  </div>
+
+              </fieldset>
 
           </div>
+            
         })}
 
         {context.itensFiltrados && context.itensFiltrados.map((item)=>{
-            return <div key={item.id} id={item.id} className="hdCard shadow">
-            <div id="hdNum" className="hdInfo shadow">
-              <i className="fa-solid fa-hashtag"></i>
-              <p>{item.num}</p>
-            </div>
-  
-            <div id="hdLocal" className="hdInfo shadow">
-              <i className="fa-solid fa-location-dot"></i>
-              <p>{item.local}</p>
-            </div>
-  
-            <div id="hdAbrigo" className="hdInfo shadow">
-              <i className="fa-solid fa-house-flood-water"></i>
-              <p>{item.abrigo}</p>
-            </div>
-  
-            <div id="hdSinal" className="hdInfo shadow">
-              <i className="fa-solid fa-signs-post"></i>
-              <p>{item.sinal}</p>
-            </div>
-  
-            <div id="hdPecas" className="hdInfo shadow">
-              <i className="fa-solid fa-wrench"></i>
-              {item.pecas.map((peca)=>{
+            return <div key={item.id} className="extCard">
+
+            <fieldset className='fieldsetFlexRow'>
+              <legend>Hidrante {item.num}</legend>
+              <div>
+                <p className='cardTextoPqn'>local</p>
+                <p>{item.local ? item.local : 'Não informado'}</p>
+              </div>
+
+              <div>
+                <p className="cardTextoPqn">abrigo</p>
+                <p>{item.abrigo ? item.abrigo : 'Não informado'}</p>
+              </div>
+
+              <div>
+                <p className="cardTextoPqn">sinalização</p>
+                <p>{item.sinal ? item.sinal : 'Não informado'}</p>
+              </div>
+            </fieldset>
+
+            <fieldset className="fieldsetFlexRow">
+              <legend>Peças</legend>
+              <div className="pecasDiv">
+                {item.pecas.length === 0 && <p>Nenhuma peça</p>}
+                {item.pecas.map((peca)=>{
                 return <p key={peca.id}>{peca}</p>
               })}
-            </div>
-  
-            <div id="hdValidade" className="hdInfo shadow">
-              <i className="fa-solid fa-calendar-check"></i>
-              <p>{`${new Date(item.val).getUTCMonth()+1} - ${new Date(item.val).getUTCFullYear()}`}</p>
-            </div>
-  
-            {item.avaria && <div id="hdAvarias" className="hdInfo">
-              <p>Avarias</p>
-              <textarea disabled id="hdAvariasTxtArea" value={item.avaria} readOnly={true}></textarea>
-            </div>}
+              </div>
+            </fieldset>
 
-            <div id="hdActions">
-                <i className="fa-solid fa-pen-to-square" onClick={()=>{navigate(`id?id=${item.id}`)}}></i>
-                <i className="fa-solid fa-trash-can" onClick={({currentTarget})=>excluirHd(currentTarget, item)}></i>
-            </div>
+            <fieldset className="fieldsetFlexRow">
+              <legend>Reteste Hidrostático</legend>
+              <div>
+                <p>{item.val ? new Date(item.val).toLocaleDateString('pt-br', {month:'long', year:'numeric'}) : 'Não informado'}</p>
+              </div>
+            </fieldset>
 
+            {item.avaria && <fieldset className="fieldsetFlexRow">
+              <legend>Avaria</legend>
+              <div>
+                <p>{item.avaria}</p>
+              </div>
+              </fieldset>}
+
+              <fieldset className='fieldsetAcoes fieldsetFlexRow'>
+                  <div className='btnAcoesWrapper'>
+                    <i className="fa-solid fa-pen-to-square" onClick={()=>{navigate(`id?id=${item.id}`)}}></i>
+                    <p>editar</p>
+                  </div>
+                  <div className='btnAcoesWrapper'>
+                    <i className="fa-solid fa-trash-can" onClick={({currentTarget})=>excluirHd(currentTarget, item)}></i>
+                    <p>excluir</p>
+                  </div>
+                </fieldset>
 
           </div>
         })}
@@ -273,16 +307,7 @@ const Hidrantes = () => {
 
         />
 
-        {/* <IconesBottom itens={context.userLogado.hd} buscarChange={({target})=>filtroNum(target.value)} buscarValor={valor} novoItem='/hdnovo' iconesDeFiltragem={["fa-solid fa-arrow-down-1-9", "fa-solid fa-location-dot", "fa-solid fa-shower", "fa-solid fa-circle-info", "fa-solid fa-wrench"]} indexNum={0} indexModalLocal={1} indexAvarias={3} indexHdPecas={4} indexBuscar={1}   selectLocalOptions={['Subsolo', 'Térreo', '2º Pav A', '2º Pav B', '3º Pav A', '3º Pav B', '4º Pav A', '4º Pav B']} autonomiaOptions={['1h', '2h', '3h', '4h', '5h', '6h']} /> */}
       </div>
-
-      {/* <IconesBottom novoItem='/hdnovo' selectLocalOptions={['Subsolo', 'Acesso subsolo A', 'Acesso subsolo B', 'Térreo', 'Brigada', 'Escada A', 'Escada B', 'Escada C', '2º Pav A', '2º Pav B', '2º Pav Escada C', '3º Pav A', '3º Pav B', '3º Pav Escada C', '4º Pav A', '4º Pav B', '4º Pav Escada C', 'CMI']} itens={context.userLogado.hd} iconesDeFiltragem={["fa-solid fa-angles-left"]} autonomiaOptions={['1h']} /> */}
-
-
-
-      {/* <div className='ldeSubFooter'>
-        <Link className='ldeSubFooterBtn' to='/hdnovo' >novo HD</Link>
-    </div> */}
 
     </div>
     </>

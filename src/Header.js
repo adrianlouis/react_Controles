@@ -26,7 +26,6 @@ const Header = () => {
 
   },[headerModal])
 
-
   
   return (
     <div className='header'>
@@ -34,15 +33,13 @@ const Header = () => {
       <div className='headerSuperior'>
 
         <i className="fa-solid fa-bars" onClick={modalToggle}></i>
-        <span>{url === 'http://localhost:3000/home' ? 'Bem-vindo!' : ''}</span>
-        {/* <span>Bem-vindo, Sr. {context.userLogado.nome}</span> */}
+
+        <span>Bem-vindo, Sr. {context.userLogado.nome}</span>
         
       </div>
 
       <div id='headerModal' className='headerModal' >
 
-        
-      
         <i id='modalFechar' className="fa-solid fa-xmark" onClick={modalToggle}></i>
 
         <span onClick={()=>handleMenuLink('/home')}>Home</span>
