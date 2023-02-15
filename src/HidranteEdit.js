@@ -155,13 +155,13 @@ const HidranteEdit = () => {
       </fieldset>
 
       <fieldset className='fieldsetAcoes fieldsetFlexRow'>
-        <div className='btnAcoesWrapper'>
-          <i className="fa-solid fa-angles-left" onClick={()=>navigate('/hd')}></i>
+        <div className='btnAcoesWrapper' onClick={()=>navigate('/hd')}>
+          <i className="fa-solid fa-angles-left" ></i>
           <p>cancelar</p>
         </div>
 
-        <div className='btnAcoesWrapper'>
-          <i className="fa-solid fa-floppy-disk" onClick={salvarEditado}></i>
+        <div className='btnAcoesWrapper'  onClick={salvarEditado}>
+          <i className="fa-solid fa-floppy-disk"></i>
           <p>salvar</p>
         </div>
 

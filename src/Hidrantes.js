@@ -176,8 +176,8 @@ const Hidrantes = () => {
               <div className="pecasDiv">
                 {item.pecas.length === 0 && <p>Nenhuma peça</p>}
                 {item.pecas.map((peca)=>{
-                return <p key={peca.id}>{peca}</p>
-              })}
+                  return <p key={peca.id}>{peca}</p>
+                })}
               </div>
             </fieldset>
 
@@ -196,13 +196,13 @@ const Hidrantes = () => {
               
               </fieldset>}
 
-              <fieldset className='fieldsetAcoes fieldsetFlexRow'>
-                  <div className='btnAcoesWrapper'>
-                    <i className="fa-solid fa-pen-to-square" onClick={()=>{navigate(`id?id=${item.id}`)}}></i>
+              <fieldset className='fieldsetAcoes fieldsetFlexRow'  >
+                  <div className='btnAcoesWrapper' onClick={()=>{navigate(`id?id=${item.id}`)}}>
+                    <i className="fa-solid fa-pen-to-square"></i>
                     <p>editar</p>
                   </div>
-                  <div className='btnAcoesWrapper'>
-                    <i className="fa-solid fa-trash-can" onClick={({currentTarget})=>excluirHd(currentTarget, item)}></i>
+                  <div className='btnAcoesWrapper' onClick={({currentTarget})=>excluirHd(currentTarget, item)}>
+                    <i className="fa-solid fa-trash-can" ></i>
                     <p>excluir</p>
                   </div>
 
@@ -258,12 +258,12 @@ const Hidrantes = () => {
               </fieldset>}
 
               <fieldset className='fieldsetAcoes fieldsetFlexRow'>
-                  <div className='btnAcoesWrapper'>
-                    <i className="fa-solid fa-pen-to-square" onClick={()=>{navigate(`id?id=${item.id}`)}}></i>
+                  <div className='btnAcoesWrapper' onClick={()=>{navigate(`id?id=${item.id}`)}}>
+                    <i className="fa-solid fa-pen-to-square" ></i>
                     <p>editar</p>
                   </div>
-                  <div className='btnAcoesWrapper'>
-                    <i className="fa-solid fa-trash-can" onClick={({currentTarget})=>excluirHd(currentTarget, item)}></i>
+                  <div className='btnAcoesWrapper' onClick={({currentTarget})=>excluirHd(currentTarget, item)}>
+                    <i className="fa-solid fa-trash-can" ></i>
                     <p>excluir</p>
                   </div>
                 </fieldset>
