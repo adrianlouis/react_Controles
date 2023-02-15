@@ -70,6 +70,11 @@ const HidranteNovo = () => {
 
   }
 
+  const altura = window.screen.width
+  const largura = window.screen.height
+
+  console.log(altura, largura)
+
   function handleCheck(item){
     if (pecas.includes(item)){
       const peca = pecas.filter((f)=>{
@@ -89,6 +94,8 @@ const HidranteNovo = () => {
 
   return (
     <div className='extCard'>
+      <p>{altura}</p>
+      <p>{largura}</p>
     <fieldset className='fieldsetFlexRow'>
       <legend>Hidrante</legend>
       <div>
