@@ -60,7 +60,9 @@ const Hidrantes = () => {
 
     }
 
-    
+  function convertData(valor){
+    return (new Date(valor).toLocaleDateString('pt-br', {month:'long', year:'numeric'})).charAt(0).toUpperCase()+(new Date(valor).toLocaleDateString('pt-br', {month:'long', year:'numeric'})).slice(1)
+  }
         
   function excluirHd(item, hd){
     const res = context.userLogado.hd.filter((filtro)=>{
@@ -182,7 +184,7 @@ const Hidrantes = () => {
             <fieldset className="fieldsetFlexRow">
               <legend>Reteste Hidrostático</legend>
               <div>
-                <p>{item.val ? new Date(item.val).toLocaleDateString('pt-br', {month:'long', year:'numeric'}) : 'Não informado'}</p>
+                <p>{convertData(item.val)}</p>
               </div>
             </fieldset>
 
@@ -244,7 +246,7 @@ const Hidrantes = () => {
             <fieldset className="fieldsetFlexRow">
               <legend>Reteste Hidrostático</legend>
               <div>
-                <p>{item.val ? new Date(item.val).toLocaleDateString('pt-br', {month:'long', year:'numeric'}) : 'Não informado'}</p>
+                <p>{item.val ? convertData(item.val) : 'Não informado'}</p>
               </div>
             </fieldset>
 

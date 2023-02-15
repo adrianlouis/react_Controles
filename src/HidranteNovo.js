@@ -70,10 +70,7 @@ const HidranteNovo = () => {
 
   }
 
-  const altura = window.screen.width
-  const largura = window.screen.height
 
-  console.log(altura, largura)
 
   function handleCheck(item){
     if (pecas.includes(item)){
@@ -86,7 +83,6 @@ const HidranteNovo = () => {
     }
   }
 
-  console.log(pecas)
 
   React.useEffect(()=>{
     updateBd(context.userLogado.id, {hd:[...context.userLogado.hd]})
@@ -94,8 +90,6 @@ const HidranteNovo = () => {
 
   return (
     <div className='extCard'>
-      <p>{altura}</p>
-      <p>{largura}</p>
     <fieldset className='fieldsetFlexRow'>
       <legend>Hidrante</legend>
       <div>
@@ -113,7 +107,7 @@ const HidranteNovo = () => {
       <p className='cardTextoPqn'>local</p>
       <Select
           selectValorInicial={local}
-          optionDisabledValue="local"
+          // optionDisabledValue="local"
           options={['Subsolo', 'Térreo', '2º Pav A', '2º Pav B', '3º Pav A', '3º Pav B', '4º Pav A', '4º Pav B']}
           selectOnChange={({target})=>setLocal(target.value)}
         />

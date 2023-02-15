@@ -302,14 +302,15 @@ textarea:focus{
 
 .extCard p:not(.cardTextoPqn){
     text-align: left;
-    margin: 5px 20px 10px 20px;
+    margin: 5px 8px 10px 8px;
 }
 
 .cardTextoPqn{
     font-size: .7rem;
-    margin: 0 20px;
+    margin: 0 8px;
     padding: unset;
     text-align: left;
+    /* border: 1px solid red; */
 
 }
 
