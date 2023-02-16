@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Zeyada&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Julee&family=Zeyada&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch&family=Space+Grotesk&display=swap');
 
 .cardExt{
     width: 75%;
@@ -38,10 +40,13 @@ textarea{
     border-radius: 5px;
     height: 80px;
     resize: none;
+    color: #d1d1d1;
+    font-family: 'Zeyada', cursive;
+    font-size: 1.5rem;
 }
 textarea:focus{
     outline: none;
-    border: 2px solid #777;
+    border: 2px solid transparent;
 }
 
 .extSpanAvarias{
@@ -298,6 +303,10 @@ textarea:focus{
 
 }
 
+@media only screen and (max-width: 1200px) and (min-width: 360px){
+  
+}
+
 
 .extCard legend{
     color: #3a3;
@@ -309,9 +318,10 @@ textarea:focus{
     font-family: 'Zeyada', cursive;
 
     font-family: 'Julee', cursive;
+    /* font-family: 'Chakra Petch', sans-serif; */
 
 
-    font-size: 1.5rem;
+    font-size: 1.2rem;
 
    
 
@@ -382,6 +392,7 @@ textarea:focus{
     /* border: 1px solid red; */
     /* @import url('https://fonts.googleapis.com/css2?family=Julee&family=Zeyada&display=swap'); */
     font-family: 'Julee', cursive;
+    /* font-family: 'Space Grotesk', sans-serif; */
 }
 
 .extCard select, .extCard input{
@@ -392,6 +403,7 @@ textarea:focus{
     color: #777;
     font-size: .9rem;
     font-family: 'Julee', cursive;
+    font-family: 'Chakra Petch', sans-serif;
 
 }
 

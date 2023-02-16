@@ -29,7 +29,7 @@
 } */
 
 .gasCardData{
-    /* border: 1px solid green; */
+    border: 1px solid green;
     border-radius: 5px;
     padding: 5px 0;
     display: flex;
@@ -44,6 +44,7 @@
 
 .gasCardContent{
     /* border: 1px solid green; */
+    width: 100%;
     /* background-color: #222; */
 
     border-radius: 10px;
@@ -56,6 +57,24 @@
     padding: 20px 0;
 
     /* box-shadow: #111 5px 5px 5px, inset #333 5px 5px 5px; */
+}
+
+.gasCardContent div{
+    /* border: 1px solid #000; */
+    text-align: center;
+    width: 100px;
+    height: 50px;
+    margin-bottom: 0px;
+
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    flex-direction: column;
+}
+
+#containerGas{
+    margin: 20px;
+    width: 80%;
 }
 
 .gasCardContentEdit{
@@ -232,4 +251,20 @@
     background-color: #222;
     width: 100%;
     height: 100vh;
+}
+
+.fieldsetManometros{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.manometrosMarcados{
+    border: 1px solid green;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }

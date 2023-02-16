@@ -49,12 +49,9 @@ const LdENovoReg = () => {
       const ldeNovo = {id:novoId(), num:num, local:pav, dur:dur, avaria:anotacao}
       context.setUserLogado({...context.userLogado, lde:[...context.userLogado.lde, ldeNovo]})
 
+      updateBd(context.userLogado.id, {lde:[...context.userLogado.lde, ldeNovo]})
       navigate('/lde')
     }
-
-    React.useEffect(()=>{
-      updateBd(context.userLogado.id, {lde:[...context.userLogado.lde]})
-  },[context.userLogado.lde])
   
     function validarNumeros(elem){
       const validacao = /[0-9]/
@@ -68,7 +65,7 @@ const LdENovoReg = () => {
     
   return (
     <>
-      <div className='editarLdE' >
+      {/* <div className='editarLdE' >
         <Input inpClass='newLde' id='editarLdENum' labText='Número da LdE' inpTipo='text' onChange={({target})=>setNum(target.value)} value={num} onBlur={({currentTarget})=>{validarNumeros(currentTarget)}} />
 
         <Select selectValorInicial={pav} selectOnChange={({target})=>setPav(target.value)} optionDisabledValue='Local' options={['Subsolo', 'Acesso subsolo A', 'Acesso subsolo B', 'Escada A', 'Escada B', 'Escada C', 'Térreo', '2º Pav A', '2º Pav B', '2º Pav Escada C', '3º Pav A', '3º Pav B', '3º Pav Escada C', '4º Pav A', '4º Pav B', '4º Pav Escada C']} />
@@ -78,9 +75,52 @@ const LdENovoReg = () => {
         <label >Anotações</label> 
         <textarea onChange={({target})=>setAnotacao(target.value)} value={anotacao} />  
         
-      </div>
+      </div> */}
 
-      <AcoesCriandoItem voltar='/lde' salvar={()=>handleSubmit(context.userLogado.id)}/>
+<div className='extCard'>
+
+<fieldset className='fieldsetFlexRow'>
+
+    <legend>Luz de Emergência</legend>
+
+    <div>
+        <p className='cardTextoPqn'>número</p>
+        <Input inpClass='newLde' id='editarLdENum' inpTipo='text' onChange={({target})=>setNum(target.value)} value={num} onBlur={({currentTarget})=>{validarNumeros(currentTarget)}} />
+    </div>
+
+    <div>
+        <p className='cardTextoPqn'>local</p>
+        <Select selectValorInicial={pav} selectOnChange={({target})=>setPav(target.value)} optionDisabledValue='Local' options={['Subsolo', 'Acesso subsolo A', 'Acesso subsolo B', 'Escada A', 'Escada B', 'Escada C', 'Térreo', '2º Pav A', '2º Pav B', '2º Pav Escada C', '3º Pav A', '3º Pav B', '3º Pav Escada C', '4º Pav A', '4º Pav B', '4º Pav Escada C']} />
+    </div>
+
+    <div>
+        <p className='cardTextoPqn'>autonomia</p>
+        <Select selectValorInicial={dur} selectOnChange={({target})=>setDur(target.value)} optionDisabledValue='Autonomia' options={['1h', '2h', '3h', '4h', '5h', '6h']} />
+    </div>
+
+</fieldset>
+
+<fieldset className='fieldsetFlexRow'>
+  <legend>Avarias</legend>
+  <textarea onChange={({target})=>setAnotacao(target.value)} value={anotacao} />  
+
+</fieldset>
+
+<fieldset className='fieldsetAcoes fieldsetFlexRow'>
+    <div className='btnAcoesWrapper'>
+      <i className="fa-solid fa-angles-left" onClick={()=>navigate('/lde')}></i>
+      <p>cancelar</p>
+    </div>
+    <div className='btnAcoesWrapper'>
+      <i className="fa-solid fa-floppy-disk" onClick={()=>handleSubmit(context.userLogado.id)}></i>
+      <p>salvar</p>
+    </div>
+
+</fieldset>
+
+</div>
+
+      {/* <AcoesCriandoItem voltar='/lde' salvar={()=>handleSubmit(context.userLogado.id)}/> */}
       
     </>
   )

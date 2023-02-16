@@ -27,7 +27,10 @@ const Gas = () => {
 
     function handleContent(content){
         const element = content.nextSibling
+        const botoes = element.parentNode.nextSibling
+
         element.classList.contains('hideContent') ? element.classList.remove('hideContent') : element.classList.add('hideContent')
+        botoes.classList.contains('hideContent') ? botoes.classList.remove('hideContent') : botoes.classList.add('hideContent')
     }
 
     function home(){
@@ -57,9 +60,6 @@ const Gas = () => {
 
     window.scrollTo(0,0)
 
-    function funcaoNum(){
-        console.log('ordenar por num')
-    }
 
     function gasOrdenar(el){
         if (el.getAttribute('class') !== "fa-solid fa-arrow-down-9-1"){
@@ -77,9 +77,9 @@ const Gas = () => {
 
 
         {(toogle ? gases : gases.reverse()).map((item)=>{
-            return <div key={item.id} className='gasCard' >
+            return <div id='containerGas' key={item.id} className='extCard containerGas' >
 
-                    <div className='gasCardData' onClick={({currentTarget})=>handleContent(currentTarget)} >
+                    {/* <div className='gasCardData' onClick={({currentTarget})=>handleContent(currentTarget)} >
 
                         <div>
                             <span>Data: </span>
@@ -91,9 +91,75 @@ const Gas = () => {
                             <span>{item.horaCriado}</span>
                         </div>
 
+                    </div> */}
+
+                    {/* <div className='extCard'> */}
+                    <fieldset className='fieldsetFlexRow ' >
+                        <legend onClick={({currentTarget})=>handleContent(currentTarget)}>{item.diaCriado} - {item.horaCriado}</legend>
+                        
+
+                        <div className=' gasCardContent hideContent'>
+
+
+                        {item.l128 && <div>
+                            <p className='cardTextoPqn'>loja 128</p>
+                            <p>{item.l128}</p>
+                        </div>}
+                        {item.l132 && <div>
+                            <p className='cardTextoPqn'>loja 132</p>
+                            <p>{item.l132}</p>
+                        </div>}
+                        {item.l137 && <div>
+                            <p className='cardTextoPqn'>loja 137</p>
+                            <p>{item.l137}</p>
+                        </div>}
+                        {item.l141 && <div>
+                            <p className='cardTextoPqn'>loja 141</p>
+                            <p>{item.l141}</p>
+                        </div>}
+                        {item.l152 && <div>
+                            <p className='cardTextoPqn'>loja 152</p>
+                            <p>{item.l152}</p>
+                        </div>}
+                        {item.l154 && <div>
+                            <p className='cardTextoPqn'>loja 154</p>
+                            <p>{item.l154}</p>
+                        </div>}
+                        {item.l157 && <div>
+                            <p className='cardTextoPqn'>loja 157</p>
+                            <p>{item.l157}</p>
+                        </div>}
+
+                        
+
+                        </div>
+
+                        
+
+
+                    </fieldset>
+
+                    <div id='divBotoesAcoes' className='hideContent'>
+
+
+                    <fieldset className='fieldsetAcoes fieldsetFlexRow'>
+            <div className='btnAcoesWrapper' onClick={()=>navigate(`gasedit?id=${item.id}`)}>
+                <i className="fa-solid fa-pen-to-square shadow" ></i>
+                <p>editar</p>
+            </div>
+            <div className='btnAcoesWrapper'  onClick={()=>deletar(item.id)}>
+                <i className="fa-solid fa-trash-can shadow" ></i>
+                <p>excluir</p>
+            </div>
+        </fieldset>
                     </div>
 
-                    <div className='hideContent'>
+                    
+                    {/* </div> */}
+
+
+
+                    {/* <div className='hideContent'>
 
                         <div  className='gasCardContent '>
 
@@ -152,7 +218,7 @@ const Gas = () => {
 
                         </div>
 
-                    </div>
+                    </div> */}
 
                 </div>
             

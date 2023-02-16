@@ -66,6 +66,7 @@ const HidranteEdit = () => {
             inpClass="hdNovo"
             value={num}
             onChange={({target})=>setNum(target.value)}
+            type='tel'
           />
         </div>
 

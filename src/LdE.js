@@ -113,12 +113,12 @@ const LdE = () => {
                 </fieldset>
 
                 <fieldset className='fieldsetAcoes fieldsetFlexRow'>
-                    <div className='btnAcoesWrapper'>
-                        <i className="fa-solid fa-pen-to-square" onClick={()=>navigate(`edit/id?id=${item.id}&ind=${index}`)}></i>
+                    <div className='btnAcoesWrapper' onClick={()=>navigate(`edit/id?id=${item.id}&ind=${index}`)}>
+                        <i className="fa-solid fa-pen-to-square"></i>
                         <p>editar</p>
                     </div>
-                    <div className='btnAcoesWrapper'>
-                        <i className="fa-solid fa-trash-can shadow" onClick={()=>excluirLde(item)}></i>
+                    <div className='btnAcoesWrapper' onClick={()=>excluirLde(item)}>
+                        <i className="fa-solid fa-trash-can shadow"></i>
                         <p>excluir</p>
                     </div>
 

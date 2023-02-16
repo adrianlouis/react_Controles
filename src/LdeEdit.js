@@ -72,13 +72,13 @@ const LdeEdit = () => {
   </fieldset>
 
   <fieldset className='fieldsetAcoes fieldsetFlexRow'>
-      <div className='btnAcoesWrapper'>
-          <i className="fa-solid fa-pen-to-square" onClick={()=>navigate('/lde')}></i>
-          <p>editar</p>
+      <div className='btnAcoesWrapper' onClick={()=>navigate('/lde')}>
+          <i className="fa-solid fa-angles-left" ></i>
+          <p>cancelar</p>
       </div>
-      <div className='btnAcoesWrapper'>
-          <i className="fa-solid fa-trash-can shadow" onClick={()=>salvarEdicao()}></i>
-          <p>excluir</p>
+      <div className='btnAcoesWrapper' onClick={()=>salvarEdicao()}>
+          <i className="fa-solid fa-floppy-disk" ></i>
+          <p>salvar</p>
       </div>
 
   </fieldset>
