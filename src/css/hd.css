@@ -108,18 +108,7 @@
     grid-area: avarias;
     /* display: none; */
 }
-#hdAvariasTxtArea{
-    padding: 5px;
-    width: 95%;
-    height: 100%;
-    margin-bottom: 5px;
-    color: #ddd;
-    resize: none;
-}
-#hdAvariasTxtArea:focus{
-    outline: none;
-    /* border: 1px solid #0a0 */
-}
+
 
 .listaDeHds{
     width: 100%;
@@ -255,17 +244,7 @@ input[type='text']:focus, input[type='tel']:focus{
 
 
 
-.extCard select, .extCard input{
-    margin: 2px 5px 0;
-    padding: 2px;
-    width: 50px;
-    background-color: #111;
-    color: #777;
-    font-size: .9rem;
-}
-.extCard select{
-    width: 90px;
-}
+
 .extCard input[type='checkbox']{
     color: red;
     /* display: none; */

@@ -89,36 +89,74 @@ const LdE = () => {
     <>
 
         {!context.itensFiltrados && context.userLogado && context.userLogado.lde.map((item, index)=>{
-            return <div key={item.id} className='ldeContainer'>
-            <div className='contSuperior'  onClick={({currentTarget})=>expandir(currentTarget, item.avaria)}>
-                <div className='ldeUnidade' >
-                    <i className="fa-solid fa-hashtag"></i>
-                    <p>{item.num}</p>
-                </div>
-                <div className='ldeUnidade'>
-                    <i className="fa-solid fa-location-dot"/>   
-                    <p>{item.local}</p>
-                </div>
-                <div className='ldeUnidade'>
-                    {iconeBateria(item.dur)}
-                    <p>{item.dur} </p>
-                </div>
+            return <div key={item.id+index} className='extCard'>
 
-                {item.avaria && <i id='iconeAvaria' className="fa-solid fa-circle-exclamation"></i>}
-                </div>
+                <fieldset className='fieldsetFlexRow'>
 
-                { item.avaria && <>
-                    <div className='contInferior'>
-                        <textarea disabled value={item.avaria} ></textarea>
+                    <legend>Luz de Emergência</legend>
+
+                    <div>
+                        <p className='cardTextoPqn'>número</p>
+                        <p>{item.num}</p>
                     </div>
-                </>}
 
-                <div className='cardAcoes'>
-                    <Link to={`edit/id?id=${item.id}&ind=${index}`}><i className="fa-solid fa-pen-to-square shadow"></i></Link>
-                    <i className="fa-solid fa-trash-can shadow" onClick={()=>excluirLde(item)}></i>
-                    
-                </div>
+                    <div>
+                        <p className='cardTextoPqn'>local</p>
+                        <p>{item.local}</p>
+                    </div>
+
+                    <div>
+                        <p className='cardTextoPqn'>autonomia</p>
+                        <p>{item.dur}</p>
+                    </div>
+
+                </fieldset>
+
+                <fieldset className='fieldsetAcoes fieldsetFlexRow'>
+                    <div className='btnAcoesWrapper'>
+                        <i className="fa-solid fa-pen-to-square" onClick={()=>navigate(`edit/id?id=${item.id}&ind=${index}`)}></i>
+                        <p>editar</p>
+                    </div>
+                    <div className='btnAcoesWrapper'>
+                        <i className="fa-solid fa-trash-can shadow" onClick={()=>excluirLde(item)}></i>
+                        <p>excluir</p>
+                    </div>
+
+                </fieldset>
+
             </div>
+            
+            
+            // <div key={item.id} className='ldeContainer'>
+            // <div className='contSuperior'  onClick={({currentTarget})=>expandir(currentTarget, item.avaria)}>
+            //     <div className='ldeUnidade' >
+            //         <i className="fa-solid fa-hashtag"></i>
+            //         <p>{item.num}</p>
+            //     </div>
+            //     <div className='ldeUnidade'>
+            //         <i className="fa-solid fa-location-dot"/>   
+            //         <p>{item.local}</p>
+            //     </div>
+            //     <div className='ldeUnidade'>
+            //         {iconeBateria(item.dur)}
+            //         <p>{item.dur} </p>
+            //     </div>
+
+            //     {item.avaria && <i id='iconeAvaria' className="fa-solid fa-circle-exclamation"></i>}
+            //     </div>
+
+            //     { item.avaria && <>
+            //         <div className='contInferior'>
+            //             <textarea disabled value={item.avaria} ></textarea>
+            //         </div>
+            //     </>}
+
+            //     <div className='cardAcoes'>
+            //         <Link to={`edit/id?id=${item.id}&ind=${index}`}><i className="fa-solid fa-pen-to-square shadow"></i></Link>
+            //         <i className="fa-solid fa-trash-can shadow" onClick={()=>excluirLde(item)}></i>
+                    
+            //     </div>
+            // </div>
         })}
 
         {context.itensFiltrados && context.itensFiltrados.length === 0 && <div className='ldeResumoFiltro'>
@@ -127,35 +165,76 @@ const LdE = () => {
         }
 
         {context.itensFiltrados && context.itensFiltrados.map((item, index)=>{
-            return <div key={item.id} className='ldeContainer'>
-            <div className='contSuperior'  onClick={({currentTarget})=>expandir(currentTarget)}>
-                <div className='ldeUnidade' >
-                    <i className="fa-solid fa-hashtag"></i>
+            return <div key={item.id+index} className='extCard'>
+
+            <fieldset className='fieldsetFlexRow'>
+
+                <legend>Luz de Emergência</legend>
+
+                <div>
+                    <p className='cardTextoPqn'>número</p>
                     <p>{item.num}</p>
                 </div>
-                <div className='ldeUnidade'>
-                    <i className="fa-solid fa-location-dot"/> 
+
+                <div>
+                    <p className='cardTextoPqn'>local</p>
                     <p>{item.local}</p>
                 </div>
-                <div className='ldeUnidade'>
-                    {iconeBateria(item.dur)}
+
+                <div>
+                    <p className='cardTextoPqn'>autonomia</p>
                     <p>{item.dur}</p>
                 </div>
-                {item.avaria && <i id='iconeAvaria' className="fa-solid fa-circle-exclamation"></i>}
-                </div>
-                { item.avaria && <>
-                    
-                    <div className='contInferior'>
-                        <textarea disabled value={item.avaria} ></textarea>
-                    </div>
-                </>}
 
-                <div className='cardAcoes'>
-                    <Link className='ldeSubFooterBtn' to={`edit/id?id=${item.id}&ind=${index}`}>Editar</Link>
-                    <span className='ldeSubFooterBtn' onClick={()=>excluirLde(item)}>Excluir</span>
-                    
+            </fieldset>
+
+            <fieldset className='fieldsetAcoes fieldsetFlexRow'>
+                <div className='btnAcoesWrapper'>
+                    <i className="fa-solid fa-pen-to-square" onClick={()=>navigate(`edit/id?id=${item.id}&ind=${index}`)}></i>
+                    {/* <Link to={`edit/id?id=${item.id}&ind=${index}`}><i className="fa-solid fa-pen-to-square shadow"></i></Link> */}
+                    <p>editar</p>
                 </div>
-            </div>
+                <div className='btnAcoesWrapper'>
+                    <i className="fa-solid fa-trash-can shadow" onClick={()=>excluirLde(item)}></i>
+                    <p>excluir</p>
+                </div>
+
+            </fieldset>
+
+        </div>
+            
+            
+            
+            
+            // <div key={item.id} className='ldeContainer'>
+            // <div className='contSuperior'  onClick={({currentTarget})=>expandir(currentTarget)}>
+            //     <div className='ldeUnidade' >
+            //         <i className="fa-solid fa-hashtag"></i>
+            //         <p>{item.num}</p>
+            //     </div>
+            //     <div className='ldeUnidade'>
+            //         <i className="fa-solid fa-location-dot"/> 
+            //         <p>{item.local}</p>
+            //     </div>
+            //     <div className='ldeUnidade'>
+            //         {iconeBateria(item.dur)}
+            //         <p>{item.dur}</p>
+            //     </div>
+            //     {item.avaria && <i id='iconeAvaria' className="fa-solid fa-circle-exclamation"></i>}
+            //     </div>
+            //     { item.avaria && <>
+                    
+            //         <div className='contInferior'>
+            //             <textarea disabled value={item.avaria} ></textarea>
+            //         </div>
+            //     </>}
+
+            //     <div className='cardAcoes'>
+            //         <Link className='ldeSubFooterBtn' to={`edit/id?id=${item.id}&ind=${index}`}>Editar</Link>
+            //         <span className='ldeSubFooterBtn' onClick={()=>excluirLde(item)}>Excluir</span>
+                    
+            //     </div>
+            // </div>
         })}
 
         <MenuFooter 

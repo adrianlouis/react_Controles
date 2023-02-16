@@ -118,7 +118,8 @@ const ExtEditar = () => {
             </div>
         </fieldset>
 
-        <fieldset className='cardAvaria'>
+        {/* <fieldset className='cardAvaria'> */}
+        <fieldset className='cardAvaria fieldsetFlexRow '>
             <legend>Avarias</legend>
             <textarea id='hdAvariasTxtArea' value={avaria} onChange={({target})=>setAvaria(target.value)}></textarea>
         </fieldset>

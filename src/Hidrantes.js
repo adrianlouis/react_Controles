@@ -160,15 +160,17 @@ const Hidrantes = () => {
 
             <fieldset className="fieldsetFlexRow">
               <legend>Sinalização</legend>
-              <div>
-                <p className="cardTextoPqn">marcação no chão</p>
-                <p>{item.sinal ? item.sinal : 'Não informado'}</p>
-              </div>
 
               <div>
                 <p className="cardTextoPqn">placa de sinalização</p>
                 <p>{item.placa ? item.placa : 'Não informado'}</p>
               </div>
+
+              <div>
+                <p className="cardTextoPqn">marcação no chão</p>
+                <p>{item.sinal ? item.sinal : 'Não informado'}</p>
+              </div>
+              
             </fieldset>
 
             <fieldset className="fieldsetFlexRow">

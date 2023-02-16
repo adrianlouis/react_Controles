@@ -234,7 +234,7 @@ function tipoClasse(tipo){
                 </div>
                 </fieldset>
 
-                {item.avaria && <fieldset className='cardAvaria'>
+                {item.avaria && <fieldset className='fieldsetFlexRow'>
                     <legend>Avarias</legend>
                 {/* <p className='cardTextoPqn'>avarias:</p> */}
                 <p >{item.avaria} </p>
@@ -351,7 +351,7 @@ function tipoClasse(tipo){
             </div>
             </fieldset>
 
-            {item.avaria && <fieldset className='cardAvaria'>
+            {item.avaria && <fieldset className='fieldsetFlexRow'>
                 <legend>Avarias</legend>
             {/* <p className='cardTextoPqn'>avarias:</p> */}
             <p >{item.avaria} </p>

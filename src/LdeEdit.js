@@ -47,21 +47,68 @@ const LdeEdit = () => {
         navigate('/lde')
     }
     
-  return (
-    <div>
-      <div className='editarLdE' >
-        <Input id='editarLdENum' labText='Número da LdE' inpTipo='tel' onChange={({target})=>setNum(target.value)} value={num} />
+  return <div className='extCard'>
 
-        <Select selectValorInicial={local} selectOnChange={({target})=>setLocal(target.value)}  options={['Subsolo', 'Acesso subsolo A', 'Acesso subsolo B', 'Escada A', 'Escada B', 'Escada C', 'Térreo', '2º Pav A', '2º Pav B', '2º Pav Escada C', '3º Pav A', '3º Pav B', '3º Pav Escada C', '4º Pav A', '4º Pav B', '4º Pav Escada C']} />
-        <Select selectValorInicial={dur} selectOnChange={({target})=>setDur(target.value)} optionDisabledValue='Autonomia' options={['1h', '2h', '3h', '4h', '5h', '6h']} />
+  <fieldset className='fieldsetFlexRow'>
 
-        <label >Anotações</label>
-        <textarea onChange={({target})=>setAvaria(target.value)} value={avaria} />  
+      <legend>Luz de Emergência</legend>
+
+      <div>
+          <p className='cardTextoPqn'>número</p>
+          <Input id='editarLdENum' maxLength='5' inpTipo='tel' onChange={({target})=>setNum(target.value)} value={num} />
+      </div>
+
+      <div>
+          <p className='cardTextoPqn'>local</p>
+          <Select selectValorInicial={local} selectOnChange={({target})=>setLocal(target.value)}  options={['Subsolo', 'Acesso subsolo A', 'Acesso subsolo B', 'Escada A', 'Escada B', 'Escada C', 'Térreo', '2º Pav A', '2º Pav B', '2º Pav Escada C', '3º Pav A', '3º Pav B', '3º Pav Escada C', '4º Pav A', '4º Pav B', '4º Pav Escada C']} />
+      </div>
+
+      <div>
+          <p className='cardTextoPqn'>autonomia</p>
+                  <Select selectValorInicial={dur} selectOnChange={({target})=>setDur(target.value)} optionDisabledValue='Autonomia' options={['1h', '2h', '3h', '4h', '5h', '6h']} />
+
+      </div>
+
+  </fieldset>
+
+  <fieldset className='fieldsetAcoes fieldsetFlexRow'>
+      <div className='btnAcoesWrapper'>
+          <i className="fa-solid fa-pen-to-square" onClick={()=>navigate('/lde')}></i>
+          <p>editar</p>
+      </div>
+      <div className='btnAcoesWrapper'>
+          <i className="fa-solid fa-trash-can shadow" onClick={()=>salvarEdicao()}></i>
+          <p>excluir</p>
+      </div>
+
+  </fieldset>
+
+</div>
+  
+
+
+
+
+
+
+//   (
+//     <div>
+//       <div className='editarLdE' >
+//         <Input id='editarLdENum' labText='Número da LdE' inpTipo='tel' onChange={({target})=>setNum(target.value)} value={num} />
+
+//         <Select selectValorInicial={local} selectOnChange={({target})=>setLocal(target.value)}  options={['Subsolo', 'Acesso subsolo A', 'Acesso subsolo B', 'Escada A', 'Escada B', 'Escada C', 'Térreo', '2º Pav A', '2º Pav B', '2º Pav Escada C', '3º Pav A', '3º Pav B', '3º Pav Escada C', '4º Pav A', '4º Pav B', '4º Pav Escada C']} />
+
+//         <label >Anotações</label>
+//         <textarea onChange={({target})=>setAvaria(target.value)} value={avaria} />  
         
-        <AcoesCriandoItem voltar='/lde' salvar={salvarEdicao} />
-    </div>
-    </div>
-  )
+//         <AcoesCriandoItem voltar='/lde' salvar={salvarEdicao} />
+//     </div>
+//     </div>
+
+
+
+
+//   )
 }
 
 export default LdeEdit
