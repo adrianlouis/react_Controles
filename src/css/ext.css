@@ -408,8 +408,9 @@ textarea:focus{
 }
 
 .extCard input:focus, .extCard select:focus, #hdAvariasTxtArea:focus{
-    color: #aaa;
-    font-weight: 900;
+    color: #7f77;
+    /* font-weight: 900; */
+    border: 2px solid #7f77;
 }
 select option{
     font-weight: 400;
@@ -432,6 +433,9 @@ select option:active{
 }
 .fieldsetAcoes i{
     padding-top: 10px;
+}
+.fieldsetAcoes div:hover i, .fieldsetAcoes div:hover p{
+    color: #3a3;
 }
 .btnAcoesWrapper{
     display: flex;

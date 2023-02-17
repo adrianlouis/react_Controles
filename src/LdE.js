@@ -97,17 +97,17 @@ const LdE = () => {
 
                     <div>
                         <p className='cardTextoPqn'>número</p>
-                        <p>{item.num}</p>
+                        <p>{item.num ? item.num : 'N/A'}</p>
                     </div>
 
                     <div>
                         <p className='cardTextoPqn'>local</p>
-                        <p>{item.local}</p>
+                        <p>{item.local ? item.local : 'N/A'}</p>
                     </div>
 
                     <div>
                         <p className='cardTextoPqn'>autonomia</p>
-                        <p>{item.dur}</p>
+                        <p>{item.dur ? item.dur : 'N/A'}</p>
                     </div>
 
                 </fieldset>

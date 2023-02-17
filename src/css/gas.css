@@ -77,11 +77,28 @@
     width: 80%;
 }
 
+#containerGas:nth-last-child(2){
+    margin-bottom: 100px;
+}
+
 .gasCardContentEdit{
 
     /* border: 1px solid red; */
     height: 100%;
 }
+
+#inputGasEdit{
+    width: 100px;
+    border: 2px solid transparent;
+}
+
+#inputGasEdit:focus{
+    border: 2px solid #7f77;
+    font-weight: 400;
+    color: #7f77;
+    box-shadow: #7f77 0 0 5px;
+}
+
 
 .gasCardContentEdit .gasCardWrapper{
     margin: 20px 0;
@@ -238,7 +255,7 @@
     letter-spacing: 1px;
 }
 .novoGasInput:focus{
-    /* border: 1px solid #333; */
+    /* border: 1px solid #0a0; */
     /* box-shadow:   #555 0 0 5px; */
     color: #fff;
 }
