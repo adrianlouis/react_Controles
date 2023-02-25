@@ -1,10 +1,10 @@
 import logo from './logo.svg';
 import './App.css';
 import Log from './Log.js';
-import {BrowserRouter, Routes, Route, useLocation} from 'react-router-dom'
+import {BrowserRouter, Routes, Route, useLocation, HashRouter} from 'react-router-dom'
 import Home from './Home.js';
 import LdE from './LdE.js';
-import { GlobalStorage } from './GlobalContext';
+import { GlobalContext, GlobalStorage } from './GlobalContext';
 import LdENovoReg from './LdENovoReg';
 import AreaParaTestes from './AreaParaTestes';
 import LdeEdit from './LdeEdit';
@@ -18,54 +18,50 @@ import Header from './Header';
 import Gas from './Gas';
 import GasNovo from './GasNovo';
 import GasEdit from './GasEdit';
-import React from 'react';
+import React, { useContext } from 'react';
 import Login from './Login';
 import Salas from './Salas';
 import Profile from './Profile';
+import NotFound from './NotFound';
 
 
 function App() {
-   // const location = useLocation()
-
-  // React.useEffect(()=>{
-  //   console.log('RENDER')
-
-  // },[location])
-
-  
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/" >
       <GlobalStorage>
         {/* <Header/> */}
 
         <Routes>
-          <Route path='/' element={<Login/>} />
-          <Route path='perfil' element={<Profile/>} />
+          <Route exact path='/' element={<Login/>} />
+          <Route exact path='perfil' element={<Profile/>} />
 
           {/* <Route path='/' element={<AreaParaTestes/>} /> */}
-          <Route path='testes' element={<AreaParaTestes/>} />
+          <Route exact path='testes' element={<AreaParaTestes/>} />
           {/* <Route path='/' element={<Log/>} /> */}
-          <Route path='home' element={<Home/>} />
+          <Route exact path='home' element={<Home/>} />
             
 
-          <Route path='lde' element={<LdE/>} />
-          <Route path='ldenovo' element={<LdENovoReg/> } />
-          <Route path='/lde/edit/:id' element={<LdeEdit/> } />
+          <Route exact path='lde' element={<LdE/>} />
+          <Route exact path='ldenovo' element={<LdENovoReg/> } />
+          <Route exact path='/lde/edit/:id' element={<LdeEdit/> } />
 
-          <Route path='hd' element={<Hidrantes/>} />
-          <Route path='hdnovo' element={<HidranteNovo/> } />
-          <Route path='/hd/:id' element={<HidranteEdit />} />
+          <Route exact path='hd' element={<Hidrantes/>} />
+          <Route exact path='hdnovo' element={<HidranteNovo/> } />
+          <Route exact path='/hd/:id' element={<HidranteEdit />} />
 
-          <Route path='ext' element={<Extintores />} />
-          <Route path='extnovo' element={<ExtNovo/>} />
-          <Route path='/ext/:extedit' element={<ExtEditar/>} />
+          <Route exact path='ext' element={<Extintores />} />
+          <Route exact path='extnovo' element={<ExtNovo/>} />
+          <Route exact path='/ext/:extedit' element={<ExtEditar/>} />
 
-          <Route path='gas' element={<Gas/>} />
-          <Route path='gasnovo' element={<GasNovo/>} />
-          <Route path='/gas/:gasnovo' element={<GasEdit/>}/>
+          <Route exact path='gas' element={<Gas/>} />
+          <Route exact path='gasnovo' element={<GasNovo/>} />
+          <Route exact path='/gas/:gasnovo' element={<GasEdit/>}/>
 
-          <Route path='sala' element={<Salas/>} />
+          <Route exact path='sala' element={<Salas/>} />
+
+
+          <Route exact path='*' element={<NotFound />} />
           
         </Routes>
 

@@ -118,7 +118,7 @@ const LdE = () => {
                         <p>editar</p>
                     </div>
                     <div className='btnAcoesWrapper' onClick={()=>excluirLde(item)}>
-                        <i className="fa-solid fa-trash-can shadow"></i>
+                        <i className="fa-solid fa-trash-can"></i>
                         <p>excluir</p>
                     </div>
 
@@ -195,7 +195,7 @@ const LdE = () => {
                     <p>editar</p>
                 </div>
                 <div className='btnAcoesWrapper'>
-                    <i className="fa-solid fa-trash-can shadow" onClick={()=>excluirLde(item)}></i>
+                    <i className="fa-solid fa-trash-can" onClick={()=>excluirLde(item)}></i>
                     <p>excluir</p>
                 </div>
 

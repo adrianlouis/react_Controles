@@ -7,6 +7,8 @@ import {GlobalContext} from './GlobalContext'
 import { updateBd } from './crudFireBase'
 
 
+
+
 const Home = () => {
   const navigate = useNavigate()
   const context = React.useContext(GlobalContext)
@@ -14,6 +16,7 @@ const Home = () => {
     function nav(dest){
       navigate(dest)
     }
+
 
   return (
     <>
@@ -24,6 +27,7 @@ const Home = () => {
 
 
         <div className='cards'>
+
 
         <HomeCard spanCardClass='cardTexto' divClass='homeCardAtivo homeCardContainer' cardNome={context.userLogado.ext.length+' Extintores'} onClick={()=>nav('/ext')} />
 

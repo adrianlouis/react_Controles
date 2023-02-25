@@ -5,6 +5,7 @@ import { GlobalContext } from './GlobalContext'
 //FIREBASE CMDS
 import { db } from './firebase-config';
 import {collection, addDoc, getDocs} from '@firebase/firestore'
+import CheckBox from './CheckBox';
 
 
 const Login = () => {
@@ -24,7 +25,7 @@ const Login = () => {
     const [regOk, setRegOk] = React.useState({nome:false, email:false, senha:false, confSenha:false})
     const [regexRegSenha, setRegexRegSenha] = React.useState({num:false, esp:false, tamanho:false})
     const [logPWVisible, setLogPWVisible] = React.useState(false)
-    
+    const [remember, setRemember] = React.useState(false)
     
     // const [newUser, setNewUser] = React.useState({name:regInput.nome, email:regInput.email, sheets: [{aco:[], ext:[], gar:[], gas:[], hd:[], lde:[], loj:[], pcf:[], pre:[], sal:[]}]})
 
@@ -34,29 +35,58 @@ const Login = () => {
         await addDoc(collection(db, "users"), newUser)
     }
 
+    function delCookie(){
+        
+        document.cookie = `user=qwe&qweqwe1!; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`
+        console.log(document.cookie)
+    }
+    function seeCookie(){
+        // const dado = document.cookie.split('&')
+        console.log(document.cookie)
 
+        // const biskoito = document.cookie.slice(5)
+        // console.log(biskoito)
+        // const bolaxa = biskoito.split('&')
+        // console.log(bolaxa)
+    }
 
     function handleLogin(e){
         e.preventDefault()
 
         const ftr = ctx.users.filter((f)=>{
-            return f.nome === loginInput.nome
+            if (f.nome === loginInput.nome){
+                return f
+            }else if (f.email === loginInput.nome){
+                return f
+            }else{
+                return
+            }
         })
 
-        if(ftr.length === 1 && ftr[0].senha === loginInput.senha ){
+        if(ftr.length === 1 && ftr[0].senha === loginInput.senha){
             ctx.setUserLogado(...ftr)
+
+            if(remember){
+                const now = new Date()
+                const future = now.setMinutes(now.getMinutes() + 60)
+                const dataFinal = new Date(future)
+               
+                document.cookie = `user=${loginInput.nome}&${loginInput.senha}; expires=${dataFinal}}`
+            }
+
             navigate('/home')
-            // navigate('/home')
         }
+
         if(ftr.length === 1 && ftr[0].senha !== loginInput.senha){
             setLoginMsg('Senha errada')
         }
         if(ftr.length === 0){
             setLoginMsg('Usuário não encontrado')
         }
-        // console.log(ftr)
-        // console.log(ctx.userLogado.sheets.ext)
+
+
     }
+
 
     function handleRegistrar(e){
 
@@ -217,6 +247,7 @@ function aplicarCss(el){
 
         {!form && <div className='loginContainer'>
             <h1>Controle de Dados</h1>
+{/* <button onClick={()=>navigate('/ext/extedit?id=10')}>OK</button> */}
             <span>Este site foi desenvolvido para a prática do framework ReactJs e tem como finalidade a criação, edição e consulta de dados, como acesso e controle da carros de uma garagem, planilha de extintores, dados sobre visitantes e etc.
             Para a utilização do sistema, cadastre-se ou entre com a sua conta.</span>
             <div>
@@ -227,12 +258,18 @@ function aplicarCss(el){
         </div>}
 
         {form === 1 && <div className='loginContainer'>
-            <form onSubmit={(e)=>handleLogin(e)}>
-            <h1>Login</h1>
+
+            {/* <button onClick={()=>delCookie()}>Deletar Cookie</button>
+            <button onClick={()=>seeCookie()}>Ver Cookie</button> */}
+
+
+
+            <form className='glassmorph' onSubmit={(e)=>handleLogin(e)}>
+                <h1>Login</h1>
 
                 <div className='regInputWrapper'>
                     <i className="fa-solid fa-user"></i>
-                    <input className='regInput' type='text' placeholder='nome de usuário' value={loginInput.nome} onChange={({target})=>setLoginInput({...loginInput, nome:target.value})} onFocus={({currentTarget})=>aplicarCss(currentTarget)} onBlur={({currentTarget})=>aplicarCss(currentTarget)} required />
+                    <input className='regInput' type='text' placeholder='nome ou email' value={loginInput.nome} onChange={({target})=>setLoginInput({...loginInput, nome:target.value})} onFocus={({currentTarget})=>aplicarCss(currentTarget)} onBlur={({currentTarget})=>aplicarCss(currentTarget)} required />
                 </div>
 
                 <div className='regInputWrapper'>
@@ -240,13 +277,23 @@ function aplicarCss(el){
                     <input className='regInput' type={logPWVisible?'text':'password'} placeholder='senha' value={loginInput.senha} onChange={({target})=>setLoginInput({...loginInput, senha:target.value})} onFocus={({currentTarget})=>aplicarCss(currentTarget)} onBlur={({currentTarget})=>aplicarCss(currentTarget)} required />
                     <i className={logPWVisible? "fa-solid fa-eye" : "fa-solid fa-eye-slash"} onClick={()=>setLogPWVisible(!logPWVisible)} />
                 </div>
+                {/* <span>Lembrar senha</span> */}
+                {/* <CheckBox itens={['Lembrar']} /> */}
 
-                <div className='formLinks'>
-                    <span>esqueceu a senha?</span>
-                    <span onClick={()=>setForm(2)} >registrar</span>
+                <div id='lembrarLogDiv'>
+                    <label htmlFor='lembrarLogin'>
+                        lembrar
+                        <input id='lembrarLogin' type='checkbox' checked={remember} onChange={()=>setRemember(!remember)}  />
+                    </label>
                 </div>
 
                 <button className={loginInput.nome !== '' && loginInput.senha !== '' ? 'loginBtns' : 'loginBtns btnInvalido'}  >Entrar</button>
+
+                <div className='formLinks'>
+                    <span onClick={()=>setForm(2)} >registrar</span>
+                    <span>esqueceu a senha?</span>
+                </div>
+
 
                 <span className='regInvalido'>{loginMsg}</span>
 

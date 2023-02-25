@@ -10,20 +10,20 @@ import MenuFooter from './MenuFooter'
 import {ordemCrescenteDecrescente, Filtro} from './funcoes/filtroFuncoes'
 
 const Gas = () => {
+
+    
     // const funcaoNum = ()=> ordemNumerica(gases)
     // const novoItem = ()=>navigate('/gasnovo')
     // const [inputBuscarMes, setInputBuscarMes] = React.useState('')
 
     const ctx = useContext(GlobalContext) 
     const navigate = useNavigate()
+
     const [inputDisabled, setInputDisabled] = React.useState(true)
     const [toogle, setToogle] = React.useState(true)
     const gases = ctx.userLogado.gas.sort((a,b)=>{
         return b.id - a.id
     })
-
-    const ava = new Filtro(ctx.userLogado.ext, "Subsolo")
-    // console.log(ava.local())
 
     function handleContent(content){
         const element = content.nextSibling
@@ -31,14 +31,6 @@ const Gas = () => {
 
         element.classList.contains('hideContent') ? element.classList.remove('hideContent') : element.classList.add('hideContent')
         botoes.classList.contains('hideContent') ? botoes.classList.remove('hideContent') : botoes.classList.add('hideContent')
-    }
-
-    function home(){
-        navigate('/home')
-    }
-
-    function sel(){
-        console.log('dah')
     }
 
     function deletar(id){
@@ -75,6 +67,17 @@ const Gas = () => {
   return (
     <div className='gasContainer'>
 
+                    <div id='containerGas' className='extCard '>
+
+                    
+
+                        <fieldset className='fieldsetFlexRow' onClick={()=>navigate('/gasnovo')}>
+                            <legend><i className="fa-solid fa-plus" ></i></legend>
+                            <div className='cardTextoPqn'>
+                                <p>criar nova marcação</p>
+                            </div>
+                        </fieldset>
+                    </div>
 
         {(toogle ? gases : gases.reverse()).map((item)=>{
             return <div id='containerGas' key={item.id} className='extCard containerGas' >
@@ -94,6 +97,9 @@ const Gas = () => {
                     </div> */}
 
                     {/* <div className='extCard'> */}
+
+                    
+
                     <fieldset className='fieldsetFlexRow ' >
                         <legend onClick={({currentTarget})=>handleContent(currentTarget)}>{item.diaCriado} - {item.horaCriado}</legend>
                         

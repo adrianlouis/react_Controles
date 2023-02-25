@@ -21,8 +21,17 @@ const ExtNovo = () => {
     const [local, setLocal] = React.useState('')
     const [ultRet, setUltRet] = React.useState('')
     const [avaria, setAvaria] = React.useState('')
+    const anoAtual = new Date().getFullYear()
 
-    const extNovo = {id:findId(), num:num, tipo:tipo, local:local, ultRec:{...ultRec, mes:mesParaNumero(mesRec)}, ultRet:ultRet, avaria:avaria }
+    // const extNovo = {id:findId(), num:num, tipo:tipo, local:local, ultRec:{...ultRec, mes:mesParaNumero(mesRec)}, ultRet:ultRet, avaria:avaria }
+    const extNovo = {id:findId(), num:num, tipo:tipo, local:local, ultRec:{...ultRec, mes:mesRec.toLowerCase()}, ultRet:ultRet, avaria:avaria }
+
+    console.log(extNovo.ultRec.mes)
+    const testeData = new Date()
+    testeData.setMonth(mesRec - 1)
+    // console.log(testeData.toLocaleString('pt-Br', {month:'long'}))
+    // console.log(new Date(testeData))
+
 
     function findId(){
         if (context.userLogado.ext.length > 0){
@@ -144,12 +153,12 @@ const ExtNovo = () => {
     <legend>Data da Recarga</legend>
     <div>
     <p className='cardTextoPqn'>mês da próx. recarga</p>
-    <Select selectValorInicial={mesRec} selectOnChange={({target})=>setMesRec(target.value)} optionDisabledValue=' mês ' options={['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez']} />
+    <Select selectValorInicial={mesRec} selectOnChange={({target})=>setMesRec(target.value)} optionDisabledValue=' mês ' options={['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']} />
     </div>
 
     <div>
     <p className='cardTextoPqn'>ano da próx. recarga</p>
-    <Select selectValorInicial={anoRec} selectOnChange={({target})=>setAnoRec(target.value)} optionDisabledValue=' ano ' options={[2020, 2021, 2022, 2023, 2024, 2025]} />
+    <Select selectValorInicial={anoRec} selectOnChange={({target})=>setAnoRec(target.value)} optionDisabledValue=' ano ' options={[anoAtual-3, anoAtual-2, anoAtual-1, anoAtual, anoAtual+1]} />
     </div>
     
     </fieldset>
@@ -161,9 +170,12 @@ const ExtNovo = () => {
             <Input
                 inpTipo="tel"
                 maxLength='4'
+                min='2000'
+                max={anoAtual+5}
                 value={ultRet}
                 onChange={({target}) => setUltRet(target.value)}
                 id='inputRetesteExt'
+                enterkeyhint='enter'
             />
 
         </div>
@@ -180,7 +192,7 @@ const ExtNovo = () => {
         <i className="fa-solid fa-angles-left" ></i>
             <p>voltar</p>
         </div>
-        <div className='btnAcoesWrapper'>
+        <div className='btnAcoesWrapper' onClick={()=>salvarExt()}>
         <i className="fa-solid fa-floppy-disk" ></i>
             <p>salvar</p>
         </div>

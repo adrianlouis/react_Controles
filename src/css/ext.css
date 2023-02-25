@@ -312,19 +312,11 @@ textarea:focus{
     color: #3a3;
     filter: drop-shadow(#3a3 0 0 3px);
     margin: 5px 15px;
-    /* margin: 5px auto; */
     padding: 0 10px;
-
     font-family: 'Zeyada', cursive;
-
     font-family: 'Julee', cursive;
-    /* font-family: 'Chakra Petch', sans-serif; */
-
-
     font-size: 1.2rem;
-
-   
-
+    /* background-color: #131313; */
 }
 
 .extCard legend:not(.fieldsetFlexRow:hover legend){

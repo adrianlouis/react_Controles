@@ -8,6 +8,8 @@
 
     color: #050;
 
+    background-color: #000;
+
 }
 
 .gasCard{
@@ -75,6 +77,7 @@
 #containerGas{
     margin: 20px;
     width: 80%;
+    /* background-color: #000; */
 }
 
 #containerGas:nth-last-child(2){

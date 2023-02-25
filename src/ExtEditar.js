@@ -4,7 +4,7 @@ import AcoesCriandoItem from './AcoesCriandoItem'
 import { GlobalContext } from './GlobalContext'
 import Input from './Input'
 import Select from './Select'
-import {mesParaNumero, mesParaString } from './funcoes/extDatas'
+import {dataShort, mesParaNumero, mesParaString } from './funcoes/extDatas'
 import { updateBd } from './crudFireBase'
 
 const ExtEditar = () => {
@@ -13,6 +13,7 @@ const ExtEditar = () => {
     const location = useLocation()
     const navigate = useNavigate()
     const search = new URLSearchParams(location.search)
+    const anoAtual = (new Date().getFullYear())
 
     const [id, setId] = React.useState('')
     const [num , setNum ] = React.useState('')
@@ -23,6 +24,12 @@ const ExtEditar = () => {
     const [ultRet , setUltRet ] = React.useState('')
     const [avaria , setAvaria ] = React.useState('')
     const editado = { id:id, num:num, tipo:tipo, local:local, ultRec:{mes, ano}, ultRet:ultRet, avaria:avaria }
+
+    const testeData = new Date()
+    testeData.setMonth(0)
+    // console.log(testeData.toLocaleString('pt-Br', {month:'long'}))
+    // console.log((new Date()).setMonth(11).toLocaleString('pt-Br'))  
+    // console.log(context.userLogado)
     const {ext} = context.userLogado
 
     React.useEffect(()=>{
@@ -31,13 +38,19 @@ const ExtEditar = () => {
         })
 
         const {id, num, tipo, local, ultRec:{mes, ano}, ultRet, avaria} = item[0]
-        const mesEmString = mesParaString(mes).slice(0,3)
+        // const mesEmString = mes? mesParaString(mes).slice(0,3) : ''
+        // const dataConvertida = new Date()
+        // dataConvertida.setMonth(mes-1)
+        // console.log(dataConvertida)
+        console.log(dataShort(mes-1))
+
+        
 
         setId(id)
         setNum(num)
         setTipo(tipo)
         setLocal(local)
-        setMes(mesEmString)
+        setMes(mes)
         setAno(ano)
         setUltRet(ultRet)
         setAvaria(avaria)
@@ -46,7 +59,7 @@ const ExtEditar = () => {
 
     function salvarExt(){
 
-        const extEditado = {...editado, ultRec:{...editado.ultRec, mes: mesParaNumero(mes)}}
+        const extEditado = {...editado, ultRec:{...editado.ultRec, mes:mes}}
         const res = ext.map((m)=>{
             if (m.id !== extEditado.id){
                 return m
@@ -63,6 +76,7 @@ const ExtEditar = () => {
         navigate('/ext')
     }
     
+
   return (
 
     <div  className='extCard'>
@@ -94,12 +108,14 @@ const ExtEditar = () => {
             <legend>Data da Recarga</legend>
             <div>
                 <p className='cardTextoPqn'>mês da próx. recarga</p>
-                <Select selectValorInicial={mes} selectOnChange={({target})=>setMes(target.value)} optionDisabledValue=' mês ' options={['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez']} />
+                <Select selectValorInicial={mes} selectOnChange={({target})=>setMes(target.value)} optionDisabledValue=' mês ' options={['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']} />
+                {/* <Select selectValorInicial={mes} selectOnChange={({target})=>setMes(target.value)} optionDisabledValue=' mês ' options={['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez']} /> */}
             </div>
 
             <div>
                 <p className='cardTextoPqn'>ano da próx. recarga</p>
-                <Select selectValorInicial={ano} selectOnChange={({target})=>setAno(target.value)} optionDisabledValue=' ano ' options={[2020, 2021, 2022, 2023, 2024, 2025]} />
+                <Select selectValorInicial={ano} selectOnChange={({target})=>setAno(target.value)} optionDisabledValue=' ano ' options={[ anoAtual-5, anoAtual-4, anoAtual-3, anoAtual-2, anoAtual-1 ,anoAtual, anoAtual+1, anoAtual+2, anoAtual+3, anoAtual+4, anoAtual+5 ]} />
+                {/* <Select selectValorInicial={ano} selectOnChange={({target})=>setAno(target.value)} optionDisabledValue=' ano ' options={[2020, 2021, 2022, 2023, 2024, 2025]} /> */}
             </div>
         
         </fieldset>
