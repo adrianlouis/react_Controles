@@ -50,40 +50,45 @@ const LdeEdit = () => {
   return <div className='extCard'>
 
   <fieldset className='fieldsetFlexRow'>
-
+  
       <legend>Luz de Emergência</legend>
-
+  
       <div>
           <p className='cardTextoPqn'>número</p>
-          <Input id='editarLdENum' maxLength='5' inpTipo='tel' onChange={({target})=>setNum(target.value)} value={num} />
+          <Input inpClass='newLde' id='editarLdENum' inpTipo='text' onChange={({target})=>setNum(target.value)} value={num}  />
       </div>
-
+  
       <div>
           <p className='cardTextoPqn'>local</p>
-          <Select selectValorInicial={local} selectOnChange={({target})=>setLocal(target.value)}  options={['Subsolo', 'Acesso subsolo A', 'Acesso subsolo B', 'Escada A', 'Escada B', 'Escada C', 'Térreo', '2º Pav A', '2º Pav B', '2º Pav Escada C', '3º Pav A', '3º Pav B', '3º Pav Escada C', '4º Pav A', '4º Pav B', '4º Pav Escada C']} />
+          <Select selectValorInicial={local} selectOnChange={({target})=>setLocal(target.value)} optionDisabledValue='Local' options={['Subsolo', 'Acesso subsolo A', 'Acesso subsolo B', 'Escada A', 'Escada B', 'Escada C', 'Térreo', '2º Pav A', '2º Pav B', '2º Pav Escada C', '3º Pav A', '3º Pav B', '3º Pav Escada C', '4º Pav A', '4º Pav B', '4º Pav Escada C']} />
       </div>
-
+  
       <div>
           <p className='cardTextoPqn'>autonomia</p>
-                  <Select selectValorInicial={dur} selectOnChange={({target})=>setDur(target.value)} optionDisabledValue='Autonomia' options={['1h', '2h', '3h', '4h', '5h', '6h']} />
-
+          <Select selectValorInicial={dur} selectOnChange={({target})=>setDur(target.value)} optionDisabledValue='Autonomia' options={['1h', '2h', '3h', '4h', '5h', '6h']} />
       </div>
-
+  
   </fieldset>
-
+  
+  <fieldset className='fieldsetFlexRow'>
+    <legend>Avarias</legend>
+    <textarea onChange={({target})=>setAvaria(target.value)} value={avaria} />  
+  
+  </fieldset>
+  
   <fieldset className='fieldsetAcoes fieldsetFlexRow'>
       <div className='btnAcoesWrapper' onClick={()=>navigate('/lde')}>
-          <i className="fa-solid fa-angles-left" ></i>
-          <p>cancelar</p>
+        <i className="fa-solid fa-angles-left"></i>
+        <p>cancelar</p>
       </div>
       <div className='btnAcoesWrapper' onClick={()=>salvarEdicao()}>
-          <i className="fa-solid fa-floppy-disk" ></i>
-          <p>salvar</p>
+        <i className="fa-solid fa-floppy-disk"></i>
+        <p>salvar</p>
       </div>
-
+  
   </fieldset>
-
-</div>
+  
+  </div>
   
 
 

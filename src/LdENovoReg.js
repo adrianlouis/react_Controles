@@ -85,7 +85,7 @@ const LdENovoReg = () => {
 
     <div>
         <p className='cardTextoPqn'>número</p>
-        <Input inpClass='newLde' id='editarLdENum' inpTipo='text' onChange={({target})=>setNum(target.value)} value={num} onBlur={({currentTarget})=>{validarNumeros(currentTarget)}} />
+        <Input inpClass='newLde' id='editarLdENum' inpTipo='text' placeholder='00' onChange={({target})=>setNum(target.value)} value={num} onBlur={({currentTarget})=>{validarNumeros(currentTarget)}} />
     </div>
 
     <div>
@@ -107,12 +107,12 @@ const LdENovoReg = () => {
 </fieldset>
 
 <fieldset className='fieldsetAcoes fieldsetFlexRow'>
-    <div className='btnAcoesWrapper'>
-      <i className="fa-solid fa-angles-left" onClick={()=>navigate('/lde')}></i>
+    <div className='btnAcoesWrapper' onClick={()=>navigate('/lde')}>
+      <i className="fa-solid fa-angles-left"></i>
       <p>cancelar</p>
     </div>
-    <div className='btnAcoesWrapper'>
-      <i className="fa-solid fa-floppy-disk" onClick={()=>handleSubmit(context.userLogado.id)}></i>
+    <div className='btnAcoesWrapper' onClick={()=>handleSubmit(context.userLogado.id)}>
+      <i className="fa-solid fa-floppy-disk"></i>
       <p>salvar</p>
     </div>
 

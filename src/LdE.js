@@ -112,6 +112,16 @@ const LdE = () => {
 
                 </fieldset>
 
+                {item.avaria && <fieldset className='fieldsetFlexRow'>
+
+                    <legend>Avarias</legend>
+
+                    <div>
+                        <p>{item.avaria}</p>
+                    </div>
+
+                </fieldset>}
+
                 <fieldset className='fieldsetAcoes fieldsetFlexRow'>
                     <div className='btnAcoesWrapper' onClick={()=>navigate(`edit/id?id=${item.id}&ind=${index}`)}>
                         <i className="fa-solid fa-pen-to-square"></i>
