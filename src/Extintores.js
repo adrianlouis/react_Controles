@@ -201,6 +201,8 @@ function tipoClasse(tipo){
 
                     <legend>Extintor {item.num ? item.num : 'sem número'}</legend>
 
+                    <div className='ldeWrapperDados'>
+                        
                     {item.tipo && <><div>
                         <p className='cardTextoPqn'>tipo</p>
                         <p>{item.tipo}</p>
@@ -216,6 +218,7 @@ function tipoClasse(tipo){
                         <p> {item.local} </p>
                     </div>}
 
+                    </div>
                 </fieldset>
 
                 {(item.ultRec.mes || item.ultRec.ano || item.ultRet) && <fieldset className='fieldsetFlexRow'>
@@ -313,9 +316,9 @@ function tipoClasse(tipo){
 
             <fieldset className='fieldsetFlexRow'>
 
-                <legend>Extintor {item.num}</legend>
+                <legend>Extintor {item.num ? item.num : 'sem número'}</legend>
 
-                <div>
+                {item.tipo && <><div>
                     <p className='cardTextoPqn'>tipo</p>
                     <p>{item.tipo}</p>
                 </div>
@@ -323,30 +326,27 @@ function tipoClasse(tipo){
                 <div>
                     <p className='cardTextoPqn'>classe </p>
                     <p>{tipoClasse(item.tipo)} </p>
-                </div>
+                </div></>}
 
-                <div>
+                {item.local && <div>
                     <p className='cardTextoPqn'>local</p>
                     <p> {item.local} </p>
-                </div>
+                </div>}
 
             </fieldset>
 
-            <fieldset className='fieldsetFlexRow'>
-
-
+            {(item.ultRec.mes || item.ultRec.ano || item.ultRet) && <fieldset className='fieldsetFlexRow'>
             <legend>Datas</legend>
-            <div>
+            {(item.ultRec.mes || item.ultRec.ano) && <div>
+                <p className='cardTextoPqn'>próx. recarga</p>
+                <p>{item.ultRec.mes? dataLong(item.ultRec.mes)+(item.ultRec.ano? ' de ' : '') : '' } {item.ultRec.ano ? Number(item.ultRec.ano) + 1 : ''}</p>
+            </div>}
 
-            <p className='cardTextoPqn'>próx. recarga</p>
-            <p>{mesParaString(item.ultRec.mes)} de {Number(item.ultRec.ano) + 1}</p>
-            </div>
-            <div>
-
-            <p className='cardTextoPqn'>próx. reteste</p>
-            <p> {item.ultRet} </p>
-            </div>
-            </fieldset>
+            {item.ultRet && <div>
+                <p className='cardTextoPqn'>próx. reteste</p>
+                <p> {item.ultRet} </p>
+            </div>}
+            </fieldset>}
 
             {item.avaria && <fieldset className='fieldsetFlexRow'>
                 <legend>Avarias</legend>
@@ -356,12 +356,12 @@ function tipoClasse(tipo){
             </fieldset>}
 
             <fieldset className='fieldsetAcoes fieldsetFlexRow'>
-                <div className='btnAcoesWrapper'>
-                    <i className="fa-solid fa-pen-to-square" onClick={()=>navigate(`extedit?id=${item.id}`)}></i>
+                <div className='btnAcoesWrapper' onClick={()=>navigate(`extedit?id=${item.id}`)}>
+                    <i className="fa-solid fa-pen-to-square" ></i>
                     <p>editar</p>
                 </div>
-                <div className='btnAcoesWrapper'>
-                    <i className="fa-solid fa-trash-can" onClick={({currentTarget})=>excluirExtintor(currentTarget, item.id)}></i>
+                <div className='btnAcoesWrapper' onClick={({currentTarget})=>excluirExtintor(currentTarget, item.id)}>
+                    <i className="fa-solid fa-trash-can" ></i>
                     <p>excluir</p>
                 </div>
 

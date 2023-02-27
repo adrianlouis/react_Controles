@@ -105,7 +105,7 @@ const ExtEditar = () => {
         <fieldset className='fieldsetFlexRow'>
 
 
-            <legend>Data da Recarga</legend>
+            <legend>Recarga</legend>
             <div>
                 <p className='cardTextoPqn'>mês da próx. recarga</p>
                 <Select selectValorInicial={mes} selectOnChange={({target})=>setMes(target.value)} optionDisabledValue=' mês ' options={['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']} />
@@ -121,7 +121,7 @@ const ExtEditar = () => {
         </fieldset>
 
         <fieldset className='fieldsetFlexRow'>
-            <legend>Data do Reteste Hidrostático</legend>
+            <legend>Reteste Hidrostático</legend>
             <div>
                 <p className='cardTextoPqn'>ano do próx. reteste</p>
                 <Input

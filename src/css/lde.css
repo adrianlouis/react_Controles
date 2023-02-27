@@ -425,4 +425,16 @@ i{
     color: #ddd;
 }
 
+.ldeWrapperDados{
+    width: 100%;
+    justify-content: space-between;
+    align-items: start;
+    display: flex;
+}
+
+.ldeWrapperDados div{
+    width: 33%;
+}
+
+
 }
