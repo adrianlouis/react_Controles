@@ -182,7 +182,7 @@ const LdE = () => {
             </div>
         }
 
-        {context.itensFiltrados && context.itensFiltrados.map((item, index)=>{
+        {context.itensFiltrados && new Filtro(context.itensFiltrados).crescente().map((item, index)=>{
             return <div key={item.id+index} className='extCard'>
 
             <fieldset className='fieldsetFlexRow'>
