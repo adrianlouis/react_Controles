@@ -16,6 +16,7 @@ const Hidrantes = () => {
   const userHds = context.userLogado.hd
   const [ind, setInd] = React.useState('')
   const filtrados = new Filtro(context.userLogado.hd)
+  console.log(filtrados.crescente)
 
   const [selectLocal, setSelectLocal] = React.useState('')
 

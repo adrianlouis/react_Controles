@@ -3,7 +3,7 @@ import css from './css/lde.css'
 import {Link, useNavigate} from 'react-router-dom'
 import { GlobalContext } from './GlobalContext'
 import MenuFooter from './MenuFooter'
-import { filtroNum, filtroAvaria, filtroLdeBateria} from './funcoes/filtroFuncoes'
+import {Filtro, filtroNum, filtroAvaria, filtroLdeBateria} from './funcoes/filtroFuncoes'
 
 const LdE = () => {
     const context = React.useContext(GlobalContext)
@@ -12,6 +12,10 @@ const LdE = () => {
     const [selectLdeBateria, setSelectLdeBateria] = React.useState('')
     const [ind, setInd] = React.useState(0)
     
+    
+    const lde = new Filtro(context.userLogado.lde)
+
+
     function expandir(elem, avaria){
         // const avarias = elem.parentNode.classList
         // avarias.toggle('ldeContainerAvaria')
@@ -84,11 +88,13 @@ const LdE = () => {
         setSelectLdeBateria('')
         setSelectLocal('')
     },[context.modalFooter])
+
     
   return (
     <>
 
-        {!context.itensFiltrados && context.userLogado && context.userLogado.lde.map((item, index)=>{
+        {!context.itensFiltrados && context.userLogado && lde.crescente().map((item, index)=>{
+        // {!context.itensFiltrados && context.userLogado && context.userLogado.lde.map((item, index)=>{
             return <div key={item.id+index} className='extCard'>
 
                 <fieldset className='fieldsetFlexRow'>

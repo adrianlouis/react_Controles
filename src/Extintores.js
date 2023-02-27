@@ -89,6 +89,7 @@ const Extintores = () => {
         const itens = itemAvariado(context.userLogado.ext)
 
         const ext = new Filtro(context.userLogado.ext)
+        console.log(ext.crescente)
 
         if(context.itensFiltrados === ''){
             context.setItensFiltrados(ext.avariados())
