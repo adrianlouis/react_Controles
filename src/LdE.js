@@ -93,7 +93,7 @@ const LdE = () => {
   return (
     <>
 
-        {!context.itensFiltrados && context.userLogado && lde.crescente().map((item, index)=>{
+        {!context.itensFiltrados && context.userLogado && context.userLogado.lde.map((item, index)=>{
         // {!context.itensFiltrados && context.userLogado && context.userLogado.lde.map((item, index)=>{
             return <div key={item.id+index} className='extCard'>
 
@@ -182,7 +182,7 @@ const LdE = () => {
             </div>
         }
 
-        {context.itensFiltrados && new Filtro(context.itensFiltrados).crescente().map((item, index)=>{
+        {context.itensFiltrados && context.itensFiltrados.map((item, index)=>{
             return <div key={item.id+index} className='extCard'>
 
             <fieldset className='fieldsetFlexRow'>
