@@ -41,8 +41,7 @@ textarea{
     height: 80px;
     resize: none;
     color: #d1d1d1;
-    font-family: 'Zeyada', cursive;
-    font-size: 1.5rem;
+    font-size: .89rem;
 }
 textarea:focus{
     outline: none;
@@ -313,11 +312,8 @@ textarea:focus{
     filter: drop-shadow(#3a3 0 0 3px);
     margin: 5px 15px;
     padding: 0 10px;
-    font-family: 'Zeyada', cursive;
-    font-family: 'Julee', cursive;
     font-family: 'Poppins', sans-serif;
-    font-size: 1.2rem;
-    /* background-color: #131313; */
+    font-size: 1rem;
 }
 
 .extCard legend:not(.fieldsetFlexRow:hover legend){
@@ -348,9 +344,6 @@ textarea:focus{
     margin-bottom: 5px;
     color: #ddd;
     resize: none;
-    font-family: 'Zeyada', cursive;
-    /* border: none ; */
-    font-size: 1.2rem;
 }
 #hdAvariasTxtArea:focus{
     outline: none;
@@ -373,7 +366,7 @@ textarea:focus{
 .extCard p:not(.cardTextoPqn){
     text-align: left;
     margin: 5px 8px 10px 8px;
-    font-size: .99rem;
+    font-size: .89rem;
     color: #fff;
 }
 

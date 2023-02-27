@@ -203,41 +203,41 @@ function tipoClasse(tipo){
 
                     <div className='ldeWrapperDados'>
                         
-                    {item.tipo && <><div>
+                    <div>
                         <p className='cardTextoPqn'>tipo</p>
-                        <p>{item.tipo}</p>
+                        <p>{item.tipo? item.tipo : 'N/A'}</p>
                     </div>
 
                     <div>
                         <p className='cardTextoPqn'>classe </p>
-                        <p>{tipoClasse(item.tipo)} </p>
-                    </div></>}
+                        <p>{item.tipo?tipoClasse(item.tipo):'N/A'} </p>
+                    </div>
 
-                    {item.local && <div>
+                    <div>
                         <p className='cardTextoPqn'>local</p>
-                        <p> {item.local} </p>
-                    </div>}
+                        <p>{item.local?item.local:'N/A'}</p>
+                    </div>
 
                     </div>
                 </fieldset>
 
-                {(item.ultRec.mes || item.ultRec.ano || item.ultRet) && <fieldset className='fieldsetFlexRow'>
+                <fieldset className='fieldsetFlexRow'>
                 <legend>Datas</legend>
-                {(item.ultRec.mes || item.ultRec.ano) && <div>
+                <div>
                     <p className='cardTextoPqn'>próx. recarga</p>
                     <p>{item.ultRec.mes? dataLong(item.ultRec.mes)+(item.ultRec.ano? ' de ' : '') : '' } {item.ultRec.ano ? Number(item.ultRec.ano) + 1 : ''}</p>
-                </div>}
+                    {!item.ultRec.mes && !item.ultRec.ano && <p>N/A</p>}
+                </div>
 
-                {item.ultRet && <div>
+                <div>
                     <p className='cardTextoPqn'>próx. reteste</p>
-                    <p> {item.ultRet} </p>
-                </div>}
-                </fieldset>}
+                    <p>{item.ultRet?item.ultRet:'N/A'}</p>
+                </div>
+                </fieldset>
 
                 {item.avaria && <fieldset className='fieldsetFlexRow'>
                     <legend>Avarias</legend>
-                {/* <p className='cardTextoPqn'>avarias:</p> */}
-                <p >{item.avaria} </p>
+                    <p >{item.avaria} </p>
 
                 </fieldset>}
 
