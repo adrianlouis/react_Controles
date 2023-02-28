@@ -247,7 +247,7 @@ const Log = () => {
           <Button btnId='formBtn' btnText='Logar' btnClass='btnForm' onClick={(event)=>{logar(event)}}  />
           {erroLogin && <span className='msgErroLogin'>{erroLogin}</span>}
           <span>esqueceu a senha? clique <strong>aqui</strong></span>
-          <span>não possui conta? <strong onClick={()=>setForm(!form)}>registre</strong></span>
+          <span>não possui ? <strong onClick={()=>setForm(!form)}>registre</strong></span>
           <span className='deltree' onClick={()=>{!deltree?setDeltree(true):window.localStorage.clear()}} >{!deltree? 'excluir os dados salvos?' : 'Tem certeza?'}</span>
 
         </form>}

@@ -50,9 +50,6 @@ const Gas = () => {
         }
     }
 
-    window.scrollTo(0,0)
-
-
     function gasOrdenar(el){
         if (el.getAttribute('class') !== "fa-solid fa-arrow-down-9-1"){
             el.setAttribute('class', "fa-solid fa-arrow-down-9-1")

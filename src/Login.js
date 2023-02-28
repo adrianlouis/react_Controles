@@ -73,20 +73,23 @@ const Login = () => {
                
                 document.cookie = `user=${loginInput.nome}&${loginInput.senha}; expires=${dataFinal}}`
             }
-
+            
             navigate('/home')
         }
-
+        
         if(ftr.length === 1 && ftr[0].senha !== loginInput.senha){
             setLoginMsg('Senha errada')
         }
         if(ftr.length === 0){
             setLoginMsg('Usuário não encontrado')
         }
-
-
+        
+        
     }
+    
 
+    // APAGAR COOKIE 
+    document.cookie = `user=${loginInput.nome}&${loginInput.senha}; expires=Thu, 18 Dec 2013 12:00:00 UTC; path=/`
 
     function handleRegistrar(e){
 

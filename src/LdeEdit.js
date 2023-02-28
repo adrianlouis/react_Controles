@@ -44,7 +44,7 @@ const LdeEdit = () => {
         updateBd(context.userLogado.id, {lde:ldeEditado})
 
         context.setUserLogado({...context.userLogado, lde:ldeEditado})
-        navigate('/lde')
+        navigate('/home/lde')
     }
     
   return <div className='extCard'>
@@ -77,7 +77,7 @@ const LdeEdit = () => {
   </fieldset>
   
   <fieldset className='fieldsetAcoes fieldsetFlexRow'>
-      <div className='btnAcoesWrapper' onClick={()=>navigate('/lde')}>
+      <div className='btnAcoesWrapper' onClick={()=>navigate('/home/lde')}>
         <i className="fa-solid fa-angles-left"></i>
         <p>cancelar</p>
       </div>

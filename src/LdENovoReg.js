@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom'
 import AcoesCriandoItem from './AcoesCriandoItem'
 import { GlobalContext } from './GlobalContext'
 import Input from './Input'
@@ -13,6 +13,8 @@ import {updateBd} from './crudFireBase'
 
 const LdENovoReg = () => {
 
+  const location = useLocation()
+
   const context = React.useContext(GlobalContext)
   const navigate = useNavigate()
   // const [id, setId] = React.useState(novoId)
@@ -25,6 +27,9 @@ const LdENovoReg = () => {
   const sheets = context.userLogado.sheets
 
   // console.log(fbId)
+
+  window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
+
 
    
 
@@ -47,10 +52,10 @@ const LdENovoReg = () => {
       }
 
       const ldeNovo = {id:novoId(), num:num, local:pav, dur:dur, avaria:anotacao}
-      context.setUserLogado({...context.userLogado, lde:[...context.userLogado.lde, ldeNovo]})
+      context.setUserLogado({...context.userLogado, lde:[ldeNovo, ...context.userLogado.lde]})
 
-      updateBd(context.userLogado.id, {lde:[...context.userLogado.lde, ldeNovo]})
-      navigate('/lde')
+      updateBd(context.userLogado.id, {lde:[ldeNovo, ...context.userLogado.lde]})
+      navigate('/home/lde')
     }
   
     function validarNumeros(elem){
@@ -107,7 +112,7 @@ const LdENovoReg = () => {
 </fieldset>
 
 <fieldset className='fieldsetAcoes fieldsetFlexRow'>
-    <div className='btnAcoesWrapper' onClick={()=>navigate('/lde')}>
+    <div className='btnAcoesWrapper' onClick={()=>navigate('/home/lde')}>
       <i className="fa-solid fa-angles-left"></i>
       <p>cancelar</p>
     </div>

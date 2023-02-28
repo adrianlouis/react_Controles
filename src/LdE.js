@@ -1,6 +1,6 @@
 import React from 'react'
 import css from './css/lde.css'
-import {Link, useNavigate} from 'react-router-dom'
+import {Link, NavLink, useNavigate} from 'react-router-dom'
 import { GlobalContext } from './GlobalContext'
 import MenuFooter from './MenuFooter'
 import {Filtro, filtroNum, filtroAvaria, filtroLdeBateria} from './funcoes/filtroFuncoes'
@@ -42,7 +42,6 @@ const LdE = () => {
             return filtro.id !== idLde.id
         })
        context.setUserLogado(prev => ({...prev, lde:[ ...item ]}))
-       navigate('/lde')
     }
 
     function handleFiltroNum(){
@@ -92,6 +91,9 @@ const LdE = () => {
     
   return (
     <>
+
+    {/* <button onClick={()=>navigate('/home')}>NOVO</button> */}
+    <NavLink to='ldenovo' className='novoRegistro' >criar registro</NavLink>
 
         {!context.itensFiltrados && context.userLogado && context.userLogado.lde.map((item, index)=>{
         // {!context.itensFiltrados && context.userLogado && context.userLogado.lde.map((item, index)=>{
