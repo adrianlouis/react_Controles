@@ -11,6 +11,7 @@ const LdE = () => {
     const [selectLocal, setSelectLocal] = React.useState('')
     const [selectLdeBateria, setSelectLdeBateria] = React.useState('')
     const [ind, setInd] = React.useState(0)
+    const [toogle, setToogle] = React.useState(false)
     
     
     const lde = new Filtro(context.userLogado.lde)
@@ -37,11 +38,16 @@ const LdE = () => {
         }
     }
 
+    function btnDel(){
+        setToogle(!toogle)
+    }
+
     function excluirLde(idLde){
         const item = context.userLogado.lde.filter((filtro)=>{
             return filtro.id !== idLde.id
         })
        context.setUserLogado(prev => ({...prev, lde:[ ...item ]}))
+       navigate('/home/lde')
     }
 
     function handleFiltroNum(){
@@ -88,16 +94,32 @@ const LdE = () => {
         setSelectLocal('')
     },[context.modalFooter])
 
+    function handleExclude(el){
+        el.classList.add('invisivel')
+        el.previousSibling.classList.add('invisivel')
+        el.nextSibling.classList.remove('invisivel')
+        el.nextSibling.nextSibling.classList.remove('invisivel')
+        el.nextSibling.nextSibling.nextSibling.classList.remove('invisivel')
+        
+
+    }
+    function handleCancel(el){
+        el.classList.add('invisivel')
+        el.nextSibling.classList.add('invisivel')
+        el.previousSibling.classList.add('invisivel')
+        el.previousSibling.previousSibling.classList.remove('invisivel')
+        el.previousSibling.previousSibling.previousSibling.classList.remove('invisivel')
+    }
     
   return (
-    <>
+    <div className='lde'>
 
     {/* <button onClick={()=>navigate('/home')}>NOVO</button> */}
-    <NavLink to='ldenovo' className='novoRegistro' >criar registro</NavLink>
+    <NavLink id='linkLdeNovo' to='ldenovo' className='novoRegistro' >Criar nova Luz de Emergência</NavLink>
 
         {!context.itensFiltrados && context.userLogado && context.userLogado.lde.map((item, index)=>{
         // {!context.itensFiltrados && context.userLogado && context.userLogado.lde.map((item, index)=>{
-            return <div key={item.id+index} className='extCard'>
+            return <div key={item.id} className='ldeContent'>
 
                 <fieldset className='fieldsetFlexRow'>
 
@@ -133,18 +155,33 @@ const LdE = () => {
                 </fieldset>}
 
                 <fieldset className='fieldsetAcoes fieldsetFlexRow'>
-                    <div className='btnAcoesWrapper' onClick={()=>navigate(`edit/id?id=${item.id}&ind=${index}`)}>
+                    {/* <div className='btnAcoesWrapper' onClick={()=>navigate(`edit/id?id=${item.id}&ind=${index}`)}>
                         <i className="fa-solid fa-pen-to-square"></i>
                         <p>editar</p>
                     </div>
                     <div className='btnAcoesWrapper' onClick={()=>excluirLde(item)}>
                         <i className="fa-solid fa-trash-can"></i>
                         <p>excluir</p>
-                    </div>
+                    </div> */}
+
+                    <span onClick={()=>navigate(`edit/id?id=${item.id}&ind=${index}`)}>editar</span>
+                    <span onClick={({currentTarget})=>handleExclude(currentTarget)}>excluir</span>
+
+                    <span className='invisivel'>Excluir este item</span>
+                    <span className='invisivel' onClick={({currentTarget})=>handleCancel(currentTarget)}>Não</span>
+                    <span className='invisivel confirmExclude' onClick={()=>excluirLde(item)}>Sim</span>
 
                 </fieldset>
 
             </div>
+
+            // return <div key={item.id+index} className='ldeContent'>
+
+            //     <p>Número: {item.num}</p>
+            //     <p>Autonomia: {item.dur}</p>
+            //     <p>Local: {item.local? item.local : 'N/A'}</p>
+
+            // </div>
             
             
             // <div key={item.id} className='ldeContainer'>
@@ -257,7 +294,7 @@ const LdE = () => {
             // </div>
         })}
 
-        <MenuFooter 
+        {/* <MenuFooter 
         
             mainIcons={
             [
@@ -299,8 +336,9 @@ const LdE = () => {
                 change:({target})=>setSelectLocal(target.value),
                 value:selectLocal
             }}
-        />
-    </> 
+        /> */}
+    </div> 
+    
   )
 }
 

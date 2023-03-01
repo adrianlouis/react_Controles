@@ -21,10 +21,32 @@ const Home = () => {
   const [feed, setFeed] = React.useState(1)
   const [liEscolhido,setLiEscolhido] = React.useState()
 
+//   window.addEventListener("scroll", event => {
+//     const elem = document.querySelector('#wallpaper')
+//     if (window.scrollY <= 100){
+//       elem.style.opacity= ((elem.clientHeight - window.scrollY)/elem.clientHeight)+'%'
+
+//     }
+// }, { passive: true });
+
+function handleNavlink(elem, link){
+  const links = document.querySelectorAll('#navbarPerfil li')
+  
+  for (let i = 0; i < links.length; i++) {
+    links[i].classList.remove('liVerde');
+  }
+  elem.classList.add('liVerde')
+
+  navigate(link)
+  console.log(elem.classList)
+  
+
+}
+
   return (
     <>
     
-    <Header />
+    {/* <Header /> */}
 
       <div id='perfil' className='perfil'>
 
@@ -35,21 +57,22 @@ const Home = () => {
           <span>Editar perfil</span>
         </div>
 
+        <div className='dadosPerfil'>
+
         <p className='nome'>Adriano Soares</p>
         <p className='tag'>@AdrianLouis</p>
-        <p className='bio'>We'll never fade</p>
+        <p className='bio'>Se eu tivesse o Sol, o afundario no oceano para poder vender velas aos mortais.</p>
+        </div>
       </div>
 
       <div id='linksScroll'>
 
-        <ul>
-          <li><NavLink to='lde'>Luzes de Emergência</NavLink></li>
-          <li><NavLink to='ext'>Medição de Gás</NavLink></li>
-          <li><NavLink to='hd'>Hidrantes</NavLink></li>
-          <li><NavLink to='ext'>Extintores</NavLink></li>
+        <ul id='navbarPerfil'>
+          <li onClick={({currentTarget})=>handleNavlink(currentTarget, '/home/lde')}>Luzes de Emergência</li>
+          <li onClick={({currentTarget})=>handleNavlink(currentTarget, '/home/gas')}>Medição de Gás</li>
+          <li onClick={({currentTarget})=>handleNavlink(currentTarget, '/home/hd')}>Hidrantes</li>
+          <li onClick={({currentTarget})=>handleNavlink(currentTarget, '/home/ext')}>Extintores</li>
         </ul>
-
-
 
       </div>
 

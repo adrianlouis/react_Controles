@@ -416,6 +416,10 @@ select option:active{
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+    padding: 0;
+}
+.fieldsetAcoes span:hover{
+    color: rgb(166,243,166);
 }
 .fieldsetAcoes i{
     padding-top: 10px;
