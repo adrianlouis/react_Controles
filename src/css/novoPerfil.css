@@ -143,6 +143,9 @@ a{
     background-color: #000;
     position: relative;
 }
+.ldeWrapperDados div p:nth-child(2){
+    text-align: left;
+}
 
 .ldeContent{
     margin: 10px 0px;
