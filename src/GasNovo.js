@@ -54,7 +54,7 @@ const GasNovo = () => {
         console.log(medidores)
 
         ctx.setUserLogado({...ctx.userLogado, gas:[...ctx.userLogado.gas, medidores]})
-        navigate('/gas')
+        navigate('/home/gas')
     }
     
     React.useEffect(()=>{
@@ -186,7 +186,7 @@ const GasNovo = () => {
 
 
             <fieldset className='fieldsetAcoes fieldsetFlexRow'>
-                <div className='btnAcoesWrapper' onClick={()=>navigate('/gas')} >
+                <div className='btnAcoesWrapper' onClick={()=>navigate('/home/gas')} >
                     <i className="fa-solid fa-angles-left" ></i>
                     <p>cancelar</p>
                 </div>

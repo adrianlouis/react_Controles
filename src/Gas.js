@@ -38,6 +38,7 @@ const Gas = () => {
         document.querySelector('#botoes'+id).classList.add('hideContent')
         document.querySelector('#confirmarDel'+id).classList.remove('hideContent')
     }
+    
     function confDel(id, bool){
         if(bool){
             const res = gases.filter((filtro)=>{
@@ -146,7 +147,8 @@ const Gas = () => {
 
 
                     <fieldset className='fieldsetAcoes fieldsetFlexRow'>
-            <div className='btnAcoesWrapper' onClick={()=>navigate(`gasedit?id=${item.id}`)}>
+            <div className='btnAcoesWrapper' >
+            {/* <div className='btnAcoesWrapper' onClick={()=>navigate(`gasedit?id=${item.id}`)}> */}
                 <i className="fa-solid fa-pen-to-square shadow" ></i>
                 <p>editar</p>
             </div>
