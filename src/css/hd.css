@@ -218,7 +218,7 @@ input[type='checkbox']:checked {
     margin: unset;
 }
 
-input{
+/* input{
     background-color: transparent;
     outline: transparent;
     padding: 2px;
@@ -228,7 +228,7 @@ input{
     text-align: center;
     width: 300px;
     box-shadow: #000 inset 2px 2px 2px, inset #333 -2px -2px 2px;
-}
+} */
 input[type='text']:focus, input[type='tel']:focus{
     outline: none;
     border: 2px solid #777;

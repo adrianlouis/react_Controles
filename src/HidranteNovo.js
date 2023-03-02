@@ -46,7 +46,7 @@ const HidranteNovo = () => {
 
 
   // SALVAR HD NOVO NO USERLOGADO
-  function salvarNovoHd() {
+  function salvarNovoHd(idUser) {
     const novoHd = {
       id: id,
       num: num,
@@ -64,9 +64,9 @@ const HidranteNovo = () => {
       hd: [novoHd, ...context.userLogado.hd],
     });
 
-    updateBd(context.userLogado.id, {hd:[...context.userLogado.hd, novoHd]})
+    updateBd(idUser, {hd:[...context.userLogado.hd, novoHd]})
 
-    navigate("/hd");
+    navigate("/home/hd");
 
   }
 
@@ -89,7 +89,8 @@ const HidranteNovo = () => {
 },[context.userLogado.hd])
 
   return (
-    <div className='extCard'>
+    <div className='ldeContent'>
+    {/* <div className='extCard'> */}
     <fieldset className='fieldsetFlexRow'>
       <legend>Hidrante</legend>
       <div>
@@ -97,7 +98,7 @@ const HidranteNovo = () => {
       <p className='cardTextoPqn'>número</p>
       <Input
           id="numeroHd"
-          inpClass="hdNovo"
+          inpClass="newLde"
           value={num}
           onChange={({target})=>setNum(target.value)}
           type='tel'
@@ -111,6 +112,7 @@ const HidranteNovo = () => {
           // optionDisabledValue="local"
           options={['Subsolo', 'Térreo', '2º Pav A', '2º Pav B', '3º Pav A', '3º Pav B', '4º Pav A', '4º Pav B']}
           selectOnChange={({target})=>setLocal(target.value)}
+          className='novoHdSelect'
         />
 
       </div>
@@ -121,6 +123,8 @@ const HidranteNovo = () => {
           selectValorInicial={abrigo}
           options={["Ok", "Nok"]}
           selectOnChange={({target})=>setAbrigo(target.value)}
+          className='novoHdSelect selectOkNok'
+
         />
       </div>
 
@@ -157,6 +161,7 @@ const HidranteNovo = () => {
           selectValorInicial={placa}
           options={["Ok", "Nok"]}
           selectOnChange={({target})=>setPlaca(target.value)}
+          className='novoHdSelect selectOkNok'
         />
       </div>
 
@@ -166,6 +171,7 @@ const HidranteNovo = () => {
           selectValorInicial={sinal}
           options={["Ok", "Nok"]}
           selectOnChange={({target})=>setSinal(target.value)}
+          className='novoHdSelect selectOkNok'
         />
       </div>
     </fieldset>
@@ -190,13 +196,13 @@ const HidranteNovo = () => {
     </fieldset>
 
     <fieldset className='fieldsetAcoes fieldsetFlexRow'>
-      <div className='btnAcoesWrapper'>
-        <i className="fa-solid fa-angles-left" onClick={()=>navigate('/hd')}></i>
+      <div className='btnAcoesWrapper' onClick={()=>navigate('/home/hd')}>
+        <i className="fa-solid fa-angles-left" ></i>
         <p>cancelar</p>
       </div>
 
-      <div className='btnAcoesWrapper'>
-        <i className="fa-solid fa-floppy-disk" onClick={()=>salvarNovoHd()}></i>
+      <div className='btnAcoesWrapper' onClick={()=>salvarNovoHd(context.userLogado.id)}>
+        <i className="fa-solid fa-floppy-disk" ></i>
         <p>salvar</p>
       </div>
 

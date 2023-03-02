@@ -37,7 +37,7 @@ const HidranteEdit = () => {
       }
     }
     
-    function salvarEditado(){
+    function salvarEditado(idUser){
 
       const hidrantes = context.userLogado.hd.map((m)=>{
         if (m.id !== Number(search.get('id'))){
@@ -47,15 +47,15 @@ const HidranteEdit = () => {
         }
       })
 
-      updateBd(context.userLogado.id, {hd:hidrantes})
+      updateBd(idUser, {hd:hidrantes})
       context.setUserLogado({...context.userLogado, hd:hidrantes})
-      navigate('/hd')
+      navigate('/home/hd')
 
     }
     
   return (
 <>
-    <div className='extCard'>
+    <div className='ldeContent'>
       <fieldset className='fieldsetFlexRow'>
         <legend>Hidrante</legend>
         <div>
@@ -63,7 +63,7 @@ const HidranteEdit = () => {
         <p className='cardTextoPqn'>número</p>
         <Input
             id="numeroHd"
-            inpClass="hdNovo"
+            inpClass="newLde"
             value={num}
             onChange={({target})=>setNum(target.value)}
             type='tel'
@@ -77,6 +77,7 @@ const HidranteEdit = () => {
             optionDisabledValue="local"
             options={['Subsolo', 'Térreo', '2º Pav A', '2º Pav B', '3º Pav A', '3º Pav B', '4º Pav A', '4º Pav B']}
             selectOnChange={({target})=>setLocal(target.value)}
+            className='novoHdSelect'
           />
 
         </div>
@@ -87,6 +88,7 @@ const HidranteEdit = () => {
             selectValorInicial={abrigo}
             options={["Ok", "Nok"]}
             selectOnChange={({target})=>setAbrigo(target.value)}
+            className='novoHdSelect selectOkNok'
           />
         </div>
 
@@ -123,6 +125,7 @@ const HidranteEdit = () => {
             selectValorInicial={placa}
             options={["Ok", "Nok"]}
             selectOnChange={({target})=>setPlaca(target.value)}
+            className='novoHdSelect selectOkNok'
           />
         </div>
 
@@ -132,6 +135,7 @@ const HidranteEdit = () => {
             selectValorInicial={sinal}
             options={["Ok", "Nok"]}
             selectOnChange={({target})=>setSinal(target.value)}
+            className='novoHdSelect selectOkNok'
           />
         </div>
       </fieldset>
@@ -156,12 +160,12 @@ const HidranteEdit = () => {
       </fieldset>
 
       <fieldset className='fieldsetAcoes fieldsetFlexRow'>
-        <div className='btnAcoesWrapper' onClick={()=>navigate('/hd')}>
+        <div className='btnAcoesWrapper' onClick={()=>navigate('/home/hd')}>
           <i className="fa-solid fa-angles-left" ></i>
           <p>cancelar</p>
         </div>
 
-        <div className='btnAcoesWrapper'  onClick={salvarEditado}>
+        <div className='btnAcoesWrapper'  onClick={()=>salvarEditado(context.userLogado.id)}>
           <i className="fa-solid fa-floppy-disk"></i>
           <p>salvar</p>
         </div>

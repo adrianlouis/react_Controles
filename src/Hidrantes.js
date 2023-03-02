@@ -1,9 +1,10 @@
 import React, { useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import css from "./css/hd.css";
 import { GlobalContext } from "./GlobalContext";
 import MenuFooter from "./MenuFooter";
 import {Filtro, filtroNum, filtroAvaria, validade} from "./funcoes/filtroFuncoes"
+import { updateBd } from "./crudFireBase";
 
 const Hidrantes = () => {
   const context = useContext(GlobalContext);
@@ -20,7 +21,7 @@ const Hidrantes = () => {
 
   const [selectLocal, setSelectLocal] = React.useState('')
 
-  window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
+  // window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
 
   React.useEffect(()=>{
     if(ordenar){
@@ -65,12 +66,13 @@ const Hidrantes = () => {
     return (new Date(valor).toLocaleDateString('pt-br', {month:'long', year:'numeric'})).charAt(0).toUpperCase()+(new Date(valor).toLocaleDateString('pt-br', {month:'long', year:'numeric'})).slice(1)
   }
         
-  function excluirHd(item, hd){
+  function excluirHd(idUser, hd){
     const res = context.userLogado.hd.filter((filtro)=>{
         return filtro !== hd
     })
 
-    context.setUserLogado({...context.userLogado, hd:[...res]})
+    context.setUserLogado({...context.userLogado, hd:res})
+    updateBd(idUser, {hd:res})
   }
 
   function handleFiltroNum(){
@@ -133,188 +135,191 @@ const Hidrantes = () => {
 
   return (
     <>
-    <div className="hdContainer">
 
-      <div className="listaDeHds">
+      <NavLink id='linkLdeNovo' to='hdnovo' className='novoRegistro' >Registrar hidrante</NavLink>
 
-      {context.itensFiltrados && context.itensFiltrados.length === 0 && <div className='ldeResumoFiltro'>
-            <p>Não foi encontrado Hidrante com o número digitado.</p>
-        </div>}
-        
-        {!context.itensFiltrados && context.userLogado.hd && context.userLogado.hd.map((item)=>{
-          return <div key={item.id} className="extCard">
+      {/* <div className="hdContainer"> */}
 
-            <fieldset className='fieldsetFlexRow'>
-              <legend>Hidrante {item.num}</legend>
-              <div>
-                <p className='cardTextoPqn'>local</p>
-                <p>{item.local ? item.local : 'Não informado'}</p>
-              </div>
+        <div className="listaDeHds">
 
-              <div>
-                <p className="cardTextoPqn">abrigo</p>
-                <p>{item.abrigo ? item.abrigo : 'Não informado'}</p>
-              </div>
+        {context.itensFiltrados && context.itensFiltrados.length === 0 && <div className='ldeResumoFiltro'>
+              <p>Não foi encontrado Hidrante com o número digitado.</p>
+          </div>}
+          
+          {!context.itensFiltrados && context.userLogado.hd && context.userLogado.hd.map((item)=>{
+            return <div key={item.id} className="ldeContent">
 
-              
-            </fieldset>
+              <fieldset className='fieldsetFlexRow'>
+                <legend>Hidrante {item.num}</legend>
+                <div>
+                  <p className='cardTextoPqn'>local</p>
+                  <p>{item.local ? item.local : 'Não informado'}</p>
+                </div>
 
-            <fieldset className="fieldsetFlexRow">
-              <legend>Sinalização</legend>
+                <div>
+                  <p className="cardTextoPqn">abrigo</p>
+                  <p>{item.abrigo ? item.abrigo : 'Não informado'}</p>
+                </div>
 
-              <div>
-                <p className="cardTextoPqn">placa de sinalização</p>
-                <p>{item.placa ? item.placa : 'Não informado'}</p>
-              </div>
-
-              <div>
-                <p className="cardTextoPqn">marcação no chão</p>
-                <p>{item.sinal ? item.sinal : 'Não informado'}</p>
-              </div>
-              
-            </fieldset>
-
-            <fieldset className="fieldsetFlexRow">
-              <legend>Peças</legend>
-              <div className="pecasDiv">
-                {item.pecas.length === 0 && <p>Nenhuma peça</p>}
-                {item.pecas.map((peca)=>{
-                  return <p key={peca.id}>{peca}</p>
-                })}
-              </div>
-            </fieldset>
-
-            <fieldset className="fieldsetFlexRow">
-              <legend>Reteste Hidrostático</legend>
-              <div>
-                <p>{convertData(item.val)}</p>
-              </div>
-            </fieldset>
-
-            {item.avaria && <fieldset className="fieldsetFlexRow">
-              <legend>Avaria</legend>
-              <div>
-                <p>{item.avaria}</p>
-              </div>
-              
-              </fieldset>}
-
-              <fieldset className='fieldsetAcoes fieldsetFlexRow'  >
-                  <div className='btnAcoesWrapper' onClick={()=>{navigate(`id?id=${item.id}`)}}>
-                    <i className="fa-solid fa-pen-to-square"></i>
-                    <p>editar</p>
-                  </div>
-                  <div className='btnAcoesWrapper' onClick={({currentTarget})=>excluirHd(currentTarget, item)}>
-                    <i className="fa-solid fa-trash-can" ></i>
-                    <p>excluir</p>
-                  </div>
-
+                
               </fieldset>
 
-          </div>
-            
-        })}
+              <fieldset className="fieldsetFlexRow">
+                <legend>Sinalização</legend>
 
-        {context.itensFiltrados && context.itensFiltrados.map((item)=>{
-            return <div key={item.id} className="extCard">
+                <div>
+                  <p className="cardTextoPqn">placa de sinalização</p>
+                  <p>{item.placa ? item.placa : 'Não informado'}</p>
+                </div>
 
-            <fieldset className='fieldsetFlexRow'>
-              <legend>Hidrante {item.num}</legend>
-              <div>
-                <p className='cardTextoPqn'>local</p>
-                <p>{item.local ? item.local : 'Não informado'}</p>
-              </div>
+                <div>
+                  <p className="cardTextoPqn">marcação no chão</p>
+                  <p>{item.sinal ? item.sinal : 'Não informado'}</p>
+                </div>
+                
+              </fieldset>
 
-              <div>
-                <p className="cardTextoPqn">abrigo</p>
-                <p>{item.abrigo ? item.abrigo : 'Não informado'}</p>
-              </div>
+              <fieldset className="fieldsetFlexRow">
+                <legend>Peças</legend>
+                <div className="pecasDiv">
+                  {item.pecas.length === 0 && <p>Nenhuma peça</p>}
+                  {item.pecas.map((peca)=>{
+                    return <p key={peca.id}>{peca}</p>
+                  })}
+                </div>
+              </fieldset>
 
-              <div>
-                <p className="cardTextoPqn">sinalização</p>
-                <p>{item.sinal ? item.sinal : 'Não informado'}</p>
-              </div>
-            </fieldset>
+              <fieldset className="fieldsetFlexRow">
+                <legend>Reteste Hidrostático</legend>
+                <div>
+                  <p>{convertData(item.val)}</p>
+                </div>
+              </fieldset>
 
-            <fieldset className="fieldsetFlexRow">
-              <legend>Peças</legend>
-              <div className="pecasDiv">
-                {item.pecas.length === 0 && <p>Nenhuma peça</p>}
-                {item.pecas.map((peca)=>{
-                return <p key={peca.id}>{peca}</p>
-              })}
-              </div>
-            </fieldset>
+              {item.avaria && <fieldset className="fieldsetFlexRow">
+                <legend>Avaria</legend>
+                <div>
+                  <p>{item.avaria}</p>
+                </div>
+                
+                </fieldset>}
 
-            <fieldset className="fieldsetFlexRow">
-              <legend>Reteste Hidrostático</legend>
-              <div>
-                <p>{item.val ? convertData(item.val) : 'Não informado'}</p>
-              </div>
-            </fieldset>
+                <fieldset className='fieldsetAcoes fieldsetFlexRow'  >
+                    <div className='btnAcoesWrapper' onClick={()=>navigate(`edit?id=${item.id}`)}>
+                      <i className="fa-solid fa-pen-to-square"></i>
+                      <p>editar</p>
+                    </div>
+                    <div className='btnAcoesWrapper' onClick={()=>excluirHd(context.userLogado.id, item)}>
+                      <i className="fa-solid fa-trash-can" ></i>
+                      <p>excluir</p>
+                    </div>
 
-            {item.avaria && <fieldset className="fieldsetFlexRow">
-              <legend>Avaria</legend>
-              <div>
-                <p>{item.avaria}</p>
-              </div>
-              </fieldset>}
-
-              <fieldset className='fieldsetAcoes fieldsetFlexRow'>
-                  <div className='btnAcoesWrapper' onClick={()=>{navigate(`id?id=${item.id}`)}}>
-                    <i className="fa-solid fa-pen-to-square" ></i>
-                    <p>editar</p>
-                  </div>
-                  <div className='btnAcoesWrapper' onClick={({currentTarget})=>excluirHd(currentTarget, item)}>
-                    <i className="fa-solid fa-trash-can" ></i>
-                    <p>excluir</p>
-                  </div>
                 </fieldset>
 
-          </div>
-        })}
+            </div>
+              
+          })}
 
-        <MenuFooter 
-          mainIcons={
-            [
-              {i: <Link to='/home'><i className="fa-solid fa-house"></i></Link>},
-              {i: <Link to='/hdnovo'><i className="fa-solid fa-file-circle-plus"></i></Link>},
-              {i: <i className="fa-solid fa-magnifying-glass"></i>,
-              click:()=>{context.setModalFooter(1)}},
-              {i: <i className="fa-solid fa-sliders" ></i>,
-              click: ()=>context.setModalFooter(2)},
-              {i: <Link to='/'><i className="fa-solid fa-door-open"></i></Link>},
-            ]
+          {context.itensFiltrados && context.itensFiltrados.map((item)=>{
+              return <div key={item.id} className="extCard">
+
+              <fieldset className='fieldsetFlexRow'>
+                <legend>Hidrante {item.num}</legend>
+                <div>
+                  <p className='cardTextoPqn'>local</p>
+                  <p>{item.local ? item.local : 'Não informado'}</p>
+                </div>
+
+                <div>
+                  <p className="cardTextoPqn">abrigo</p>
+                  <p>{item.abrigo ? item.abrigo : 'Não informado'}</p>
+                </div>
+
+                <div>
+                  <p className="cardTextoPqn">sinalização</p>
+                  <p>{item.sinal ? item.sinal : 'Não informado'}</p>
+                </div>
+              </fieldset>
+
+              <fieldset className="fieldsetFlexRow">
+                <legend>Peças</legend>
+                <div className="pecasDiv">
+                  {item.pecas.length === 0 && <p>Nenhuma peça</p>}
+                  {item.pecas.map((peca)=>{
+                  return <p key={peca.id}>{peca}</p>
+                })}
+                </div>
+              </fieldset>
+
+              <fieldset className="fieldsetFlexRow">
+                <legend>Reteste Hidrostático</legend>
+                <div>
+                  <p>{item.val ? convertData(item.val) : 'Não informado'}</p>
+                </div>
+              </fieldset>
+
+              {item.avaria && <fieldset className="fieldsetFlexRow">
+                <legend>Avaria</legend>
+                <div>
+                  <p>{item.avaria}</p>
+                </div>
+                </fieldset>}
+
+                <fieldset className='fieldsetAcoes fieldsetFlexRow'>
+                    <div className='btnAcoesWrapper' onClick={()=>{navigate(`id?id=${item.id}`)}}>
+                      <i className="fa-solid fa-pen-to-square" ></i>
+                      <p>editar</p>
+                    </div>
+                    <div className='btnAcoesWrapper' onClick={({currentTarget})=>excluirHd(currentTarget, item)}>
+                      <i className="fa-solid fa-trash-can" ></i>
+                      <p>excluir</p>
+                    </div>
+                  </fieldset>
+
+            </div>
+          })}
+
+          {/* <MenuFooter 
+            mainIcons={
+              [
+                {i: <Link to='/home'><i className="fa-solid fa-house"></i></Link>},
+                {i: <Link to='/hdnovo'><i className="fa-solid fa-file-circle-plus"></i></Link>},
+                {i: <i className="fa-solid fa-magnifying-glass"></i>,
+                click:()=>{context.setModalFooter(1)}},
+                {i: <i className="fa-solid fa-sliders" ></i>,
+                click: ()=>context.setModalFooter(2)},
+                {i: <Link to='/'><i className="fa-solid fa-door-open"></i></Link>},
+              ]
+            }
+
+            mainFiltro={
+              [
+                {i: <i className="fa-solid fa-hashtag" onClick={()=>handleFiltroNum()} ></i>},                
+                  {i: <i className="fa-solid fa-location-dot" onClick={()=>context.setModalFooter(3)}></i>},
+                  {i:<i className="fa-solid fa-signs-post" onClick={()=>handleSinal()}></i>},
+                  {i:<i className="fa-solid fa-house-flood-water" onClick={()=>handleAbrigo()}></i>},
+                  {i:<i className="fa-solid fa-wrench" onClick={()=>handlePecas()}></i>},
+                  {i: <i className="fa-solid fa-circle-info"  onClick={()=>filtroAvaria(context.userLogado.hd, context)} ></i>},
+                  {i: <i className="fa-solid fa-calendar-check" onClick={()=>validade(context.userLogado.hd, context)}></i>},
+              ]
           }
 
-          mainFiltro={
-            [
-              {i: <i className="fa-solid fa-hashtag" onClick={()=>handleFiltroNum()} ></i>},                
-                {i: <i className="fa-solid fa-location-dot" onClick={()=>context.setModalFooter(3)}></i>},
-                {i:<i className="fa-solid fa-signs-post" onClick={()=>handleSinal()}></i>},
-                {i:<i className="fa-solid fa-house-flood-water" onClick={()=>handleAbrigo()}></i>},
-                {i:<i className="fa-solid fa-wrench" onClick={()=>handlePecas()}></i>},
-                {i: <i className="fa-solid fa-circle-info"  onClick={()=>filtroAvaria(context.userLogado.hd, context)} ></i>},
-                {i: <i className="fa-solid fa-calendar-check" onClick={()=>validade(context.userLogado.hd, context)}></i>},
-            ]
-        }
+            itens = {context.userLogado.hd}
 
-          itens = {context.userLogado.hd}
+            filtroLocal={{
+                opt:['Subsolo', 'Térreo', '2º Pav A', '2º Pav B', '3º Pav A', '3º Pav B', '4º Pav A', '4º Pav B' ],
+                placeholder:'Escolha o local',
+                change:({target})=>setSelectLocal(target.value),
+                value:selectLocal
+            }}
 
-          filtroLocal={{
-              opt:['Subsolo', 'Térreo', '2º Pav A', '2º Pav B', '3º Pav A', '3º Pav B', '4º Pav A', '4º Pav B' ],
-              placeholder:'Escolha o local',
-              change:({target})=>setSelectLocal(target.value),
-              value:selectLocal
-          }}
+            buscarPlaceholder='Buscar pelo número'
 
-          buscarPlaceholder='Buscar pelo número'
+          /> */}
 
-        />
+        </div>
 
-      </div>
-
-    </div>
+      {/* </div> */}
     </>
   );
 };

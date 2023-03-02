@@ -350,11 +350,10 @@ textarea:focus{
     /* border: 1px solid #0a0 */
 }
 
-.fieldsetFlexRow:hover{
+/* .fieldsetFlexRow:hover{
     border: 2px solid #7f77;
 
-    /* opacity: 0; */
-}
+} */
 
 .fieldsetFlexRow:not(.fieldsetFlexRow:hover){
     /* opacity: 15%; */

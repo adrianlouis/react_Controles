@@ -47,19 +47,18 @@ const GasNovo = () => {
     }
   }
 
-    function save(){
+    function save(id){
 
         const novoArrGas = {gas:[...ctx.userLogado.gas, medidores]}
-        updateBd(ctx.userLogado.id, novoArrGas)
-        console.log(medidores)
-
         ctx.setUserLogado({...ctx.userLogado, gas:[...ctx.userLogado.gas, medidores]})
+        updateBd(id, novoArrGas)
+
         navigate('/home/gas')
     }
     
-    React.useEffect(()=>{
-        updateBd(ctx.userLogado.id, {gas:[...ctx.userLogado.gas]})
-    },[ctx.userLogado.gas])
+    // React.useEffect(()=>{
+    //     updateBd(ctx.userLogado.id, {gas:[...ctx.userLogado.gas]})
+    // },[ctx.userLogado.gas])
     
 
 
@@ -139,65 +138,156 @@ const GasNovo = () => {
 
     //             </div>
 
-    <div className='extCard'>
 
-        <fieldset className='fieldsetFlexRow ' >
-            <legend >Criar marcação de gás</legend>
 
-            <div className=' gasCardContent '>
 
-                <div>
-                    <p className='cardTextoPqn'>loja 128</p>
-                    <input id='inputGasEdit' className='novoGasInput' type='tel' placeholder='00000000' maxLength={8} value={medidores.l128} onChange={({target})=>setMedidores({...medidores, l128:target.value})} />
-                </div>
 
-                <div>
-                    <p className='cardTextoPqn'>loja 132</p>
-                    <input id='inputGasEdit' className='novoGasInput' type='tel' placeholder='00000000' maxLength={8} value={medidores.l132} onChange={({target})=>setMedidores({...medidores, l132:target.value})} />
-                </div>
 
-                <div>
-                    <p className='cardTextoPqn'>loja 137</p>
-                    <input id='inputGasEdit' className='novoGasInput' type='tel' placeholder='00000000' maxLength={8} value={medidores.l137} onChange={({target})=>setMedidores({...medidores, l137:target.value})} />                </div>
 
-                <div>
-                    <p className='cardTextoPqn'>loja 141</p>
-                    <input id='inputGasEdit' className='novoGasInput' type='tel' placeholder='00000000' maxLength={8} value={medidores.l141} onChange={({target})=>setMedidores({...medidores, l141:target.value})} />
-                </div>
 
-                <div>
-                    <p className='cardTextoPqn'>loja 152</p>
-                    <input id='inputGasEdit' className='novoGasInput' type='tel' placeholder='00000000' maxLength={8} value={medidores.l152} onChange={({target})=>setMedidores({...medidores, l152:target.value})} />
-                </div>
 
-                <div>
-                    <p className='cardTextoPqn'>loja 154</p>
-                    <input id='inputGasEdit' className='novoGasInput' type='tel' placeholder='00000000' maxLength={8} value={medidores.l154} onChange={({target})=>setMedidores({...medidores, l154:target.value})} />                </div>
+
+
+
+
+
+
+    // <div className='extCard'>
+
+    //     <fieldset className='fieldsetFlexRow ' >
+    //         <legend >Criar marcação de gás</legend>
+
+    //         <div className=' gasCardContent '>
+
+    //             <div>
+    //                 <p className='cardTextoPqn'>loja 128</p>
+    //                 <input id='inputGasEdit' className='novoGasInput' type='tel' placeholder='00000000' maxLength={8} value={medidores.l128} onChange={({target})=>setMedidores({...medidores, l128:target.value})} />
+    //             </div>
+
+    //             <div>
+    //                 <p className='cardTextoPqn'>loja 132</p>
+    //                 <input id='inputGasEdit' className='novoGasInput' type='tel' placeholder='00000000' maxLength={8} value={medidores.l132} onChange={({target})=>setMedidores({...medidores, l132:target.value})} />
+    //             </div>
+
+    //             <div>
+    //                 <p className='cardTextoPqn'>loja 137</p>
+    //                 <input id='inputGasEdit' className='novoGasInput' type='tel' placeholder='00000000' maxLength={8} value={medidores.l137} onChange={({target})=>setMedidores({...medidores, l137:target.value})} />                </div>
+
+    //             <div>
+    //                 <p className='cardTextoPqn'>loja 141</p>
+    //                 <input id='inputGasEdit' className='novoGasInput' type='tel' placeholder='00000000' maxLength={8} value={medidores.l141} onChange={({target})=>setMedidores({...medidores, l141:target.value})} />
+    //             </div>
+
+    //             <div>
+    //                 <p className='cardTextoPqn'>loja 152</p>
+    //                 <input id='inputGasEdit' className='novoGasInput' type='tel' placeholder='00000000' maxLength={8} value={medidores.l152} onChange={({target})=>setMedidores({...medidores, l152:target.value})} />
+    //             </div>
+
+    //             <div>
+    //                 <p className='cardTextoPqn'>loja 154</p>
+    //                 <input id='inputGasEdit' className='novoGasInput' type='tel' placeholder='00000000' maxLength={8} value={medidores.l154} onChange={({target})=>setMedidores({...medidores, l154:target.value})} />                </div>
                 
-                <div>
-                    <p className='cardTextoPqn'>loja 157</p>
-                    <input id='inputGasEdit' className='novoGasInput' type='tel' placeholder='00000000' maxLength={8} value={medidores.l157} onChange={({target})=>setMedidores({...medidores, l157:target.value})} />                </div>
+    //             <div>
+    //                 <p className='cardTextoPqn'>loja 157</p>
+    //                 <input id='inputGasEdit' className='novoGasInput' type='tel' placeholder='00000000' maxLength={8} value={medidores.l157} onChange={({target})=>setMedidores({...medidores, l157:target.value})} />                </div>
 
-            </div>
+    //         </div>
 
-        </fieldset>
+    //     </fieldset>
 
-        <div id='divBotoesAcoes' >
+    //     <div id='divBotoesAcoes' >
 
 
-            <fieldset className='fieldsetAcoes fieldsetFlexRow'>
-                <div className='btnAcoesWrapper' onClick={()=>navigate('/home/gas')} >
-                    <i className="fa-solid fa-angles-left" ></i>
-                    <p>cancelar</p>
+    //         <fieldset className='fieldsetAcoes fieldsetFlexRow'>
+    //             <div className='btnAcoesWrapper' onClick={()=>navigate('/home/gas')} >
+    //                 <i className="fa-solid fa-angles-left" ></i>
+    //                 <p>cancelar</p>
+    //             </div>
+    //             <div className='btnAcoesWrapper' onClick={()=>save()}>
+    //                 <i className="fa-solid fa-floppy-disk" ></i>
+    //                 <p>salvar</p>
+    //             </div>
+    //         </fieldset>
+    //     </div>
+
+    // </div>
+
+    <div className='ldeContent' >
+
+                    {/* <div className='gasCardData' onClick={({currentTarget})=>handleContent(currentTarget)} >
+
+                        <div>
+                            <span>Data: </span>
+                            <span>{item.diaCriado}</span>
+                        </div>
+                            
+                        <div>
+                            <span>Hora: </span>
+                            <span>{item.horaCriado}</span>
+                        </div>
+
+                    </div> */}
+
+                    {/* <div className='extCard'> */}
+
+                    
+
+                    <fieldset className='fieldsetFlexRow ' >
+                        <legend> Criar luz </legend>
+                        
+
+                        <div className=' gasCardContent' style={{gridTemplateColumns:'auto auto'}}>
+
+
+                        <div>
+                            <p className='cardTextoPqn'>loja 128</p>
+                            <input id='inputGasEdit' className='novoGasInput' type='tel' placeholder='00000000' maxLength={8} value={medidores.l128} onChange={({target})=>setMedidores({...medidores, l128:target.value})} />
+                        </div>
+                        <div>
+                            <p className='cardTextoPqn'>loja 132</p>
+                            <input id='inputGasEdit' className='novoGasInput' type='tel' placeholder='00000000' maxLength={8} value={medidores.l132} onChange={({target})=>setMedidores({...medidores, l132:target.value})} />
+                        </div>
+                        <div>
+                            <p className='cardTextoPqn'>loja 137</p>
+                            <input id='inputGasEdit' className='novoGasInput' type='tel' placeholder='00000000' maxLength={8} value={medidores.l137} onChange={({target})=>setMedidores({...medidores, l137:target.value})} />
+                        </div>
+                        <div>
+                            <p className='cardTextoPqn'>loja 141</p>
+                            <input id='inputGasEdit' className='novoGasInput' type='tel' placeholder='00000000' maxLength={8} value={medidores.l141} onChange={({target})=>setMedidores({...medidores, l141:target.value})} />
+                        </div>
+                        <div>
+                            <p className='cardTextoPqn'>loja 152</p>
+                            <input id='inputGasEdit' className='novoGasInput' type='tel' placeholder='00000000' maxLength={8} value={medidores.l152} onChange={({target})=>setMedidores({...medidores, l152:target.value})} />
+                        </div>
+                        <div>
+                            <p className='cardTextoPqn'>loja 154</p>
+                            <input id='inputGasEdit' className='novoGasInput' type='tel' placeholder='00000000' maxLength={8} value={medidores.l154} onChange={({target})=>setMedidores({...medidores, l154:target.value})} />
+                        </div>
+                        <div>
+                            <p className='cardTextoPqn'>loja 157</p>
+                            <input id='inputGasEdit' className='novoGasInput' type='tel' placeholder='00000000' maxLength={8} value={medidores.l157} onChange={({target})=>setMedidores({...medidores, l157:target.value})} />
+                        </div>
+
+                        
+
+                        </div>
+
+                        
+
+
+                    </fieldset>
+
+                    <fieldset className='fieldsetAcoes fieldsetFlexRow'>
+
+                    <span onClick={()=>navigate(`/home/gas`)}>cancelar</span>
+                    <span onClick={()=>save(ctx.userLogado.id)}>salvar</span>
+
+                </fieldset>
+
+                    
+                   
+
                 </div>
-                <div className='btnAcoesWrapper' onClick={()=>save()}>
-                    <i className="fa-solid fa-floppy-disk" ></i>
-                    <p>salvar</p>
-                </div>
-            </fieldset>
-        </div>
-
-    </div>
 
   )
 }

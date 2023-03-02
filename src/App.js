@@ -42,25 +42,28 @@ function App() {
           <Route exact path='home' element={<Home/>} >
 
             <Route exact path='lde' element={<LdE/>} />
-            <Route exact path='hd' element={<Hidrantes/>} />
-            <Route exact path='ext' element={<Extintores />} />
-            <Route exact path='gas' element={<Gas/>} />
-            {/* <Route exact path='lde' element={<LdE/>} /> */}
             <Route exact path='lde/ldenovo' element={<LdENovoReg/> } />
             <Route exact path='lde/edit/:id' element={<LdeEdit/> } />
+
+            <Route exact path='hd' element={<Hidrantes/>} />
+            <Route exact path='hd/hdnovo' element={<HidranteNovo/> } />
+            <Route exact path='hd/:id' element={<HidranteEdit />} />
+
+            <Route exact path='ext' element={<Extintores />} />
+            <Route exact path='ext/extnovo' element={<ExtNovo/>} />
+            <Route exact path='ext/edit/:extedit' element={<ExtEditar/>} />
+            
+            <Route exact path='gas' element={<Gas/>} />
+            <Route exact path='gas/gasnovo' element={<GasNovo/>} />
+            <Route exact path='gas/:gasnovo' element={<GasEdit/>}/>
+            {/* <Route exact path='lde' element={<LdE/>} /> */}
 
           </Route>
             
 
 
-          <Route exact path='hdnovo' element={<HidranteNovo/> } />
-          <Route exact path='/hd/:id' element={<HidranteEdit />} />
 
-          <Route exact path='extnovo' element={<ExtNovo/>} />
-          <Route exact path='/ext/:extedit' element={<ExtEditar/>} />
 
-          <Route exact path='gasnovo' element={<GasNovo/>} />
-          <Route exact path='/gas/:gasnovo' element={<GasEdit/>}/>
 
           <Route exact path='sala' element={<Salas/>} />
 

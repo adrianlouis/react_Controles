@@ -36,11 +36,7 @@ function handleNavlink(elem, link){
     links[i].classList.remove('liVerde');
   }
   elem.classList.add('liVerde')
-
   navigate(link)
-  console.log(elem.classList)
-  
-
 }
 
   return (

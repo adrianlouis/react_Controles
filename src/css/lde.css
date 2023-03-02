@@ -239,13 +239,12 @@
     color: #888 ;
 }
 
-.newLde{
+/* .newLde{
     margin-bottom: 25px;
     text-align: center;
     outline: none;
-    /* border: 2px solid #050; */
     background-color: #000;
-}
+} */
 .newLde:focus{
     border: #aaa 2px solid;
     color: #ddd;
@@ -321,7 +320,7 @@ label{
     color: #0a0;
 }
 
-select{
+/* select{
     background-color: #111;
     margin-bottom: 20px;
     width: calc(65% - 4px);
@@ -331,7 +330,7 @@ select{
     border-radius: 5px;
 
 
-}
+} */
 
 select:focus{
     border: 2px solid #555;

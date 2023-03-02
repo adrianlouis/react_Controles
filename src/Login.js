@@ -20,7 +20,6 @@ const Login = () => {
     const [pwVisible, setPwVisible] = React.useState(false)
     const [toggleSenhaErro, setToggleSenhaErro] = React.useState({senha:false, confSenha:false})
     const [ toggleConfSenhaTexto ,setToggleConfSenhaTexto] = React.useState(false)
-    const {usuarios} = ctx
 
     const [regOk, setRegOk] = React.useState({nome:false, email:false, senha:false, confSenha:false})
     const [regexRegSenha, setRegexRegSenha] = React.useState({num:false, esp:false, tamanho:false})
@@ -30,10 +29,9 @@ const Login = () => {
     // const [newUser, setNewUser] = React.useState({name:regInput.nome, email:regInput.email, sheets: [{aco:[], ext:[], gar:[], gas:[], hd:[], lde:[], loj:[], pcf:[], pre:[], sal:[]}]})
 
     const newUser = {nome:regInput.nome, email:regInput.email, senha:regInput.senha, aco:[], ext:[], gar:[], gas:[], hd:[], lde:[], loj:[], pcf:[], pre:[], sal:[]}
+    const [novoRegistro, setNovoRegistro] = React.useState('')
 
-    const criarUser = async ()=>{
-        await addDoc(collection(db, "users"), newUser)
-    }
+   
 
     function delCookie(){
         
@@ -41,13 +39,7 @@ const Login = () => {
         console.log(document.cookie)
     }
     function seeCookie(){
-        // const dado = document.cookie.split('&')
         console.log(document.cookie)
-
-        // const biskoito = document.cookie.slice(5)
-        // console.log(biskoito)
-        // const bolaxa = biskoito.split('&')
-        // console.log(bolaxa)
     }
 
     function handleLogin(e){
@@ -66,15 +58,15 @@ const Login = () => {
         if(ftr.length === 1 && ftr[0].senha === loginInput.senha){
             ctx.setUserLogado(...ftr)
 
-            if(remember){
-                const now = new Date()
-                const future = now.setMinutes(now.getMinutes() + 60)
-                const dataFinal = new Date(future)
+            // if(remember){
+            //     const now = new Date()
+            //     const future = now.setMinutes(now.getMinutes() + 60)
+            //     const dataFinal = new Date(future)
                
-                document.cookie = `user=${loginInput.nome}&${loginInput.senha}; expires=${dataFinal}}`
-            }
+            //     document.cookie = `user=${loginInput.nome}&${loginInput.senha}; expires=${dataFinal}}`
+            // }
             
-            navigate('/home')
+            navigate('/home/lde')
         }
         
         if(ftr.length === 1 && ftr[0].senha !== loginInput.senha){
@@ -97,6 +89,9 @@ const Login = () => {
        
         if (regOk.nome && regOk.email && regOk.senha && regOk.confSenha){
             // ctx.setUsuarios([...ctx.usuarios, {nome:regInput.nome, email:regInput.email, senha:regInput.senha, aco:[], ext:[], gar:[], gas:[], hd:[], lde:[], loj:[], pcf:[], pre:[], sal:[] }])
+            const criarUser = async ()=>{
+                await addDoc(collection(db, "users"), newUser)
+            }
             criarUser()
             // setNewUser({nome:regInput.nome, email:regInput.email, senha:regInput.senha,  })
         }
@@ -107,7 +102,9 @@ const Login = () => {
           }
 
           getUsers()
-          setForm(1)
+        //   setForm(1)
+        ctx.setUserLogado(newUser)
+        navigate('/home/lde')
     }
 
   
@@ -245,6 +242,29 @@ function aplicarCss(el){
     elem.toggle('neoMorphLoginInput')
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   return (
     <>
 
@@ -305,7 +325,8 @@ function aplicarCss(el){
 
         {form === 2 && <div className='loginContainer'>
             
-            <form onSubmit={(event)=>handleRegistrar(event)}>
+            <form>
+            {/* <form onSubmit={(event)=>handleRegistrar(event)}> */}
             <h1>Registrar</h1>
                 <div className='regInputWrapper'>
                     <i className={regOk.nome?"fa-solid fa-user ":"fa-solid fa-user regInvalido"}></i>
@@ -346,6 +367,7 @@ function aplicarCss(el){
                 {toggleConfSenhaTexto && !regOk.confSenha && <span className='regInvalido'>Senhas não conferem</span>}
                 
                 <button className={regOk.nome && regOk.email && regOk.senha && regOk.confSenha ? 'loginBtns' : 'loginBtns btnInvalido'} onClick={(event)=>handleRegistrar(event)} >Registrar</button>
+                {/* <button className={regOk.nome && regOk.email && regOk.senha && regOk.confSenha ? 'loginBtns' : 'loginBtns btnInvalido'} onClick={(event)=>handleRegistrar(event)} >Registrar</button> */}
 
             </form>
 

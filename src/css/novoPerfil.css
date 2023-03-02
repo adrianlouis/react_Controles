@@ -136,7 +136,7 @@ a{
     justify-content: center;
     align-items: center;
     box-shadow: #000 0 10px 10px;
-
+    font-weight: 900;
 }
 
 .lde{
@@ -154,11 +154,14 @@ a{
 
     padding: 5px 10px ;
     border: 2px solid #5557;
+    border-left: none;
+    border-right: none;
     /* box-shadow: #0007 5px 5px 10px, inset #3337 3px 3px 5px; */
 
 }
 .ldeContent p{
     margin: 5px 8px 0 8px;
+    text-align: left;
 }
 .invisivel{
     display: none;
@@ -177,3 +180,48 @@ a{
     border-top: 2px solid red;
     background-color: wheat;
 } */
+
+.btnDelWrapper{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.novoHdSelect, .newLde, #inputHdValidade{
+    width: 160px;
+    background-color: #111;
+    border: 2px solid transparent;
+    box-shadow: inset #000 3px 3px 3px,  #222 3px 3px 3px;
+    text-align: center;
+    color: rgb(161, 161, 161);
+    border-radius: 5px;
+
+}
+
+.newLde{
+    /* margin-bottom: 50px; */
+    text-align: center;
+    outline: none;
+    width: 50px;
+    /* border: 2px solid #050; */
+    /* background-color: #000; */
+}
+
+.autonomia{
+    width: 60px;
+}
+
+.inputEditGas{
+    width: 90px;
+}
+.selectOkNok{
+    width: 60px;
+}
+#inputHdValidade{
+    width: 200px;
+    background-color: #111;
+    color: rgb(161, 161, 161);
+    border: 2px solid transparent;
+    margin: auto;
+}

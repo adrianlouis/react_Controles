@@ -54,7 +54,7 @@ const LdENovoReg = () => {
       const ldeNovo = {id:novoId(), num:num, local:pav, dur:dur, avaria:anotacao}
       context.setUserLogado({...context.userLogado, lde:[ldeNovo, ...context.userLogado.lde]})
 
-      updateBd(context.userLogado.id, {lde:[ldeNovo, ...context.userLogado.lde]})
+      updateBd(id, {lde:[ldeNovo, ...context.userLogado.lde]})
       navigate('/home/lde')
     }
   
@@ -82,7 +82,7 @@ const LdENovoReg = () => {
         
       </div> */}
 
-<div className='extCard'>
+<div className='ldeContent'>
 
 <fieldset className='fieldsetFlexRow'>
 
@@ -95,12 +95,12 @@ const LdENovoReg = () => {
 
     <div>
         <p className='cardTextoPqn'>local</p>
-        <Select selectValorInicial={pav} selectOnChange={({target})=>setPav(target.value)} optionDisabledValue='Local' options={['Subsolo', 'Acesso subsolo A', 'Acesso subsolo B', 'Escada A', 'Escada B', 'Escada C', 'Térreo', '2º Pav A', '2º Pav B', '2º Pav Escada C', '3º Pav A', '3º Pav B', '3º Pav Escada C', '4º Pav A', '4º Pav B', '4º Pav Escada C']} />
+        <Select className='novoHdSelect' selectValorInicial={pav} selectOnChange={({target})=>setPav(target.value)} optionDisabledValue='' options={['Subsolo', 'Acesso subsolo A', 'Acesso subsolo B', 'Escada A', 'Escada B', 'Escada C', 'Térreo', '2º Pav A', '2º Pav B', '2º Pav Escada C', '3º Pav A', '3º Pav B', '3º Pav Escada C', '4º Pav A', '4º Pav B', '4º Pav Escada C']} />
     </div>
 
     <div>
         <p className='cardTextoPqn'>autonomia</p>
-        <Select selectValorInicial={dur} selectOnChange={({target})=>setDur(target.value)} optionDisabledValue='Autonomia' options={['1h', '2h', '3h', '4h', '5h', '6h']} />
+        <Select className='novoHdSelect autonomia' selectValorInicial={dur} selectOnChange={({target})=>setDur(target.value)} optionDisabledValue='' options={['1h', '2h', '3h', '4h', '5h', '6h']} />
     </div>
 
 </fieldset>

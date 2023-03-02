@@ -35,36 +35,16 @@ export const GlobalStorage = ({children}) =>{
 
             const getUsers = async () => {
             const data = await getDocs(usersCollectionRef);
-            const dadosFirebase = data.docs.map((docs)=>({...docs.data(), id:docs.id}))
 
             setUsers(data.docs.map((docs)=>({...docs.data(), id:docs.id})))
-
-            if (document.cookie && dadosFirebase){
-                const cookieSplitado = document.cookie.slice(5).split('&')
-                var userPraLogar = dadosFirebase.filter((f)=>{
-                    return f.nome === cookieSplitado[0]
-                })
-        
-                setUserLogado(...userPraLogar)
-                navigate(refreshPages())
-            }
         }
 
             getUsers()
 
-
         },[]) 
-
-        // FUNÇÃO PARA SALVAR EM LOCALSTORAGE O COMPONENTE RENDERIZADO ATUAL CASO A PÁGINA SEJA ATUALIZADA
-        window.onbeforeunload = function(e)
-        {
-            const location = {origin:window.location.origin, path:window.location.pathname, search:window.location.search }
-            localStorage.setItem('reload-url', JSON.stringify(location));
-        }
 
     //UPDATE
     // const updateUser = async (id, email) =>{
-
     // const userDoc = doc(db, "users", id)
     // const novosCampos = newUser 
     // await updateDoc(userDoc, novosCampos)
@@ -77,7 +57,7 @@ export const GlobalStorage = ({children}) =>{
     await deleteDoc(userDoc)
     }
 
-// console.log(userLogado)
+// console.log(users[6].lde)
     
     React.useEffect(()=>{
         if (userLogado.length === 0){
@@ -95,8 +75,8 @@ export const GlobalStorage = ({children}) =>{
             }
     
             getUsers() 
-
         },[userLogado])   
+        
         
     return <GlobalContext.Provider value={{users, setUsers, tipoFiltro, setTipoFiltro, modalFooter, setModalFooter, itensFiltrados, setItensFiltrados, uploadLde, setUploadLde, upload, setUpload, lde, setLde, usuarios, setUsuarios, userLogado, setUserLogado}}>{children}</GlobalContext.Provider>
 }

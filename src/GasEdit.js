@@ -43,14 +43,14 @@ const GasEdit = () => {
         updateBd(ctx.userLogado.id, {gas:outrosGases})
            
         ctx.setUserLogado({...ctx.userLogado, gas:[...outrosGases]})
-        navigate('/gas')
+        navigate('/home/gas')
     }
 
     window.scrollTo(0,0)
 
 
   return (
-    <div className='extCard'>
+    <div className='ldeContent'>
 
         <fieldset className='fieldsetFlexRow ' >
             <legend >{editado.diaCriado} - {editado.horaCriado}</legend>
@@ -59,40 +59,40 @@ const GasEdit = () => {
 
                 <div>
                     <p className='cardTextoPqn'>loja 128</p>
-                    <input id='inputGasEdit' type='tel' value={editado.l128} onChange={({target})=>setEditado({...editado, l128:target.value})} />
+                    <input id='inputGasEdit' className='newLde inputEditGas' type='tel' maxLength={8} value={editado.l128} onChange={({target})=>setEditado({...editado, l128:target.value})} />
 
                 </div>
 
                 <div>
                     <p className='cardTextoPqn'>loja 132</p>
-                    <input id='inputGasEdit' type='tel' value={editado.l132} onChange={({target})=>setEditado({...editado, l132:target.value})}/>
+                    <input id='inputGasEdit' className='newLde inputEditGas' type='tel' maxLength={8} value={editado.l132} onChange={({target})=>setEditado({...editado, l132:target.value})}/>
 
                 </div>
 
                 <div>
                     <p className='cardTextoPqn'>loja 137</p>
-                    <input id='inputGasEdit' type='tel' value={editado.l137} onChange={({target})=>setEditado({...editado, l137:target.value})}/>
+                    <input id='inputGasEdit' className='newLde inputEditGas' type='tel' maxLength={8} value={editado.l137} onChange={({target})=>setEditado({...editado, l137:target.value})}/>
                 </div>
 
                 <div>
                     <p className='cardTextoPqn'>loja 141</p>
-                    <input id='inputGasEdit' type='tel' value={editado.l141} onChange={({target})=>setEditado({...editado, l141:target.value})}/>
+                    <input id='inputGasEdit' className='newLde inputEditGas' type='tel' maxLength={8} value={editado.l141} onChange={({target})=>setEditado({...editado, l141:target.value})}/>
 
                 </div>
 
                 <div>
                     <p className='cardTextoPqn'>loja 152</p>
-                    <input id='inputGasEdit' type='tel' value={editado.l152} onChange={({target})=>setEditado({...editado, l152:target.value})}/>
+                    <input id='inputGasEdit' className='newLde inputEditGas' type='tel' maxLength={8} value={editado.l152} onChange={({target})=>setEditado({...editado, l152:target.value})}/>
                 </div>
 
                 <div>
                     <p className='cardTextoPqn'>loja 154</p>
-                    <input id='inputGasEdit' type='tel' value={editado.l154} onChange={({target})=>setEditado({...editado, l154:target.value})}/>
+                    <input id='inputGasEdit' className='newLde inputEditGas' type='tel' maxLength={8} value={editado.l154} onChange={({target})=>setEditado({...editado, l154:target.value})}/>
                 </div>
                 
                 <div>
                     <p className='cardTextoPqn'>loja 157</p>
-                    <input id='inputGasEdit' type='tel' value={editado.l157} onChange={({target})=>setEditado({...editado, l157:target.value})}/>
+                    <input id='inputGasEdit' className='newLde inputEditGas' type='tel' maxLength={8} value={editado.l157} onChange={({target})=>setEditado({...editado, l157:target.value})}/>
                 </div>
 
             </div>
@@ -103,7 +103,7 @@ const GasEdit = () => {
 
 
             <fieldset className='fieldsetAcoes fieldsetFlexRow'>
-                <div className='btnAcoesWrapper' onClick={()=>navigate('/gas')} >
+                <div className='btnAcoesWrapper' onClick={()=>navigate('/home/gas')} >
                     <i className="fa-solid fa-angles-left" ></i>
                     <p>cancelar</p>
                 </div>

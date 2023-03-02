@@ -8,7 +8,6 @@
 
     color: #050;
 
-    background-color: #000;
 
 }
 
@@ -45,38 +44,32 @@
 }
 
 .gasCardContent{
-    /* border: 1px solid green; */
     width: 100%;
-    /* background-color: #222; */
-
     border-radius: 10px;
-    margin: 20px 0  ;
-
+    /* margin: 20px 0  ; */
     display: grid;
-    grid-template-columns: auto auto ;
-    gap: 15px 5px;
+    grid-template-columns: auto auto auto;
+    gap: 20px 5px;
     justify-content: space-evenly;
-    padding: 20px 0;
-
-    /* box-shadow: #111 5px 5px 5px, inset #333 5px 5px 5px; */
+    padding: 15px 0;
 }
 
 .gasCardContent div{
-    /* border: 1px solid #000; */
+    /* border: 1px solid #f00; */
     text-align: center;
     width: 100px;
     height: 50px;
     margin-bottom: 0px;
 
     display: flex;
-    align-items: center;
+    align-items: start;
     justify-content: start;
     flex-direction: column;
 }
 
 #containerGas{
     margin: 20px;
-    width: 80%;
+    width: 100%;
     /* background-color: #000; */
 }
 

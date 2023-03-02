@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
 import css from './css/gas.css'
 import IconesBottom from './IconesBottom'
 import IconsBottom from './IconsBottom'
@@ -8,6 +8,7 @@ import { GlobalContext } from './GlobalContext'
 import Select from './Select'
 import MenuFooter from './MenuFooter'
 import {ordemCrescenteDecrescente, Filtro} from './funcoes/filtroFuncoes'
+import { updateBd } from './crudFireBase'
 
 const Gas = () => {
 
@@ -33,10 +34,14 @@ const Gas = () => {
         botoes.classList.contains('hideContent') ? botoes.classList.remove('hideContent') : botoes.classList.add('hideContent')
     }
 
-    function deletar(id){
-        
-        document.querySelector('#botoes'+id).classList.add('hideContent')
-        document.querySelector('#confirmarDel'+id).classList.remove('hideContent')
+    function deletar(elem, id){
+        const res = gases.filter((f)=>{
+            return f.id !== elem.id
+        })
+
+        ctx.setUserLogado({...ctx.userLogado, gas:res})
+        updateBd(id, {gas:res} )
+        navigate('/home/gas')
     }
     
     function confDel(id, bool){
@@ -51,34 +56,25 @@ const Gas = () => {
         }
     }
 
-    function gasOrdenar(el){
-        if (el.getAttribute('class') !== "fa-solid fa-arrow-down-9-1"){
-            el.setAttribute('class', "fa-solid fa-arrow-down-9-1")
-            setToogle(!toogle)
-        }else{
-            el.setAttribute('class', 'fa-solid fa-arrow-down-1-9')
-            setToogle(!toogle)
-        }
+    function handleExclude(id){
+        document.querySelector('#del'+id).style.display='none'
+        document.querySelector('#elem'+id).style.display='flex'
+    }
+    function handleCancel(id){
+        document.querySelector('#elem'+id).style.display='none'
+        document.querySelector('#del'+id).style.display='flex'
     }
 
-
   return (
-    <div className='gasContainer'>
-
-                    <div id='containerGas' className='extCard '>
+    <>
+        <NavLink to='gasnovo' className='novoRegistro' >Registrar medidores de gás</NavLink>
+    <div className='lde'>
 
                     
 
-                        <fieldset className='fieldsetFlexRow' onClick={()=>navigate('/gasnovo')}>
-                            <legend><i className="fa-solid fa-plus" ></i></legend>
-                            <div className='cardTextoPqn'>
-                                <p>criar nova marcação</p>
-                            </div>
-                        </fieldset>
-                    </div>
-
         {(toogle ? gases : gases.reverse()).map((item)=>{
-            return <div id='containerGas' key={item.id} className='extCard containerGas' >
+            // return <div id='containerGas' key={item.id} className='extCard containerGas' >
+            return <div key={item.id} className='ldeContent' >
 
                     {/* <div className='gasCardData' onClick={({currentTarget})=>handleContent(currentTarget)} >
 
@@ -102,7 +98,7 @@ const Gas = () => {
                         <legend onClick={({currentTarget})=>handleContent(currentTarget)}>{item.diaCriado} - {item.horaCriado}</legend>
                         
 
-                        <div className=' gasCardContent hideContent'>
+                        <div className=' gasCardContent'>
 
 
                         {item.l128 && <div>
@@ -143,21 +139,47 @@ const Gas = () => {
 
                     </fieldset>
 
-                    <div id='divBotoesAcoes' className='hideContent'>
+                    {/* <div id='divBotoesAcoes' className=''>
+                        <fieldset className='fieldsetAcoes fieldsetFlexRow'>
+                    <div className='btnAcoesWrapper' onClick={()=>navigate(`edit?id=${item.id}`)}>
+                                <p>editar</p>
+                            </div>
+                            <div className='btnAcoesWrapper'  onClick={()=>deletar(item.id)}>
+                                <p>excluir</p>
+                            </div>
+                        </fieldset>
+                    </div> */}
 
 
-                    <fieldset className='fieldsetAcoes fieldsetFlexRow'>
-            <div className='btnAcoesWrapper' >
-            {/* <div className='btnAcoesWrapper' onClick={()=>navigate(`gasedit?id=${item.id}`)}> */}
-                <i className="fa-solid fa-pen-to-square shadow" ></i>
-                <p>editar</p>
-            </div>
-            <div className='btnAcoesWrapper'  onClick={()=>deletar(item.id)}>
-                <i className="fa-solid fa-trash-can shadow" ></i>
-                <p>excluir</p>
-            </div>
-        </fieldset>
+                    {/* <fieldset className='fieldsetAcoes fieldsetFlexRow'> */}
+                    {/* <div className='btnAcoesWrapper' onClick={()=>navigate(`edit/id?id=${item.id}&ind=${index}`)}>
+                        <i className="fa-solid fa-pen-to-square"></i>
+                        <p>editar</p>
                     </div>
+                    <div className='btnAcoesWrapper' onClick={()=>excluirLde(item)}>
+                        <i className="fa-solid fa-trash-can"></i>
+                        <p>excluir</p>
+                    </div> */}
+
+                    {/* <span onClick={()=>navigate(`edit?id=${item.id}`)}>editar</span>
+                    <span onClick={()=>deletar(item.id)}>excluir</span> */}
+
+                    {/* <span className='invisivel'>Excluir este item</span>
+                    <span className='invisivel' onClick={({currentTarget})=>handleCancel(currentTarget)}>Não</span>
+                    <span className='invisivel confirmExclude' onClick={()=>deletar(item.id)}>Sim</span> */}
+
+                {/* </fieldset> */}
+                <fieldset className='fieldsetAcoes fieldsetFlexRow'>
+
+                    <div id={'del'+item.id} className='btnDelWrapper'><span onClick={()=>navigate(`edit?id=${item.id}`)}>editar</span>
+                    <span onClick={()=>handleExclude(item.id)}>excluir</span></div>
+
+                    <div id={'elem'+item.id} className='btnDelWrapper' style={{display:'none'}} >
+                    <span>Excluir este item?</span>
+                    <span onClick={()=>handleCancel(item.id)}>Não</span>
+                    <span className=' confirmExclude' onClick={()=>deletar(item, ctx.userLogado.id)}>Sim</span></div>
+
+                </fieldset>
 
                     
                     {/* </div> */}
@@ -232,30 +254,12 @@ const Gas = () => {
 
         
 
-        <MenuFooter
-            mainIcons={
-                [
-                    {i: <Link to='/home'><i className="fa-solid fa-house"></i></Link>},
-                    {i: <Link to='/gasnovo'><i className="fa-solid fa-file-circle-plus"></i></Link>},
-                    {i:<i className="fa-solid fa-arrow-down-1-9" onClick={({currentTarget})=>gasOrdenar(currentTarget)}></i>},
-                    // {i: <i className="fa-solid fa-magnifying-glass"></i>,
-                    // click: ()=>{ctx.setModalFooter(1)} },
-                    // {i: <i className="fa-solid fa-sliders" ></i>,
-                    // click: ()=>ctx.setModalFooter(2)},
-                    {i: <Link to='/'><i className="fa-solid fa-door-open"></i></Link>},
-                ]
-            }
-
-            itens={gases}
-
-            buscarPlaceholder='data'
-            filtroLocal=''
-        />
 
         {/* <IconsBottom   iconesDefault={[{icone:"fa-solid fa-house", acao:home}, {icone:"fa-solid fa-file-circle-plus", acao:novoItem }]} /> */}
         {/* <IconesBottom /> */}
 
     </div>
+    </>
   )
 }
 
