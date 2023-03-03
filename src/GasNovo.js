@@ -32,7 +32,7 @@ const GasNovo = () => {
     //   console.log('Wadda?!')
     // },[])
 
-    window.scrollTo(0,0)
+    // window.scrollTo(0,0)
 
     // ENCONTRAR ID
   function novoId() {

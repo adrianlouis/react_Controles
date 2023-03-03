@@ -50,12 +50,13 @@ function handleNavlink(elem, link){
 
         <img id='foto'/>
         <div id='botaoEditarPerfil'>
-          <span>Editar perfil</span>
+          <span onClick={()=>navigate('/editprofile')}>Editar perfil</span>
+          
         </div>
 
         <div className='dadosPerfil'>
 
-        <p className='nome'>Adriano Soares</p>
+        <p className='nome'>{context.userLogado.nome}</p>
         <p className='tag'>@AdrianLouis</p>
         <p className='bio'>Se eu tivesse o Sol, o afundario no oceano para poder vender velas aos mortais.</p>
         </div>

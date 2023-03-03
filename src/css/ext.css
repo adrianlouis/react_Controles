@@ -401,11 +401,11 @@ select option{
     font-weight: 400;
     color: #aaa;
 }
-
+/* 
 select option:active{
     color: red;
     background-color: red;
-}
+} */
 
 .extCard select{
     width: 90px;
@@ -417,9 +417,9 @@ select option:active{
     align-items: center;
     padding: 0;
 }
-.fieldsetAcoes span:hover{
+/* .fieldsetAcoes span:hover{
     color: rgb(166,243,166);
-}
+} */
 .fieldsetAcoes i{
     padding-top: 10px;
 }

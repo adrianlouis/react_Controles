@@ -6,6 +6,7 @@ import { GlobalContext } from './GlobalContext'
 import { db } from './firebase-config';
 import {collection, addDoc, getDocs} from '@firebase/firestore'
 import CheckBox from './CheckBox';
+import { readBD } from './crudFireBase';
 
 
 const Login = () => {
@@ -26,62 +27,35 @@ const Login = () => {
     const [logPWVisible, setLogPWVisible] = React.useState(false)
     const [remember, setRemember] = React.useState(false)
     
-    // const [newUser, setNewUser] = React.useState({name:regInput.nome, email:regInput.email, sheets: [{aco:[], ext:[], gar:[], gas:[], hd:[], lde:[], loj:[], pcf:[], pre:[], sal:[]}]})
-
     const newUser = {nome:regInput.nome, email:regInput.email, senha:regInput.senha, aco:[], ext:[], gar:[], gas:[], hd:[], lde:[], loj:[], pcf:[], pre:[], sal:[]}
-    const [novoRegistro, setNovoRegistro] = React.useState('')
+    
+    const usersCollectionRef = collection(db, "users" )
 
-   
-
-    function delCookie(){
-        
-        document.cookie = `user=qwe&qweqwe1!; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`
-        console.log(document.cookie)
-    }
-    function seeCookie(){
-        console.log(document.cookie)
-    }
-
-    function handleLogin(e){
-        e.preventDefault()
-
-        const ftr = ctx.users.filter((f)=>{
-            if (f.nome === loginInput.nome){
-                return f
-            }else if (f.email === loginInput.nome){
-                return f
-            }else{
-                return
-            }
+    const getUsers = async () => {
+        const data = await getDocs(usersCollectionRef);
+        const users = data.docs.map((docs) => ({...docs.data(), id:docs.id}))
+        const log = users.filter((f)=>{
+            return f.nome === loginInput.nome
         })
 
-        if(ftr.length === 1 && ftr[0].senha === loginInput.senha){
-            ctx.setUserLogado(...ftr)
-
-            // if(remember){
-            //     const now = new Date()
-            //     const future = now.setMinutes(now.getMinutes() + 60)
-            //     const dataFinal = new Date(future)
-               
-            //     document.cookie = `user=${loginInput.nome}&${loginInput.senha}; expires=${dataFinal}}`
-            // }
-            
+        if (log.length > 0){
+            ctx.setUserLogado(...log)
             navigate('/home/lde')
+        }else{
+            setLoginMsg('Verifique usuário e senha')
         }
-        
-        if(ftr.length === 1 && ftr[0].senha !== loginInput.senha){
-            setLoginMsg('Senha errada')
-        }
-        if(ftr.length === 0){
-            setLoginMsg('Usuário não encontrado')
-        }
-        
+
+    }
+
+    function  handleLogin(e){
+        e.preventDefault()
+        getUsers()
         
     }
     
 
     // APAGAR COOKIE 
-    document.cookie = `user=${loginInput.nome}&${loginInput.senha}; expires=Thu, 18 Dec 2013 12:00:00 UTC; path=/`
+    // document.cookie = `user=${loginInput.nome}&${loginInput.senha}; expires=Thu, 18 Dec 2013 12:00:00 UTC; path=/`
 
     function handleRegistrar(e){
 
@@ -106,14 +80,6 @@ const Login = () => {
         ctx.setUserLogado(newUser)
         navigate('/home/lde')
     }
-
-  
-  
-
-
-
-
-
 
     function handleInputBlur(el, n){
         aplicarCss(el)

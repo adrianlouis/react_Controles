@@ -40,6 +40,7 @@ export const GlobalStorage = ({children}) =>{
         }
 
             getUsers()
+            
 
         },[]) 
 
@@ -57,7 +58,6 @@ export const GlobalStorage = ({children}) =>{
     await deleteDoc(userDoc)
     }
 
-// console.log(users[6].lde)
     
     React.useEffect(()=>{
         if (userLogado.length === 0){

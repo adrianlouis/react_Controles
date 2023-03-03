@@ -8,7 +8,7 @@ import Select from './Select'
 import { db } from './firebase-config';
 import { collection, getDocs, addDoc, updateDoc, doc, deleteDoc } from 'firebase/firestore';
 
-import {updateBd} from './crudFireBase'
+import {adicionarRegistro, refreshBd, updateBd} from './crudFireBase'
 
 
 const LdENovoReg = () => {
@@ -28,7 +28,7 @@ const LdENovoReg = () => {
 
   // console.log(fbId)
 
-  window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
+  // window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
 
 
    
@@ -46,17 +46,31 @@ const LdENovoReg = () => {
 
     
     // ADICIONAR LDE NO USUARIO LOGADO
-    function handleSubmit(id){
+    async function handleSubmit(id){
+
+
+
       if (num === '' && pav === '' && dur === '' && anotacao === ''){
         return
       }
 
       const ldeNovo = {id:novoId(), num:num, local:pav, dur:dur, avaria:anotacao}
-      context.setUserLogado({...context.userLogado, lde:[ldeNovo, ...context.userLogado.lde]})
+      // context.setUserLogado({...context.userLogado, lde:[ldeNovo, ...context.userLogado.lde]})
 
-      updateBd(id, {lde:[ldeNovo, ...context.userLogado.lde]})
+      // updateBd(id, {lde:[ldeNovo, ...context.userLogado.lde]})
+      // navigate('/home/lde')
+      
+      // ID DO USUARIO, OBJETO A SER ADICIONADO, CAMPO (ARRAY) ONDE SERÁ ADICIONADO
+      await adicionarRegistro(id, ldeNovo, 'lde')
+      
+      //refresh
+      const update = await refreshBd(context.userLogado.nome)
+      await context.setUserLogado(...update)
       navigate('/home/lde')
     }
+
+
+
   
     function validarNumeros(elem){
       const validacao = /[0-9]/

@@ -72,14 +72,13 @@ const ExtEditar = () => {
 
         context.setUserLogado({...context.userLogado, ext:[...res]})
         
-        context.setItensFiltrados('')
-        navigate('/ext')
+        navigate('/home/ext')
     }
     
 
   return (
 
-    <div  className='extCard'>
+    <div  className='ldeContent'>
 
         <fieldset className='fieldsetFlexRow'>
 
@@ -87,17 +86,17 @@ const ExtEditar = () => {
 
             <div>
                 <p className='cardTextoPqn'>número</p>
-                <Input  inpTipo='text' onChange={({target})=>setNum(target.value)} value={num} />
+                <Input className='newLde' inpTipo='text' onChange={({target})=>setNum(target.value)} value={num} />
             </div>
 
             <div>
                 <p className='cardTextoPqn'>tipo</p>
-                <Select selectValorInicial={tipo} selectOnChange={({target})=>setTipo(target.value)} optionDisabledValue='-----' options={['A', 'B', 'C']} />
+                <Select className='newLde' selectValorInicial={tipo} selectOnChange={({target})=>setTipo(target.value)} optionDisabledValue='-----' options={['A', 'B', 'C']} />
             </div>
 
             <div>
                 <p className='cardTextoPqn'>local</p>
-                <Select selectValorInicial={local} selectOnChange={({target})=>setLocal(target.value)} optionDisabledValue='-----' options={['Subsolo', 'Térreo', 'Brigada', '2º Pav A', '2º Pav B', '2º Pav C', '3º Pav A', '3º Pav B', '3º Pav C', '4º Pav A', '4º Pav B', '4º Pav C', 'CMI']} />
+                <Select className='newLde' style={{width:'115px'}} selectValorInicial={local} selectOnChange={({target})=>setLocal(target.value)} optionDisabledValue='-----' options={['Subsolo', 'Térreo', 'Brigada', '2º Pav A', '2º Pav B', '2º Pav C', '3º Pav A', '3º Pav B', '3º Pav C', '4º Pav A', '4º Pav B', '4º Pav C', 'CMI']} />
             </div>
 
         </fieldset>
@@ -108,13 +107,13 @@ const ExtEditar = () => {
             <legend>Recarga</legend>
             <div>
                 <p className='cardTextoPqn'>mês da próx. recarga</p>
-                <Select selectValorInicial={mes} selectOnChange={({target})=>setMes(target.value)} optionDisabledValue=' mês ' options={['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']} />
+                <Select className='newLde' style={{width:'60px'}} selectValorInicial={mes} selectOnChange={({target})=>setMes(target.value)} optionDisabledValue=' mês ' options={['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']} />
                 {/* <Select selectValorInicial={mes} selectOnChange={({target})=>setMes(target.value)} optionDisabledValue=' mês ' options={['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez']} /> */}
             </div>
 
             <div>
                 <p className='cardTextoPqn'>ano da próx. recarga</p>
-                <Select selectValorInicial={ano} selectOnChange={({target})=>setAno(target.value)} optionDisabledValue=' ano ' options={[ anoAtual-5, anoAtual-4, anoAtual-3, anoAtual-2, anoAtual-1 ,anoAtual, anoAtual+1, anoAtual+2, anoAtual+3, anoAtual+4, anoAtual+5 ]} />
+                <Select className='newLde' style={{width:'80px'}} selectValorInicial={ano} selectOnChange={({target})=>setAno(target.value)} optionDisabledValue=' ano ' options={[ anoAtual-5, anoAtual-4, anoAtual-3, anoAtual-2, anoAtual-1 ,anoAtual, anoAtual+1, anoAtual+2, anoAtual+3, anoAtual+4, anoAtual+5 ]} />
                 {/* <Select selectValorInicial={ano} selectOnChange={({target})=>setAno(target.value)} optionDisabledValue=' ano ' options={[2020, 2021, 2022, 2023, 2024, 2025]} /> */}
             </div>
         
@@ -125,6 +124,7 @@ const ExtEditar = () => {
             <div>
                 <p className='cardTextoPqn'>ano do próx. reteste</p>
                 <Input
+                className='newLde'
                     inpTipo="tel"
                     maxLength='4'
                     value={ultRet}
@@ -141,12 +141,12 @@ const ExtEditar = () => {
         </fieldset>
 
         <fieldset className='fieldsetAcoes fieldsetFlexRow'>
-            <div className='btnAcoesWrapper' onClick={()=>navigate('/ext')}>
-                <i className="fa-solid fa-angles-left" ></i>
+            <div className='btnAcoesWrapper' onClick={()=>navigate('/home/ext')}>
+                {/* <i className="fa-solid fa-angles-left" ></i> */}
                 <p>voltar</p>
             </div>
             <div className='btnAcoesWrapper' onClick={()=>salvarExt()}>
-                <i className="fa-solid fa-floppy-disk" ></i>
+                {/* <i className="fa-solid fa-floppy-disk" ></i> */}
                 <p>salvar</p>
             </div>
         </fieldset>

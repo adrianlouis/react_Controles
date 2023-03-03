@@ -23,6 +23,7 @@ import Login from './Login';
 import Salas from './Salas';
 import Profile from './Profile';
 import NotFound from './NotFound';
+import EditPerfil from './EditPerfil';
 
 
 function App() {
@@ -51,7 +52,7 @@ function App() {
 
             <Route exact path='ext' element={<Extintores />} />
             <Route exact path='ext/extnovo' element={<ExtNovo/>} />
-            <Route exact path='ext/edit/:extedit' element={<ExtEditar/>} />
+            <Route exact path='ext/:extedit' element={<ExtEditar/>} />
             
             <Route exact path='gas' element={<Gas/>} />
             <Route exact path='gas/gasnovo' element={<GasNovo/>} />
@@ -60,7 +61,7 @@ function App() {
 
           </Route>
             
-
+          <Route path='editprofile' element={<EditPerfil/>} />
 
 
 

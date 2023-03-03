@@ -1,6 +1,7 @@
-import { collection, getDocs, addDoc, updateDoc, doc, deleteDoc } from 'firebase/firestore';
+import { collection, getDocs, addDoc, updateDoc, doc, deleteDoc, arrayUnion, arrayRemove } from 'firebase/firestore';
 import { db } from './firebase-config';
 
+const usersCollectionRef = collection(db, "users" )
 
 export function updateBd(id, obj){
 
@@ -14,3 +15,36 @@ export function updateBd(id, obj){
 
     updateUser(id, obj)
 }
+
+export async function adicionarRegistro(id, obj, field){
+    const add = async ()=>{
+        const document = doc(db, 'users', id)
+        await updateDoc(document, {[field]: arrayUnion(obj)})
+    }
+
+    add(id, obj)
+}
+
+export async function removerRegistro(id, obj, field){
+    const remove = async ()=>{
+        const document = doc(db, 'users', id)
+        await updateDoc(document, {[field]: arrayRemove(obj)})
+    }
+
+    await remove(id, obj)
+}
+
+export async function refreshBd(user){
+
+    const getUsers = async () => {
+        const data = await getDocs(usersCollectionRef);
+        const users = data.docs.map((docs) => ({...docs.data(), id:docs.id}))
+        const updated = users.filter((f)=>{
+            return f.nome === user
+        })
+        return updated
+    }
+    
+    return await getUsers()
+}
+
