@@ -5,7 +5,7 @@ import CheckBox from "./CheckBox";
 import { GlobalContext } from "./GlobalContext";
 import Input from "./Input";
 import Select from "./Select";
-import { updateBd } from "./crudFireBase";
+import { adicionarRegistro, refreshBd, updateBd } from "./crudFireBase";
 
 const HidranteNovo = () => {
 
@@ -46,7 +46,7 @@ const HidranteNovo = () => {
 
 
   // SALVAR HD NOVO NO USERLOGADO
-  function salvarNovoHd(idUser) {
+  async function salvarNovoHd(idUser) {
     const novoHd = {
       id: id,
       num: num,
@@ -58,15 +58,19 @@ const HidranteNovo = () => {
       pecas: pecas,
       avaria: avarias,
     };
+    
+    // context.setUserLogado({
+      //   ...context.userLogado,
+      //   hd: [novoHd, ...context.userLogado.hd],
+      // });
+      
+      // updateBd(idUser, {hd:[...context.userLogado.hd, novoHd]})
 
-    context.setUserLogado({
-      ...context.userLogado,
-      hd: [novoHd, ...context.userLogado.hd],
-    });
-
-    updateBd(idUser, {hd:[...context.userLogado.hd, novoHd]})
-
-    navigate("/home/hd");
+      await adicionarRegistro(idUser, novoHd, 'hd');
+      await context.setUserLogado({...context.userLogado, hd:[novoHd, ...context.userLogado.hd]})
+      const update = await refreshBd(context.userLogado.nome)
+      await context.setUserLogado(...update)
+      navigate("/home/hd");
 
   }
 
@@ -197,12 +201,12 @@ const HidranteNovo = () => {
 
     <fieldset className='fieldsetAcoes fieldsetFlexRow'>
       <div className='btnAcoesWrapper' onClick={()=>navigate('/home/hd')}>
-        <i className="fa-solid fa-angles-left" ></i>
+        {/* <i className="fa-solid fa-angles-left" ></i> */}
         <p>cancelar</p>
       </div>
 
       <div className='btnAcoesWrapper' onClick={()=>salvarNovoHd(context.userLogado.id)}>
-        <i className="fa-solid fa-floppy-disk" ></i>
+        {/* <i className="fa-solid fa-floppy-disk" ></i> */}
         <p>salvar</p>
       </div>
 

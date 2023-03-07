@@ -4,7 +4,7 @@ import css from "./css/hd.css";
 import { GlobalContext } from "./GlobalContext";
 import MenuFooter from "./MenuFooter";
 import {Filtro, filtroNum, filtroAvaria, validade} from "./funcoes/filtroFuncoes"
-import { updateBd } from "./crudFireBase";
+import { refreshBd, removerRegistro, updateBd } from "./crudFireBase";
 
 const Hidrantes = () => {
   const context = useContext(GlobalContext);
@@ -17,9 +17,6 @@ const Hidrantes = () => {
   const userHds = context.userLogado.hd
   const [ind, setInd] = React.useState('')
   const filtrados = new Filtro(context.userLogado.hd)
-  console.log(filtrados.crescente)
-
-  const [selectLocal, setSelectLocal] = React.useState('')
 
   // window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
 
@@ -66,13 +63,20 @@ const Hidrantes = () => {
     return (new Date(valor).toLocaleDateString('pt-br', {month:'long', year:'numeric'})).charAt(0).toUpperCase()+(new Date(valor).toLocaleDateString('pt-br', {month:'long', year:'numeric'})).slice(1)
   }
         
-  function excluirHd(idUser, hd){
-    const res = context.userLogado.hd.filter((filtro)=>{
-        return filtro !== hd
-    })
+  async function excluirHd(idUser, item, campo){
+    // const res = context.userLogado.hd.filter((filtro)=>{
+    //     return filtro !== item
+    // })
 
-    context.setUserLogado({...context.userLogado, hd:res})
-    updateBd(idUser, {hd:res})
+    await removerRegistro(idUser, item, campo)
+
+    // refresh 
+    const update = await refreshBd(context.userLogado.nome)
+    await context.setUserLogado(...update)
+    // context.setUserLogado({...context.userLogado, hd:res})
+    // updateBd(idUser, {hd:res})
+
+
   }
 
   function handleFiltroNum(){
@@ -209,7 +213,7 @@ const Hidrantes = () => {
                       <i className="fa-solid fa-pen-to-square"></i>
                       <p>editar</p>
                     </div>
-                    <div className='btnAcoesWrapper' onClick={()=>excluirHd(context.userLogado.id, item)}>
+                    <div className='btnAcoesWrapper' onClick={()=>excluirHd(context.userLogado.id, item, 'hd')}>
                       <i className="fa-solid fa-trash-can" ></i>
                       <p>excluir</p>
                     </div>
@@ -220,7 +224,7 @@ const Hidrantes = () => {
               
           })}
 
-          {context.itensFiltrados && context.itensFiltrados.map((item)=>{
+          {/* {context.itensFiltrados && context.itensFiltrados.map((item)=>{
               return <div key={item.id} className="extCard">
 
               <fieldset className='fieldsetFlexRow'>
@@ -277,7 +281,7 @@ const Hidrantes = () => {
                   </fieldset>
 
             </div>
-          })}
+          })} */}
 
           {/* <MenuFooter 
             mainIcons={

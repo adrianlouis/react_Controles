@@ -1,6 +1,7 @@
 import { collection, getDocs, addDoc, updateDoc, doc, deleteDoc, arrayUnion, arrayRemove } from 'firebase/firestore';
 import { db } from './firebase-config';
 
+
 const usersCollectionRef = collection(db, "users" )
 
 export function updateBd(id, obj){
@@ -20,9 +21,10 @@ export async function adicionarRegistro(id, obj, field){
     const add = async ()=>{
         const document = doc(db, 'users', id)
         await updateDoc(document, {[field]: arrayUnion(obj)})
+
     }
 
-    add(id, obj)
+    await add(id, obj)
 }
 
 export async function removerRegistro(id, obj, field){

@@ -3,11 +3,28 @@ import css from './css/lde.css'
 import { NavLink, useNavigate} from 'react-router-dom'
 import { GlobalContext } from './GlobalContext'
 import { refreshBd, removerRegistro, updateBd } from './crudFireBase'
+// import { collection, getDocs, addDoc, updateDoc, doc, deleteDoc, arrayUnion, arrayRemove } from 'firebase/firestore';
+import { db } from './firebase-config';
+
 
 
 const LdE = () => {
     const context = React.useContext(GlobalContext)
+    // const usersCollectionRef = collection(db, "users" )
     const navigate = useNavigate()
+    // const [lde, setLde] = React.useState(refreshBd(''))
+
+    // const getUsers = async () => {
+    //     const data = await getDocs(usersCollectionRef);
+    //     const users = data.docs.map((docs) => ({...docs.data(), id:docs.id}))
+    //     const updated = users.filter((f)=>{
+    //         return f.id === context.userLogado.id
+    //     })
+    //     setLde(updated.lde)
+    // }
+    
+    // getUsers()
+    // console.log(lde)
 
     // function excluirLde(elem, id){
     async function  excluirLde(idUser, item, campo){

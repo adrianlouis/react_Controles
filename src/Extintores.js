@@ -1,29 +1,24 @@
 import React, { useContext } from 'react'
 import { GlobalContext } from './GlobalContext'
 import css from './css/ext.css'
-import { Link, NavLink, useNavigate } from 'react-router-dom'
-import { dataLong, mesParaString } from './funcoes/extDatas'
-import { readBD, updateBd } from './crudFireBase'
+import { NavLink, useNavigate } from 'react-router-dom'
+import { dataLong } from './funcoes/extDatas'
+import { refreshBd, removerRegistro } from './crudFireBase'
 
 const Extintores = () => {
 
     const context = useContext(GlobalContext)
+    const reverso = [...context.userLogado.ext].reverse()
     if (!context.userLogado.ext){
         context.setUserLogado({...context.userLogado, ext:[] })
         
     }
     const navigate = useNavigate()
 
-    function excluirExtintor(id, idUser){
-        
-        const filtrado = context.userLogado.ext.filter((filtro)=>{
-            return filtro.id !== id
-        })
-        
-        context.setUserLogado({...context.userLogado, ext:[...filtrado]})
-        updateBd(idUser, {ext:filtrado})
-
-
+    async function excluirExtintor(idUser, item, campo){
+        await removerRegistro(idUser, item, campo)
+        const update = await refreshBd(context.userLogado.nome)
+        await context.setUserLogado(...update)
     }
 
 function tipoClasse(tipo){
@@ -43,7 +38,7 @@ function tipoClasse(tipo){
         {/* <button onClick={()=>readBD()}>LER BD</button> */}
 
   
-        {context.userLogado.ext.map((item)=>{
+        {reverso.map((item)=>{
             return <div key={item.id+'ext'} className='ldeContent'>
 
                 <fieldset className='fieldsetFlexRow'>
@@ -95,7 +90,7 @@ function tipoClasse(tipo){
                         {/* <i className="fa-solid fa-pen-to-square" ></i> */}
                         <p>editar</p>
                     </div>
-                    <div className='btnAcoesWrapper' onClick={()=>excluirExtintor(item.id, context.userLogado.id)}>
+                    <div className='btnAcoesWrapper' onClick={()=>excluirExtintor(context.userLogado.id, item, 'ext')}>
                         {/* <i className="fa-solid fa-trash-can" ></i> */}
                         <p>excluir</p>
                     </div>

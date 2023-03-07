@@ -18,8 +18,6 @@ import Gas from './Gas'
 const Home = () => {
   const navigate = useNavigate()
   const context = React.useContext(GlobalContext)
-  const [feed, setFeed] = React.useState(1)
-  const [liEscolhido,setLiEscolhido] = React.useState()
 
 //   window.addEventListener("scroll", event => {
 //     const elem = document.querySelector('#wallpaper')
@@ -57,18 +55,18 @@ function handleNavlink(elem, link){
         <div className='dadosPerfil'>
 
         <p className='nome'>{context.userLogado.nome}</p>
-        <p className='tag'>@AdrianLouis</p>
-        <p className='bio'>Se eu tivesse o Sol, o afundario no oceano para poder vender velas aos mortais.</p>
+        <p className='tag'>{context.userLogado.nick}</p>
+        <p className='bio'>{context.userLogado.quote}</p>
         </div>
       </div>
 
       <div id='linksScroll'>
 
         <ul id='navbarPerfil'>
+          <li onClick={({currentTarget})=>handleNavlink(currentTarget, '/home/ext')}>Extintores</li>
+          <li onClick={({currentTarget})=>handleNavlink(currentTarget, '/home/hd')}>Hidrantes</li>
           <li onClick={({currentTarget})=>handleNavlink(currentTarget, '/home/lde')}>Luzes de Emergência</li>
           <li onClick={({currentTarget})=>handleNavlink(currentTarget, '/home/gas')}>Medição de Gás</li>
-          <li onClick={({currentTarget})=>handleNavlink(currentTarget, '/home/hd')}>Hidrantes</li>
-          <li onClick={({currentTarget})=>handleNavlink(currentTarget, '/home/ext')}>Extintores</li>
         </ul>
 
       </div>

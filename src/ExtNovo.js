@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { GlobalContext } from './GlobalContext'
 import Input from './Input'
 import Select from './Select'
-import {updateBd} from './crudFireBase'
+import {adicionarRegistro, refreshBd, updateBd} from './crudFireBase'
 
 const ExtNovo = () => {
 
@@ -35,13 +35,22 @@ const ExtNovo = () => {
     }
 
     
-    function salvarExt(idUser){
+    async function salvarExt(idUser){
 
         const novoObjExt = [extNovo, ...context.userLogado.ext]
-        context.setUserLogado({...context.userLogado, ext:novoObjExt})
-        navigate('/home/ext')
+        // context.setUserLogado({...context.userLogado, ext:novoObjExt})
+        // navigate('/home/ext')
         
-        updateBd(idUser, {ext:novoObjExt})
+        // updateBd(idUser, {ext:novoObjExt})
+
+
+
+        await adicionarRegistro(idUser, extNovo, 'ext')
+        await context.setUserLogado({...context.userLogado, ext:novoObjExt})
+
+        const update = await refreshBd(context.userLogado.nome)
+        await context.setUserLogado(...update)
+        navigate('/home/ext')
     }
     
 

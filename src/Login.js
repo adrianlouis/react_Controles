@@ -40,7 +40,7 @@ const Login = () => {
 
         if (log.length > 0){
             ctx.setUserLogado(...log)
-            navigate('/home/lde')
+            navigate('/home/ext')
         }else{
             setLoginMsg('Verifique usuário e senha')
         }
@@ -64,21 +64,61 @@ const Login = () => {
         if (regOk.nome && regOk.email && regOk.senha && regOk.confSenha){
             // ctx.setUsuarios([...ctx.usuarios, {nome:regInput.nome, email:regInput.email, senha:regInput.senha, aco:[], ext:[], gar:[], gas:[], hd:[], lde:[], loj:[], pcf:[], pre:[], sal:[] }])
             const criarUser = async ()=>{
-                await addDoc(collection(db, "users"), newUser)
+                await addDoc(usersCollectionRef, newUser)
+                const data = await getDocs(usersCollectionRef);
+                const users = data.docs.map((docs)=>({...docs.data(), id:docs.id}))
+                const log = users.filter((f)=>{
+                    return f.nome === regInput.nome
+                })
+                ctx.setUserLogado(...log)
+                navigate('/home/ext')
             }
             criarUser()
+
+            // pegarId()
+            // const getUsers = async () => {
+            //     const data = await getDocs(usersCollectionRef);
+            //     const users = data.docs.map((docs) => ({...docs.data(), id:docs.id}))
+            //     const log = users.filter((f)=>{
+            //         return f.nome === loginInput.nome
+            //     })
+        
+            //     if (log.length > 0){
+            //         ctx.setUserLogado(...log)
+            //         navigate('/home/lde')
+            //     }else{
+            //         setLoginMsg('Verifique usuário e senha')
+            //     }
+        
+            // }
+        
+
+
+
             // setNewUser({nome:regInput.nome, email:regInput.email, senha:regInput.senha,  })
+            
+            // const getUsers = async () => {
+            //     const data = await getDocs(collection(db, 'users'));
+            //     ctx.setUsers(data.docs.map((docs)=>({...docs.data(), id:docs.id})))
+            // }
+            
+            // getUsers()
+            // console.log(ctx.setUserLogado)
         }
+    }
 
-        const getUsers = async () => {
-            const data = await getDocs(collection(db, 'users'));
-            ctx.setUsers(data.docs.map((docs)=>({...docs.data(), id:docs.id})))
-          }
+    async function pegarId(){
 
-          getUsers()
-        //   setForm(1)
-        ctx.setUserLogado(newUser)
-        navigate('/home/lde')
+        const att = async ()=> {
+            const data = await getDocs(usersCollectionRef);
+            const users = data.docs.map((docs)=>({...docs.data(), id:docs.id}))
+            const log = users.filter((f)=>{
+                return f.nome === regInput.nome
+            })
+            return console.log(log)
+            // await ctx.setUserLogado(...log)
+        }
+        att()
     }
 
     function handleInputBlur(el, n){

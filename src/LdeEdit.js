@@ -1,10 +1,9 @@
 import React, { useContext } from 'react'
 import Input from './Input'
-import { Link, useNavigate, useLocation } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { GlobalContext } from './GlobalContext';
 import css from './css/lde.css'
 import Select from './Select';
-import AcoesCriandoItem from './AcoesCriandoItem';
 import { updateBd } from './crudFireBase';
 
 const LdeEdit = () => {
@@ -32,7 +31,7 @@ const LdeEdit = () => {
         setAvaria(item[0].avaria)
     },[])
     
-    function salvarEdicao(){
+    function salvarEdicao(ind){
         const ldeEditado = Object.keys(context.userLogado.lde).map((item, ind)=>{
             if (ind !== Number(index)){
                 return context.userLogado.lde[item]
@@ -42,11 +41,10 @@ const LdeEdit = () => {
         })
 
         updateBd(context.userLogado.id, {lde:ldeEditado})
-
         context.setUserLogado({...context.userLogado, lde:ldeEditado})
         navigate('/home/lde')
     }
-    
+
   return <div className='extCard'>
 
   <fieldset className='fieldsetFlexRow'>
