@@ -11,24 +11,49 @@ import HidranteNovo from './HidranteNovo'
 import LdE from './LdE'
 import Extintores from './Extintores'
 import Gas from './Gas'
+import { getDownloadURL, getStorage, ref } from 'firebase/storage'
 
 const Home = () => {
   const navigate = useNavigate()
   const context = React.useContext(GlobalContext)
   const larguraTela = window.screen.width
+  const storage = getStorage()
 
   React.useEffect(()=>{
     if (context.userLogado.perfil.foto && context.userLogado.perfil.fotoCrop) {
 
-      var canvas = document.querySelector('#canv')
-      var ctx = canvas.getContext('2d')
-      var foto = new Image()
-      foto.src=context.userLogado.perfil.foto
-      foto.onload=()=>{
-        ctx.drawImage(foto, ...context.userLogado.perfil.fotoCrop )
-    }
+      if (!context.userLogado.tempProfPic){
+        // baixar imagem do firebase e usar no canvas
+        getDownloadURL(ref(storage, '/'+`${context.userLogado.id}fotoPerfil.jpg`)).then((url)=>{
+        
+          var canvas = document.querySelector('#canv')
+          var ctx = canvas.getContext('2d')
+          var img = new Image()
+          img.src = url
+          img.onload=()=>{
+            ctx.drawImage(img, ...context.userLogado.perfil.fotoCrop)
+            context.setUserLogado({...context.userLogado, tempProfPic:img})
+          }
 
+        })
+      }else{
+
+        // usar imagem em userlogado no canvas
+        var canvas = document.querySelector('#canv')
+        var ctx = canvas.getContext('2d')
+        ctx.drawImage(context.userLogado.tempProfPic, ...context.userLogado.perfil.fotoCrop)
+      }
+        
+        
     if (context.userLogado.perfil.wallpaper && context.userLogado.perfil.wallpaperCrop){
+
+      //baixar imagem do firebase
+      getDownloadURL(ref(storage, '/'+context.userLogado.perfil.foto)).then((url)=>{
+        // document.querySelector('#foto').setAttribute('src', url)
+        console.log(url)
+    })
+      // //////////////////////////
+
       var canvasWpp = document.querySelector('#canvWpp')
       var ctxWpp = canvasWpp.getContext('2d')
       var wpp = new Image()

@@ -28,7 +28,6 @@ const EditPerfil = () => {
     const [cut, setCut] = React.useState('')
     const onCropComplete = React.useCallback((croppedArea, croppedAreaPixels)=>{
         setCut(croppedAreaPixels)
-        console.log(croppedArea, croppedAreaPixels, crop)
     },[])
 
     // ADICIONAR IMAGEM NO FIREBASE 
@@ -46,24 +45,27 @@ const EditPerfil = () => {
                 }
 
 
-        // const fotoPerfil = ref(storage, `${context.userLogado.id}fotoPerfil.jpg`)
+        const fotoPerfil = ref(storage, `${context.userLogado.id}fotoPerfil.jpg`)
 
-        // await uploadBytes(fotoPerfil, foto).then((snapshot) =>{
-        //     console.log('Uploaded. . .')
-        // })
+        await uploadBytes(fotoPerfil, foto).then((snapshot) =>{
+            console.log('Uploaded. . .')
+        })
 
-        //     getDownloadURL(ref(storage, '/'+context.userLogado.profPic)).then((url)=>{
-        //         setUrl(url)
-        //         setEditado({...editado, foto:url})
+            // getDownloadURL(ref(storage, '/'+`${context.userLogado.id}fotoPerfil.jpg`)).then((url)=>{
+            //     setUrl(url)
+            //     console.log(url)
+            //     setEditado({...editado, foto:url})
 
-        //         var canvas = document.querySelector('#canv')
-        //         var ctx = canvas.getContext('2d')
-        //         ctx.drawImage(url, 0,0,80,80)
-        //     })
+            //     var canvas = document.querySelector('#canv')
+            //     var ctx = canvas.getContext('2d')
+            //     ctx.drawImage(url, 0,0,80,80)
+            // })
 
             setModal(3)
 
     }
+
+    console.log(editado)
 
     function download(){
         // BAIXAR IMAGEM E SETAR NA FOTO DO PERFIL
@@ -83,22 +85,49 @@ const EditPerfil = () => {
     React.useEffect(()=>{
         if (context.userLogado.perfil.foto && context.userLogado.perfil.fotoCrop) {
 
-        //     var silver=new Image()
-        //     silver.src=kDash
-        //     silver.onload=()=>{
-        //     // imagem, xIniRecorte, yIniRecorte, larguraRecorte, alturaRecorte, posX, posY, larguraImagem, alturaImagem
-        //     ctx.drawImage(silver, cut.x, cut.y, cut.width, cut.height, 0, 0, 100, 100 )
+            if (!context.userLogado.tempProfPic){
 
-        // }
+                getDownloadURL(ref(storage, '/'+`${context.userLogado.id}fotoPerfil.jpg`)).then((url)=>{
+                    
+                    var canvas = document.querySelector('#canv')
+                    var ctx = canvas.getContext('2d')
+                    var img = new Image()
+                    img.src = url
+                    img.onload=()=>{
+                        ctx.drawImage(img, ...context.userLogado.perfil.fotoCrop)
+                        context.setUserLogado({...context.userLogado, tempProfPic:img})
+                    }
 
-        var canvas = document.querySelector('#canv')
-        var ctx = canvas.getContext('2d')
-            var foto = new Image()
-            foto.src=context.userLogado.perfil.foto
-            foto.onload=()=>{
-                ctx.drawImage(foto, ...context.userLogado.perfil.fotoCrop )
+                    // var canvas = document.querySelector('#canv')
+                    // var ctx = canvas.getContext('2d')
+                    //     var foto = new Image()
+                    //     foto.src=context.userLogado.perfil.foto
+                    //     foto.onload=()=>{
+                    //         ctx.drawImage(foto, ...context.userLogado.perfil.fotoCrop )
+            
+                    //     }
+            
+            
+                        //////////////////////////////////
+                        // URL EH O SRC DA IMAGEM DO BD //
+                        //////////////////////////////////
+            
+                        // document.querySelector('#testeBlob').src=url
+            
+            
+                    })
+
+            }else{
+
+                // usar imagem em userlogado no canvas
+                var canvas = document.querySelector('#canv')
+                var ctx = canvas.getContext('2d')
+                ctx.drawImage(context.userLogado.tempProfPic, ...context.userLogado.perfil.fotoCrop)
 
             }
+            
+
+
         }else{
             
             console.log('carregar foto')
@@ -116,6 +145,27 @@ const EditPerfil = () => {
             console.log('carregar wpp')
 
         }
+
+
+        // teste download de image no firebase
+
+        getDownloadURL(ref(storage, '/'+`${context.userLogado.id}fotoPerfil.jpg`)).then((url)=>{
+
+            //////////////////////////////////
+            // URL EH O SRC DA IMAGEM DO BD //
+            //////////////////////////////////
+
+            // document.querySelector('#testeBlob').src=url
+
+
+
+            // var canvas = document.querySelector('#canv')
+            // var ctx = canvas.getContext('2d')
+            // ctx.drawImage(url, 0,0,80,80)
+        })
+
+        //////////////////////////////////////
+
 
     },[])
 
@@ -167,7 +217,7 @@ const EditPerfil = () => {
 
     function handleSave(){
         // const perfilNovo = editado
-        context.setUserLogado({...context.userLogado, perfil:editado})
+        context.setUserLogado({...context.userLogado, perfil:editado, tempProfPic:''})
         // context.setUserLogado({...context.userLogado, ...edit})
         updateBd(context.userLogado.id, {perfil:editado})
 
@@ -179,7 +229,6 @@ const EditPerfil = () => {
     }
 
     function inputFocus(el){
-        console.log(el.previousElementSibling)
         el.previousElementSibling.style.color='rgb(166, 243, 166)'
     }
     function inputBlur(el){
@@ -189,12 +238,16 @@ const EditPerfil = () => {
     function handleWallpaper(e){
         const wpp = e.target.files[0]
         // setUrl(URL.createObjectURL(wpp))
+        // console.log(wpp)
+        const blob = URL.createObjectURL(wpp)
         setEditado({...editado, wallpaper:URL.createObjectURL(wpp)})
 
+        
         var canvas = document.querySelector('#canvWpp')
-                var ctx = canvas.getContext('2d')
-                const pic = new Image()
-                pic.src=URL.createObjectURL(wpp)
+        var ctx = canvas.getContext('2d')
+        const pic = new Image()
+        pic.src=URL.createObjectURL(wpp)
+        // console.log(pic)
                 pic.onload=()=>{
                     ctx.drawImage(URL.createObjectURL(wpp), 0,0,larguraTela,(larguraTela / 3))
                 }
@@ -203,7 +256,7 @@ const EditPerfil = () => {
 
     }
 
-// console.log(window.screen.width / 3)
+// console.log(editado)
   return (
     <div>
 
@@ -244,6 +297,8 @@ const EditPerfil = () => {
             </div>}
 
         <div id='perfil' className='perfil'>
+
+            {/* <img id='testeBlob'></img> */}
 
             {/* <div className='canvasWrapper'>
 
