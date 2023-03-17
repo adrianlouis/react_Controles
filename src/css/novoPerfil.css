@@ -33,8 +33,14 @@
     justify-content: center;
     align-items: center;
     color: rgb(161, 161, 161);
+    top: 130px;
     /* background-image: linear-gradient(to right, #a4a, #423); */
 
+}
+#botaoEditarPerfil:hover{
+    border: 1px solid rgb(166,243,166);
+    color: rgb(61, 61, 61);
+    background-color: rgb(166, 243, 166);
 }
 
 .dadosPerfil{
@@ -228,17 +234,18 @@ a{
 }
 
 #iconFotoEdit, #iconWallpaperEdit{
-    color: #fff7;
+    color: #fff6;
     position: absolute;
     top: 100px;
-    left: 60px;
+    left: 58px;
     font-size: 2rem;
     z-index: 2;
 }
 #iconWallpaperEdit{
 top: 50px;
 left: 50%;
-z-index: 5;
+transform: translateX(-50%);
+z-index: 1;
 }
 
 .inputEditProfile{
@@ -254,9 +261,7 @@ z-index: 5;
     box-shadow: none;
     border-radius: 0;
 }
-.textAreaEditProfile:focus{
-    border: 1px solid red;
-}
+
 .navVoltarEditProfile{
     position: absolute;
     bottom: 50px;
@@ -266,6 +271,180 @@ z-index: 5;
 .navVoltarEditProfile:hover{
     transform: scale(1.2);
 }
-.editando{
+/* .editando{
     backdrop-filter: blur(10px);
+} */
+
+/* CROPPERJS  */
+.wrapperCrop{
+    position: relative;
+    width: 350px;
+    height: 350px;
+    overflow: hidden;
+    margin: auto;
+    margin-bottom: 10px;
+    border: 2px solid red;
+
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+    
+}
+
+#avatar{
+    position: absolute;
+    
+}
+.preview{
+    width: 100px;
+    height: 100px;
+    /* border: 1px solid greenyellow; */
+    margin: auto;
+    position: relative;
+    overflow: hidden;
+    /* padding-top: 46px; */
+    border-radius: 200px;
+
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+}
+
+.reactEasyCrop_CropArea{
+    width: 100%;
+    height: 100%;
+    border: 2px solid red;
+}
+
+.previewImg{
+    max-width: 100%;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    transform: scale(3);
+}
+
+#canv{
+    /* border: 2px solid blue; */
+    width: 80px;
+    height: 80px;
+}
+.immmg{
+    width: 150px;
+    border: 2px solid yellow;
+    height: 150px;
+}
+.canvasWrapper{
+    width: 100px;
+    height: 100px;
+    /* border: 1px solid gold; */
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 300px;
+    overflow: hidden;
+}
+
+
+
+
+
+
+
+.fotoPerfilWrapper{
+    border: 2px solid red;
+    width: 80px;
+    height: 80px;
+    border-radius: 80px;
+
+    position: absolute;
+    left: 30px;
+    top: 75px;
+
+    width: 80px;
+    height: 80px;
+    border-radius: 60px;
+    border: 3px solid #000;
+    overflow: hidden;
+}
+.fotoPerfil{
+
+    max-width: 100%;
+    /* height: 100%; */
+
+}
+
+.perfilEditModal, .perfilEditModalCrop{
+    width: 100vw;
+    height: 100vh;
+    background-color: #000a;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.perfilEditModalCrop{
+    display: block;
+}
+
+.perfilEditModal div{
+    background-color: #333;
+    color: #d1d1d1;
+    padding: 20px 50px;
+}
+.perfilEditModal div p{
+    margin: 30px 0;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+#userSemFoto{
+    /* border: 2px solid red; */
+    background-color: #333;
+    color: #a1a1a1;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 1;
+    width: 80px;
+    height: 80px;
+    font-size: 4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dadosPerfil label{
+    color: rgb(161, 161, 161);
+    font-size: .8rem;
+}
+
+#editQuote, #editNome, #editNick{
+    border: 2px solid transparent;
+    border-bottom: 2px solid #a1a1a1;
+    margin-bottom: 50px;
+    border-radius: 0;
+    color: rgb(161, 161, 161);
+    padding-left: 8px;
+}
+#editQuote:focus, #editNome:focus, #editNick:focus{
+    border-radius: 0;
+    border-bottom: 2px solid rgb(166, 243, 166);
+
+}
+
+.wallpaperCanvasWrapper{
+    /* border: 2px solid green; */
+    width: 100%;
+    height: 120px;
+    overflow: hidden;
 }

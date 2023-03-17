@@ -23,6 +23,8 @@ export const GlobalStorage = ({children}) =>{
     const [itensFiltrados, setItensFiltrados] = React.useState('')  
     const [tipoFiltro, setTipoFiltro] = React.useState('')
 
+    // const [fotoP]
+
     const usersCollectionRef = collection(db, "users" )
     
         //CREATE

@@ -27,7 +27,7 @@ const Login = () => {
     const [logPWVisible, setLogPWVisible] = React.useState(false)
     const [remember, setRemember] = React.useState(false)
     
-    const newUser = {nome:regInput.nome, email:regInput.email, senha:regInput.senha, aco:[], ext:[], gar:[], gas:[], hd:[], lde:[], loj:[], pcf:[], pre:[], sal:[]}
+    const newUser = {nome:regInput.nome, email:regInput.email, senha:regInput.senha, perfil:{foto:'', fotoCrop:'', wallpaper:'', wallpaperCrop:'', nome:'', nick:'', quote:''} , aco:[], ext:[], gar:[], gas:[], hd:[], lde:[], loj:[], pcf:[], pre:[], sal:[]}
     
     const usersCollectionRef = collection(db, "users" )
 

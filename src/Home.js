@@ -12,20 +12,34 @@ import LdE from './LdE'
 import Extintores from './Extintores'
 import Gas from './Gas'
 
-
-
-
 const Home = () => {
   const navigate = useNavigate()
   const context = React.useContext(GlobalContext)
+  const larguraTela = window.screen.width
 
-//   window.addEventListener("scroll", event => {
-//     const elem = document.querySelector('#wallpaper')
-//     if (window.scrollY <= 100){
-//       elem.style.opacity= ((elem.clientHeight - window.scrollY)/elem.clientHeight)+'%'
+  React.useEffect(()=>{
+    if (context.userLogado.perfil.foto && context.userLogado.perfil.fotoCrop) {
 
-//     }
-// }, { passive: true });
+      var canvas = document.querySelector('#canv')
+      var ctx = canvas.getContext('2d')
+      var foto = new Image()
+      foto.src=context.userLogado.perfil.foto
+      foto.onload=()=>{
+        ctx.drawImage(foto, ...context.userLogado.perfil.fotoCrop )
+    }
+
+    if (context.userLogado.perfil.wallpaper && context.userLogado.perfil.wallpaperCrop){
+      var canvasWpp = document.querySelector('#canvWpp')
+      var ctxWpp = canvasWpp.getContext('2d')
+      var wpp = new Image()
+      wpp.src=context.userLogado.perfil.wallpaper
+      wpp.onload=()=>{
+        ctxWpp.drawImage(wpp, ...context.userLogado.perfil.wallpaperCrop)
+      }
+    }
+
+  }
+  },[])
 
 function handleNavlink(elem, link){
   const links = document.querySelectorAll('#navbarPerfil li')
@@ -44,20 +58,38 @@ function handleNavlink(elem, link){
 
       <div id='perfil' className='perfil'>
 
-        <img id='wallpaper'/>
+      <div className='wallpaperCanvasWrapper' >
 
-        <img id='foto'/>
+        <canvas id='canvWpp' width={larguraTela} height={larguraTela / 3}>
+        </canvas>
+
+      </div>
+
+        {/* <img id='foto'/> */}
+        <div className='fotoPerfilWrapper' >
+            {/* <img className='fotoPerfil' src={kDash}></img> */}
+
+          <canvas width='80' height='80' id='canv' >
+
+            <p>Seu navegador não suporta Canvas</p>
+
+          </canvas>
+
+          {!context.userLogado.perfil.foto && <i id='userSemFoto' className="fa-solid fa-user"></i>}
+
+
+        </div>
+
         <div id='botaoEditarPerfil'>
           <span onClick={()=>navigate('/editprofile')}>Editar perfil</span>
-          
         </div>
 
         <div className='dadosPerfil'>
-
-        <p className='nome'>{context.userLogado.nome}</p>
-        <p className='tag'>{context.userLogado.nick}</p>
-        <p className='bio'>{context.userLogado.quote}</p>
+          <p className='nome'>{context.userLogado.perfil.nome}</p>
+          <p className='tag'>{context.userLogado.perfil.nick && '@'}{context.userLogado.perfil.nick}</p>
+          <p className='bio'>{context.userLogado.perfil.quote}</p>
         </div>
+        
       </div>
 
       <div id='linksScroll'>
