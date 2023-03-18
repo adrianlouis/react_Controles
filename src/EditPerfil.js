@@ -184,6 +184,7 @@ const EditPerfil = () => {
 
     function handleSave(){
         context.setUserLogado({...context.userLogado, perfil:editado, tempProfPic:''})
+        context.setUserLogado({...context.userLogado, perfil:editado, tempProfWpp:''})
         updateBd(context.userLogado.id, {perfil:editado})
 
         navigate('/home/lde')
