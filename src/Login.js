@@ -159,8 +159,9 @@ const Login = () => {
         setRegInput({nome:'', email:'', senha:'', confSenha:''})
         setRegMsg({nome:false, email:false, senha:false})
         setRegOk({nome:false, email:false, senha:false, confSenha:false})
+        setToggleConfSenhaTexto(false)
     },[form])
-
+    
     // VALIDAR SENHA COM REGEX
     React.useEffect(()=>{
         if (regInput.senha !== ''){
@@ -291,9 +292,9 @@ function aplicarCss(el){
             {/* <button onClick={()=>delCookie()}>Deletar Cookie</button>
             <button onClick={()=>seeCookie()}>Ver Cookie</button> */}
 
+            {/* {setRegMsg({nome:false, email:false, senha:false, confSenha:false})} */}
 
-
-            <form className='glassmorph' onSubmit={(e)=>handleLogin(e)}>
+            <form  onSubmit={(e)=>handleLogin(e)}>
                 <h1>Login</h1>
 
                 <div className='regInputWrapper'>

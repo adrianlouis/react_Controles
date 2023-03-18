@@ -43,27 +43,29 @@ const Home = () => {
         var ctx = canvas.getContext('2d')
         ctx.drawImage(context.userLogado.tempProfPic, ...context.userLogado.perfil.fotoCrop)
       }
-        
-        
-    if (context.userLogado.perfil.wallpaper && context.userLogado.perfil.wallpaperCrop){
-
-      //baixar imagem do firebase
-      getDownloadURL(ref(storage, '/'+context.userLogado.perfil.foto)).then((url)=>{
-        // document.querySelector('#foto').setAttribute('src', url)
-        console.log(url)
-    })
-      // //////////////////////////
-
-      var canvasWpp = document.querySelector('#canvWpp')
-      var ctxWpp = canvasWpp.getContext('2d')
-      var wpp = new Image()
-      wpp.src=context.userLogado.perfil.wallpaper
-      wpp.onload=()=>{
-        ctxWpp.drawImage(wpp, ...context.userLogado.perfil.wallpaperCrop)
-      }
     }
 
+    if (context.userLogado.perfil.wallpaper && context.userLogado.perfil.wallpaperCrop){
+      if (!context.userLogado.tempProfWpp){
+          getDownloadURL(ref(storage, '/'+`${context.userLogado.id}wpp.jpg`)).then((url)=>{
+            var canvas = document.querySelector('#canvWpp')
+            var ctx = canvas.getContext('2d')
+            var wpp = new Image()
+            wpp.src = url
+            wpp.onload=()=>{
+              ctx.drawImage(wpp, ...context.userLogado.perfil.wallpaperCrop)
+              context.setUserLogado({...context.userLogado, tempProfWpp:wpp})
+            }
+          })
+      }else{
+        var canvas = document.querySelector('#canvWpp')
+        var ctx = canvas.getContext('2d')
+        ctx.drawImage(context.userLogado.tempProfWpp, ...context.userLogado.perfil.wallpaperCrop)
+      }
+  }else{
+    console.log('carregar wpp')
   }
+        
   },[])
 
 function handleNavlink(elem, link){
@@ -79,8 +81,6 @@ function handleNavlink(elem, link){
   return (
     <>
     
-    {/* <Header /> */}
-
       <div id='perfil' className='perfil'>
 
       <div className='wallpaperCanvasWrapper' >
@@ -90,9 +90,7 @@ function handleNavlink(elem, link){
 
       </div>
 
-        {/* <img id='foto'/> */}
         <div className='fotoPerfilWrapper' >
-            {/* <img className='fotoPerfil' src={kDash}></img> */}
 
           <canvas width='80' height='80' id='canv' >
 
@@ -101,7 +99,6 @@ function handleNavlink(elem, link){
           </canvas>
 
           {!context.userLogado.perfil.foto && <i id='userSemFoto' className="fa-solid fa-user"></i>}
-
 
         </div>
 
@@ -127,29 +124,6 @@ function handleNavlink(elem, link){
         </ul>
 
       </div>
-
-      {/* <div id='registros'>
-
-        {feed===1&&<>
-          <Hidrantes/>
-        </>}
-        {feed===2 && <>
-        <LdE/>
-        </>}
-        {feed===3 && <>
-        <Extintores/>
-        </>}
-        {feed===4 && <>
-        <Gas/>
-        </>}
-
-        <Routes>
-            <Route path='/' element={<Extintores/>} />
-            <Route path='/' element={<Hidrantes/>} />
-        </Routes>
-
-
-      </div> */}
 
       <Outlet/>
 
