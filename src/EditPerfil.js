@@ -4,7 +4,7 @@ import css from './css/novoPerfil.css'
 import {GlobalContext} from './GlobalContext'
 import storage from './firebase-config'
 import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage'
-import { updateBd } from './crudFireBase'
+import { checkBd, updateBd } from './crudFireBase'
 import Cropper from 'react-easy-crop'
 import 'react-image-crop/dist/ReactCrop.css'
 
@@ -15,11 +15,14 @@ const EditPerfil = () => {
 
     const context = React.useContext(GlobalContext)
     const navigate = useNavigate()
+    const [rootCor, setRootCor] = React.useState('rgb(221, 221, 221)');
     const old = context.userLogado.perfil
-    const [editado, setEditado] = React.useState({nome:old.nome, nick:old.nick, foto:old.foto, fotoCrop:old.fotoCrop, wallpaper:old.wallpaper, wallpaperCrop:old.wallpaperCrop, quote:old.quote} )
+    const [editado, setEditado] = React.useState({nome:old.nome, nick:old.nick, foto:old.foto, fotoCrop:old.fotoCrop, wallpaper:old.wallpaper, wallpaperCrop:old.wallpaperCrop, quote:old.quote, cor:old.cor} )
     const storage = getStorage()
     const[uurl, setUrl] = React.useState('')
     const [modal, setModal] = React.useState(0)
+    const [validarEdicao, setValidarEdicao] = React.useState({nome:true, nick:true})
+
 
     const larguraTela = window.screen.width
     
@@ -183,6 +186,7 @@ const EditPerfil = () => {
     }
 
     function handleSave(){
+        document.querySelector(':root').style.setProperty('--corEscolhida', rootCor)
         context.setUserLogado({...context.userLogado, perfil:editado, tempProfPic:''})
         context.setUserLogado({...context.userLogado, perfil:editado, tempProfWpp:''})
         updateBd(context.userLogado.id, {perfil:editado})
@@ -223,6 +227,41 @@ const EditPerfil = () => {
         setModal(4)
 
     }
+
+    async function checkarNome(dadoProcurado, id) {
+        setEditado({...editado, nome:dadoProcurado})
+
+        const b = await checkBd(dadoProcurado, id)
+        const input = document.querySelector('#editNome')
+        const erroNome = document.querySelector('.editNomeUsado')
+
+        if (dadoProcurado === context.userLogado.nome){
+            input.classList.remove('validacaoOk')
+            input.classList.remove('validacaoNok')
+            erroNome.style.display='none'
+        }else if(b.length > 0){   
+            input.classList.remove('validacaoOk')
+            erroNome.style.display='block'
+            if(!input.classList.contains('validacaoNok')){
+                input.classList.add('validacaoNok')
+            }
+        }else{ 
+            input.classList.remove('validacaoNok')
+                erroNome.style.display='none'
+                if(!input.classList.contains('validacaoOk')){
+                    input.classList.add('validacaoOk')
+                }
+        }
+
+    }
+
+    // React.useEffect(()=>{
+    //     (checkarNome(editado.nome, context.userLogado.id))
+    // },[editado.nome])
+
+    React.useEffect(()=>{
+        setEditado({...editado, cor:rootCor})
+    },[rootCor])
 
   return (
     <div>
@@ -306,8 +345,8 @@ const EditPerfil = () => {
 
             </div>
 
-            <input type='file' id='inputFileWallpaper' style={{display:'none'}} onChange={handleWallpaper}></input>
-            <i id='iconWallpaperEdit' className="fa-solid fa-camera"></i>
+                <input type='file' id='inputFileWallpaper' style={{display:'none'}} onChange={handleWallpaper}></input>
+                <i id='iconWallpaperEdit' className="fa-solid fa-camera"></i>
 
             {/* <img id='foto' src={uurl} className='editando' onClick={handleFotoPerfil} /> */}
             {modal === 0 && <i id='iconFotoEdit' className="fa-solid fa-camera" onClick={handleChange}></i>}
@@ -335,14 +374,28 @@ const EditPerfil = () => {
             </div>
 
             <div className='dadosPerfil'>
-                <label htmlFor='editNome'>Nome</label>
-                <input id='editNome' className='newLde inputEditProfile' value={editado.nome} onChange={({target})=>setEditado({...editado, nome:target.value})} onFocus={({target})=>inputFocus(target)} onBlur={({target})=>inputBlur(target)} />
+                <div className='editInputWrapper'>
+                    <label htmlFor='editNome'>Nome</label>
+                    <input id='editNome' className='inputEditProfile editNome' value={editado.nome} onChange={({target})=>checkarNome(target.value, context.userLogado.id)} onFocus={({target})=>inputFocus(target)} onBlur={({target})=>inputBlur(target)} />
+                    <p className='editNomeUsado'>Este nome já está em uso.</p>
+                </div>
 
-                <label htmlFor='editNick'>Nome de usuário</label>
-                <input id='editNick' className='newLde inputEditProfile' value={editado.nick} onChange={({target})=>setEditado({...editado, nick:target.value})} onFocus={({target})=>inputFocus(target)} onBlur={({target})=>inputBlur(target)} />
+                <div className='editInputWrapper'>
+                    <label htmlFor='editNick'>Nome de usuário</label>
+                    <input id='editNick' className='inputEditProfile editNick' value={editado.nick} onChange={({target})=>setEditado({...editado, nick:target.value})} onFocus={({target})=>inputFocus(target)} onBlur={({target})=>inputBlur(target)} />
+                    <p className='editNickUsado'>Este nome de usuário já está em uso.</p>
+                </div>
 
-                <label htmlFor='editQuote'>Descrição</label>
-                <textarea id='editQuote' className='textAreaEditProfile' maxLength={160} value={editado.quote} onChange={({target})=>setEditado({...editado, quote:target.value})} onFocus={({target})=>inputFocus(target)} onBlur={({target})=>inputBlur(target)} ></textarea>
+                <div className='editInputWrapper' >
+                    <label htmlFor='editQuote'>Descrição</label>
+                    <textarea id='editQuote' className='textAreaEditProfile editQuote' maxLength={160} value={editado.quote} onChange={({target})=>setEditado({...editado, quote:target.value})} onFocus={({target})=>inputFocus(target)} onBlur={({target})=>inputBlur(target)} ></textarea>
+                </div>
+
+                <div className='editInputWrapper' >
+                    <label htmlFor='cor' >Cor dos destaques</label>
+                    <input type='color' onChange={({target})=>setRootCor(target.value)} value={rootCor}  ></input>
+                </div>
+
             </div>
         </div>
                 <NavLink className='navVoltarEditProfile' to='/home/lde' onClick={()=>back()}>cancelar modificações</NavLink>

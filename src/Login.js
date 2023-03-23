@@ -27,7 +27,7 @@ const Login = () => {
     const [logPWVisible, setLogPWVisible] = React.useState(false)
     const [remember, setRemember] = React.useState(false)
     
-    const newUser = {nome:regInput.nome, email:regInput.email, senha:regInput.senha, perfil:{foto:'', fotoCrop:'', wallpaper:'', wallpaperCrop:'', nome:'', nick:'', quote:''} , aco:[], ext:[], gar:[], gas:[], hd:[], lde:[], loj:[], pcf:[], pre:[], sal:[]}
+    const newUser = {nome:regInput.nome, email:regInput.email, senha:regInput.senha, perfil:{foto:'', fotoCrop:'', wallpaper:'', wallpaperCrop:'', nome:'', nick:'', quote:'', cor:'rgb(221, 221, 221)'} , aco:[], ext:[], gar:[], gas:[], hd:[], lde:[], loj:[], pcf:[], pre:[], sal:[]}
     
     const usersCollectionRef = collection(db, "users" )
 
@@ -75,50 +75,8 @@ const Login = () => {
             }
             criarUser()
 
-            // pegarId()
-            // const getUsers = async () => {
-            //     const data = await getDocs(usersCollectionRef);
-            //     const users = data.docs.map((docs) => ({...docs.data(), id:docs.id}))
-            //     const log = users.filter((f)=>{
-            //         return f.nome === loginInput.nome
-            //     })
-        
-            //     if (log.length > 0){
-            //         ctx.setUserLogado(...log)
-            //         navigate('/home/lde')
-            //     }else{
-            //         setLoginMsg('Verifique usuário e senha')
-            //     }
-        
-            // }
-        
-
-
-
-            // setNewUser({nome:regInput.nome, email:regInput.email, senha:regInput.senha,  })
-            
-            // const getUsers = async () => {
-            //     const data = await getDocs(collection(db, 'users'));
-            //     ctx.setUsers(data.docs.map((docs)=>({...docs.data(), id:docs.id})))
-            // }
-            
-            // getUsers()
-            // console.log(ctx.setUserLogado)
+           
         }
-    }
-
-    async function pegarId(){
-
-        const att = async ()=> {
-            const data = await getDocs(usersCollectionRef);
-            const users = data.docs.map((docs)=>({...docs.data(), id:docs.id}))
-            const log = users.filter((f)=>{
-                return f.nome === regInput.nome
-            })
-            return console.log(log)
-            // await ctx.setUserLogado(...log)
-        }
-        att()
     }
 
     function handleInputBlur(el, n){
@@ -200,9 +158,6 @@ const Login = () => {
         }
     },[regexRegSenha])
 
-   
-
-   
 
     function handleBlurSenha(el, n){
         aplicarCss(el)
@@ -248,27 +203,6 @@ function aplicarCss(el){
     const elem = el.parentElement.classList
     elem.toggle('neoMorphLoginInput')
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

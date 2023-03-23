@@ -4,6 +4,8 @@ import { db } from './firebase-config';
 
 const usersCollectionRef = collection(db, "users" )
 
+
+
 export function updateBd(id, obj){
 
     const updateUser = async (id, obj) =>{
@@ -48,5 +50,19 @@ export async function refreshBd(user){
     }
     
     return await getUsers()
+}
+
+export async function checkBd(dadoProcurado, idUser) {
+
+    const check = async () => {
+        const data = await getDocs(usersCollectionRef);
+        const users = data.docs.map((docs) => ({...docs.data(), id:docs.id}))
+        const log = users.filter((f)=>{
+            return (f.nome === dadoProcurado && f.id !== idUser)
+        })
+        return log
+    }
+
+    return await check()
 }
 

@@ -65,6 +65,11 @@ const Home = () => {
   }else{
     console.log('carregar wpp')
   }
+
+  if (context.userLogado.perfil.cor){
+    document.querySelector(':root').style.setProperty('--corEscolhida', context.userLogado.perfil.cor)
+
+  }
         
   },[])
 
@@ -117,7 +122,7 @@ function handleNavlink(elem, link){
       <div id='linksScroll'>
 
         <ul id='navbarPerfil'>
-          <li onClick={({currentTarget})=>handleNavlink(currentTarget, '/home/ext')}>Extintores</li>
+          <li className='liVerde' onClick={({currentTarget})=>handleNavlink(currentTarget, '/home/ext')}>Extintores</li>
           <li onClick={({currentTarget})=>handleNavlink(currentTarget, '/home/hd')}>Hidrantes</li>
           <li onClick={({currentTarget})=>handleNavlink(currentTarget, '/home/lde')}>Luzes de Emergência</li>
           <li onClick={({currentTarget})=>handleNavlink(currentTarget, '/home/gas')}>Medição de Gás</li>

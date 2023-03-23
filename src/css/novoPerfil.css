@@ -1,3 +1,7 @@
+:root{
+    --corEscolhida: rgb(110, 110, 110)
+}
+
 #wallpaper{
     width: 100%;
     height: 120px;
@@ -26,7 +30,7 @@
     cursor: pointer;
     width: 120px;
     height: 30px;
-    border: 1px solid rgb(161, 161, 161);
+    border: 2px solid rgb(161, 161, 161);
     right: 10px;
     border-radius: 20px;
     display: flex;
@@ -38,9 +42,8 @@
 
 }
 #botaoEditarPerfil:hover{
-    border: 1px solid rgb(166,243,166);
-    color: rgb(61, 61, 61);
-    background-color: rgb(166, 243, 166);
+    border: 2px solid var(--corEscolhida);
+    color: rgb(221, 221, 221);
 }
 
 .dadosPerfil{
@@ -54,9 +57,10 @@
     /* top: 230px; */
     /* left: 30px; */
     font-size: 1.1rem;
-    color: rgb(161, 161, 161);
     font-weight: 900;
     text-align: justify;
+    /* color: rgb(161, 161, 161); */
+    color: rgb(221, 221, 221);
 }
 .tag{
     /* position: absolute; */
@@ -64,7 +68,9 @@
     /* top: 250px; */
     text-align: justify;
     font-size: .85rem;
-    color: rgb(166, 243, 166);
+    /* color: rgb(166, 243, 166); */
+    /* color: rgb(111, 111, 111); */
+    color: var(--corEscolhida);
     margin: unset;
 }
 .bio{
@@ -91,6 +97,7 @@
     top: 0px;
     background-color: #000;
     z-index: 2;
+    scrollbar-color: transparent transparent;
 }
 ul{
     list-style-type: square;
@@ -105,10 +112,14 @@ li{
     margin: auto auto;
     cursor: pointer;
     color: rgb(161, 161, 161);
+    border-bottom: 2px solid transparent;
     
 }
 .liVerde{
-    color: rgb(166, 243, 166)
+    /* color: rgb(166, 243, 166); */
+    /* color: var(--corEscolhida); */
+    color: rgb(221, 221, 221);
+    border-bottom: 2px solid var(--corEscolhida);
 }
 legend{
     margin-left: 10px;
@@ -128,10 +139,14 @@ a{
 }
 
 .novoRegistro{
-    border-top: 3px solid rgb(166, 243, 166);
-    border-bottom: 3px solid rgb(166, 243, 166);
+    /* border-top: 3px solid rgb(166, 243, 166); */
+    border-top: 3px solid var(--corEscolhida);
+    /* border-bottom: 3px solid rgb(166, 243, 166); */
+    border-bottom: 3px solid var(--corEscolhida);
     position: sticky;
-    color: rgb(166,243,166);
+    /* color: rgb(166,243,166); */
+    /* color: var(--corEscolhida); */
+    color: rgb(221, 221, 221);
     background-color: #000;
     top: 40px;
     right: 30px;
@@ -253,7 +268,7 @@ z-index: 1;
     width: 280px;
     text-align: left;
     /* padding-left: 20px; */
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
     /* border: 1px ; */
     border: none;
     border-bottom: 2px solid rgb(161, 161, 161);
@@ -357,7 +372,6 @@ z-index: 1;
 
 
 .fotoPerfilWrapper{
-    border: 2px solid red;
     width: 80px;
     height: 80px;
     border-radius: 80px;
@@ -369,7 +383,7 @@ z-index: 1;
     width: 80px;
     height: 80px;
     border-radius: 60px;
-    border: 3px solid #333;
+    border: 3px solid var(--corEscolhida);
     overflow: hidden;
 }
 .fotoPerfil{
@@ -428,19 +442,22 @@ z-index: 1;
     font-size: .8rem;
 }
 
-#editQuote, #editNome, #editNick{
+.editQuote, .editNome, .editNick{
     border: 2px solid transparent;
     border-bottom: 2px solid #a1a1a1;
-    margin-bottom: 50px;
+    /* margin-bottom: 50px; */
     border-radius: 0;
     color: rgb(161, 161, 161);
     padding-left: 8px;
 }
-#editQuote:focus, #editNome:focus, #editNick:focus{
+.editQuote:focus, .editNome:focus, .editNick:focus{
     border-radius: 0;
+    /* border-bottom: 2px solid rgb(166, 243, 166);
+    color: rgb(231, 231, 231); */
+    outline: none;
+}
+.editQuote:focus{
     border-bottom: 2px solid rgb(166, 243, 166);
-    color: rgb(231, 231, 231);
-
 }
 
 .wallpaperCanvasWrapper{
@@ -455,3 +472,26 @@ z-index: 1;
     height: 200px;
     border: 2px solid blue;
 } */
+
+.editInputWrapper{
+    /* border: 1px solid white; */
+    margin-bottom: 50px;
+    position: relative;
+}
+.editNomeUsado, .editNickUsado{
+    display: none;
+    margin: 0;
+    font-size: .8rem;
+    color: rgb(200, 45, 0);
+    position: absolute;
+}
+
+.validacaoOk{
+    color: rgb(166, 243, 166);
+    border-bottom: 2px solid rgb(166, 243, 166);
+}
+.validacaoNok{
+    color: rgb(200, 45, 0);
+    border-bottom: 2px solid rgb(200, 45, 0);
+}
+
