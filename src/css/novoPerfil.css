@@ -465,6 +465,7 @@ z-index: 1;
     width: 100%;
     height: 120px;
     overflow: hidden;
+    position: relative;
 }
 
 /* #testeBlob{
@@ -495,3 +496,62 @@ z-index: 1;
     border-bottom: 2px solid rgb(200, 45, 0);
 }
 
+/* teste para autocompletar no login  */
+    input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+    -webkit-box-shadow: 0 0 0 30px transparent inset !important;
+}
+
+.loadingFoto{
+    display: block;
+    position: absolute;
+    background-color: var(--corEscolhida);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    border-radius: 200px;
+    z-index: 5;
+    animation: loading;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes loading {
+    from{
+        width: 20px;
+        height: 20px;
+        opacity: 1;
+    }
+    to{
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+    }
+}
+
+.loadingWpp{
+    position: absolute;
+    top: -50px;
+    width: 100%;
+    height: 50px;
+    display: block;
+    background-image: linear-gradient(to bottom, transparent, var(--corEscolhida), transparent );
+    animation: loadingWpp;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+}
+@keyframes loadingWpp{
+    0%{
+        top: -50px;
+    }
+    50%{
+        top:100%
+    }
+    100%{
+        top: -50px;
+    }
+}

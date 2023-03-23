@@ -18,12 +18,18 @@ const Home = () => {
   const context = React.useContext(GlobalContext)
   const larguraTela = window.screen.width
   const storage = getStorage()
+  const [loading, setLoading] = React.useState(false)
+  const [loadingWpp, setLoadingWpp] = React.useState(false)
 
   React.useEffect(()=>{
     if (context.userLogado.perfil.foto && context.userLogado.perfil.fotoCrop) {
 
       if (!context.userLogado.tempProfPic){
+        // loading. . . 
+        setLoading(true)
         // baixar imagem do firebase e usar no canvas
+
+
         getDownloadURL(ref(storage, '/'+`${context.userLogado.id}fotoPerfil.jpg`)).then((url)=>{
         
           var canvas = document.querySelector('#canv')
@@ -33,6 +39,7 @@ const Home = () => {
           img.onload=()=>{
             ctx.drawImage(img, ...context.userLogado.perfil.fotoCrop)
             context.setUserLogado({...context.userLogado, tempProfPic:img})
+            setLoading(false)
           }
 
         })
@@ -47,6 +54,7 @@ const Home = () => {
 
     if (context.userLogado.perfil.wallpaper && context.userLogado.perfil.wallpaperCrop){
       if (!context.userLogado.tempProfWpp){
+        setLoadingWpp(true)
           getDownloadURL(ref(storage, '/'+`${context.userLogado.id}wpp.jpg`)).then((url)=>{
             var canvas = document.querySelector('#canvWpp')
             var ctx = canvas.getContext('2d')
@@ -55,6 +63,7 @@ const Home = () => {
             wpp.onload=()=>{
               ctx.drawImage(wpp, ...context.userLogado.perfil.wallpaperCrop)
               context.setUserLogado({...context.userLogado, tempProfWpp:wpp})
+              setLoadingWpp(false)
             }
           })
       }else{
@@ -93,9 +102,13 @@ function handleNavlink(elem, link){
         <canvas id='canvWpp' width={larguraTela} height={larguraTela / 3}>
         </canvas>
 
+        {loadingWpp && <div className='loadingWpp'></div>}
+
       </div>
 
         <div className='fotoPerfilWrapper' >
+
+          {loading && <div className='loadingFoto'></div>}
 
           <canvas width='80' height='80' id='canv' >
 

@@ -22,6 +22,8 @@ const EditPerfil = () => {
     const[uurl, setUrl] = React.useState('')
     const [modal, setModal] = React.useState(0)
     const [validarEdicao, setValidarEdicao] = React.useState({nome:true, nick:true})
+    const [loading, setLoading] = React.useState(false)
+    const [loadingWpp, setLoadingWpp] = React.useState(false)
 
 
     const larguraTela = window.screen.width
@@ -77,6 +79,7 @@ const EditPerfil = () => {
         if (context.userLogado.perfil.foto && context.userLogado.perfil.fotoCrop) {
 
             if (!context.userLogado.tempProfPic){
+                setLoading(true)
                 getDownloadURL(ref(storage, '/'+`${context.userLogado.id}fotoPerfil.jpg`)).then((url)=>{
                     var canvas = document.querySelector('#canv')
                     var ctx = canvas.getContext('2d')
@@ -85,6 +88,7 @@ const EditPerfil = () => {
                     img.onload=()=>{
                         ctx.drawImage(img, ...context.userLogado.perfil.fotoCrop)
                         context.setUserLogado({...context.userLogado, tempProfPic:img})
+                        setLoading(false)
                     }
                 })
             }else{
@@ -97,6 +101,7 @@ const EditPerfil = () => {
 
         if (context.userLogado.perfil.wallpaper && context.userLogado.perfil.wallpaperCrop){
             if (!context.userLogado.tempProfWpp){
+                setLoadingWpp(true)
                 getDownloadURL(ref(storage, '/'+`${context.userLogado.id}wpp.jpg`)).then((url)=>{
                     var canvas = document.querySelector('#canvWpp')
                     var ctx = canvas.getContext('2d')
@@ -105,6 +110,7 @@ const EditPerfil = () => {
                     wpp.onload=()=>{
                         ctx.drawImage(wpp, ...context.userLogado.perfil.wallpaperCrop)
                         context.setUserLogado({...context.userLogado, tempProfWpp:wpp})
+                        setLoadingWpp(false)
                     }
                 })
             }else{
@@ -339,7 +345,7 @@ const EditPerfil = () => {
 
             {/* PAPEL DE PAREDE COM CANVAS */}
             <div className='wallpaperCanvasWrapper' onClick={()=>setModal(2)} >
-
+            {loadingWpp && <div className='loadingWpp'></div>}
             <canvas id='canvWpp' width={larguraTela} height={larguraTela/3}>
             </canvas>
 
@@ -362,6 +368,7 @@ const EditPerfil = () => {
 
                 </canvas>
 
+                {loading && <div className='loadingFoto'></div>}
                 {!context.userLogado.perfil.foto && !editado.foto && <i id='userSemFoto' className="fa-solid fa-user"></i>}
 
 
