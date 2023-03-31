@@ -19,6 +19,8 @@ export function updateBd(id, obj){
     updateUser(id, obj)
 }
 
+
+
 export async function adicionarRegistro(id, obj, field){
     const add = async ()=>{
         const document = doc(db, 'users', id)

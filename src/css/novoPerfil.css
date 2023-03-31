@@ -555,3 +555,6 @@ input:-webkit-autofill:active{
         top: -50px;
     }
 }
+canvas{
+    cursor: pointer;
+}

@@ -20,16 +20,15 @@ const Home = () => {
   const storage = getStorage()
   const [loading, setLoading] = React.useState(false)
   const [loadingWpp, setLoadingWpp] = React.useState(false)
+  const {tempFoto, tempFotoCrop} = context.userLogado
 
   React.useEffect(()=>{
     if (context.userLogado.perfil.foto && context.userLogado.perfil.fotoCrop) {
 
-      if (!context.userLogado.tempProfPic){
+      if (!context.userLogado.tempFoto){
         // loading. . . 
         setLoading(true)
         // baixar imagem do firebase e usar no canvas
-
-
         getDownloadURL(ref(storage, '/'+`${context.userLogado.id}fotoPerfil.jpg`)).then((url)=>{
         
           var canvas = document.querySelector('#canv')
@@ -38,49 +37,101 @@ const Home = () => {
           img.src = url
           img.onload=()=>{
             ctx.drawImage(img, ...context.userLogado.perfil.fotoCrop)
-            context.setUserLogado({...context.userLogado, tempProfPic:img})
             setLoading(false)
           }
-
+          context.setUserLogado(prev => { return {...prev, tempFoto:img, tempFotoCrop:context.userLogado.perfil.fotoCrop}})
         })
       }else{
 
         // usar imagem em userlogado no canvas
         var canvas = document.querySelector('#canv')
         var ctx = canvas.getContext('2d')
-        ctx.drawImage(context.userLogado.tempProfPic, ...context.userLogado.perfil.fotoCrop)
+        ctx.drawImage(context.userLogado.tempFoto, ...context.userLogado.tempFotoCrop)
       }
     }
 
     if (context.userLogado.perfil.wallpaper && context.userLogado.perfil.wallpaperCrop){
-      if (!context.userLogado.tempProfWpp){
+      if (!context.userLogado.tempWpp){
         setLoadingWpp(true)
-          getDownloadURL(ref(storage, '/'+`${context.userLogado.id}wpp.jpg`)).then((url)=>{
-            var canvas = document.querySelector('#canvWpp')
-            var ctx = canvas.getContext('2d')
+          getDownloadURL(ref(storage, '/'+`${context.userLogado.id}wpp.jpg`)).then((url2)=>{
+            var canvas2 = document.querySelector('#canvWpp')
+            var ctx2 = canvas2.getContext('2d')
             var wpp = new Image()
-            wpp.src = url
+            wpp.src = url2
             wpp.onload=()=>{
-              ctx.drawImage(wpp, ...context.userLogado.perfil.wallpaperCrop)
-              context.setUserLogado({...context.userLogado, tempProfWpp:wpp})
+              ctx2.drawImage(wpp, ...context.userLogado.perfil.wallpaperCrop)
               setLoadingWpp(false)
             }
+            context.setUserLogado(prev=>{ return {...prev, tempWpp:wpp, tempWppCrop:context.userLogado.perfil.wallpaperCrop}})
           })
       }else{
         var canvas = document.querySelector('#canvWpp')
         var ctx = canvas.getContext('2d')
-        ctx.drawImage(context.userLogado.tempProfWpp, ...context.userLogado.perfil.wallpaperCrop)
+        ctx.drawImage(context.userLogado.tempWpp, ...context.userLogado.tempWppCrop)
       }
-  }else{
-    console.log('carregar wpp')
   }
 
+  //SALVAR COR ESCOLHIDA
   if (context.userLogado.perfil.cor){
     document.querySelector(':root').style.setProperty('--corEscolhida', context.userLogado.perfil.cor)
 
   }
         
   },[])
+
+   function carregarFoto() {
+    if (context.userLogado.perfil.foto && context.userLogado.perfil.fotoCrop) {
+
+      if (!context.userLogado.tempFoto){
+        // loading. . . 
+        setLoading(true)
+        // baixar imagem do firebase e usar no canvas
+        getDownloadURL(ref(storage, '/'+`${context.userLogado.id}fotoPerfil.jpg`)).then((url)=>{
+          var canvas = document.querySelector('#canv')
+          var ctx = canvas.getContext('2d')
+          var img = new Image()
+          img.src = url
+          img.onload=()=>{
+            ctx.drawImage(img, ...context.userLogado.perfil.fotoCrop)
+            context.setUserLogado({...context.userLogado, tempFoto:img, tempFotoCrop:context.userLogado.perfil.fotoCrop})
+            setLoading(false)
+          }
+
+        })
+
+      }else{
+        // usar imagem em userlogado no canvas
+        var canvas = document.querySelector('#canv')
+        var ctx = canvas.getContext('2d')
+        ctx.drawImage(context.userLogado.tempFoto, ...context.userLogado.tempFotoCrop )
+      }
+    }
+  }
+
+  function carregarWpp(){
+     if(context.userLogado.perfil.wallpaper && context.userLogado.perfil.wallpaperCrop){
+
+      if(!context.userLogado.tempWpp){
+      setLoadingWpp(true)
+      getDownloadURL(ref(storage, '/'+`${context.userLogado.id}wpp.jpg`)).then((urlWpp)=>{
+        var canvasWpp = document.querySelector('#canvWpp')
+        var ctxWpp = canvasWpp.getContext('2d')
+        var wpp = new Image()
+        wpp.src = urlWpp
+        wpp.onload=()=>{
+          ctxWpp.drawImage(wpp, ...context.userLogado.perfil.wallpaperCrop)
+          context.setUserLogado({...context.userLogado, tempWpp:wpp, tempWppCrop:context.userLogado.perfil.wallpaperCrop})
+          setLoadingWpp(false)
+        }
+
+      })
+    }else{
+      var canvasWpp = document.querySelector('#canvWpp')
+      var ctxWpp = canvasWpp.getContext('2d')
+      ctxWpp.drawImage(context.userLogado.tempWpp, ...context.userLogado.tempWppCrop)
+    }
+    }
+  }
 
 function handleNavlink(elem, link){
   const links = document.querySelectorAll('#navbarPerfil li')
