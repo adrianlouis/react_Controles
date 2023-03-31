@@ -35,7 +35,7 @@ const EditPerfil = () => {
         setCut(croppedAreaPixels)
     },[])
 
-
+    // console.log(context.userLogado.tempFotoCrop)
 
     // ADICIONAR IMAGEM NO FIREBASE 
     async function handleChange(e){
@@ -72,13 +72,48 @@ const EditPerfil = () => {
     }
     // CARREGAR A FOTO DO PERFIL E OPÇÕES PARA O CROP AO TER TAIS DADOS EM USERLOGADO
     React.useEffect(()=>{
-        var canvas = document.querySelector('#canv')
-        var ctx = canvas.getContext('2d')
-        ctx.drawImage(tempFoto, ...context.userLogado.tempFotoCrop)
-        
-        var canvWpp = document.querySelector('#canvWpp')
-        var ctxWpp = canvWpp.getContext('2d')
-        ctxWpp.drawImage(tempWpp, ...context.userLogado.tempWppCrop)
+
+        if (tempFoto && context.userLogado.tempFotoCrop){
+            var canvas = document.querySelector('#canv')
+            var ctx = canvas.getContext('2d')
+            ctx.drawImage(tempFoto, ...context.userLogado.tempFotoCrop)
+            console.log('existe foto temporaria')
+        }else{
+            setLoading(true)
+            getDownloadURL(ref(storage, `/${context.userLogado.id}fotoPerfil.jpg`)).then((url)=>{
+                const canvFoto = document.querySelector('#canv')
+                const ctxFoto = canvFoto.getContext('2d')
+                const imgFoto = new Image()
+                imgFoto.src = url
+                imgFoto.onload=()=>{
+                    setLoading(false)
+                    ctxFoto.drawImage(imgFoto, ...context.userLogado.perfil.fotoCrop)
+                    setEditado(prev => { return {...prev, fotoTemp:imgFoto, fotoTempCrop:context.userLogado.perfil.fotoCrop}})
+                }
+            })
+        }
+
+        if (tempWpp && context.userLogado.tempWppCrop){
+            var canvWpp = document.querySelector('#canvWpp')
+            var ctxWpp = canvWpp.getContext('2d')
+            ctxWpp.drawImage(tempWpp, ...context.userLogado.tempWppCrop)
+            console.log('existe wpp temporario')
+        }else{
+            setLoadingWpp(true)
+            getDownloadURL(ref(storage, `/${context.userLogado.id}wpp.jpg`)).then((urlwpp)=>{
+                const canvwpp = document.querySelector('#canvWpp')
+                const ctxwpp = canvwpp.getContext('2d')
+                const imgWpp = new Image()
+                imgWpp.src = urlwpp
+                imgWpp.onload=()=>{
+                    setLoadingWpp(false)
+                    ctxwpp.drawImage(imgWpp, ...context.userLogado.perfil.wallpaperCrop)
+                    setEditado(prev => { return {...prev, wppTemp:imgWpp, wppTempCrop:context.userLogado.perfil.wallpaperCrop}})
+                }
+            })
+        }
+
+            
         editado.cor ? setRootCor(editado.cor) : setRootCor('rgb(221, 221, 221)')
 
 
@@ -173,7 +208,7 @@ const EditPerfil = () => {
     //CANCELAR MUDANCAS
     async function back(){
         setEditado('')
-        navigate('/home/lde')
+        navigate('/home/ext')
     }
 
     function inputFocus(el){
@@ -364,7 +399,7 @@ const EditPerfil = () => {
             </div>
         </div>
                 {/* <NavLink className='navVoltarEditProfile' to='/home/lde' onClick={()=>back()}>cancelar modificações</NavLink> */}
-                <p onClick={()=>back()}>Cancelar mudanças...</p>
+                <p id='botaoEditarCancel' onClick={()=>back()}>Cancelar mudanças...</p>
 
     </div>
   )

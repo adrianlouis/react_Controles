@@ -45,6 +45,8 @@ const LdENovoReg = () => {
       navigate('/home/lde')
 
     }
+
+    console.log(context.userLogado)
   
     function validarNumeros(elem){
       const validacao = /[0-9]/

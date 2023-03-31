@@ -16,9 +16,12 @@ const Extintores = () => {
     const navigate = useNavigate()
 
     async function excluirExtintor(idUser, item, campo){
+        const {tempFoto, tempFotoCrop, tempWpp, tempWppCrop} = context.userLogado
+        const temporarios = {tempFoto:tempFoto, tempFotoCrop:tempFotoCrop, tempWpp:tempWpp, tempWppCrop:tempWppCrop}
+
         await removerRegistro(idUser, item, campo)
         const update = await refreshBd(context.userLogado.nome)
-        await context.setUserLogado(...update)
+        await context.setUserLogado(...update, temporarios)
     }
 
 function tipoClasse(tipo){
@@ -35,7 +38,6 @@ function tipoClasse(tipo){
     <>
 
         <NavLink to='extnovo' className='novoRegistro' >Registrar extintor</NavLink>
-        {/* <button onClick={()=>readBD()}>LER BD</button> */}
 
   
         {reverso.map((item)=>{
@@ -69,7 +71,7 @@ function tipoClasse(tipo){
                 <legend>Datas</legend>
                 <div>
                     <p className='cardTextoPqn'>próx. recarga</p>
-                    <p>{item.ultRec.mes? dataLong(item.ultRec.mes)+(item.ultRec.ano? ' de ' : '') : '' } {item.ultRec.ano ? Number(item.ultRec.ano) + 1 : ''}</p>
+                    <p>{item.ultRec.mes? dataLong(item.ultRec.mes)+(item.ultRec.ano? ' de ' : '') : '' } {item.ultRec.ano ? Number(item.ultRec.ano) : ''}</p>
                     {!item.ultRec.mes && !item.ultRec.ano && <p>N/A</p>}
                 </div>
 

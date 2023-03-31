@@ -41,10 +41,24 @@
     /* background-image: linear-gradient(to right, #a4a, #423); */
 
 }
-#botaoEditarPerfil:hover{
-    border: 2px solid var(--corEscolhida);
-    color: rgb(221, 221, 221);
+#botaoEditarCancel{
+    cursor: pointer;
+    width: 200px;
+    height: 30px;
+    border: 2px solid rgb(161, 161, 161);
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(161, 161, 161);
+    margin: 0 auto;
 }
+#botaoEditarPerfil:hover, #botaoEditarCancel:hover{
+    border: 2px solid var(--corEscolhida);
+    color: rgb(255, 255, 255);
+    box-shadow: var(--corEscolhida) 0 0 10px;
+}
+
 
 .dadosPerfil{
     /* border: 1px solid blue; */
@@ -249,7 +263,7 @@ a{
 }
 
 #iconFotoEdit, #iconWallpaperEdit{
-    color: #fff6;
+    color: #aaac;
     position: absolute;
     top: 100px;
     left: 58px;
@@ -261,6 +275,10 @@ top: 50px;
 left: 50%;
 transform: translateX(-50%);
 z-index: 1;
+}
+
+#iconFotoEdit:hover, #iconWallpaperEdit:hover{
+    color: var(--corEscolhida);
 }
 
 .inputEditProfile{
@@ -375,17 +393,15 @@ z-index: 1;
     width: 80px;
     height: 80px;
     border-radius: 80px;
-
     position: absolute;
     left: 30px;
     top: 75px;
-
-    width: 80px;
-    height: 80px;
     border-radius: 60px;
     border: 3px solid var(--corEscolhida);
     overflow: hidden;
+    /* background-image: conic-gradient(transparent, transparent, transparent, var(--corEscolhida)); */
 }
+
 .fotoPerfil{
 
     max-width: 100%;
@@ -521,40 +537,69 @@ input:-webkit-autofill:active{
 }
 
 @keyframes loading {
-    from{
+    0%{
+        /* top: -50px; */
         width: 20px;
         height: 20px;
         opacity: 1;
+
     }
-    to{
-        width: 100%;
-        height: 100%;
+    50%{
+        /* top:100% */
+        width: 70px;
+        height: 70px;
+    }
+    100%{
+        /* top: -50px; */
+        width: 80px;
+        height: 80px;
         opacity: 0;
     }
 }
 
 .loadingWpp{
     position: absolute;
-    top: -50px;
-    width: 100%;
+    /* top: -50px; */
+    top:50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50px;
     height: 50px;
+    border-radius: 50%;
+    /* margin: auto auto; */
     display: block;
-    background-image: linear-gradient(to bottom, transparent, var(--corEscolhida), transparent );
+    /* background-image: linear-gradient(to bottom, transparent, var(--corEscolhida), transparent ); */
+    background-color: var(--corEscolhida);
     animation: loadingWpp;
     animation-duration: 1s;
     animation-iteration-count: infinite;
 }
 @keyframes loadingWpp{
     0%{
-        top: -50px;
+        /* top: -50px; */
+        width: 20px;
+        height: 20px;
+        opacity: 1;
+
     }
     50%{
-        top:100%
+        /* top:100% */
+        width: 70px;
+        height: 70px;
     }
     100%{
-        top: -50px;
+        /* top: -50px; */
+        width: 80px;
+        height: 80px;
+        opacity: 0;
     }
 }
+
 canvas{
     cursor: pointer;
+}
+
+#saveBtn:hover{
+    color: var(--corEscolhida);
+
 }
