@@ -14,6 +14,7 @@ export const GlobalStorage = ({children}) =>{
     const [usuarios, setUsuarios] = useLocalStorage('usuarios', '')
     const [users, setUsers] = React.useState([]);
     const [userLogado, setUserLogado] = React.useState([])
+    const [imgTemp, setImgTemp] = React.useState({foto:false, fCrop:false, wpp:false, wCrop:false})
 
     const [uploadLde, setUploadLde] = React.useState(false)
     const [lde, setLde] = React.useState([])
@@ -23,7 +24,7 @@ export const GlobalStorage = ({children}) =>{
     const [itensFiltrados, setItensFiltrados] = React.useState('')  
     const [tipoFiltro, setTipoFiltro] = React.useState('')
 
-    // const [fotoP]
+    const [fbAuth, setFbAuth] = React.useState('')
 
     const usersCollectionRef = collection(db, "users" )
     
@@ -80,5 +81,5 @@ export const GlobalStorage = ({children}) =>{
         },[userLogado])   
         
         
-    return <GlobalContext.Provider value={{users, setUsers, tipoFiltro, setTipoFiltro, modalFooter, setModalFooter, itensFiltrados, setItensFiltrados, uploadLde, setUploadLde, upload, setUpload, lde, setLde, usuarios, setUsuarios, userLogado, setUserLogado}}>{children}</GlobalContext.Provider>
+    return <GlobalContext.Provider value={{ imgTemp, setImgTemp, fbAuth, setFbAuth, users, setUsers, tipoFiltro, setTipoFiltro, modalFooter, setModalFooter, itensFiltrados, setItensFiltrados, uploadLde, setUploadLde, upload, setUpload, lde, setLde, usuarios, setUsuarios, userLogado, setUserLogado}}>{children}</GlobalContext.Provider>
 }

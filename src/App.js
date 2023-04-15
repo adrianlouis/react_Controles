@@ -24,6 +24,7 @@ import Salas from './Salas';
 import Profile from './Profile';
 import NotFound from './NotFound';
 import EditPerfil from './EditPerfil';
+import Footer from './Footer';
 
 
 function App() {
@@ -72,6 +73,8 @@ function App() {
           <Route exact path='*' element={<NotFound />} />
           
         </Routes>
+
+        {/* <Footer/> */}
 
       </GlobalStorage>
     </BrowserRouter>

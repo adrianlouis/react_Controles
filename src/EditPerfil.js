@@ -1,33 +1,49 @@
 import React from 'react'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import css from './css/novoPerfil.css'
 import {GlobalContext} from './GlobalContext'
-import storage from './firebase-config'
 import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage'
 import { checkBd, updateBd } from './crudFireBase'
 import Cropper from 'react-easy-crop'
 import 'react-image-crop/dist/ReactCrop.css'
-
-
-
+import { getAuth } from 'firebase/auth'
 
 const EditPerfil = () => {
 
     const context = React.useContext(GlobalContext)
     const navigate = useNavigate()
-    const [rootCor, setRootCor] = React.useState('');
     const storage = getStorage()
     const old = context.userLogado.perfil
     const {tempFoto, tempFotoCrop, tempWpp, tempWppCrop} = context.userLogado
-    const [editado, setEditado] = React.useState({nome:old.nome, nick:old.nick, foto:old.foto, fotoCrop:old.fotoCrop, wallpaper:old.wallpaper, wallpaperCrop:old.wallpaperCrop, fotoTemp:tempFoto, fotoTempCrop:tempFotoCrop, wppTemp:tempWpp, wppTempCrop:tempWppCrop, quote:old.quote, cor:old.cor} )
-    const[uurl, setUrl] = React.useState('')
+    const [editado, setEditado] = React.useState(
+        {
+            nome:old.nome,
+            nick:old.nick, 
+            quote:old.quote, 
+            foto:tempFoto, 
+            fotoCrop:tempFotoCrop, 
+            wallpaper:tempWpp, 
+            wallpaperCrop:tempWppCrop, 
+            cor:old.cor,
+            fotoTemp:tempFoto,
+            fotoTempCrop:tempFotoCrop,
+            fotoWppTemp:tempWpp,
+            fotoWppCropTemp:tempWppCrop
+        } 
+         )
+    const [temps, setTemps] = React.useState({
+        foto: false,
+        fCrop: false,
+        wpp: false,
+        wCrop: false
+    })
+
+    const [rootCor, setRootCor] = React.useState(old.cor ? old.cor : '#102030');
     const [modal, setModal] = React.useState(0)
     const [loading, setLoading] = React.useState(false)
     const [loadingWpp, setLoadingWpp] = React.useState(false)
     const [imgBd, setImgBd] = React.useState({foto:'', wpp:''})
-    
     const larguraTela = window.screen.width
-    
     const [crop, setCrop] = React.useState({x:0,y:0})
     const [zoom, setZoom] = React.useState(1)
     const [cut, setCut] = React.useState('')
@@ -35,33 +51,82 @@ const EditPerfil = () => {
         setCut(croppedAreaPixels)
     },[])
 
-    // console.log(context.userLogado.tempFotoCrop)
-
     // ADICIONAR IMAGEM NO FIREBASE 
     async function handleChange(e){
         const foto = e.target.files[0]
+        setTemps({...temps, foto:foto})
         setImgBd({...imgBd, foto:foto})
-        setUrl(URL.createObjectURL(foto))
         setEditado({...editado, foto:URL.createObjectURL(foto)})
+        context.setImgTemp({...context.imgTemp, fileFoto:foto, foto:URL.createObjectURL(foto)})
 
-        var canvas = document.querySelector('#canv')
-        var ctx = canvas.getContext('2d')
-        const pic = new Image()
-        pic.src=URL.createObjectURL(foto)
-        pic.onload=()=>{
-            ctx.drawImage(URL.createObjectURL(foto), 0,0,80,80)
-        }
+        setLoading(false)
 
         setModal(3)
 
     }
 
+     // SALVAR OPÇÕES DO CROP DA FOTO DO PERFIL NO USERLOGADO
+     async function handleCrop(){
+
+        var canvas = document.querySelector('#canv')
+        var ctx = canvas.getContext('2d')
+        var fotoDoPerfil=new Image()
+        fotoDoPerfil.src=context.imgTemp.foto
+
+        fotoDoPerfil.onload=()=>{
+            // imagem, xIniRecorte, yIniRecorte, larguraRecorte, alturaRecorte, posX, posY, larguraImagem, alturaImagem
+            ctx.drawImage(fotoDoPerfil, cut.x, cut.y, cut.width, cut.height, 0, 0, 80, 80 )
+            setTemps({...temps, fCrop:[cut.x, cut.y, cut.width, cut.height, 0, 0, 80, 80] })
+            context.setImgTemp({...context.imgTemp, fCrop:[cut.x, cut.y, cut.width, cut.height, 0, 0, 80, 80]})
+        }
+
+        setModal(0)
+    }
+
+    function cancelCropFoto(){
+        setImgBd({...imgBd, foto:false})
+        setModal(0)
+        setTemps({...temps, fileFoto:false, foto:false, fCrop:false})
+
+        context.setImgTemp({...context.imgTemp, foto:false, fCrop:false})
+    }
+
+    async function handleWallpaper(e){
+
+        const wpp = e.target.files[0]
+        setImgBd({...imgBd, wpp:wpp})
+        setTemps({...temps, wpp:wpp})
+        context.setImgTemp({...context.imgTemp, fileWpp:wpp, wpp:URL.createObjectURL(wpp)})
+
+        setModal(4)
+    }
+
+    function cancelWppCrop(){
+        setImgBd({...imgBd, wpp:false})
+        setTemps({...temps, wpp:false})
+        context.setImgTemp({...context.imgTemp, fileWpp:false, wpp:false, wCrop:false})
+        setModal(0)
+    }
+
+    async function handleWppCrop(){
+        var canvas = document.querySelector('#canvWpp')
+        var ctx = canvas.getContext('2d')
+        var wpp=new Image()
+        wpp.src=context.imgTemp.wpp
+        wpp.onload=()=>{
+            // imagem, xIniRecorte, yIniRecorte, larguraRecorte, alturaRecorte, posX, posY, larguraImagem, alturaImagem
+            ctx.drawImage(wpp, cut.x, cut.y, cut.width, cut.height, 0, 0, larguraTela, (larguraTela / 3) )
+            setTemps({...temps, wCrop:[cut.x, cut.y, cut.width, cut.height, 0, 0, larguraTela, (larguraTela / 3)]})
+            context.setImgTemp({...context.imgTemp, wCrop:[cut.x, cut.y, cut.width, cut.height, 0, 0, larguraTela, (larguraTela / 3)]})
+        }
+        
+        setModal(0)
+    }
 
     function download(){
         // BAIXAR IMAGEM E SETAR NA FOTO DO PERFIL
         getDownloadURL(ref(storage, '/'+context.userLogado.profPic)).then((url)=>{
             document.querySelector('#foto').setAttribute('src', url)
-            setUrl(url)
         })
     }
 
@@ -70,83 +135,33 @@ const EditPerfil = () => {
 
         deleteObject(img)
     }
+
     // CARREGAR A FOTO DO PERFIL E OPÇÕES PARA O CROP AO TER TAIS DADOS EM USERLOGADO
     React.useEffect(()=>{
 
-        if (tempFoto && context.userLogado.tempFotoCrop){
-            var canvas = document.querySelector('#canv')
-            var ctx = canvas.getContext('2d')
-            ctx.drawImage(tempFoto, ...context.userLogado.tempFotoCrop)
-            console.log('existe foto temporaria')
-        }else{
-            setLoading(true)
-            getDownloadURL(ref(storage, `/${context.userLogado.id}fotoPerfil.jpg`)).then((url)=>{
-                const canvFoto = document.querySelector('#canv')
-                const ctxFoto = canvFoto.getContext('2d')
-                const imgFoto = new Image()
-                imgFoto.src = url
-                imgFoto.onload=()=>{
-                    setLoading(false)
-                    ctxFoto.drawImage(imgFoto, ...context.userLogado.perfil.fotoCrop)
-                    setEditado(prev => { return {...prev, fotoTemp:imgFoto, fotoTempCrop:context.userLogado.perfil.fotoCrop}})
-                }
-            })
+    if (context.imgTemp.foto && context.imgTemp.fCrop){
+        const canvas = document.querySelector('#canv')
+        const ctx = canvas.getContext('2d')
+        const img = new Image()
+        img.src = context.imgTemp.foto
+        img.onload=()=>{
+            ctx.drawImage(img, ...context.imgTemp.fCrop)
         }
-
-        if (tempWpp && context.userLogado.tempWppCrop){
-            var canvWpp = document.querySelector('#canvWpp')
-            var ctxWpp = canvWpp.getContext('2d')
-            ctxWpp.drawImage(tempWpp, ...context.userLogado.tempWppCrop)
-            console.log('existe wpp temporario')
-        }else{
-            setLoadingWpp(true)
-            getDownloadURL(ref(storage, `/${context.userLogado.id}wpp.jpg`)).then((urlwpp)=>{
-                const canvwpp = document.querySelector('#canvWpp')
-                const ctxwpp = canvwpp.getContext('2d')
-                const imgWpp = new Image()
-                imgWpp.src = urlwpp
-                imgWpp.onload=()=>{
-                    setLoadingWpp(false)
-                    ctxwpp.drawImage(imgWpp, ...context.userLogado.perfil.wallpaperCrop)
-                    setEditado(prev => { return {...prev, wppTemp:imgWpp, wppTempCrop:context.userLogado.perfil.wallpaperCrop}})
-                }
-            })
+    }
+    
+    if (context.imgTemp.wpp && context.imgTemp.wCrop){
+        const canvas = document.querySelector('#canvWpp')
+        const ctx = canvas.getContext('2d')
+        const img = new Image()
+        img.src = context.imgTemp.wpp
+        img.onload=()=>{
+            ctx.drawImage(img, ...context.imgTemp.wCrop)
         }
-
-            
-        editado.cor ? setRootCor(editado.cor) : setRootCor('rgb(221, 221, 221)')
-
+    }
 
     },[])
 
-    // SALVAR OPÇÕES DO CROP DA FOTO DO PERFIL NO USERLOGADO
-    async function handleCrop(){
-
-        var canvas = document.querySelector('#canv')
-        var ctx = canvas.getContext('2d')
-        var fotoDoPerfil=new Image()
-        fotoDoPerfil.src=editado.foto
-        fotoDoPerfil.onload=()=>{
-            // imagem, xIniRecorte, yIniRecorte, larguraRecorte, alturaRecorte, posX, posY, larguraImagem, alturaImagem
-            ctx.drawImage(fotoDoPerfil, cut.x, cut.y, cut.width, cut.height, 0, 0, 80, 80 )
-            setEditado({...editado, fotoTemp:fotoDoPerfil, fotoTempCrop:[cut.x, cut.y, cut.width, cut.height, 0, 0, 80, 80]})
-        }
-        setModal(0)
-    }
-
-    async function handleWppCrop(){
-        var canvas = document.querySelector('#canvWpp')
-        var ctx = canvas.getContext('2d')
-        var wpp=new Image()
-        wpp.src=editado.wallpaper
-        wpp.onload=()=>{
-            // imagem, xIniRecorte, yIniRecorte, larguraRecorte, alturaRecorte, posX, posY, larguraImagem, alturaImagem
-            ctx.drawImage(wpp, cut.x, cut.y, cut.width, cut.height, 0, 0, larguraTela, (larguraTela / 3) )
-            setEditado({...editado, wppTemp:wpp, wppTempCrop:[cut.x, cut.y, cut.width, cut.height, 0, 0, larguraTela, (larguraTela / 3)]})
-        }
-
-        setModal(0)
-    }
+   
 
     function handleModal(e){
        if ( e.target === e.currentTarget) {
@@ -155,43 +170,37 @@ const EditPerfil = () => {
     }
 
     async function handleSave(){
-        document.querySelector(':root').style.setProperty('--corEscolhida', rootCor)
-        context.setUserLogado({...context.userLogado, tempWpp:editado.wppTemp, tempWppCrop:editado.wppTempCrop, tempFoto:editado.fotoTemp, tempFotoCrop:editado.fotoTempCrop, perfil:{...context.userLogado.perfil, cor:rootCor}})
 
-        const perfilNovo = {
-            cor:rootCor,
-            foto:editado.fotoTemp.src,
-            fotoCrop:editado.fotoTempCrop,
-            nick:editado.nick,
-            nome:editado.nome,
-            quote:editado.quote,
-            wallpaper:editado.wppTemp.src,
-            wallpaperCrop:editado.wppTempCrop
-        }
-
-        // salvar infos no perfil do bd
-        updateBd(context.userLogado.id, {perfil:{...perfilNovo}})
-
-        // salvar foto e papel de parede no bd do firebase, de forma que os dois processos de await seja realizado
-        // ao mesmo tempo.
-        const [fotoPerfil, fotoWallpaper] = await Promise.all([
-            saveProfilePhoto(),
-            saveWallpaperPhoto(),
-        ])
-
-        navigate('/home/lde')
-        return {fotoPerfil, fotoWallpaper}
-    }
-
-    async function saveProfilePhoto(){
-        if (imgBd.foto){
+        // SALVAR FOTO DO PERFIL NO FIREBASE STORAGE
+        if (context.imgTemp.fileFoto){
             setLoading(true)
             const fotoPerfil = ref(storage, `${context.userLogado.id}fotoPerfil.jpg`)
-            uploadBytes(fotoPerfil, imgBd.foto).then((snapshot) =>{
-                console.log('Foto do perfil carregada. . .')
+            uploadBytes(fotoPerfil, context.imgTemp.fileFoto).then((snapshot) =>{
                 setLoading(false)
             })
         }
+
+        // SALVAR FOTO DO WALLPAPER NO FIREBASE STORAGE
+        // USANDO IMGTEMP FILEWPP
+        if (context.imgTemp.fileWpp){
+            const fotoWpp = ref(storage, `${context.userLogado.id}wpp.jpg`)
+            uploadBytes(fotoWpp, context.imgTemp.fileWpp).then((snap)=>{
+                console.log('Foto do Wallpaper foi carregada. . .')
+            })
+        }
+
+        const saveProf = {
+            nome:editado.nome,
+            nick:editado.nick,
+            quote:editado.quote,
+            cor:rootCor
+        }
+
+        updateBd(context.userLogado.id, {perfil:{...context.userLogado.perfil, ...saveProf, fotoCrop:context.imgTemp.fCrop, foto:context.imgTemp.foto, wallpaper:context.imgTemp.wpp, wallpaperCrop:context.imgTemp.wCrop}})
+        context.setUserLogado(prev => {return {...prev, perfil:{...prev.perfil, ...saveProf}}})
+
+        navigate('/home/ext')
+
     }
 
     async function saveWallpaperPhoto(){
@@ -216,23 +225,6 @@ const EditPerfil = () => {
     }
     function inputBlur(el){
         el.previousElementSibling.style.color='rgb(161, 161, 161)'
-    }
-
-    async function handleWallpaper(e){
-
-        const wpp = e.target.files[0]
-        setImgBd({...imgBd, wpp:wpp})
-        setEditado({...editado, wallpaper:URL.createObjectURL(wpp)})
-
-        var canvas = document.querySelector('#canvWpp')
-        var ctx = canvas.getContext('2d')
-        const pic = new Image()
-        pic.src=URL.createObjectURL(wpp)
-        pic.onload=()=>{
-            ctx.drawImage(URL.createObjectURL(wpp), 0,0,larguraTela,(larguraTela/3))
-        }
-
-        setModal(4)
     }
 
     async function checkarNome(dadoProcurado, id) {
@@ -292,55 +284,23 @@ const EditPerfil = () => {
 
             {modal === 4 && <div className='perfilEditModalCrop'>
         <div className='wrapperCrop'>
-                <Cropper  cropShape='rect' showGrid={false}  image={editado.wallpaper} crop={crop} zoom={zoom} aspect={3 / 1} onCropChange={setCrop} onCropComplete={onCropComplete} onZoomChange={setZoom} ></Cropper>
+                <Cropper  cropShape='rect' showGrid={false}  image={URL.createObjectURL(temps.wpp)} crop={crop} zoom={zoom} aspect={3 / 1} onCropChange={setCrop} onCropComplete={onCropComplete} onZoomChange={setZoom} ></Cropper>
             </div>
-            <button onClick={()=>setModal(0)}>Cancelar</button>
+            <button onClick={()=>cancelWppCrop()}>Cancelar</button>
             <button onClick={()=>handleWppCrop()} >Recortar</button>
             </div>}
 
         {modal === 3 && <div className='perfilEditModalCrop'>
         <div className='wrapperCrop'>
-                <Cropper  cropShape='round' showGrid={false}  image={uurl} crop={crop} zoom={zoom} aspect={1 / 1} onCropChange={setCrop} onCropComplete={onCropComplete} onZoomChange={setZoom} ></Cropper>
+                <Cropper  cropShape='round' showGrid={false}  image={URL.createObjectURL(temps.foto)} crop={crop} zoom={zoom} aspect={1 / 1} onCropChange={setCrop} onCropComplete={onCropComplete} onZoomChange={setZoom} ></Cropper>
             </div>
-            <button onClick={()=>setModal(0)}>Cancelar</button>
+            <button onClick={()=>cancelCropFoto()}>Cancelar</button>
             <button onClick={()=>handleCrop()} >Recortar</button>
             </div>}
 
         <div id='perfil' className='perfil'>
 
-            {/* <img id='testeBlob'></img> */}
-
-            {/* <div className='canvasWrapper'>
-
-                <canvas width='100' height='100' id='canv'>
-                    <p>Seu navegador não suporta Canvas</p>
-                </canvas>
-
-            </div>
-
-            <div className='wrapperCrop'>
-                <Cropper  cropShape='round' showGrid={false}  image={kDash} crop={crop} zoom={zoom} aspect={1 / 1} onCropChange={setCrop} onCropComplete={onCropComplete} onZoomChange={setZoom} ></Cropper>
-            </div> */}
-
-            {/* <button onClick={()=>download()}>DOWNLOAD IMAGEM</button>
-            <button onClick={()=>deletarImg()}>EXCLUIR IMAGEM</button>
-            <button onClick={()=>onCropComplete}>CROPPER</button> */}
-
-
-
-            {/* <div className='preview'>
-                <img className='previewImg' src={kDash}></img>
-            </div> */}
-
-
-
-
-
-
-
-
-            {/* <img id='wallpaper' className='editando' onClick={()=>setModal(2)} /> */}
-
+           
             {/* PAPEL DE PAREDE COM CANVAS */}
             <div className='wallpaperCanvasWrapper' onClick={()=>setModal(2)} >
             {loadingWpp && <div className='loadingWpp'></div>}
@@ -363,12 +323,11 @@ const EditPerfil = () => {
                 </canvas>
 
                 {loading && <div className='loadingFoto'></div>}
-                {!context.userLogado.perfil.foto && !editado.foto && <i id='userSemFoto' className="fa-solid fa-user"></i>}
+                {!context.userLogado.perfil.foto && !context.imgTemp.foto && <i id='userSemFoto' className="fa-solid fa-user"></i>}
 
 
             </div>
 
-            {/* <img src={uurl}></img> */}
             <div id='botaoEditarPerfil' onClick={()=>handleSave()}>
                 <span >Salvar</span>
             </div>
@@ -376,7 +335,8 @@ const EditPerfil = () => {
             <div className='dadosPerfil'>
                 <div className='editInputWrapper'>
                     <label htmlFor='editNome'>Nome</label>
-                    <input id='editNome' className='inputEditProfile editNome' value={editado.nome} onChange={({target})=>checkarNome(target.value, context.userLogado.id)} onFocus={({target})=>inputFocus(target)} onBlur={({target})=>inputBlur(target)} />
+                    <input id='editNome' className='inputEditProfile editNome' placeholder={context.fbAuth.displayName} value={editado.nome} onChange={({target})=>checkarNome(target.value, context.userLogado.id)} onFocus={({target})=>inputFocus(target)} onBlur={({target})=>inputBlur(target)} />
+                    {/* <input id='editNome' className='inputEditProfile editNome' value={editado.nome} onChange={({target})=>checkarNome(target.value, context.userLogado.id)} onFocus={({target})=>inputFocus(target)} onBlur={({target})=>inputBlur(target)} /> */}
                     <p className='editNomeUsado'>Este nome já está em uso.</p>
                 </div>
 
@@ -398,8 +358,7 @@ const EditPerfil = () => {
 
             </div>
         </div>
-                {/* <NavLink className='navVoltarEditProfile' to='/home/lde' onClick={()=>back()}>cancelar modificações</NavLink> */}
-                <p id='botaoEditarCancel' onClick={()=>back()}>Cancelar mudanças...</p>
+        <p id='botaoEditarCancel' onClick={()=>back()}>Cancelar mudanças...</p>
 
     </div>
   )

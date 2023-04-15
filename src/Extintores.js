@@ -38,7 +38,16 @@ function tipoClasse(tipo){
     <>
 
         <NavLink to='extnovo' className='novoRegistro' >Registrar extintor</NavLink>
+        <div id='navbarFiltros'>
 
+            <div id='inputSearchBody'>
+                <i className="fa-solid fa-magnifying-glass"></i>
+                <input id='inputBuscarExt'></input>
+            </div>
+
+            <i className="fa-solid fa-filter"></i>
+
+        </div>
   
         {reverso.map((item)=>{
             return <div key={item.id+'ext'} className='ldeContent'>

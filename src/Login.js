@@ -7,6 +7,8 @@ import { db } from './firebase-config';
 import {collection, addDoc, getDocs} from '@firebase/firestore'
 import CheckBox from './CheckBox';
 import { readBD } from './crudFireBase';
+import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { auth } from './firebase-config';
 
 
 const Login = () => {
@@ -26,8 +28,11 @@ const Login = () => {
     const [regexRegSenha, setRegexRegSenha] = React.useState({num:false, esp:false, tamanho:false})
     const [logPWVisible, setLogPWVisible] = React.useState(false)
     const [remember, setRemember] = React.useState(false)
+
+    // const [ft, setFt] = React.useState('')
     
-    const newUser = {nome:regInput.nome, email:regInput.email, senha:regInput.senha, perfil:{foto:'', fotoCrop:'', wallpaper:'', wallpaperCrop:'', nome:'', nick:'', quote:'', cor:'rgb(221, 221, 221)'} , aco:[], ext:[], gar:[], gas:[], hd:[], lde:[], loj:[], pcf:[], pre:[], sal:[]}
+    // const newUser = {nome:regInput.nome, email:regInput.email, senha:regInput.senha, perfil:{foto:'', fotoCrop:'', wallpaper:'', wallpaperCrop:'', nome:regInput.nome, nick:'', quote:'', cor:'rgb(221, 221, 221)'} , aco:[], ext:[], gar:[], gas:[], hd:[], lde:[], loj:[], pcf:[], pre:[], sal:[]}
+    const newUser = {nome:regInput.nome, email:regInput.email, senha:regInput.senha, perfil:{foto:'', fotoCrop:'', wallpaper:'', wallpaperCrop:'', nome:regInput.nome, nick:'', quote:'', cor:'rgb(221, 221, 221)'} , aco:[], ext:[], gar:[], gas:[], hd:[], lde:[], loj:[], pcf:[], pre:[], sal:[]}
     
     const usersCollectionRef = collection(db, "users" )
 
@@ -47,10 +52,92 @@ const Login = () => {
 
     }
 
-    function  handleLogin(e){
-        e.preventDefault()
-        getUsers()
+    // LOGIN ANTIGO
+    // function  handleLogin(e){
+    //     e.preventDefault()
+    //     getUsers()
         
+    // }
+
+
+    // REGISTRO COM AUTH
+    const registrarSubmit = async (e) => {
+        e.preventDefault()
+
+        await createUserWithEmailAndPassword(auth, regInput.email, regInput.senha )
+        .then((userCredential) => {
+            // LOGADO
+            const user = userCredential.user;
+
+            const auth = getAuth();
+            updateProfile(auth.currentUser, {
+                displayName: regInput.nome
+            }).then(()=>{
+                console.log('perfil atualizado')
+            }).catch((error) => {
+                console.log(error)
+            })
+
+            const criarUser = async ()=>{
+                await addDoc(usersCollectionRef, newUser)
+                const data = await getDocs(usersCollectionRef);
+                const users = data.docs.map((docs)=>({...docs.data(), id:docs.id}))
+                const log = users.filter((f)=>{
+                    return f.nome === regInput.nome
+                })
+                ctx.setUserLogado(...log)
+                navigate('/home/ext')
+                // console.log(log)
+                // navigate('perfil')
+            }
+            criarUser()
+
+            // navigate('/home')
+        })
+        .catch((error)=>{
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.log(errorCode, errorMessage)
+        })
+    }
+
+    //LOGIN COM AUTH
+    const handleLogin = (e) => {
+        e.preventDefault();
+
+        signInWithEmailAndPassword(auth, loginInput.nome, loginInput.senha)
+        .then((userCredential) => {
+            const user = userCredential.user;
+            ctx.setFbAuth(user)
+            userData()
+
+            console.log(userCredential)
+            // setFt(userCredential.photoURL)
+
+            // navigate('/home')
+        })
+        .catch((error)=>{
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.log(errorCode, errorMessage)
+        })
+    }
+
+    async function userData(){
+        const data = await getDocs(usersCollectionRef);
+        const users = data.docs.map((docs) => ({...docs.data(), id:docs.id}))
+        
+        
+        const log = users.filter((f)=>{
+            return f.email === loginInput.nome
+        })
+        
+        if (log.length > 0){
+            ctx.setUserLogado(...log)
+            navigate('/home/ext')
+        }else{
+            setLoginMsg('Verifique usuário e senha')
+        }
     }
     
 
@@ -62,18 +149,22 @@ const Login = () => {
         e.preventDefault()
        
         if (regOk.nome && regOk.email && regOk.senha && regOk.confSenha){
-            // ctx.setUsuarios([...ctx.usuarios, {nome:regInput.nome, email:regInput.email, senha:regInput.senha, aco:[], ext:[], gar:[], gas:[], hd:[], lde:[], loj:[], pcf:[], pre:[], sal:[] }])
-            const criarUser = async ()=>{
-                await addDoc(usersCollectionRef, newUser)
-                const data = await getDocs(usersCollectionRef);
-                const users = data.docs.map((docs)=>({...docs.data(), id:docs.id}))
-                const log = users.filter((f)=>{
-                    return f.nome === regInput.nome
-                })
-                ctx.setUserLogado(...log)
-                navigate('/home/ext')
-            }
-            criarUser()
+
+            //REGISTRAR ANTIGO
+            // const criarUser = async ()=>{
+            //     await addDoc(usersCollectionRef, newUser)
+            //     const data = await getDocs(usersCollectionRef);
+            //     const users = data.docs.map((docs)=>({...docs.data(), id:docs.id}))
+            //     const log = users.filter((f)=>{
+            //         return f.nome === regInput.nome
+            //     })
+            //     ctx.setUserLogado(...log)
+            //     // navigate('/home/ext')
+            //     navigate('perfil')
+            // }
+            // criarUser()
+
+
 
            
         }
@@ -221,6 +312,8 @@ function aplicarCss(el){
             </div>
         </div>}
 
+
+        {/* LOGIN  */}
         {form === 1 && <div className='loginContainer'>
 
             {/* <button onClick={()=>delCookie()}>Deletar Cookie</button>
@@ -228,14 +321,17 @@ function aplicarCss(el){
 
             {/* {setRegMsg({nome:false, email:false, senha:false, confSenha:false})} */}
 
+            {/* //LOGIN ANTIGO  */}
+            {/* <form  onSubmit={(e)=>handleLogin(e)}> */}
+
             <form  onSubmit={(e)=>handleLogin(e)}>
                 <h1>Login</h1>
 
                 <div className='regInputWrapper'>
                     <i className="fa-solid fa-user"></i>
-                    <input className='regInput' type='text' placeholder='nome ou email' value={loginInput.nome} onChange={({target})=>setLoginInput({...loginInput, nome:target.value})} onFocus={({currentTarget})=>aplicarCss(currentTarget)} onBlur={({currentTarget})=>aplicarCss(currentTarget)} required />
+                    <input className='regInput' type='text' placeholder='email' value={loginInput.nome} onChange={({target})=>setLoginInput({...loginInput, nome:target.value})} onFocus={({currentTarget})=>aplicarCss(currentTarget)} onBlur={({currentTarget})=>aplicarCss(currentTarget)} required />
                 </div>
-
+                
                 <div className='regInputWrapper'>
                     <i className='fa-solid fa-key'></i>
                     <input className='regInput' type={logPWVisible?'text':'password'} placeholder='senha' value={loginInput.senha} onChange={({target})=>setLoginInput({...loginInput, senha:target.value})} onFocus={({currentTarget})=>aplicarCss(currentTarget)} onBlur={({currentTarget})=>aplicarCss(currentTarget)} required />
@@ -264,14 +360,15 @@ function aplicarCss(el){
             </form>
         </div> }
 
+        {/* REGISTRO  */}
         {form === 2 && <div className='loginContainer'>
             
-            <form>
+            <form onSubmit={()=>registrarSubmit} >
             {/* <form onSubmit={(event)=>handleRegistrar(event)}> */}
             <h1>Registrar</h1>
                 <div className='regInputWrapper'>
                     <i className={regOk.nome?"fa-solid fa-user ":"fa-solid fa-user regInvalido"}></i>
-                    <input className={regOk.nome?'regInput ':'regInput regInvalido'} type='text' placeholder='usuário' value={regInput.nome} onChange={({target})=>setRegInput({...regInput, nome:target.value})} onBlur={({currentTarget})=>handleInputBlur(currentTarget, 1)} onFocus={({currentTarget})=>aplicarCss(currentTarget)} required/>
+                    <input className={regOk.nome?'regInput ':'regInput regInvalido'} type='text' placeholder='nome de usuário' value={regInput.nome} onChange={({target})=>setRegInput({...regInput, nome:target.value})} onBlur={({currentTarget})=>handleInputBlur(currentTarget, 1)} onFocus={({currentTarget})=>aplicarCss(currentTarget)} required/>
                 </div>
 
                 <div className='regInputWrapper'>
@@ -307,7 +404,7 @@ function aplicarCss(el){
 
                 {toggleConfSenhaTexto && !regOk.confSenha && <span className='regInvalido'>Senhas não conferem</span>}
                 
-                <button className={regOk.nome && regOk.email && regOk.senha && regOk.confSenha ? 'loginBtns' : 'loginBtns btnInvalido'} onClick={(event)=>handleRegistrar(event)} >Registrar</button>
+                <button className={regOk.nome && regOk.email && regOk.senha && regOk.confSenha ? 'loginBtns' : 'loginBtns btnInvalido'} onClick={(event)=>registrarSubmit(event)} >Registrar</button>
                 {/* <button className={regOk.nome && regOk.email && regOk.senha && regOk.confSenha ? 'loginBtns' : 'loginBtns btnInvalido'} onClick={(event)=>handleRegistrar(event)} >Registrar</button> */}
 
             </form>
