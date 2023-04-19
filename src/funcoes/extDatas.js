@@ -1,7 +1,7 @@
 export function dataLong(obj){
     const objData = new Date()
     objData.setMonth(obj-1)
-    return objData.toLocaleString('pt-Br', {month:'long'})
+    return objData.toLocaleString('pt-Br', {month:'short'})
 }
 
 export function dataShort(obj){

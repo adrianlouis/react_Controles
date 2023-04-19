@@ -192,10 +192,32 @@ a{
     text-align: left;
 }
 
+.ldeWrapperDados div{
+    width: 100%;
+}
+.ldeContent > div:first-child{
+    /* border: 1px red solid; */
+    padding: 5px 0 ;
+    display: flex;
+    flex-direction: row;
+    color: rgb(161, 161, 161);
+    font-size: 1rem
+}
+;.ldeContent div:first-child p{
+    font-size: 5rem;
+}
+
+.ldeContent div p {
+    /* color: green; */
+    font-size: .8rem;
+}
+
+
+
 .ldeContent{
     margin: 10px 0px;
     /* background-color: #21212177; */
-    background-image: linear-gradient(to bottom right, #2227, #3337);
+    /* background-image: linear-gradient(to bottom right, #2227, #3337); */
 
     padding: 5px 10px ;
     border: 2px solid #5557;
@@ -205,7 +227,7 @@ a{
 
 }
 .ldeContent p{
-    margin: 5px 8px 0 8px;
+    margin: 0px 8px 0 8px;
     text-align: left;
 }
 .invisivel{
@@ -845,4 +867,33 @@ canvas{
     display: flex;
     flex-direction: column;
     align-items: center;
+    border-bottom: 2px transparent solid ;
+}
+
+
+.btnAcoesWrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    cursor: pointer;
+}
+.btnVerde{
+    color: rgb(166, 243, 166);
+    /* border: 1px solid rgb(166, 243, 166); */
+    text-shadow: rgb(166, 243, 166) 0 0 10px;
+    border-radius: 20px;
+}
+.btnVermelho{
+    color: rgb(200, 45, 0);
+    border: 1px solid rgb(200, 45, 0);
+    border-radius: 20px;
+}
+
+.botoesPadrao{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: row;
+    margin: 20px 0;
 }

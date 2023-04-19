@@ -9,6 +9,7 @@ const Extintores = () => {
 
     const context = useContext(GlobalContext)
     const reverso = [...context.userLogado.ext].reverse()
+    const [listaAtiva, setListaAtiva] = React.useState(reverso)
     const user = context.userLogado
     if (!context.userLogado.ext){
         context.setUserLogado({...context.userLogado, ext:[] })
@@ -77,7 +78,15 @@ function graphPorcentagem(total, valor){
     return 100 - (((total - valor) / total) * 100)
 }
 
-console.log(graphPorcentagem(user.ext.length, recVencida().proxMes.length))
+function handleListaAtiva(el, lista){
+    setListaAtiva(lista)
+    const divs = document.querySelectorAll('.graphWrap')
+    divs.forEach(e => {
+        e.style.borderBottom='2px solid transparent'
+    });
+    el.style.borderBottom='2px solid var(--corEscolhida)'
+}
+
 
 
   return (
@@ -100,7 +109,7 @@ console.log(graphPorcentagem(user.ext.length, recVencida().proxMes.length))
 
             <div className='extResumeWrapper'>
                 
-                <div className='graphWrap'>
+                <div className='graphWrap' onClick={({currentTarget})=>handleListaAtiva(currentTarget, reverso)}>
                     <div className='progWrap' style={{'--graphColor':'#0a0', '--p':100}}>
                         <span className='extResumePercent'  >{user.ext.length}</span>
                     </div>
@@ -108,21 +117,22 @@ console.log(graphPorcentagem(user.ext.length, recVencida().proxMes.length))
                 </div>
 
                
-                <div className='graphWrap'>
+                <div className='graphWrap' onClick={({currentTarget})=>handleListaAtiva(currentTarget, avariados)}>
                     <div className={`progWrap ${graphPorcentagem(user.ext.length, recVencida().vencidos.length)<50?'less':''}`} style={{'--graphColor':'#cc0', '--p':graphPorcentagem(user.ext.length, avariados.length)}}>
                         <span className='extResumePercent'  >{avariados.length}</span>
                     </div>
                     <span className='extResumeTitle'>Avariados</span>
                 </div>
 
-                <div className='graphWrap'>
+                {/* <div className='graphWrap' onClick={()=>setListaAtiva(}> */}
+                <div className='graphWrap' onClick={({currentTarget})=>handleListaAtiva(currentTarget, recVencida().proxMes)}>
                     <div className={`progWrap ${graphPorcentagem(user.ext.length, recVencida().proxMes.length) < 50 ? 'less' : ''}`} style={{'--graphColor':'#f70', '--p':graphPorcentagem(user.ext.length, recVencida().proxMes.length)}}>
                         <span className='extResumePercent'  >{recVencida().proxMes.length}</span>
                     </div>
                     <span className='extResumeTitle'>Vencendo</span>
                 </div>
 
-                <div className='graphWrap'>
+                <div className='graphWrap' onClick={()=>setListaAtiva(recVencida().vencidos)}>
                     <div className={`progWrap ${graphPorcentagem(user.ext.length, recVencida().vencidos.length) < 50 ? 'less' : ''}`} style={{'--graphColor':'#a00c', '--p':(graphPorcentagem(user.ext.length, recVencida().vencidos.length))}}>
                         <span className='extResumePercent'  >{recVencida().vencidos.length}</span>
                     </div>
@@ -132,66 +142,144 @@ console.log(graphPorcentagem(user.ext.length, recVencida().proxMes.length))
             </div>
         </div>
 
-        {reverso.map((item)=>{
+        {listaAtiva.map((item)=>{
 
             return <div key={item.id+'ext'} className='ldeContent'>
 
-                <fieldset className='fieldsetFlexRow'>
+                <div>
+                    <p>Nº: {item.num}</p>
+                    {item.avaria && <>
+                                        <p >Avarias: {item.avaria} </p>
+                                    </>
+                    }
+                </div>
 
-                    <legend>Extintor {item.num ? 'Nº '+item.num : 'sem número'}</legend>
+                {/* <fieldset className='fieldsetFlexRow'> */}
+
+                    {/* <legend>Extintor {item.num ? 'Nº '+item.num : 'sem número'}</legend> */}
 
                     <div className='ldeWrapperDados'>
                         
-                    <div>
-                        <p className='cardTextoPqn'>tipo</p>
-                        <p>{item.tipo? item.tipo : 'N/A'}</p>
-                    </div>
+                        <div>
+                            {/* <p>{item.tipo? item.tipo : 'N/A'}</p> */}
+                            {/* <p className='cardTextoPqn'>tipo</p> */}
+                            <p className='cardTextoPqn'>tipo: {item.tipo? item.tipo : ''}</p>
+                            <p className='cardTextoPqn'>local: {item.local? item.local : ''}</p>
+                            <p className='cardTextoPqn'>classe: {item.tipo? item.tipo : ''}</p>
+                        </div>
 
-                    <div>
-                        <p className='cardTextoPqn'>classe </p>
+                        {/* <div> */}
+
+                        <div>
+                            <p className='cardTextoPqn'>recarga {item.ultRec.mes? dataLong(item.ultRec.mes)+(item.ultRec.ano? '-' : '') : '' }{item.ultRec.ano ? Number(item.ultRec.ano) : ''}  {!item.ultRec.mes && !item.ultRec.ano && <p>N/A</p>}</p>
+                            {item.ultRet && <p className='cardTextoPqn'>reteste {item.ultRet?item.ultRet:'não informado'}</p>}
+
+                            {/* <p>{item.ultRec.mes? dataLong(item.ultRec.mes)+(item.ultRec.ano? ' de ' : '') : '' } {item.ultRec.ano ? Number(item.ultRec.ano) : ''}</p>
+                            {!item.ultRec.mes && !item.ultRec.ano && <p>N/A</p>} */}
+                        </div>
+
+                            {/* <div>
+                                <p className='cardTextoPqn'>próx. reteste</p>
+                                <p>{item.ultRet?item.ultRet:'N/A'}</p>
+                            </div> */}
+
+                        {/* </div> */}
+
+                    {/* <div>
                         <p>{item.tipo?tipoClasse(item.tipo):'N/A'} </p>
+                        <p className='cardTextoPqn'>classe </p>
                     </div>
 
                     <div>
-                        <p className='cardTextoPqn'>local</p>
                         <p>{item.local?item.local:'N/A'}</p>
-                    </div>
+                        <p className='cardTextoPqn'>local</p>
+                    </div> */}
 
                     </div>
-                </fieldset>
+                {/* </fieldset> */}
 
-                <fieldset className='fieldsetFlexRow'>
-                <legend>Datas</legend>
-                <div>
-                    <p className='cardTextoPqn'>próx. recarga</p>
-                    <p>{item.ultRec.mes? dataLong(item.ultRec.mes)+(item.ultRec.ano? ' de ' : '') : '' } {item.ultRec.ano ? Number(item.ultRec.ano) : ''}</p>
-                    {!item.ultRec.mes && !item.ultRec.ano && <p>N/A</p>}
-                </div>
+                {/* <fieldset className='fieldsetFlexRow'> */}
+                {/* <legend>Datas</legend> */}
+               
+                {/* </fieldset> */}
 
-                <div>
-                    <p className='cardTextoPqn'>próx. reteste</p>
-                    <p>{item.ultRet?item.ultRet:'N/A'}</p>
-                </div>
-                </fieldset>
+                
 
-                {item.avaria && <fieldset className='fieldsetFlexRow'>
-                    <legend>Avarias</legend>
-                    <p >{item.avaria} </p>
+                {/* <fieldset className='fieldsetAcoes fieldsetFlexRow'> */}
+                <div className='botoesPadrao'>
 
-                </fieldset>}
-
-                <fieldset className='fieldsetAcoes fieldsetFlexRow'>
-                    <div className='btnAcoesWrapper' onClick={()=>navigate(`extedit?id=${item.id}`)}>
+                    <div className='btnAcoesWrapper btnVerde' onClick={()=>navigate(`extedit?id=${item.id}`)}>
                         {/* <i className="fa-solid fa-pen-to-square" ></i> */}
                         <p>editar</p>
                     </div>
-                    <div className='btnAcoesWrapper' onClick={()=>excluirExtintor(context.userLogado.id, item, 'ext')}>
+                    <div className='btnAcoesWrapper btnVermelho' onClick={()=>excluirExtintor(context.userLogado.id, item, 'ext')}>
                         {/* <i className="fa-solid fa-trash-can" ></i> */}
                         <p>excluir</p>
                     </div>
+                </div>
 
-                </fieldset>
+                {/* </fieldset> */}
             </div>
+
+            // BACKUP 
+            // return <div key={item.id+'ext'} className='ldeContent'>
+
+            //     <fieldset className='fieldsetFlexRow'>
+
+            //         <legend>Extintor {item.num ? 'Nº '+item.num : 'sem número'}</legend>
+
+            //         <div className='ldeWrapperDados'>
+                        
+            //         <div>
+            //             <p className='cardTextoPqn'>tipo</p>
+            //             <p>{item.tipo? item.tipo : 'N/A'}</p>
+            //         </div>
+
+            //         <div>
+            //             <p className='cardTextoPqn'>classe </p>
+            //             <p>{item.tipo?tipoClasse(item.tipo):'N/A'} </p>
+            //         </div>
+
+            //         <div>
+            //             <p className='cardTextoPqn'>local</p>
+            //             <p>{item.local?item.local:'N/A'}</p>
+            //         </div>
+
+            //         </div>
+            //     </fieldset>
+
+            //     <fieldset className='fieldsetFlexRow'>
+            //     <legend>Datas</legend>
+            //     <div>
+            //         <p className='cardTextoPqn'>próx. recarga</p>
+            //         <p>{item.ultRec.mes? dataLong(item.ultRec.mes)+(item.ultRec.ano? ' de ' : '') : '' } {item.ultRec.ano ? Number(item.ultRec.ano) : ''}</p>
+            //         {!item.ultRec.mes && !item.ultRec.ano && <p>N/A</p>}
+            //     </div>
+
+            //     <div>
+            //         <p className='cardTextoPqn'>próx. reteste</p>
+            //         <p>{item.ultRet?item.ultRet:'N/A'}</p>
+            //     </div>
+            //     </fieldset>
+
+            //     {item.avaria && <fieldset className='fieldsetFlexRow'>
+            //         <legend>Avarias</legend>
+            //         <p >{item.avaria} </p>
+
+            //     </fieldset>}
+
+            //     <fieldset className='fieldsetAcoes fieldsetFlexRow'>
+            //         <div className='btnAcoesWrapper' onClick={()=>navigate(`extedit?id=${item.id}`)}>
+            //             {/* <i className="fa-solid fa-pen-to-square" ></i> */}
+            //             <p>editar</p>
+            //         </div>
+            //         <div className='btnAcoesWrapper' onClick={()=>excluirExtintor(context.userLogado.id, item, 'ext')}>
+            //             {/* <i className="fa-solid fa-trash-can" ></i> */}
+            //             <p>excluir</p>
+            //         </div>
+
+            //     </fieldset>
+            // </div>
         })}
 
     </>
