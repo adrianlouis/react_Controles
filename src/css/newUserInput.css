@@ -50,17 +50,3 @@
     align-items: center;
 }
 
-.menuIconHide{
-    display: none;
-}
-
-.menuIcon{
-    /* display: none; */
-    position: absolute;
-    transform: translate(-45px);
-    border: 2px solid var(--corEscolhida);
-    background-color: #000;
-    border-radius: 30px;
-    padding: 6px;
-
-}

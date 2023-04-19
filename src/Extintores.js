@@ -9,11 +9,50 @@ const Extintores = () => {
 
     const context = useContext(GlobalContext)
     const reverso = [...context.userLogado.ext].reverse()
+    const user = context.userLogado
     if (!context.userLogado.ext){
         context.setUserLogado({...context.userLogado, ext:[] })
         
     }
     const navigate = useNavigate()
+    const avariados = user.ext.filter((f)=>{
+        if(f.avaria){
+            return f
+        }
+    })
+
+    const recVencida = () => {
+        const hoje = new Date()
+
+        // EXTINTORES SEM MÊS E COM ANO INFERIOR AO ATUAL
+        const vencidosAnoPassado = user.ext.filter((f)=>{
+            if(f.ultRec.ano && hoje.getFullYear() > f.ultRec.ano){
+            // if(!f.ultRec.mes && f.ultRec.ano && hoje.getFullYear() > f.ultRec.ano){
+                return f
+            }else if (f.ultRec.mes && f.ultRec.ano && hoje.getMonth()){
+
+            }
+        })
+
+        // EXTINTORES COM MÊS E ANO, ONDE RETORNA EXT COM ANO IGUAL AO ATUAL E MES MENOR AO MES ATUAL
+        const vencidosAnoAtual = user.ext.filter((f)=>{
+            if ((f.ultRec.mes && f.ultRec.ano) && (hoje.getFullYear() === Number(f.ultRec.ano)) && (hoje.getMonth()+1 > Number(f.ultRec.mes)) ){
+                return f
+            }
+        })
+
+        // EXTINTORES COM MÊS E ANO QUE VENCEM NO MÊS SEGUINTE
+        const proxMes = user.ext.filter((f)=>{
+            if (f.ultRec.mes == (hoje.getMonth()+2)){
+                return f.num
+            }
+        })
+
+        return {vencidos:[...vencidosAnoPassado, ...vencidosAnoAtual], proxMes:[...proxMes]}
+         
+        }
+
+        
 
     async function excluirExtintor(idUser, item, campo){
         const {tempFoto, tempFotoCrop, tempWpp, tempWppCrop} = context.userLogado
@@ -34,11 +73,18 @@ function tipoClasse(tipo){
     }
 }
 
+function graphPorcentagem(total, valor){
+    return 100 - (((total - valor) / total) * 100)
+}
+
+console.log(graphPorcentagem(user.ext.length, recVencida().proxMes.length))
+
+
   return (
     <>
 
-        <NavLink to='extnovo' className='novoRegistro' >Registrar extintor</NavLink>
-        <div id='navbarFiltros'>
+        <NavLink to='extnovo' className='novoRegistro' ><span>Registrar extintor</span></NavLink>
+        {/* <div id='navbarFiltros'>
 
             <div id='inputSearchBody'>
                 <i className="fa-solid fa-magnifying-glass"></i>
@@ -47,9 +93,47 @@ function tipoClasse(tipo){
 
             <i className="fa-solid fa-filter"></i>
 
-        </div>
+        </div> */}
   
+        <div id='resumo' className='wrapperResume'>
+            <h3>Resumo dos extintores</h3>
+
+            <div className='extResumeWrapper'>
+                
+                <div className='graphWrap'>
+                    <div className='progWrap' style={{'--graphColor':'#0a0', '--p':100}}>
+                        <span className='extResumePercent'  >{user.ext.length}</span>
+                    </div>
+                    <span className='extResumeTitle'>Total</span>
+                </div>
+
+               
+                <div className='graphWrap'>
+                    <div className={`progWrap ${graphPorcentagem(user.ext.length, recVencida().vencidos.length)<50?'less':''}`} style={{'--graphColor':'#cc0', '--p':graphPorcentagem(user.ext.length, avariados.length)}}>
+                        <span className='extResumePercent'  >{avariados.length}</span>
+                    </div>
+                    <span className='extResumeTitle'>Avariados</span>
+                </div>
+
+                <div className='graphWrap'>
+                    <div className={`progWrap ${graphPorcentagem(user.ext.length, recVencida().proxMes.length) < 50 ? 'less' : ''}`} style={{'--graphColor':'#f70', '--p':graphPorcentagem(user.ext.length, recVencida().proxMes.length)}}>
+                        <span className='extResumePercent'  >{recVencida().proxMes.length}</span>
+                    </div>
+                    <span className='extResumeTitle'>Vencendo</span>
+                </div>
+
+                <div className='graphWrap'>
+                    <div className={`progWrap ${graphPorcentagem(user.ext.length, recVencida().vencidos.length) < 50 ? 'less' : ''}`} style={{'--graphColor':'#a00c', '--p':(graphPorcentagem(user.ext.length, recVencida().vencidos.length))}}>
+                        <span className='extResumePercent'  >{recVencida().vencidos.length}</span>
+                    </div>
+                    <span className='extResumeTitle'>Vencidos</span>
+                </div>
+
+            </div>
+        </div>
+
         {reverso.map((item)=>{
+
             return <div key={item.id+'ext'} className='ldeContent'>
 
                 <fieldset className='fieldsetFlexRow'>
