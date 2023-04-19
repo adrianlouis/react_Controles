@@ -164,8 +164,8 @@ function handleListaAtiva(el, lista){
                             {/* <p>{item.tipo? item.tipo : 'N/A'}</p> */}
                             {/* <p className='cardTextoPqn'>tipo</p> */}
                             <p className='cardTextoPqn'>tipo: {item.tipo? item.tipo : ''}</p>
-                            <p className='cardTextoPqn'>local: {item.local? item.local : ''}</p>
                             <p className='cardTextoPqn'>classe: {item.tipo? item.tipo : ''}</p>
+                            <p className='cardTextoPqn'>local: {item.local? item.local : ''}</p>
                         </div>
 
                         {/* <div> */}

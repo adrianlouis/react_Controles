@@ -220,7 +220,7 @@ a{
     /* background-image: linear-gradient(to bottom right, #2227, #3337); */
 
     padding: 5px 10px ;
-    border: 2px solid #5557;
+    border-bottom: 2px solid #5557;
     border-left: none;
     border-right: none;
     /* box-shadow: #0007 5px 5px 10px, inset #3337 3px 3px 5px; */
@@ -880,14 +880,15 @@ canvas{
 }
 .btnVerde{
     color: rgb(166, 243, 166);
-    /* border: 1px solid rgb(166, 243, 166); */
     text-shadow: rgb(166, 243, 166) 0 0 10px;
-    border-radius: 20px;
+    /* border: 1px solid rgb(166, 243, 166); */
+    /* border-radius: 20px; */
 }
 .btnVermelho{
     color: rgb(200, 45, 0);
-    border: 1px solid rgb(200, 45, 0);
-    border-radius: 20px;
+    text-shadow: rgb(200, 45, 0) 0 0 10px;
+    /* border: 1px solid rgb(200, 45, 0); */
+    /* border-radius: 20px; */
 }
 
 .botoesPadrao{
