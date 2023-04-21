@@ -122,6 +122,7 @@ ul{
     display: flex;
     min-width: 600px;
     height: 40px;
+    border-bottom: 1px solid var(--corEscolhida);
     
 }
 li{
@@ -773,14 +774,21 @@ canvas{
 
 }
 
-.extResumeWrapper{
-    /* border: 1px solid red; */
-    display: flex;
+.extResumeWrapper, .extResumeWrapperLocais{
+    /* border: 1px solid red; */ 
+    display: grid;
+    grid-template-columns:auto auto auto auto auto;
+    gap: 10px 0;
     align-items: start;
     justify-content: space-evenly;
     width: 100%;
     margin-top: 10px;
+    /* border-bottom: 1px solid var(--corEscolhida); */
     /* flex-direction: column; */
+}
+.extResumeWrapperLocais{
+    border-bottom: 1px solid var(--corEscolhida);
+    margin-top: 20px;
 }
 .extResumeWords{
     border: 1px solid blue;
@@ -820,6 +828,7 @@ canvas{
     color: #fff;
     /* border: 2px solid var(--coll); */
     background: #222 linear-gradient(to right, transparent 50%, var(--graphColor) 0);
+    cursor: pointer;
 }
 .progWrap::before{
     content: '';
@@ -861,6 +870,7 @@ canvas{
 
 .extResumeTitle{
     font-size: .8rem;
+    cursor: pointer;
 }
 
 .graphWrap{

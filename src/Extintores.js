@@ -11,6 +11,9 @@ const Extintores = () => {
     const reverso = [...context.userLogado.ext].reverse()
     const [listaAtiva, setListaAtiva] = React.useState(reverso)
     const user = context.userLogado
+    const locais = user.ext.map(m => m.local)
+    const locaisUnicos = [...new Set(locais)]
+
     if (!context.userLogado.ext){
         context.setUserLogado({...context.userLogado, ext:[] })
         
@@ -49,7 +52,13 @@ const Extintores = () => {
             }
         })
 
-        return {vencidos:[...vencidosAnoPassado, ...vencidosAnoAtual], proxMes:[...proxMes]}
+        const retesteAnual = user.ext.filter((f)=>{
+            if(f.ultRet && f.ultRet == hoje.getFullYear()){
+                return f
+            }
+        })
+
+        return {vencidos:[...vencidosAnoPassado, ...vencidosAnoAtual], proxMes:[...proxMes], retesteAnual:[...retesteAnual]}
          
         }
 
@@ -79,30 +88,45 @@ function graphPorcentagem(total, valor){
 }
 
 function handleListaAtiva(el, lista){
+    console.log(el.firstChild.nextSibling)
     setListaAtiva(lista)
+
     const divs = document.querySelectorAll('.graphWrap')
+    const textos = document.querySelectorAll('.filtroLocalTexto')
+
     divs.forEach(e => {
         e.style.borderBottom='2px solid transparent'
     });
+    textos.forEach(e => {
+        e.style.color='#555'
+    })
+
     el.style.borderBottom='2px solid var(--corEscolhida)'
+    el.firstChild.nextSibling.style.color='rgb(221,221,221)'
 }
 
+function filtro(el, itens){
+    setListaAtiva(itens)
+    const textos = document.querySelectorAll('.filtroLocalTexto')
+    const quantidade = document.querySelectorAll('.filtroLocalQuantia')
+    
+    textos.forEach(e =>{
+        e.style.color='#555'
+    })
+    quantidade.forEach(e =>{
+        e.style.color='#555'
+    })
+
+    el.firstChild.nextSibling.style.color='rgb(221, 221, 221)'
+    el.firstChild.firstChild.style.color='rgb(221, 221, 221)'
+
+}
 
 
   return (
     <>
 
         <NavLink to='extnovo' className='novoRegistro' ><span>Registrar extintor</span></NavLink>
-        {/* <div id='navbarFiltros'>
-
-            <div id='inputSearchBody'>
-                <i className="fa-solid fa-magnifying-glass"></i>
-                <input id='inputBuscarExt'></input>
-            </div>
-
-            <i className="fa-solid fa-filter"></i>
-
-        </div> */}
   
         <div id='resumo' className='wrapperResume'>
             <h3>Resumo dos extintores</h3>
@@ -113,7 +137,7 @@ function handleListaAtiva(el, lista){
                     <div className='progWrap' style={{'--graphColor':'#0a0', '--p':100}}>
                         <span className='extResumePercent'  >{user.ext.length}</span>
                     </div>
-                    <span className='extResumeTitle'>Total</span>
+                    <span className='extResumeTitle filtroLocalTexto'>Total</span>
                 </div>
 
                
@@ -121,25 +145,64 @@ function handleListaAtiva(el, lista){
                     <div className={`progWrap ${graphPorcentagem(user.ext.length, recVencida().vencidos.length)<50?'less':''}`} style={{'--graphColor':'#cc0', '--p':graphPorcentagem(user.ext.length, avariados.length)}}>
                         <span className='extResumePercent'  >{avariados.length}</span>
                     </div>
-                    <span className='extResumeTitle'>Avariados</span>
+                    <span className='extResumeTitle filtroLocalTexto'>Avariados</span>
                 </div>
 
-                {/* <div className='graphWrap' onClick={()=>setListaAtiva(}> */}
                 <div className='graphWrap' onClick={({currentTarget})=>handleListaAtiva(currentTarget, recVencida().proxMes)}>
                     <div className={`progWrap ${graphPorcentagem(user.ext.length, recVencida().proxMes.length) < 50 ? 'less' : ''}`} style={{'--graphColor':'#f70', '--p':graphPorcentagem(user.ext.length, recVencida().proxMes.length)}}>
                         <span className='extResumePercent'  >{recVencida().proxMes.length}</span>
                     </div>
-                    <span className='extResumeTitle'>Vencendo</span>
+                    <span className='extResumeTitle filtroLocalTexto'>Vencendo</span>
                 </div>
 
-                <div className='graphWrap' onClick={()=>setListaAtiva(recVencida().vencidos)}>
+                <div className='graphWrap' onClick={({currentTarget})=>handleListaAtiva(currentTarget, recVencida().vencidos)}>
+                    <div className={`progWrap ${graphPorcentagem(user.ext.length, recVencida().vencidos.length) < 50 ? 'less' : ''}`} style={{'--graphColor':'#a00c', '--p':(graphPorcentagem(user.ext.length, recVencida().vencidos.length))}}>
+                        <span className='extResumePercent'  >{recVencida().vencidos.length}</span>
+                    </div>
+                    <span className='extResumeTitle filtroLocalTexto'>Vencidos</span>
+                </div>
+
+                <div className='graphWrap' onClick={({currentTarget})=>handleListaAtiva(currentTarget, recVencida().retesteAnual)}>
+                    <div className={`progWrap ${graphPorcentagem(user.ext.length, recVencida().retesteAnual.length) < 50 ? 'less' : ''}`} style={{'--graphColor':'#707', '--p':(graphPorcentagem(user.ext.length, recVencida().retesteAnual.length))}}>
+                        <span className='extResumePercent'  >{recVencida().retesteAnual.length}</span>
+                    </div>
+                    <span className='extResumeTitle filtroLocalTexto'>Reteste</span>
+                </div>
+
+              
+                
+                {/* <div className='graphWrap' onClick={()=>setListaAtiva(recVencida().vencidos)}>
                     <div className={`progWrap ${graphPorcentagem(user.ext.length, recVencida().vencidos.length) < 50 ? 'less' : ''}`} style={{'--graphColor':'#a00c', '--p':(graphPorcentagem(user.ext.length, recVencida().vencidos.length))}}>
                         <span className='extResumePercent'  >{recVencida().vencidos.length}</span>
                     </div>
                     <span className='extResumeTitle'>Vencidos</span>
-                </div>
+                </div> */}
+
+
 
             </div>
+        </div>
+
+        <div className='extResumeWrapperLocais'>
+
+            {locaisUnicos.map((m)=>{
+
+                const itens = user.ext.filter((f)=>{
+                    if (f.local === m){
+                        return f
+                    }
+                })
+
+                return <>
+                    <div className='graphWrap' onClick={({currentTarget})=>filtro(currentTarget, itens)}>
+                        <div className={`progWrap ${graphPorcentagem(user.ext.length, itens.length) < 50 ? 'less' : ''}`} style={{'--graphColor':'#fff', '--p':(graphPorcentagem(user.ext.length, itens.length))}}>
+                            <span className='extResumePercent filtroLocalQuantia'  >{itens.length}</span>
+                        </div>
+                        <span className='extResumeTitle filtroLocalTexto'>{m}</span>
+                    </div>
+                </>
+                })}
+
         </div>
 
         {listaAtiva.map((item)=>{
@@ -163,15 +226,15 @@ function handleListaAtiva(el, lista){
                         <div>
                             {/* <p>{item.tipo? item.tipo : 'N/A'}</p> */}
                             {/* <p className='cardTextoPqn'>tipo</p> */}
-                            <p className='cardTextoPqn'>tipo: {item.tipo? item.tipo : ''}</p>
-                            <p className='cardTextoPqn'>classe: {item.tipo? item.tipo : ''}</p>
+                            <p className='cardTextoPqn'>tipo: {item.tipo? `${item.tipo} - ${tipoClasse(item.tipo)}` : ''}</p>
+                            {/* <p className='cardTextoPqn'>classe: {item.tipo? tipoClasse(item.tipo) : ''}</p> */}
                             <p className='cardTextoPqn'>local: {item.local? item.local : ''}</p>
                         </div>
 
                         {/* <div> */}
 
                         <div>
-                            <p className='cardTextoPqn'>recarga {item.ultRec.mes? dataLong(item.ultRec.mes)+(item.ultRec.ano? '-' : '') : '' }{item.ultRec.ano ? Number(item.ultRec.ano) : ''}  {!item.ultRec.mes && !item.ultRec.ano && <p>N/A</p>}</p>
+                            <p className='cardTextoPqn'>recarga {item.ultRec.mes? dataLong(item.ultRec.mes)+(item.ultRec.ano? ' ' : '') : '' }{item.ultRec.ano ? Number(item.ultRec.ano) : ''}  {!item.ultRec.mes && !item.ultRec.ano && <p>N/A</p>}</p>
                             {item.ultRet && <p className='cardTextoPqn'>reteste {item.ultRet?item.ultRet:'não informado'}</p>}
 
                             {/* <p>{item.ultRec.mes? dataLong(item.ultRec.mes)+(item.ultRec.ano? ' de ' : '') : '' } {item.ultRec.ano ? Number(item.ultRec.ano) : ''}</p>
