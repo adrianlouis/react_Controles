@@ -165,10 +165,29 @@ function handleNavlink(elem, link){
   navigate(link)
 }
 
+// const testeRef = React.useRef()
+// const refLinksScroll = React.useRef()
+
+// React.useEffect(()=>{
+//   window.addEventListener('scroll', ()=>{
+//     if (refLinksScroll.current.getBoundingClientRect().top < 1){
+//       console.log('chegou em Top 0')
+//     }else{
+//       return
+//     }
+// },[])
+// })
+
+// React.useEffect(()=>{
+
+// },[])
+
+
+
   return (
-    <>
+    <div >
     
-      <div id='perfil' className='perfil'>
+      <div id='perfil' className='perfil'  >
 
       <div className='wallpaperCanvasWrapper' >
 
@@ -204,7 +223,7 @@ function handleNavlink(elem, link){
         
       </div>
 
-      <div id='linksScroll'>
+      <div id='linksScroll' >
 
         <ul id='navbarPerfil'>
           <li className='liVerde' onClick={({currentTarget})=>handleNavlink(currentTarget, '/home/ext')}>Extintores</li>
@@ -217,7 +236,7 @@ function handleNavlink(elem, link){
 
       <Outlet/>
 
-    </>
+    </div>
   )
 }
 

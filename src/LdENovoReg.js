@@ -46,8 +46,6 @@ const LdENovoReg = () => {
 
     }
 
-    console.log(context.userLogado)
-  
     function validarNumeros(elem){
       const validacao = /[0-9]/
       if (elem.value.match(validacao)){

@@ -13,6 +13,8 @@ const Extintores = () => {
     const user = context.userLogado
     const locais = user.ext.map(m => m.local)
     const locaisUnicos = [...new Set(locais)]
+    const [filter, setFilter] = React.useState(false)
+    const [resumo, setResumo] = React.useState(false)
 
     if (!context.userLogado.ext){
         context.setUserLogado({...context.userLogado, ext:[] })
@@ -65,12 +67,21 @@ const Extintores = () => {
         
 
     async function excluirExtintor(idUser, item, campo){
-        const {tempFoto, tempFotoCrop, tempWpp, tempWppCrop} = context.userLogado
-        const temporarios = {tempFoto:tempFoto, tempFotoCrop:tempFotoCrop, tempWpp:tempWpp, tempWppCrop:tempWppCrop}
+        // const {tempFoto, tempFotoCrop, tempWpp, tempWppCrop} = context.userLogado
+        // const temporarios = {tempFoto:tempFoto, tempFotoCrop:tempFotoCrop, tempWpp:tempWpp, tempWppCrop:tempWppCrop}
+
+        const nArray = listaAtiva.filter((f)=>{
+            if (f !== item){
+                return f
+            }
+        })
+        
+        setListaAtiva(nArray)
+
 
         await removerRegistro(idUser, item, campo)
         const update = await refreshBd(context.userLogado.nome)
-        await context.setUserLogado(...update, temporarios)
+        await context.setUserLogado(...update)
     }
 
 function tipoClasse(tipo){
@@ -88,7 +99,6 @@ function graphPorcentagem(total, valor){
 }
 
 function handleListaAtiva(el, lista){
-    console.log(el.firstChild.nextSibling)
     setListaAtiva(lista)
 
     const divs = document.querySelectorAll('.graphWrap')
@@ -122,13 +132,23 @@ function filtro(el, itens){
 
 }
 
+// console.log(window.document.client)
+function handleFilter(el){
+    setFilter(prev => {return !prev})
+    
+}
+
+function handleResumo(el){
+    setResumo(prev => {return !prev})
+}
+
 
   return (
     <>
 
-        <NavLink to='extnovo' className='novoRegistro' ><span>Registrar extintor</span></NavLink>
+        {/* <NavLink to='extnovo' className='novoRegistro' ><span>Registrar extintor</span></NavLink> */}
   
-        <div id='resumo' className='wrapperResume'>
+        <div id='resumo' className='wrapperResume' style={{bottom: resumo?'0px':'-110px', marginBottom: resumo?'50px':'0'}} >
             <h3>Resumo dos extintores</h3>
 
             <div className='extResumeWrapper'>
@@ -183,7 +203,7 @@ function filtro(el, itens){
             </div>
         </div>
 
-        <div className='extResumeWrapperLocais'>
+        <div className='extResumeWrapperLocais' style={{bottom: filter?'0px':'-140px', marginBottom: filter?'50px':'0'}}>
 
             {locaisUnicos.map((m)=>{
 
@@ -344,6 +364,14 @@ function filtro(el, itens){
             //     </fieldset>
             // </div>
         })}
+
+        <div className='ftr'>
+        <i className="fa-solid fa-magnifying-glass"></i>
+        <NavLink to='extnovo' ><i className="fa-solid fa-plus"></i></NavLink>
+        <i className="fa-solid fa-location-dot" onClick={({target})=>handleFilter(target)}></i>
+        {/* <i class="fa-solid fa-location-dot"></i> */}
+        <i className="fa-solid fa-circle-info" onClick={({target})=>handleResumo(target)}></i>
+        </div>
 
     </>
   )
