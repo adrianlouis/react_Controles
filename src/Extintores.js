@@ -139,7 +139,7 @@ const Extintores = () => {
             {!context.itensFiltrados && listaAtiva.map((item, i)=>{
                 return <div key={item.id+'ext'+i} className='ldeContent' >
 
-                    <div>
+                    <div className='numAvariaTextos'>
                         <p>Nº: {item.num}</p>
                         {item.avaria && <p >Avarias: {item.avaria} </p> }
                     </div>

@@ -1023,3 +1023,19 @@ canvas{
     gap: 10px 0;
     transition: all ease-in-out .5s;
 }
+
+.numAvariaTextos{
+    /* border: 1px solid red; */
+    /* display: flex;
+    justify-content: space-evenly; */
+    margin-bottom: 10px;
+}
+.numAvariaTextos p:first-child{
+    width: 80px;
+    text-align: left;
+    margin-left: 10px;
+}
+.numAvariaTextos p:last-child{
+    width: calc(100% - 100px);
+    text-align: left;
+}
