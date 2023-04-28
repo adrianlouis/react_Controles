@@ -66,10 +66,16 @@ const HidranteNovo = () => {
       
       // updateBd(idUser, {hd:[...context.userLogado.hd, novoHd]})
 
-      await adicionarRegistro(idUser, novoHd, 'hd');
-      await context.setUserLogado({...context.userLogado, hd:[novoHd, ...context.userLogado.hd]})
+      const novoObjHd = [novoHd, ...context.userLogado.hd]
+      await adicionarRegistro(idUser, novoHd, 'hd')
+      await context.setUserLogado({...context.userLogado, hd:novoObjHd})
       const update = await refreshBd(context.userLogado.nome)
       await context.setUserLogado(...update)
+
+      // await adicionarRegistro(idUser, novoHd, 'hd');
+      // await context.setUserLogado({...context.userLogado, hd:[novoHd, ...context.userLogado.hd]})
+      // const update = await refreshBd(context.userLogado.nome)
+      // await context.setUserLogado(...update)
       navigate("/home/hd");
 
   }

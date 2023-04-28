@@ -157,6 +157,7 @@ const Home = () => {
 
 function handleNavlink(elem, link){
   const links = document.querySelectorAll('#navbarPerfil li')
+  context.setItensFiltrados('')
   
   for (let i = 0; i < links.length; i++) {
     links[i].classList.remove('liVerde');
@@ -181,6 +182,10 @@ function handleNavlink(elem, link){
 // React.useEffect(()=>{
 
 // },[])
+
+function handleNavegar(rota){
+  
+}
 
 
 
@@ -217,7 +222,7 @@ function handleNavlink(elem, link){
         <div className='dadosPerfil'>
           {/* <p className='nome'>{context.userLogado.perfil.nome}</p> */}
           <p className='nome'>{context.userLogado.perfil.nome}</p>
-          <p className='tag'>{context.userLogado.perfil.nick && '@'}{context.userLogado.perfil.nick}</p>
+          <p className='tag'>{context.userLogado.perfil.nick && '@'+context.userLogado.perfil.nick}</p>
           <p className='bio'>{context.userLogado.perfil.quote}</p>
         </div>
         

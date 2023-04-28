@@ -95,7 +95,7 @@
     /* left: 30px; */
     /* top: 280px; */
     color: rgb(161, 161, 161);
-
+    font-size: .8rem;
     /* border: 1px solid red; */
     /* width: calc(100vw - 60px); */
     text-align: justify;
@@ -223,7 +223,7 @@ a{
 
 }
 .ldeContent p{
-    margin: 0px 8px 0 8px;
+    /* margin: 0px 8px 0 8px; */
     text-align: left;
 }
 .invisivel{
@@ -234,8 +234,10 @@ a{
     font-weight: 900;
 }
 
-.ldeContent:nth-last-child(2){
-    margin-bottom: 50px;
+/* .ldeContent:nth-last-child(1){ */
+.ldeContent:last-child{
+    margin-bottom: 150px;
+    /* opacity: .2; */
     
 }
 
@@ -757,14 +759,16 @@ canvas{
     /* height: 100px; */
     padding: 10px 0;
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
-    flex-direction: column;
+    flex-direction: row;
     width: 100%;
 
     position: fixed;
+    /* bottom: 0px; */
     bottom: -110px;
     background-color: #000;
+    transition: ease-in-out .5s;
 
 }
 
@@ -954,6 +958,7 @@ canvas{
 
     color: white;
     border-top: 2px solid var(--corEscolhida);
+    z-index: 2;
     /* box-shadow: 0 0 15px 15px #000; */
 
 }
@@ -972,4 +977,49 @@ canvas{
     color: white;
     margin: 0;
     background-color: #000;
+}
+
+.divInputBuscar{
+    border-top: 1px solid var(--corEscolhida);
+    width: 100%;
+    height: 50px;
+    position: fixed;
+    background-color: #000;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    bottom: 60px;
+    transition: all ease-in-out .5s;
+}
+.divInputBuscar i{
+    padding: 0 10px;
+    color: rgb(161, 161, 161)
+}
+.divInputBuscar input{
+    border-color: transparent;
+    background-color: transparent;
+    width: 200px;
+    border-bottom: 2px solid var(--corEscolhida);
+    color: rgb(161, 161, 161);
+    text-align: center;
+}
+.divInputBuscar input:focus{
+    /* border: none; */
+    outline: none;
+}
+
+
+.footerLocais{
+    width: 100%;
+    /* height: 200px; */
+    border: 2px solid var(--corEscolhida);
+    position: fixed;
+    bottom: -135px;
+    background-color: #000;
+    padding-top: 10px;
+
+    display: grid;
+    grid-template-columns: auto auto auto auto auto;
+    gap: 10px 0;
+    transition: all ease-in-out .5s;
 }
