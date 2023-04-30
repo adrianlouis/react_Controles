@@ -98,14 +98,16 @@ const LdE = () => {
 
                 <fieldset className='fieldsetAcoes fieldsetFlexRow'>
 
-                    <div id={'del'+item.id} className='btnDelWrapper'><span onClick={()=>navigate(`edit/id?id=${item.id}&ind=${index}`)}>editar</span>
-                    <span onClick={()=>handleExclude(item.id)}>excluir</span></div>
+                    <div id={'del'+item.id} className='btnDelWrapper'>
+                        <span onClick={()=>navigate(`edit/id?id=${item.id}&ind=${index}`)}>editar</span>
+                        <span onClick={()=>handleExclude(item.id)}>excluir</span>
+                    </div>
 
                     <div id={'elem'+item.id} className='btnDelWrapper' style={{display:'none'}} >
-                    <span>Excluir este item?</span>
-                    <span onClick={()=>handleCancel(item.id)}>Não</span>
-                    <span className=' confirmExclude' onClick={()=>excluirLde(context.userLogado.id, item, 'lde')}>Sim</span></div>
-                    {/* <span className=' confirmExclude' onClick={()=>excluirLde(item, context.userLogado.id)}>Sim</span></div> */}
+                        <span>Excluir este item?</span>
+                        <span onClick={()=>handleCancel(item.id)}>Não</span>
+                        <span className=' confirmExclude' onClick={()=>excluirLde(context.userLogado.id, item, 'lde')}>Sim</span>
+                    </div>
 
                 </fieldset>
 

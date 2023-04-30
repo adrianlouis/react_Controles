@@ -5,6 +5,7 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import { dataLong } from './funcoes/extDatas'
 import { refreshBd, removerRegistro } from './crudFireBase'
 import Footer from './Footer'
+import BtnAcoesItens from './components/BtnAcoesItens'
 
 const Extintores = () => {
 
@@ -64,8 +65,6 @@ const Extintores = () => {
         
 
     async function excluirExtintor(idUser, item, campo){
-        // const {tempFoto, tempFotoCrop, tempWpp, tempWppCrop} = context.userLogado
-        // const temporarios = {tempFoto:tempFoto, tempFotoCrop:tempFotoCrop, tempWpp:tempWpp, tempWppCrop:tempWppCrop}
 
         const nArray = listaAtiva.filter((f)=>{
             if (f !== item){
@@ -75,12 +74,24 @@ const Extintores = () => {
         
         setListaAtiva(nArray)
 
-
         await removerRegistro(idUser, item, campo)
         const update = await refreshBd(context.userLogado.nome)
-        await context.setUserLogado(...update)
-    }
+        context.setUserLogado(...update)
 
+        if (context.itensFiltrados){
+
+            const itemRemovido = context.itensFiltrados.filter((f)=>{
+                if (f !== item){
+                    return f
+                }
+            }) 
+
+            context.setItensFiltrados(itemRemovido)
+
+        }
+
+    }
+    
     function tipoClasse(tipo){
         if (tipo === 'A'){
             return 'AP'
@@ -140,36 +151,26 @@ const Extintores = () => {
                 return <div key={item.id+'ext'+i} className='ldeContent' >
 
                     <div className='numAvariaTextos'>
-                        <p>Nº: {item.num}</p>
-                        {item.avaria && <p >Avarias: {item.avaria} </p> }
+                        <p>Nº: {item.num? item.num :'N/A'}</p>
+                        {item.avaria && <p >{item.avaria}</p> }
                     </div>
 
                         <div className='ldeWrapperDados'>
                             
                             <div>
-                                <p className='cardTextoPqn'>tipo: {item.tipo? `${item.tipo} - ${tipoClasse(item.tipo)}` : ''}</p>
-                                <p className='cardTextoPqn'>local: {item.local? item.local : ''}</p>
+                                <p className='cardTextoPqn'>tipo: {item.tipo? `${item.tipo} - ${tipoClasse(item.tipo)}` : 'N/A'}</p>
+                                <p className='cardTextoPqn'>local: {item.local? item.local : 'N/A'}</p>
                             </div>
 
 
                             <div>
                                 <p className='cardTextoPqn'>recarga {item.ultRec.mes? dataLong(item.ultRec.mes)+(item.ultRec.ano? ' ' : '') : '' }{item.ultRec.ano ? Number(item.ultRec.ano) : ''}  {!item.ultRec.mes && !item.ultRec.ano && 'N/A'}</p>
-                                {item.ultRet && <p className='cardTextoPqn'>reteste {item.ultRet?item.ultRet:'não informado'}</p>}
-
+                                <p className='cardTextoPqn'>reteste {item.ultRet?item.ultRet:'N/A'}</p>
                             </div>
 
                         </div>
                     
-                        <div className='botoesPadrao'>
-                            <div className='btnAcoesWrapper btnVerde' onClick={()=>navigate(`extedit?id=${item.id}`)}>
-                                <p>editar</p>
-                            </div>
-                            <div className='btnAcoesWrapper btnVermelho' onClick={()=>excluirExtintor(context.userLogado.id, item, 'ext')}>
-                                <p>excluir</p>
-                            </div>
-
-                        </div>
-
+                        <BtnAcoesItens funcDel={()=>excluirExtintor(context.userLogado.id, item, 'ext')} itemId={item.id} editarOnClick={()=>navigate(`extedit?id=${item.id}`)}  />
                 
                     </div>
                 
@@ -178,43 +179,36 @@ const Extintores = () => {
             {context.itensFiltrados && context.itensFiltrados.map((item, i)=>{
                 return <div key={item.id+'ext'+i} className='ldeContent' >
 
-                                <div>
-                                    <p>Nº: {item.num}</p>
-                                    {item.avaria && <p >Avarias: {item.avaria} </p>}
-                                </div>
+                <div className='numAvariaTextos'>
+                    <p>Nº: {item.num? item.num :'N/A'}</p>
+                    {item.avaria && <p >{item.avaria}</p> }
+                </div>
 
-                                <div className='ldeWrapperDados'>
-                                
-                                    <div>
-                                        <p className='cardTextoPqn'>tipo: {item.tipo? `${item.tipo} - ${tipoClasse(item.tipo)}` : ''}</p>
-                                        <p className='cardTextoPqn'>local: {item.local? item.local : ''}</p>
-                                    </div>
-
-                                    <div>
-                                        <p className='cardTextoPqn'>recarga {item.ultRec.mes? dataLong(item.ultRec.mes)+(item.ultRec.ano? ' ' : '') : '' }{item.ultRec.ano ? Number(item.ultRec.ano) : ''}  {!item.ultRec.mes && !item.ultRec.ano && <p>N/A</p>}</p>
-                                        {item.ultRet && <p className='cardTextoPqn'>reteste {item.ultRet?item.ultRet:'não informado'}</p>}
-                                    </div>
-
-                                </div>
-            
-                                <div className='botoesPadrao'>
-
-                                    <div className='btnAcoesWrapper btnVerde' onClick={()=>navigate(`extedit?id=${item.id}`)}>
-                                        <p>editar</p>
-                                    </div>
-                                    <div className='btnAcoesWrapper btnVermelho' onClick={()=>excluirExtintor(context.userLogado.id, item, 'ext')}>
-                                        <p>excluir</p>
-                                    </div>
-                                </div>
+                    <div className='ldeWrapperDados'>
                         
-                            </div>
+                        <div>
+                            <p className='cardTextoPqn'>tipo: {item.tipo? `${item.tipo} - ${tipoClasse(item.tipo)}` : 'N/A'}</p>
+                            <p className='cardTextoPqn'>local: {item.local? item.local : 'N/A'}</p>
+                        </div>
+
+
+                        <div>
+                            <p className='cardTextoPqn'>recarga {item.ultRec.mes? dataLong(item.ultRec.mes)+(item.ultRec.ano? ' ' : '') : '' }{item.ultRec.ano ? Number(item.ultRec.ano) : ''}  {!item.ultRec.mes && !item.ultRec.ano && 'N/A'}</p>
+                            <p className='cardTextoPqn'>reteste {item.ultRet?item.ultRet:'N/A'}</p>
+                        </div>
+
+                    </div>
+                
+                    <BtnAcoesItens funcDel={()=>excluirExtintor(context.userLogado.id, item, 'ext')} itemId={item.id} editarOnClick={()=>navigate(`extedit?id=${item.id}`)}  />
+            
+                </div>
                         
                 })
             }
 
         </div>
 
-        <Footer numeroItens={user.ext.length} itens={{extintores:user.ext}} novoItem={'extnovo'}></Footer>
+        <Footer numeroItens={context.userLogado.ext.length} itens={{extintores:context.userLogado.ext}} novoItem={'extnovo'}></Footer>
 
         </>
     )

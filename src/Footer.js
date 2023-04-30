@@ -114,7 +114,7 @@ const Footer = ({numeroItens, itens, novoItem}) => {
             setResultado({avariados:avariados, venceProxMes:proxMes, locais:locaisUnicos, locaisLength:locaisUnicoslength, itensPorLocal:itensPorLocal })
         }
         
-    },[])
+    },[itens])
 
     function handleInputBuscar(v){
         setInputBuscar(v)
