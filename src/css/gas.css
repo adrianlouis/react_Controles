@@ -67,6 +67,11 @@
     flex-direction: column;
 }
 
+
+.gasCardContent div p:nth-child(2){
+    /* color: red; */
+    font-size: 1rem;
+}
 #containerGas{
     margin: 20px;
     width: 100%;

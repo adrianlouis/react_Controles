@@ -208,7 +208,7 @@ const Extintores = () => {
 
         </div>
 
-        <Footer numeroItens={context.userLogado.ext.length} itens={{extintores:context.userLogado.ext}} novoItem={'extnovo'}></Footer>
+        <Footer numeroItens={context.userLogado.ext.length} itens={{extintores:context.userLogado.ext}} novoItem={'extnovo'} />
 
         </>
     )
