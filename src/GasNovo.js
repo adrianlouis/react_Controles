@@ -70,7 +70,8 @@ const GasNovo = () => {
 
     function addMedicaoDeLoja(){
         setMedidores({...medidores, medicao:[...medidores.medicao, medicao]})
-        console.log(medidores)
+        setMedicao({loja:'', medicao:''})
+        document.querySelector('#numeroLoja').focus()
     }
 
     function excluirLinha(ind){

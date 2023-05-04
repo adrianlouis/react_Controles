@@ -931,7 +931,7 @@ canvas{
     /* padding: 10px; */
     /* border: 1px solid red; */
     border-top: #223 1px solid;
-    padding-top: 5px;
+    padding: 15px 0;
     color: #fff;
 }
 .addGasLine label{
@@ -950,6 +950,9 @@ canvas{
     width: 40px;
     color: rgb(161, 161, 161);
     text-align: center;
+}
+#numeroLoja:focus, #gasMedicao:focus{
+    outline: none;
 }
 #gasMedicao{
     width: 100px;
