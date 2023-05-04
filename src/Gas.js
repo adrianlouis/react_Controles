@@ -72,7 +72,7 @@ const Gas = () => {
                             {item.medicao.map((m, ind)=>{
 
                                 return <div>
-                                    <p className='cardTextoPqn'>loja {m.loja}</p>
+                                    <p className='cardTextoPqn'>L {m.loja}</p>
                                     <p>{m.medicao}</p>
                                 </div>
                             })}
@@ -84,13 +84,16 @@ const Gas = () => {
                     
                     <fieldset className='fieldsetAcoes fieldsetFlexRow'>
 
-                        <div id={'del'+item.id} className='btnDelWrapper'><span onClick={()=>navigate(`edit?id=${item.id}`)}>editar</span>
-                        <span onClick={()=>handleExclude(item.id)}>excluir</span></div>
+                        <div id={'del'+item.id} className='btnDelWrapper'>
+                            {/* <span onClick={()=>navigate(`edit?id=${item.id}`)}>editar</span> */}
+                            <span onClick={()=>handleExclude(item.id)}>excluir</span>
+                        </div>
 
                         <div id={'elem'+item.id} className='btnDelWrapper' style={{display:'none'}} >
-                        <span>Excluir este item?</span>
-                        <span onClick={()=>handleCancel(item.id)}>Não</span>
-                        <span className=' confirmExclude' onClick={()=>deletar(item, ctx.userLogado.id)}>Sim</span></div>
+                            <span>Excluir este item?</span>
+                            <span onClick={()=>handleCancel(item.id)}>Não</span>
+                            <span className=' confirmExclude' onClick={()=>deletar(item, ctx.userLogado.id)}>Sim</span>
+                        </div>
 
                     </fieldset>
 

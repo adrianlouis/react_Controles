@@ -106,12 +106,12 @@ const GasNovo = () => {
                 <div>
                     <label htmlFor='numeroLoja'>Loja</label>
                     {/* <p>Loja</p> */}
-                    <input id='numeroLoja' maxLength={3} onChange={({target})=>setMedicao({...medicao, loja:target.value})} value={medicao.loja}></input>
+                    <input id='numeroLoja' type='tel' maxLength={3} onChange={({target})=>setMedicao({...medicao, loja:target.value})} value={medicao.loja}></input>
                 </div>
 
                 <div>
                     <label htmlFor='gasMedicao'>Medicao</label>
-                    <input id='gasMedicao' maxLength={8} onChange={({target})=>setMedicao({...medicao, medicao:target.value})} value={medicao.medicao} ></input>
+                    <input id='gasMedicao' type='tel' maxLength={8} onChange={({target})=>setMedicao({...medicao, medicao:target.value})} value={medicao.medicao} ></input>
                 </div>
 
                 <div className='gasAcoes'>
