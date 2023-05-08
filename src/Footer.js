@@ -196,7 +196,7 @@ const Footer = ({numeroItens, itens, novoItem}) => {
         </div>
 
         {/* DIV DOS LOCAIS EXISTENTES */}
-        {resultado.locais && <div className='footerLocais' style={{bottom:modalAtivo === 3 ? '50px' : '-135px'}}>
+        {resultado.locais && <div className='footerLocais' style={{bottom:modalAtivo === 3 ? '50px' : '-155px'}}>
            {resultado.locais.map((m, i)=>{
             return  <div className='graphWrap' key={i+'item'} onClick={()=>context.setItensFiltrados(resultado.itensPorLocal[i])} >
                         <div className={`progWrap ${graphPorcentagem(numeroItens, resultado.locaisLength[i]) < 50 ? 'less' : ''}`} style={{'--graphColor':'#a00c', '--p':(graphPorcentagem(numeroItens, resultado.locaisLength[i]))}}>

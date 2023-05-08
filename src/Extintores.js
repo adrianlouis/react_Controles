@@ -151,21 +151,21 @@ const Extintores = () => {
                 return <div key={item.id+'ext'+i} className='ldeContent' >
 
                     <div className='numAvariaTextos'>
-                        <p>Nº: {item.num? item.num :'N/A'}</p>
-                        {item.avaria && <p >{item.avaria}</p> }
+                        <p><i className="fa-solid fa-hashtag"></i> {item.num? item.num :'N/A'}</p>
+                        {item.avaria && <p ><i className="fa-solid fa-triangle-exclamation"></i> {item.avaria}</p> }
                     </div>
 
                         <div className='ldeWrapperDados'>
                             
                             <div>
-                                <p className='cardTextoPqn'>tipo: {item.tipo? `${item.tipo} - ${tipoClasse(item.tipo)}` : 'N/A'}</p>
-                                <p className='cardTextoPqn'>local: {item.local? item.local : 'N/A'}</p>
+                                <p className='cardTextoPqn'><i className="fa-solid fa-fire-extinguisher"></i> Tipo: {item.tipo? `${item.tipo} - ${tipoClasse(item.tipo)}` : 'N/A'}</p>
+                                <p className='cardTextoPqn'><i className="fa-solid fa-location-dot"></i> Local: {item.local? item.local : 'N/A'}</p>
                             </div>
 
 
                             <div>
-                                <p className='cardTextoPqn'>recarga {item.ultRec.mes? dataLong(item.ultRec.mes)+(item.ultRec.ano? ' ' : '') : '' }{item.ultRec.ano ? Number(item.ultRec.ano) : ''}  {!item.ultRec.mes && !item.ultRec.ano && 'N/A'}</p>
-                                <p className='cardTextoPqn'>reteste {item.ultRet?item.ultRet:'N/A'}</p>
+                                <p className='cardTextoPqn'><i className="fa-solid fa-calendar-day"></i> Recarga: {item.ultRec.mes? dataLong(item.ultRec.mes)+(item.ultRec.ano? ' ' : '') : '' }{item.ultRec.ano ? Number(item.ultRec.ano) : ''}  {!item.ultRec.mes && !item.ultRec.ano && 'N/A'}</p>
+                                <p className='cardTextoPqn'><i className="fa-regular fa-calendar"></i> Reteste: {item.ultRet?item.ultRet:'N/A'}</p>
                             </div>
 
                         </div>
@@ -188,7 +188,7 @@ const Extintores = () => {
                         
                         <div>
                             <p className='cardTextoPqn'>tipo: {item.tipo? `${item.tipo} - ${tipoClasse(item.tipo)}` : 'N/A'}</p>
-                            <p className='cardTextoPqn'>local: {item.local? item.local : 'N/A'}</p>
+                            <p className='cardTextoPqn'><i className="fa-solid fa-location-dot"></i> {item.local? item.local : 'N/A'}</p>
                         </div>
 
 

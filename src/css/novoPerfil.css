@@ -190,14 +190,12 @@ a{
 .ldeWrapperDados div{
     width: 100%;
 };
-
 .ldeContent div:first-child p{
     font-size: 5rem;
 }
 
-.ldeContent div p:first-child {
-    color: rgb(110, 110, 110);
-    font-size: .8rem;
+.ldeWrapperDados div i{
+    width: 20px;
 }
 
 
@@ -1073,7 +1071,7 @@ canvas{
     flex-direction: column;
     /* justify-content: space-evenly; */
     margin-bottom: 10px;
-    padding: 0 5px;
+    /* padding: 0 5px; */
 }
 .numAvariaTextos p:first-child{
     width: 90px;

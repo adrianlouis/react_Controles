@@ -67,7 +67,7 @@ const LdENovoReg = () => {
 
     <div>
         <p className='cardTextoPqn'>número</p>
-        <Input inpClass='newLde' id='editarLdENum' inpTipo='text' placeholder='00' onChange={({target})=>setNum(target.value)} value={num} onBlur={({currentTarget})=>{validarNumeros(currentTarget)}} />
+        <Input inpClass='newLde' id='editarLdENum' inpTipo='tel' placeholder='00' onChange={({target})=>setNum(target.value)} value={num} onBlur={({currentTarget})=>{validarNumeros(currentTarget)}} />
     </div>
 
     <div>
