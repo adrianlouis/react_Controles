@@ -224,10 +224,8 @@ a{
     font-weight: 900;
 }
 
-/* .ldeContent:nth-last-child(1){ */
 .ldeContent:last-child{
-    margin-bottom: 150px;
-    /* opacity: .2; */
+    margin-bottom: 170px;
     
 }
 
@@ -1056,7 +1054,7 @@ canvas{
     border:none;
     border-top: 2px solid var(--corEscolhida);
     position: fixed;
-    bottom: -135px;
+    bottom: -155px;
     background-color: #000;
     padding: 10px 0;
     display: grid;

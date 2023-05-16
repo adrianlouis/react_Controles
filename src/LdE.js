@@ -1,40 +1,16 @@
-import React from 'react'
-import css from './css/lde.css'
-import { NavLink, useNavigate} from 'react-router-dom'
-import { GlobalContext } from './GlobalContext'
-import { refreshBd, removerRegistro, updateBd } from './crudFireBase'
-// import { collection, getDocs, addDoc, updateDoc, doc, deleteDoc, arrayUnion, arrayRemove } from 'firebase/firestore';
-import { db } from './firebase-config';
-
-
+import React from 'react';
+import styles from './Hidrantes.module.css';
+import { useNavigate} from 'react-router-dom';
+import { GlobalContext } from './GlobalContext';
+import { refreshBd, removerRegistro } from './crudFireBase';
+import BtnAcoesItens from './components/BtnAcoesItens';
+import Footer from './Footer';
 
 const LdE = () => {
     const context = React.useContext(GlobalContext)
-    // const usersCollectionRef = collection(db, "users" )
     const navigate = useNavigate()
-    // const [lde, setLde] = React.useState(refreshBd(''))
-
-    // const getUsers = async () => {
-    //     const data = await getDocs(usersCollectionRef);
-    //     const users = data.docs.map((docs) => ({...docs.data(), id:docs.id}))
-    //     const updated = users.filter((f)=>{
-    //         return f.id === context.userLogado.id
-    //     })
-    //     setLde(updated.lde)
-    // }
     
-    // getUsers()
-    // console.log(lde)
-
-    // function excluirLde(elem, id){
     async function  excluirLde(idUser, item, campo){
-        // const item = await context.userLogado.lde.filter((f)=>{
-        //     return f.id !== elem.id
-        // })
-
-        // context.setUserLogado({...context.userLogado, lde:item})
-        // updateBd(id, {lde:item})
-
         // deletar
         await removerRegistro(idUser, item, campo)
 
@@ -42,81 +18,79 @@ const LdE = () => {
         const update = await refreshBd(context.userLogado.nome)
         await context.setUserLogado(...update)
 
-        // navigate('/home/lde')
-
     }
 
-    function handleExclude(id){
-        document.querySelector('#del'+id).style.display='none'
-        document.querySelector('#elem'+id).style.display='flex'
-    }
-    function handleCancel(id){
-        document.querySelector('#elem'+id).style.display='none'
-        document.querySelector('#del'+id).style.display='flex'
+    function iconeBateria(dur){
+        switch (dur) {
+            case "6h":
+                return <i className="fa-solid fa-battery-full"></i>
+            case "5h":
+                return <i className="fa-solid fa-battery-three-quarters"></i>
+            case "4h":
+                return <i className="fa-solid fa-battery-half"></i>
+            case "3h":
+                return <i className="fa-solid fa-battery-half"></i>
+            case "2h":
+                return <i className="fa-solid fa-battery-quarter"></i>
+            default:
+                return <i className="fa-solid fa-battery-empty"></i>
+        }
     }
 
   return (
-    <div className='lde'>
+    < >
 
-    <NavLink id='linkLdeNovo' to='ldenovo' className='novoRegistro' >Registrar luz de emergência</NavLink>
+        <div >
+
+        
 
         {!context.itensFiltrados && context.userLogado && context.userLogado.lde.map((item, index)=>{
-            return <div key={item.id} className='ldeContent'>
+            return <div key={item.id} className={styles.container}>
 
-                <fieldset className='fieldsetFlexRow'>
+                <div className={styles.hdNumAvaria} >
+                    <span ><i className="fa-solid fa-hashtag"></i> {item.num ? item.num : 'N/A'}</span>
+                    {item.avaria && <span><i className="fa-solid fa-triangle-exclamation"></i> {item.avaria}</span>}
+                </div>
 
-                    <legend>Luz de Emergência</legend>
-                    <div className='ldeWrapperDados'>
+                <div>
+                    <span><i className="fa-solid fa-location-dot"></i> Local: {item.local ? item.local : 'N/A'}</span>
+                </div>
 
-                        <div>
-                            <p className='cardTextoPqn'>número</p>
-                            <p>{item.num ? item.num : 'N/A'}</p>
-                        </div>
+                <div>
+                    <span>{iconeBateria(item.dur)} Autonomia: {item.dur ? item.dur : 'N/A'}</span>
+                </div>
 
-                        <div>
-                            <p className='cardTextoPqn'>local</p>
-                            <p>{item.local ? item.local : 'N/A'}</p>
-                        </div>
-
-                        <div>
-                            <p className='cardTextoPqn'>autonomia</p>
-                            <p>{item.dur ? item.dur : 'N/A'}</p>
-                        </div>
-
-                    </div>
-                </fieldset>
-
-                {item.avaria && <fieldset className='fieldsetFlexRow'>
-
-                    <legend>Avarias</legend>
-
-                    <div>
-                        <p>{item.avaria}</p>
-                    </div>
-
-                </fieldset>}
-
-                <fieldset className='fieldsetAcoes fieldsetFlexRow'>
-
-                    <div id={'del'+item.id} className='btnDelWrapper'>
-                        <span onClick={()=>navigate(`edit/id?id=${item.id}&ind=${index}`)}>editar</span>
-                        <span onClick={()=>handleExclude(item.id)}>excluir</span>
-                    </div>
-
-                    <div id={'elem'+item.id} className='btnDelWrapper' style={{display:'none'}} >
-                        <span>Excluir este item?</span>
-                        <span onClick={()=>handleCancel(item.id)}>Não</span>
-                        <span className=' confirmExclude' onClick={()=>excluirLde(context.userLogado.id, item, 'lde')}>Sim</span>
-                    </div>
-
-                </fieldset>
+                <BtnAcoesItens funcDel={()=>excluirLde(context.userLogado.id, item, 'lde')} itemId={item.id} editarOnClick={()=>navigate(`edit/id?id=${item.id}&ind=${index}`)} />
 
             </div>
-
             
-        })}
+        }).reverse()}
 
-    </div> 
+
+        {context.itensFiltrados && context.userLogado && context.itensFiltrados.map((item, index)=>{
+            return <div key={item.id} className={styles.container}>
+
+            <div className={styles.hdNumAvaria} >
+                <span ><i className="fa-solid fa-hashtag"></i> {item.num ? item.num : 'N/A'}</span>
+                {item.avaria && <span><i className="fa-solid fa-triangle-exclamation"></i> {item.avaria}</span>}
+            </div>
+
+            <div>
+                <span><i className="fa-solid fa-location-dot"></i> Local: {item.local ? item.local : 'N/A'}</span>
+            </div>
+
+            <div>
+                <span>{iconeBateria(item.dur)} Autonomia: {item.dur ? item.dur : 'N/A'}</span>
+            </div>
+
+            <BtnAcoesItens funcDel={()=>excluirLde(context.userLogado.id, item, 'lde')} itemId={item.id} editarOnClick={()=>navigate(`edit/id?id=${item.id}&ind=${index}`)} />
+
+        </div>
+        })}
+</div>
+
+        <Footer numeroItens={context.userLogado.ext.length} itens={{lde:context.userLogado.lde}} novoItem={'ldenovo'} />
+    </> 
     
   )
 }

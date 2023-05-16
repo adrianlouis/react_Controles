@@ -1,4 +1,5 @@
 import React from 'react'
+import styles from './BtnAcoesItens.module.css'
 
 const BtnAcoesItens = ({funcDel, editarOnClick, itemId}) => {
 
@@ -13,18 +14,20 @@ const BtnAcoesItens = ({funcDel, editarOnClick, itemId}) => {
     }
 
   return (
-    <div className='botoesPadrao'>
+    <div id='btnAcoesItens' className={styles.container}>
 
-        <div id={`btnContainer${itemId}`} style={{display:'flex'}}>
-            <div className='btnAcoesWrapper btnVerde' onClick={editarOnClick}>
+        <div id={`btnContainer${itemId}`} className={styles.wrapper} >
+            <div  onClick={editarOnClick}>
+            {/* <div className='btnAcoesWrapper btnVerde' onClick={editarOnClick}> */}
                 <p>editar</p>
             </div>
-            <div className='btnAcoesWrapper btnVermelho'  >
+            <div >
+            {/* <div className='btnAcoesWrapper btnVermelho'  > */}
                 <p onClick={({currentTarget})=>handleDel(currentTarget)}>excluir</p>
             </div>
         </div>
 
-        <div id={`btnConfirm${itemId}`} style={{display:'none'}}>
+        <div id={`btnConfirm${itemId}`} className={styles.wrapperConfirmDel} style={{display:'none'}} >
             <span>Excluir este item?</span>
             <span onClick={({currentTarget})=>handleCancel(currentTarget, itemId)}>Não</span>
             <span onClick={funcDel}>Sim</span>

@@ -410,9 +410,9 @@ select::selection{
     text-align: center;
 }
 
-i{
+/* i{
     cursor: pointer;
-}
+} */
 
 #resultadoFiltro{
     position: absolute;

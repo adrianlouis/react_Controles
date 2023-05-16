@@ -33,7 +33,7 @@ const Footer = ({numeroItens, itens, novoItem}) => {
             })
 
             const proxMes = itens.extintores.filter((f)=>{
-                if (f.ultRec.mes == (hoje.getMonth()+2)){
+                if (f.ultRec.mes == (hoje.getMonth()+2) && f.ultRec.ano == (hoje.getFullYear()) || f.ultRec.mes == (hoje.getMonth()+1) && f.ultRec.ano == hoje.getFullYear() ){
                     return f.num
                 }
             })
@@ -45,7 +45,7 @@ const Footer = ({numeroItens, itens, novoItem}) => {
             })
 
             const retesteAnual = itens.extintores.filter((f)=>{
-                if(f.ultRet && f.ultRet == hoje.getFullYear()){
+                if(f.ultRet && f.ultRet == hoje.getFullYear() || f.ultRet && f.ultRet == hoje.getFullYear().toString().substr(-2)){
                     return f
                 }
             })
@@ -112,6 +112,40 @@ const Footer = ({numeroItens, itens, novoItem}) => {
 
             
             setResultado({avariados:avariados, venceProxMes:proxMes, locais:locaisUnicos, locaisLength:locaisUnicoslength, itensPorLocal:itensPorLocal })
+        }
+
+        if(itens.lde){
+            setI(itens.lde)
+
+            const avariados = itens.lde.filter((f)=>{
+                if (f.avaria){
+                    return f
+                }
+            })
+
+
+            const locais = itens.lde.map(m => m.local)
+            const locaisUnicos = [...new Set(locais)]
+
+            const locaisUnicoslength = locaisUnicos.map((m)=>{
+                
+                const a = itens.lde.filter((f)=>{
+                    if (f.local === m){
+                        return f
+                    }
+                })
+                return [a.length]
+            })
+
+            const itensPorLocal = locaisUnicos.map((m)=>{
+                return itens.lde.filter((f)=>{
+                    if(f.local === m){
+                        return f
+                    }
+                })
+            })
+
+            setResultado({avariados:avariados, locais:locaisUnicos, locaisLength:locaisUnicoslength, itensPorLocal:itensPorLocal})
         }
         
     },[itens])

@@ -57,7 +57,7 @@ function App() {
             
             <Route exact path='gas' element={<Gas/>} />
             <Route exact path='gas/gasnovo' element={<GasNovo/>} />
-            <Route exact path='gas/:gasnovo' element={<GasEdit/>}/>
+            <Route exact path='gas/edit/:id' element={<GasEdit/>}/>
             {/* <Route exact path='lde' element={<LdE/>} /> */}
 
           </Route>

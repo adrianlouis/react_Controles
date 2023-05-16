@@ -1,9 +1,11 @@
 import React, { useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
-import css from './css/gas.css'
+// import css from './css/gas.css'
 import { GlobalContext } from './GlobalContext'
 import { updateBd } from './crudFireBase'
 import Footer from './Footer'
+import styles from './Hidrantes.module.css'
+import BtnAcoesItens from './components/BtnAcoesItens'
 
 const Gas = () => {
 
@@ -54,6 +56,28 @@ const Gas = () => {
         document.querySelector('#del'+id).style.display='flex'
     }
 
+    function testeOrd(i){
+        const arrItens = []
+        i.forEach(el => {
+            arrItens.push(el.medicao.map((m)=>{
+                return Number(m.loja)
+            }))
+        });
+
+        const ordenado = arrItens.map((m)=>{
+            return  m.sort((a,b)=>{return a-b})
+        })
+
+        return ordenado
+    }
+
+    function testeOrdenados(arr){
+        const ordem = arr.sort((a, b)=>{return (a - b)})
+        return ordem
+    }
+
+    // console.log(testeOrd(ctx.userLogado.gas))
+
 
   return (
     <>
@@ -61,43 +85,39 @@ const Gas = () => {
         <div className='lde'>
 
             {(toogle ? gases : gases.reverse()).map((item)=>{
-                console.log(item)
-                return <div key={item.id} className='ldeContent' >
+                return <div key={item.id} className={styles.container} >
 
-                        <fieldset className='fieldsetFlexRow ' >
-                            <legend onClick={({currentTarget})=>handleContent(currentTarget)}>{item.diaCriado} - {item.horaCriado}</legend>
+                    <div>
+                        <span><i className="fa-solid fa-calendar-day"></i> {item.diaCriado} - <i className="fa-regular fa-clock"></i> {item.horaCriado}h</span>
+                    </div>
 
-                            <div className=' gasCardContent'>
+                    <div className={styles.infos}>
 
-                            {item.medicao.map((m, ind)=>{
+                  
 
-                                return <div>
-                                    <p className='cardTextoPqn'>L {m.loja}</p>
-                                    <p>{m.medicao}</p>
-                                </div>
-                            })}
-                            
-                            </div>
-
-                        </fieldset>
-
-                    
-                    <fieldset className='fieldsetAcoes fieldsetFlexRow'>
-
-                        <div id={'del'+item.id} className='btnDelWrapper'>
-                            {/* <span onClick={()=>navigate(`edit?id=${item.id}`)}>editar</span> */}
-                            <span onClick={()=>handleExclude(item.id)}>excluir</span>
-                        </div>
-
-                        <div id={'elem'+item.id} className='btnDelWrapper' style={{display:'none'}} >
-                            <span>Excluir este item?</span>
-                            <span onClick={()=>handleCancel(item.id)}>Não</span>
-                            <span className=' confirmExclude' onClick={()=>deletar(item, ctx.userLogado.id)}>Sim</span>
-                        </div>
-
-                    </fieldset>
+                        {testeOrdenados(item.medicao.map((m)=>{return m.loja})).map((ordem)=>{
+                            return item.medicao.map((lojas)=>{
+                                if (lojas.loja == ordem ){
+                                    return <div key={'medicao'+item.id+'_'+lojas.loja} className={styles.dados} >
+                                            <span className={styles.dadosLoja}><i className="fa-solid fa-shop" /> {lojas.loja} </span>
+                                            <span className={styles.dadosMedicao}><i className="fa-solid fa-gauge-high"></i> {lojas.medicao}</span>
+                                    </div>
+                                }
+                            })
+                        })}
 
                     </div>
+
+                    {/* {(item.medicao).map((m, ind)=>{
+                        return <div key={'medicao'+m.id}>
+                            <span>Loja: {m.loja} - {m.medicao}</span>
+                        </div>
+                    })} */}
+
+                    <BtnAcoesItens funcDel={()=>deletar(item,ctx.userLogado.id)} itemId={item.id} editarOnClick={()=>navigate(`edit/id?id=${item.id}`)} />
+                    
+
+                </div>
                 
             })}
 

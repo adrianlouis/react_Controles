@@ -42,7 +42,6 @@ const ExtEditar = () => {
         // const dataConvertida = new Date()
         // dataConvertida.setMonth(mes-1)
         // console.log(dataConvertida)
-        console.log(dataShort(mes-1))
 
         
 
@@ -108,13 +107,11 @@ const ExtEditar = () => {
             <div>
                 <p className='cardTextoPqn'>mês da próx. recarga</p>
                 <Select className='newLde' style={{width:'60px'}} selectValorInicial={mes} selectOnChange={({target})=>setMes(target.value)} optionDisabledValue=' mês ' options={['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']} />
-                {/* <Select selectValorInicial={mes} selectOnChange={({target})=>setMes(target.value)} optionDisabledValue=' mês ' options={['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez']} /> */}
             </div>
 
             <div>
                 <p className='cardTextoPqn'>ano da próx. recarga</p>
                 <Select className='newLde' style={{width:'80px'}} selectValorInicial={ano} selectOnChange={({target})=>setAno(target.value)} optionDisabledValue=' ano ' options={[ anoAtual-5, anoAtual-4, anoAtual-3, anoAtual-2, anoAtual-1 ,anoAtual, anoAtual+1, anoAtual+2, anoAtual+3, anoAtual+4, anoAtual+5 ]} />
-                {/* <Select selectValorInicial={ano} selectOnChange={({target})=>setAno(target.value)} optionDisabledValue=' ano ' options={[2020, 2021, 2022, 2023, 2024, 2025]} /> */}
             </div>
         
         </fieldset>
@@ -134,7 +131,6 @@ const ExtEditar = () => {
             </div>
         </fieldset>
 
-        {/* <fieldset className='cardAvaria'> */}
         <fieldset className='cardAvaria fieldsetFlexRow '>
             <legend>Avarias</legend>
             <textarea id='hdAvariasTxtArea' value={avaria} onChange={({target})=>setAvaria(target.value)}></textarea>
@@ -142,11 +138,9 @@ const ExtEditar = () => {
 
         <fieldset className='fieldsetAcoes fieldsetFlexRow'>
             <div className='btnAcoesWrapper' onClick={()=>navigate('/home/ext')}>
-                {/* <i className="fa-solid fa-angles-left" ></i> */}
                 <p>voltar</p>
             </div>
             <div className='btnAcoesWrapper' onClick={()=>salvarExt()}>
-                {/* <i className="fa-solid fa-floppy-disk" ></i> */}
                 <p>salvar</p>
             </div>
         </fieldset>
