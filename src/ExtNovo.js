@@ -12,16 +12,13 @@ const ExtNovo = () => {
     const navigate= useNavigate()
     const [num, setNum] = React.useState('')
     const [tipo, setTipo] = React.useState('')
-
     const [mesRec, setMesRec] = React.useState('')
     const [anoRec, setAnoRec] = React.useState('')
     const ultRec = {mes:mesRec, ano:anoRec}
-
     const [local, setLocal] = React.useState('')
     const [ultRet, setUltRet] = React.useState('')
     const [avaria, setAvaria] = React.useState('')
     const anoAtual = new Date().getFullYear()
-
     const extNovo = {id:findId(), num:num, tipo:tipo, local:local, ultRec:{...ultRec, mes:mesRec.toLowerCase()}, ultRet:ultRet, avaria:avaria }
 
     function findId(){
@@ -36,8 +33,6 @@ const ExtNovo = () => {
     }
 
     function handleSelect(el, sel){
-
-
         if (sel=== 1){
             setTipo(el.value)
         }else if(sel === 2){
@@ -68,10 +63,16 @@ const ExtNovo = () => {
     function handleFocus(el){
         el.parentNode.style.border='2px solid rgb(166, 243, 166)'
     }
+    function handleFocusRecarga(el){
+        el.parentNode.parentNode.style.border='2px solid rgb(166, 243, 166)'
+    }
     function handleBlur(el){
         el.parentNode.style.border='2px solid #3337'
     }
-    
+    function handleBlurRecarga(el){
+        el.parentNode.parentNode.style.border='2px solid #3337'
+
+    } 
 
     return (
 
@@ -80,7 +81,7 @@ const ExtNovo = () => {
         <h2><i className="fa-solid fa-file-pen"/> Novo Extintor</h2>
 
         <fieldset className={styles.fieldset}>
-            <i className="fa-solid fa-hashtag" /> 
+            <i className="fa-solid fa-hashtag" />
             <input onBlur={({currentTarget})=>handleBlur(currentTarget)} onFocus={({currentTarget})=>handleFocus(currentTarget)} placeholder='Número' className={styles.inputNovoExt} type='tel' maxLength={5} onChange={({target})=>setNum(target.value)} value={num} ></input>
         </fieldset>
 
@@ -91,13 +92,15 @@ const ExtNovo = () => {
 
         <fieldset className={styles.fieldset} >
             <i className="fa-solid fa-location-dot" />
-            <Select onBlur={({currentTarget})=>handleBlur(currentTarget)} onFocus={({currentTarget})=>handleFocus(currentTarget)} selClass={styles.select} optClass={styles.option} selectValorInicial={local} selectOnChange={({currentTarget})=>handleSelect(currentTarget, 2)} optionDisabledValue='-----' options={['Subsolo', 'Térreo', 'Brigada', '2º Pav A', '2º Pav B', '2º Pav C', '3º Pav A', '3º Pav B', '3º Pav C', '4º Pav A', '4º Pav B', '4º Pav C', 'CMI']} />
+            <Select onBlur={({currentTarget})=>handleBlur(currentTarget)} onFocus={({currentTarget})=>handleFocus(currentTarget)} selClass={styles.select} optClass={styles.option} selectValorInicial={local} selectOnChange={({currentTarget})=>handleSelect(currentTarget, 2)} optionDisabledValue='Local' options={['Subsolo', 'Térreo', 'Brigada', '2º Pav A', '2º Pav B', '2º Pav C', '3º Pav A', '3º Pav B', '3º Pav C', '4º Pav A', '4º Pav B', '4º Pav C', 'CMI']} />
         </fieldset>
 
         <fieldset className={styles.fieldset} >
             <i className="fa-solid fa-calendar-day" />
-            <Select onBlur={({currentTarget})=>handleBlur(currentTarget)} onFocus={({currentTarget})=>handleFocus(currentTarget)} className={styles.selectRec} optClass={styles.option} selectValorInicial={mesRec} selectOnChange={({currentTarget})=>handleSelect(currentTarget, 3)} optionDisabledValue=' Mês ' options={['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']} />
-            <Select onBlur={({currentTarget})=>handleBlur(currentTarget)} onFocus={({currentTarget})=>handleFocus(currentTarget)} className={styles.selectRec} optClass={styles.option} selectValorInicial={anoRec} selectOnChange={({currentTarget})=>handleSelect(currentTarget, 4)} optionDisabledValue=' Ano ' options={[anoAtual-3, anoAtual-2, anoAtual-1, anoAtual, anoAtual+1]} />
+            <div className={styles.wrapperSelectRecarga}>
+                <Select onBlur={({currentTarget})=>handleBlurRecarga(currentTarget)} onFocus={({currentTarget})=>handleFocusRecarga(currentTarget)} className={styles.selectRec} optClass={styles.option} selectValorInicial={mesRec} selectOnChange={({currentTarget})=>handleSelect(currentTarget, 3)} optionDisabledValue='Mês' options={['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']} />
+                <Select onBlur={({currentTarget})=>handleBlurRecarga(currentTarget)} onFocus={({currentTarget})=>handleFocusRecarga(currentTarget)} className={styles.selectRec} optClass={styles.option} selectValorInicial={anoRec} selectOnChange={({currentTarget})=>handleSelect(currentTarget, 4)} optionDisabledValue='Ano' options={[anoAtual-3, anoAtual-2, anoAtual-1, anoAtual, anoAtual+1]} />
+            </div>
         </fieldset>
 
         <fieldset className={styles.fieldset}>

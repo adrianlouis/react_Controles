@@ -19,11 +19,11 @@ const BtnAcoesItens = ({funcDel, editarOnClick, itemId}) => {
         <div id={`btnContainer${itemId}`} className={styles.wrapper} >
             <div  onClick={editarOnClick}>
             {/* <div className='btnAcoesWrapper btnVerde' onClick={editarOnClick}> */}
-                <p>editar</p>
+                <p><i className="fa-regular fa-pen-to-square"/> editar</p>
             </div>
             <div >
             {/* <div className='btnAcoesWrapper btnVermelho'  > */}
-                <p onClick={({currentTarget})=>handleDel(currentTarget)}>excluir</p>
+                <p onClick={({currentTarget})=>handleDel(currentTarget)}><i className="fa-regular fa-trash-can"/> excluir</p>
             </div>
         </div>
 

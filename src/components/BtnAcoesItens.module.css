@@ -24,3 +24,7 @@
 .wrapperConfirmDel span{
     font-size: 1rem !important;
 }
+.wrapperConfirmDel span:nth-child(1){
+    color: rgb(161,161,161);
+    font-weight: 900;
+}
