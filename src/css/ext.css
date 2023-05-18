@@ -392,7 +392,7 @@ textarea:focus{
 
 }
 
-.extCard input:focus, .extCard select:focus, #hdAvariasTxtArea:focus{
+.extCard input:focus, .extCard select:focus{
     color: #7f77;
     /* font-weight: 900; */
     border: 2px solid #7f77;

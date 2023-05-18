@@ -56,7 +56,7 @@
     color: rgb(161, 161, 161);
     margin: 0 auto;
 }
-#botaoEditarPerfil:hover, #botaoEditarCancel:hover{
+#botaoEditarPerfil, #botaoEditarCancel:hover{
     border: 2px solid var(--corEscolhida);
     color: rgb(255, 255, 255);
     box-shadow: var(--corEscolhida) 0 0 10px;
@@ -138,6 +138,8 @@ li{
     /* color: var(--corEscolhida); */
     color: rgb(221, 221, 221);
     border-bottom: 2px solid var(--corEscolhida);
+    /* box-shadow: var(--corEscolhida) inset 0 0px 10px, var(--corEscolhida) 0 0 10px ; */
+    padding: 0 5px;
 }
 legend{
     margin-left: 10px;
@@ -410,6 +412,7 @@ z-index: 1;
     top: 75px;
     border-radius: 60px;
     border: 3px solid var(--corEscolhida);
+    box-shadow: var(--corEscolhida) 0 0 10px;
     overflow: hidden;
     /* background-image: conic-gradient(transparent, transparent, transparent, var(--corEscolhida)); */
 }
@@ -480,11 +483,7 @@ z-index: 1;
 }
 .editQuote:focus, .editNome:focus, .editNick:focus{
     border-radius: 0;
-    /* border-bottom: 2px solid rgb(166, 243, 166);
-    color: rgb(231, 231, 231); */
     outline: none;
-}
-.editQuote:focus{
     border-bottom: 2px solid rgb(166, 243, 166);
 }
 
@@ -869,6 +868,8 @@ canvas{
     flex-direction: column;
     align-items: center;
     border-bottom: 2px transparent solid ;
+    text-align: center;
+    width: 70px;
 }
 
 

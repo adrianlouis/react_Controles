@@ -38,6 +38,8 @@ const EditPerfil = () => {
         wCrop: false
     })
 
+    const [excluirFotos, setExcluirFotos] = React.useState({foto:false, wpp:false})
+
     const [rootCor, setRootCor] = React.useState(old.cor ? old.cor : '#102030');
     const [modal, setModal] = React.useState(0)
     const [loading, setLoading] = React.useState(false)
@@ -78,6 +80,7 @@ const EditPerfil = () => {
             ctx.drawImage(fotoDoPerfil, cut.x, cut.y, cut.width, cut.height, 0, 0, 80, 80 )
             setTemps({...temps, fCrop:[cut.x, cut.y, cut.width, cut.height, 0, 0, 80, 80] })
             context.setImgTemp({...context.imgTemp, fCrop:[cut.x, cut.y, cut.width, cut.height, 0, 0, 80, 80]})
+            setExcluirFotos({...excluirFotos, foto:false})
         }
 
         setModal(0)
@@ -118,6 +121,7 @@ const EditPerfil = () => {
             ctx.drawImage(wpp, cut.x, cut.y, cut.width, cut.height, 0, 0, larguraTela, (larguraTela / 3) )
             setTemps({...temps, wCrop:[cut.x, cut.y, cut.width, cut.height, 0, 0, larguraTela, (larguraTela / 3)]})
             context.setImgTemp({...context.imgTemp, wCrop:[cut.x, cut.y, cut.width, cut.height, 0, 0, larguraTela, (larguraTela / 3)]})
+            setExcluirFotos({...excluirFotos, wpp:false})
         }
         
         setModal(0)
@@ -130,10 +134,35 @@ const EditPerfil = () => {
         })
     }
 
-    function deletarImg(){
-        const img = ref(storage, `/${context.userLogado.profPic}`)
+    console.log(excluirFotos)
 
-        deleteObject(img)
+    function deletarImg(type){
+        // const img = ref(storage, `/${context.userLogado.profPic}`)
+
+        // if (type === 'f'){
+        //     const img = ref(storage, `/${context.userLogado.id}fotoPerfil.jpg`)
+        //     deleteObject(img)
+        //     context.setUserLogado({...context.userLogado, perfil:{...context.userLogado.perfil, foto:'', fotoCrop:''}})
+        // }
+        // if(type === 'w'){
+        //     const img = ref(storage, `${context.userLogado.id}wpp.jpg`)
+        //     deleteObject(img)
+        // }
+
+        if (type === 'f'){
+            context.setUserLogado({...context.userLogado, perfil:{...context.userLogado.perfil, foto:'', fotoCrop:''}})
+            context.setImgTemp({...context.imgTemp, foto:false, fCrop:false})
+            setExcluirFotos({...excluirFotos, foto:true})
+
+            
+        }
+        if (type === 'w'){
+            setExcluirFotos({...excluirFotos, wpp:true})
+        }
+
+        setModal(0)
+        
+
     }
 
     // CARREGAR A FOTO DO PERFIL E OPÇÕES PARA O CROP AO TER TAIS DADOS EM USERLOGADO
@@ -147,6 +176,7 @@ const EditPerfil = () => {
         img.onload=()=>{
             ctx.drawImage(img, ...context.imgTemp.fCrop)
         }
+        console.log('aulas')
     }
     
     if (context.imgTemp.wpp && context.imgTemp.wCrop){
@@ -161,8 +191,6 @@ const EditPerfil = () => {
 
     },[])
 
-   
-
     function handleModal(e){
        if ( e.target === e.currentTarget) {
         setModal(0)
@@ -170,19 +198,37 @@ const EditPerfil = () => {
     }
 
     async function handleSave(){
+         // const img = ref(storage, `/${context.userLogado.profPic}`)
+
+        // if (type === 'f'){
+        //     const img = ref(storage, `/${context.userLogado.id}fotoPerfil.jpg`)
+        //     deleteObject(img)
+        //     context.setUserLogado({...context.userLogado, perfil:{...context.userLogado.perfil, foto:'', fotoCrop:''}})
+        // }
+        // if(type === 'w'){
+        //     const img = ref(storage, `${context.userLogado.id}wpp.jpg`)
+        //     deleteObject(img)
+        // }
 
         // SALVAR FOTO DO PERFIL NO FIREBASE STORAGE
-        if (context.imgTemp.fileFoto){
+        if (context.imgTemp.fileFoto && excluirFotos.foto === false){
             setLoading(true)
             const fotoPerfil = ref(storage, `${context.userLogado.id}fotoPerfil.jpg`)
             uploadBytes(fotoPerfil, context.imgTemp.fileFoto).then((snapshot) =>{
                 setLoading(false)
             })
+        }else if(excluirFotos.foto === true) {
+
+            const img = ref(storage, `/${context.userLogado.id}fotoPerfil.jpg`)
+            deleteObject(img)
+
+            context.setUserLogado({...context.userLogado, perfil:{...context.userLogado.perfil, foto:'', fotoCrop:''}})
+            context.setImgTemp(prev => {return {...prev, foto:false, fCrop:false}})
         }
 
         // SALVAR FOTO DO WALLPAPER NO FIREBASE STORAGE
         // USANDO IMGTEMP FILEWPP
-        if (context.imgTemp.fileWpp){
+        if (context.imgTemp.fileWpp && excluirFotos.wpp === false){
             const fotoWpp = ref(storage, `${context.userLogado.id}wpp.jpg`)
             uploadBytes(fotoWpp, context.imgTemp.fileWpp).then((snap)=>{
                 console.log('Foto do Wallpaper foi carregada. . .')
@@ -259,6 +305,8 @@ const EditPerfil = () => {
         setEditado({...editado, cor:rootCor})
     },[rootCor])
 
+    // console.log(context.userLogado.perfil.foto)
+
   return (
     <div>
 
@@ -266,8 +314,8 @@ const EditPerfil = () => {
 
             <div>
                 <p onClick={()=>document.querySelector('#editFoto').click()} >Mudar foto</p>
-                <p onClick={()=>setModal(3)} >Recortar foto</p>
-                <p onClick={()=>deletarImg()} >Excluir foto</p>
+                {context.imgTemp.foto && <p onClick={()=>setModal(3)} >Recortar foto</p>}
+                <p onClick={()=>deletarImg('f')} >Excluir foto</p>
             </div>
 
         </div>}
@@ -276,30 +324,29 @@ const EditPerfil = () => {
 
             <div>
                 <p onClick={()=>document.querySelector('#inputFileWallpaper').click()} >Mudar papel de parede</p>
-                <p onClick={()=>setModal(3)} >Recortar papel de parede</p>
+                {context.userLogado.perfil.wallpaper && <p onClick={()=>setModal(3)} >Recortar papel de parede</p>}
                 <p onClick={()=>deletarImg()} >Excluir papel de parede</p>
             </div>
 
             </div>}
 
             {modal === 4 && <div className='perfilEditModalCrop'>
-        <div className='wrapperCrop'>
-                <Cropper  cropShape='rect' showGrid={false}  image={URL.createObjectURL(temps.wpp)} crop={crop} zoom={zoom} aspect={3 / 1} onCropChange={setCrop} onCropComplete={onCropComplete} onZoomChange={setZoom} ></Cropper>
+            <div className='wrapperCrop'>
+                <Cropper  cropShape='rect' showGrid={false}  image={context.userLogado.perfil.wallpaper} crop={crop} zoom={zoom} aspect={3 / 1} onCropChange={setCrop} onCropComplete={onCropComplete} onZoomChange={setZoom} ></Cropper>
             </div>
             <button onClick={()=>cancelWppCrop()}>Cancelar</button>
             <button onClick={()=>handleWppCrop()} >Recortar</button>
             </div>}
 
         {modal === 3 && <div className='perfilEditModalCrop'>
-        <div className='wrapperCrop'>
-                <Cropper  cropShape='round' showGrid={false}  image={URL.createObjectURL(temps.foto)} crop={crop} zoom={zoom} aspect={1 / 1} onCropChange={setCrop} onCropComplete={onCropComplete} onZoomChange={setZoom} ></Cropper>
+            <div className='wrapperCrop'>
+                <Cropper cropShape='round' showGrid={false} image={context.imgTemp.foto} crop={crop} zoom={zoom} aspect={1 / 1} onCropChange={setCrop} onCropComplete={onCropComplete} onZoomChange={setZoom} ></Cropper>
             </div>
             <button onClick={()=>cancelCropFoto()}>Cancelar</button>
             <button onClick={()=>handleCrop()} >Recortar</button>
             </div>}
 
         <div id='perfil' className='perfil'>
-
            
             {/* PAPEL DE PAREDE COM CANVAS */}
             <div className='wallpaperCanvasWrapper' onClick={()=>setModal(2)} >

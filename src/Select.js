@@ -1,20 +1,20 @@
 import React from 'react'
 
-const Select = ({selectValorInicial, selectOnChange,  optionDisabledValue, options, ...props }) => {
+const Select = ({selClass, optClass, selectValorInicial, selectOnChange,  optionDisabledValue, options, ...props }) => {
 
   return (
 
     <>
 
-      <select value={selectValorInicial} onChange={selectOnChange} {...props}>
+      <select className={selClass} value={selectValorInicial} onChange={selectOnChange} {...props}>
 
-        <option value='' disabled >{optionDisabledValue}</option>
+        <option className={optClass} value='' disabled >{optionDisabledValue}</option>
         {options.map((opt, index)=>{
-        return <option key={`${opt}${index}`} value={opt}>{opt}</option>
+        return <option  className={optClass} key={`${opt}${index}`} value={opt}>{opt}</option>
     })}
       </select>
 
-
+ 
     </>
   )
 }

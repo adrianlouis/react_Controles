@@ -142,8 +142,11 @@ const Home = () => {
     }
 
     if(!context.imgTemp.foto && !context.imgTemp.fCrop && context.userLogado.perfil.foto){
+    // if(!context.imgTemp.foto && !context.imgTemp.fCrop && context.userLogado.perfil.foto){
       carregarFoto()
+      console.log('???')
     }
+    console.log(context.imgTemp.foto, context.imgTemp.fCrop, context.userLogado.perfil.foto)
     if(!context.imgTemp.wpp && !context.imgTemp.wCrop && context.userLogado.perfil.wallpaper){
       carregarWallpaper()
     }
@@ -183,9 +186,6 @@ function handleNavlink(elem, link){
 
 // },[])
 
-function handleNavegar(rota){
-  
-}
 
 
 
