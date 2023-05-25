@@ -424,7 +424,7 @@ select option:active{
     padding-top: 10px;
 }
 .fieldsetAcoes div:hover i, .fieldsetAcoes div:hover p{
-    color: #a33;
+    color: rgb(170, 51, 51);
 }
 .btnAcoesWrapper{
     display: flex;

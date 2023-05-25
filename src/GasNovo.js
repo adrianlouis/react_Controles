@@ -105,7 +105,6 @@ const GasNovo = () => {
             <div className='addGasLine'>
                 <div>
                     <label htmlFor='numeroLoja'>Loja</label>
-                    {/* <p>Loja</p> */}
                     <input id='numeroLoja' type='tel' maxLength={3} onChange={({target})=>setMedicao({...medicao, loja:target.value})} value={medicao.loja}></input>
                 </div>
 

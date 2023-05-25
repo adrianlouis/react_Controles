@@ -84,7 +84,7 @@ const Gas = () => {
         {/* <NavLink to='gasnovo' className='novoRegistro' >Registrar medidores de gás</NavLink> */}
         <div className='lde'>
 
-            {(toogle ? gases : gases.reverse()).map((item)=>{
+            {(ctx.userLogado.gas && gases.reverse()).map((item)=>{
                 return <div key={item.id} className={styles.container} >
 
                     <div>

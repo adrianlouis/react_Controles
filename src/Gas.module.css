@@ -34,7 +34,8 @@
     cursor: pointer;
 }
 .editActBtn span:nth-child(1){
-    color: rgb(161,161,161);
+    /* color: rgb(161,161,161); */
+    color: rgb(200, 45, 0);
     cursor: pointer;
 }
 
@@ -42,4 +43,21 @@ h2{
     text-align: center;
     margin: 20px 0;
     color: rgb(161,161,161) ;
+}
+
+
+.addGasLine{
+    border-top: 1px solid rgb(161, 161, 161);
+    border-bottom: 1px solid rgb(161, 161, 161);
+    /* border-radius: 10px; */
+    padding:15px 10px;
+    display: flex;
+    justify-content: space-evenly;
+    margin: 20px 0;
+    background-color: #090909;
+}
+.addGasLine input{
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid rgb(161, 161, 161);
 }

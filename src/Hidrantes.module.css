@@ -81,32 +81,3 @@
     grid-template-columns: auto auto;
     margin-top: 20px;
 }
-
-.lojaInput, .medicaoInput{
-    text-align: center;
-    background-color: transparent;
-    color: rgb(85,85,85);
-    border: none;
-    border-bottom: 2px solid rgb(85, 85, 85);
-}
-
-.medicaoInput:focus, .lojaInput:focus{
-    outline: none;
-    border-bottom: 2px solid rgb(166, 243, 166);
-    color: rgb(161,161,161);
-}
-
-.lojaInput{
-    width: 40px;
-}
-
-.medicaoInput{
-    width: 150px;
-}
-
-.editWrap{
-    /* border: 1px solid red; */
-    width: 100%;
-    display: flex;
-    justify-content: space-evenly;
-}
