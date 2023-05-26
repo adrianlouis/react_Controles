@@ -23,6 +23,8 @@ const Extintores = () => {
         
     }
     const navigate = useNavigate()
+
+    const [det, setDet] = React.useState()
     
 
     // const recVencida = () => {
@@ -140,44 +142,72 @@ const Extintores = () => {
 
     // }
 
+    const [modalToogle, setModalToogle] = React.useState(false)
 
+    function handleDetail(el, item){
+        setDet(item)
+
+        setModalToogle(prev => {return !prev})
+        // modalToogle? document.querySelector('.modalDetail').classList.add('modalDetailVisivel') : document.querySelector('modalDetail').classList.remove('modalDetailVisivel')
+        // console.log(modalToogle)
+    }
+
+    function handleModalClose(){
+        // setDet('')
+        
+        setModalToogle(prev => {return !prev})
+        // modalToogle? document.querySelector('.modalDetail').classList.add('modalDetailVisivel') : document.querySelector('modalDetail').classList.remove('modalDetailVisivel')
+        // console.log(modalToogle)
+
+    }
+
+    React.useEffect(()=>{
+        modalToogle? document.querySelector('#modalDetail').classList.add('modalDetailVisivel') : document.querySelector('#modalDetail').classList.remove('modalDetailVisivel')
+
+    },[modalToogle])
 
 
   return (
     <>
-        <div>
+        <div className='extContainer'>
 
             {!context.itensFiltrados && listaAtiva.map((item, i)=>{
-                return <div key={item.id+'ext'+i} className='ldeContent' >
+                return <div key={item.id+'ext'+i} className='ldeContent'  >
+
+                    <i id='iconDetails' class="fa-regular fa-eye" onClick={({currentTarget})=>handleDetail(currentTarget, item)}></i>
 
                     <div className='numAvariaTextos'>
                         <p><i className="fa-solid fa-hashtag"></i> {item.num? item.num :'N/A'}</p>
                         {item.avaria && <p ><i className="fa-solid fa-triangle-exclamation"></i> {item.avaria}</p> }
                     </div>
 
-                        <div className='ldeWrapperDados'>
-                            
-                            <div>
-                                <p className='cardTextoPqn'><i className="fa-solid fa-fire-extinguisher"></i> Tipo: {item.tipo? `${item.tipo} - ${tipoClasse(item.tipo)}` : 'N/A'}</p>
-                                <p className='cardTextoPqn'><i className="fa-solid fa-location-dot"></i> Local: {item.local? item.local : 'N/A'}</p>
-                            </div>
-
-
-                            <div>
-                                <p className='cardTextoPqn'><i className="fa-solid fa-calendar-day"></i> Recarga: {item.ultRec.mes? dataLong(item.ultRec.mes)+(item.ultRec.ano? ' ' : '') : '' }{item.ultRec.ano ? Number(item.ultRec.ano) : ''}  {!item.ultRec.mes && !item.ultRec.ano && 'N/A'}</p>
-                                <p className='cardTextoPqn'><i className="fa-regular fa-calendar"></i> Reteste: {item.ultRet?item.ultRet:'N/A'}</p>
-                            </div>
-
+                    <div className='ldeWrapperDados'>
+                        
+                        <div>
+                            <p className='cardTextoPqn'><i className="fa-solid fa-fire-extinguisher"></i> Tipo: {item.tipo? `${item.tipo} - ${tipoClasse(item.tipo)}` : 'N/A'}</p>
+                            <p className='cardTextoPqn'><i className="fa-solid fa-location-dot"></i> Local: {item.local? item.local : 'N/A'}</p>
                         </div>
+
+
+                        <div>
+                            <p className='cardTextoPqn'><i className="fa-solid fa-calendar-day"></i> Recarga: {item.ultRec.mes? dataLong(item.ultRec.mes)+(item.ultRec.ano? ' ' : '') : '' }{item.ultRec.ano ? Number(item.ultRec.ano) : ''}  {!item.ultRec.mes && !item.ultRec.ano && 'N/A'}</p>
+                            <p className='cardTextoPqn'><i className="fa-regular fa-calendar"></i> Reteste: {item.ultRet?item.ultRet:'N/A'}</p>
+                        </div>
+
+                    </div>
                     
-                        <BtnAcoesItens funcDel={()=>excluirExtintor(context.userLogado.id, item, 'ext')} itemId={item.id} editarOnClick={()=>navigate(`extedit?id=${item.id}`)}  />
+                    <BtnAcoesItens funcDel={()=>excluirExtintor(context.userLogado.id, item, 'ext')} itemId={item.id} editarOnClick={()=>navigate(`extedit?id=${item.id}`)}  />
                 
                     </div>
+
                 
                 })}
 
             {context.itensFiltrados && context.itensFiltrados.map((item, i)=>{
                 return <div key={item.id+'ext'+i} className='ldeContent' >
+
+                <i id='iconDetails' class="fa-regular fa-eye" onClick={({currentTarget})=>handleDetail(currentTarget, item)}></i>
+
 
                 <div className='numAvariaTextos'>
                     <p>Nº: {item.num? item.num :'N/A'}</p>
@@ -205,6 +235,40 @@ const Extintores = () => {
                         
                 })
             }
+
+            <div id='modalDetail' className='modalDetail'>
+                <fieldset>
+                    <legend>Número</legend>
+                    <span>{det? det.num : ''}</span>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Tipo</legend>
+                    <span>{det?det.tipo:''}</span>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Local</legend>
+                    <span>{det?det.local:''}</span>
+                </fieldset>
+
+                {det && (det.ultRec.mes || det.ultRec.ano) && <fieldset>
+                    <legend>Próxima recarga anual</legend>
+                    <span>{det? `${det.ultRec.mes} ${det.ultRec.mes && det.ultRec.ano ? ' de ': ''} ${det.ultRec.ano}`:'' }</span>
+                </fieldset>}
+
+                {det && det.ultRet && <fieldset>
+                    <legend>Próximo reteste hidrostático</legend>
+                    <span>{det?det.ultRet:''}</span>
+                </fieldset>}
+
+                {det && det.avaria && <fieldset>
+                    <legend>Avaria</legend>    
+                    <span>{det.avaria}</span>
+                </fieldset>}
+
+                <p onClick={()=>handleModalClose()}><i className="fa-regular fa-eye-slash"></i> Fechar</p>
+            </div>
 
         </div>
 

@@ -200,20 +200,83 @@ a{
     width: 20px;
 }
 
+.extContainer{
+    /* background-color: red; */
+    width: 100vw;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+}
 
+.modalDetail{
+    color: white;
+    background-color: #000;
+    position: fixed;
+    z-index: 2;
+    top: 0;
+    width: 100vw;
+    min-height: 100vh;
+    transition: all .5s;
+    opacity: 0;
+    visibility: hidden;
+    display: flex;
+    /* justify-content: center; */
+    flex-direction: column;
+    align-items: center;
+
+}
+.modalDetailVisivel{
+    visibility: visible;
+    opacity: 1;
+}
+
+.modalDetail p:last-child{
+    margin-top: 30px;
+    position: fixed;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    border: 2px solid var(--corEscolhida);
+    padding: 3px 15px;
+    cursor: pointer;
+}
+.modalDetail p:last-child:hover{
+    box-shadow: var(--corEscolhida) 0 0 10px;
+}
+.modalDetail fieldset{
+    display: flex;
+    justify-content: center;
+    width: 80%;
+    border: 2px solid var(--corEscolhida);
+    padding: 0 10px 10px;
+    margin: 10px;
+}
+
+#iconDetails{
+    color: rgb(161, 161, 161);
+    position: absolute;
+    right: 35px;
+    top: 5px;
+    cursor: pointer;
+}
 
 .ldeContent{
     margin: 10px 0px;
     /* background-color: #21212177; */
     /* background-image: linear-gradient(to bottom right, #2227, #3337); */
-
+    width: 100vw;
+    transition: all 1.5s;
     padding: 5px 10px ;
     border-bottom: 2px solid #5557;
     border-left: none;
     border-right: none;
     /* box-shadow: #0007 5px 5px 10px, inset #3337 3px 3px 5px; */
+    position: relative;
 
 }
+
 .ldeContent p{
     /* margin: 0px 8px 0 8px; */
     text-align: left;
