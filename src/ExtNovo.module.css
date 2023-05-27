@@ -15,8 +15,16 @@
     color: rgb(121,121,121);
     cursor: inherit;
     line-height: inherit;
+    outline: none;
 }
 .select:focus, .selectRec:focus{
+    border: none;
+    outline: none;
+
+}
+
+.select:checked, .select:active{
+    outline: none;
     border: none;
 }
 
