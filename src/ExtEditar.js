@@ -6,6 +6,7 @@ import Input from './Input'
 import Select from './Select'
 import {dataShort, mesParaNumero, mesParaString } from './funcoes/extDatas'
 import { updateBd } from './crudFireBase'
+import styles from './ExtNovo.module.css'
 
 const ExtEditar = () => {
 
@@ -73,77 +74,155 @@ const ExtEditar = () => {
         
         navigate('/home/ext')
     }
+
+
+
+
+
+
+    function handleFocus(el){
+        el.parentNode.style.border='2px solid rgb(166, 243, 166)'
+    }
+
+    function handleBlur(el){
+        el.parentNode.style.border='2px solid #3337'
+    }
+    function handleBlurRecarga(el){
+        el.parentNode.parentNode.style.border='2px solid #3337'
+    } 
+
+    function handleFocusRecarga(el){
+        el.parentNode.parentNode.style.border='2px solid rgb(166, 243, 166)'
+    }
+
+    function handleSelect(el, sel){
+        if (sel=== 1){
+            setTipo(el.value)
+        }else if(sel === 2){
+            setLocal(el.value)
+        }else if(sel === 3){
+            setMes(el.value)
+        }else if(sel === 4){
+            setAno(el.value)
+        }
+
+        el.style.color='rgb(161,161,161)'
+    }
     
 
   return (
 
-    <div  className='ldeContent'>
+    // <div  className='ldeContent'>
 
-        <fieldset className='fieldsetFlexRow'>
+    //     <fieldset className='fieldsetFlexRow'>
 
-            <legend>Extintor</legend>
+    //         <legend>Extintor</legend>
 
-            <div>
-                <p className='cardTextoPqn'>número</p>
-                <Input className='newLde' inpTipo='text' onChange={({target})=>setNum(target.value)} value={num} />
-            </div>
+    //         <div>
+    //             <p className='cardTextoPqn'>número</p>
+    //             <Input className='newLde' inpTipo='text' onChange={({target})=>setNum(target.value)} value={num} />
+    //         </div>
 
-            <div>
-                <p className='cardTextoPqn'>tipo</p>
-                <Select className='newLde' selectValorInicial={tipo} selectOnChange={({target})=>setTipo(target.value)} optionDisabledValue='-----' options={['A', 'B', 'C']} />
-            </div>
+    //         <div>
+    //             <p className='cardTextoPqn'>tipo</p>
+    //             <Select className='newLde' selectValorInicial={tipo} selectOnChange={({target})=>setTipo(target.value)} optionDisabledValue='-----' options={['A', 'B', 'C']} />
+    //         </div>
 
-            <div>
-                <p className='cardTextoPqn'>local</p>
-                <Select className='newLde' style={{width:'115px'}} selectValorInicial={local} selectOnChange={({target})=>setLocal(target.value)} optionDisabledValue='-----' options={['Subsolo', 'Térreo', 'Brigada', '2º Pav A', '2º Pav B', '2º Pav C', '3º Pav A', '3º Pav B', '3º Pav C', '4º Pav A', '4º Pav B', '4º Pav C', 'CMI']} />
-            </div>
+    //         <div>
+    //             <p className='cardTextoPqn'>local</p>
+    //             <Select className='newLde' style={{width:'115px'}} selectValorInicial={local} selectOnChange={({target})=>setLocal(target.value)} optionDisabledValue='-----' options={['Subsolo', 'Térreo', 'Brigada', '2º Pav A', '2º Pav B', '2º Pav C', '3º Pav A', '3º Pav B', '3º Pav C', '4º Pav A', '4º Pav B', '4º Pav C', 'CMI']} />
+    //         </div>
 
-        </fieldset>
+    //     </fieldset>
 
-        <fieldset className='fieldsetFlexRow'>
+    //     <fieldset className='fieldsetFlexRow'>
 
 
-            <legend>Recarga</legend>
-            <div>
-                <p className='cardTextoPqn'>mês da próx. recarga</p>
-                <Select className='newLde' style={{width:'60px'}} selectValorInicial={mes} selectOnChange={({target})=>setMes(target.value)} optionDisabledValue=' mês ' options={['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']} />
-            </div>
+    //         <legend>Recarga</legend>
+    //         <div>
+    //             <p className='cardTextoPqn'>mês da próx. recarga</p>
+    //             <Select className='newLde' style={{width:'60px'}} selectValorInicial={mes} selectOnChange={({target})=>setMes(target.value)} optionDisabledValue=' mês ' options={['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']} />
+    //         </div>
 
-            <div>
-                <p className='cardTextoPqn'>ano da próx. recarga</p>
-                <Select className='newLde' style={{width:'80px'}} selectValorInicial={ano} selectOnChange={({target})=>setAno(target.value)} optionDisabledValue=' ano ' options={[ anoAtual-5, anoAtual-4, anoAtual-3, anoAtual-2, anoAtual-1 ,anoAtual, anoAtual+1, anoAtual+2, anoAtual+3, anoAtual+4, anoAtual+5 ]} />
-            </div>
+    //         <div>
+    //             <p className='cardTextoPqn'>ano da próx. recarga</p>
+    //             <Select className='newLde' style={{width:'80px'}} selectValorInicial={ano} selectOnChange={({target})=>setAno(target.value)} optionDisabledValue=' ano ' options={[ anoAtual-5, anoAtual-4, anoAtual-3, anoAtual-2, anoAtual-1 ,anoAtual, anoAtual+1, anoAtual+2, anoAtual+3, anoAtual+4, anoAtual+5 ]} />
+    //         </div>
         
-        </fieldset>
+    //     </fieldset>
 
-        <fieldset className='fieldsetFlexRow'>
-            <legend>Reteste Hidrostático</legend>
-            <div>
-                <p className='cardTextoPqn'>ano do próx. reteste</p>
-                <Input
-                className='newLde'
-                    inpTipo="tel"
-                    maxLength='4'
-                    value={ultRet}
-                    onChange={({target}) => setUltRet(target.value)}
-                    id='inputRetesteExt'
-                />
-            </div>
-        </fieldset>
+    //     <fieldset className='fieldsetFlexRow'>
+    //         <legend>Reteste Hidrostático</legend>
+    //         <div>
+    //             <p className='cardTextoPqn'>ano do próx. reteste</p>
+    //             <Input
+    //             className='newLde'
+    //                 inpTipo="tel"
+    //                 maxLength='4'
+    //                 value={ultRet}
+    //                 onChange={({target}) => setUltRet(target.value)}
+    //                 id='inputRetesteExt'
+    //             />
+    //         </div>
+    //     </fieldset>
 
-        <fieldset className='cardAvaria fieldsetFlexRow '>
-            <legend>Avarias</legend>
-            <textarea id='hdAvariasTxtArea' value={avaria} onChange={({target})=>setAvaria(target.value)}></textarea>
-        </fieldset>
+    //     <fieldset className='cardAvaria fieldsetFlexRow '>
+    //         <legend>Avarias</legend>
+    //         <textarea id='hdAvariasTxtArea' value={avaria} onChange={({target})=>setAvaria(target.value)}></textarea>
+    //     </fieldset>
 
-        <fieldset className='fieldsetAcoes fieldsetFlexRow'>
-            <div className='btnAcoesWrapper' onClick={()=>navigate('/home/ext')}>
-                <p>voltar</p>
-            </div>
-            <div className='btnAcoesWrapper' onClick={()=>salvarExt()}>
-                <p>salvar</p>
-            </div>
-        </fieldset>
+    //     <fieldset className='fieldsetAcoes fieldsetFlexRow'>
+    //         <div className='btnAcoesWrapper' onClick={()=>navigate('/home/ext')}>
+    //             <p>voltar</p>
+    //         </div>
+    //         <div className='btnAcoesWrapper' onClick={()=>salvarExt()}>
+    //             <p>salvar</p>
+    //         </div>
+    //     </fieldset>
+    // </div>
+
+
+    <div  className={styles.novoExtContainer}>
+
+    <h2><i className="fa-regular fa-pen-to-square"/> Editar Extintor</h2>
+
+    <fieldset className={styles.fieldset}>
+        <i className="fa-solid fa-hashtag" />
+        <input onBlur={({currentTarget})=>handleBlur(currentTarget)} onFocus={({currentTarget})=>handleFocus(currentTarget)} placeholder='Número' className={styles.inputNovoExt} type='tel' maxLength={5} onChange={({target})=>setNum(target.value)} value={num} ></input>
+    </fieldset>
+
+    <fieldset className={styles.fieldset}>
+        <i className="fa-solid fa-fire-extinguisher" />
+        <Select id='selTipo' onBlur={({currentTarget})=>handleBlur(currentTarget)} onFocus={({currentTarget})=>handleFocus(currentTarget)} optionDisabledValue={'Tipo'} selClass={styles.select} optClass={styles.option} selectValorInicial={tipo} selectOnChange={({currentTarget})=>handleSelect(currentTarget, 1)}  options={['A', 'B', 'C']} />
+    </fieldset>
+
+    <fieldset className={styles.fieldset} >
+        <i className="fa-solid fa-location-dot" />
+        <Select onBlur={({currentTarget})=>handleBlur(currentTarget)} onFocus={({currentTarget})=>handleFocus(currentTarget)} selClass={styles.select} optClass={styles.option} selectValorInicial={local} selectOnChange={({currentTarget})=>handleSelect(currentTarget, 2)} optionDisabledValue='Local' options={['Subsolo', 'Térreo', 'Brigada', '2º Pav A', '2º Pav B', '2º Pav C', '3º Pav A', '3º Pav B', '3º Pav C', '4º Pav A', '4º Pav B', '4º Pav C', 'CMI']} />
+    </fieldset>
+
+    <fieldset className={styles.fieldset} >
+        <i className="fa-solid fa-calendar-day" />
+        <div className={styles.wrapperSelectRecarga}>
+            <Select onBlur={({currentTarget})=>handleBlurRecarga(currentTarget)} onFocus={({currentTarget})=>handleFocusRecarga(currentTarget)} className={styles.selectRec} optClass={styles.option} selectValorInicial={mes} selectOnChange={({currentTarget})=>handleSelect(currentTarget, 3)} optionDisabledValue='Mês' options={['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']} />
+            <Select onBlur={({currentTarget})=>handleBlurRecarga(currentTarget)} onFocus={({currentTarget})=>handleFocusRecarga(currentTarget)} className={styles.selectRec} optClass={styles.option} selectValorInicial={ano} selectOnChange={({currentTarget})=>handleSelect(currentTarget, 4)} optionDisabledValue='Ano' options={[anoAtual-3, anoAtual-2, anoAtual-1, anoAtual, anoAtual+1]} />
+        </div>
+    </fieldset>
+
+    <fieldset className={styles.fieldset}>
+        <i className="fa-regular fa-calendar" />
+        <input value={ultRet} onBlur={({currentTarget})=>handleBlur(currentTarget)} onFocus={({currentTarget})=>handleFocus(currentTarget)} placeholder='Data de reteste' min='2000' max={anoAtual + 5} className={styles.inputNovoExt} type='tel' maxLength={4} onChange={({target}) => setUltRet(target.value)} ></input>
+    </fieldset>
+
+    <fieldset className={`${styles.fieldset} ${styles.textareaWrapper}`} >
+        <textarea spellCheck='false' className={styles.textarea} placeholder='Avarias' onBlur={({currentTarget})=>handleBlur(currentTarget)} onFocus={({currentTarget})=>handleFocus(currentTarget)} id='hdAvariasTxtArea' value={avaria} onChange={({target})=>setAvaria(target.value)}></textarea>
+    </fieldset>
+
+    <div className={styles.actionBtnsCreateWrapper}>
+        <span onClick={()=>navigate('/home/ext')}><i className="fa-solid fa-angle-left"/> Cancelar</span>
+        <span onClick={()=>salvarExt(context.userLogado.id)}><i className="fa-regular fa-floppy-disk"/> Salvar</span>
+    </div>
+
     </div>
 
 

@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import { GlobalContext } from './GlobalContext'
-import css from './css/ext.css'
+// import css from './css/ext.css'
+import styles from './Extintores.module.css'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { dataLong } from './funcoes/extDatas'
 import { refreshBd, removerRegistro } from './crudFireBase'
@@ -161,27 +162,25 @@ const Extintores = () => {
 
     }
 
-    React.useEffect(()=>{
-        modalToogle? document.querySelector('#modalDetail').classList.add('modalDetailVisivel') : document.querySelector('#modalDetail').classList.remove('modalDetailVisivel')
+    // React.useEffect(()=>{
+    //     modalToogle? document.querySelector('#modalDetail').classList.add('modalDetailVisivel') : document.querySelector('#modalDetail').classList.remove('modalDetailVisivel')
 
-    },[modalToogle])
+    // },[modalToogle])
 
 
   return (
     <>
-        <div className='extContainer'>
+        <div className={styles.container}>
 
             {!context.itensFiltrados && listaAtiva.map((item, i)=>{
                 return <div key={item.id+'ext'+i} className='ldeContent'  >
 
-                    <i id='iconDetails' class="fa-regular fa-eye" onClick={({currentTarget})=>handleDetail(currentTarget, item)}></i>
-
-                    <div className='numAvariaTextos'>
+                    <div className={styles.title}>
                         <p><i className="fa-solid fa-hashtag"></i> {item.num? item.num :'N/A'}</p>
                         {item.avaria && <p ><i className="fa-solid fa-triangle-exclamation"></i> {item.avaria}</p> }
                     </div>
 
-                    <div className='ldeWrapperDados'>
+                    <div className={styles.minorInfos}>
                         
                         <div>
                             <p className='cardTextoPqn'><i className="fa-solid fa-fire-extinguisher"></i> Tipo: {item.tipo? `${item.tipo} - ${tipoClasse(item.tipo)}` : 'N/A'}</p>
@@ -236,7 +235,7 @@ const Extintores = () => {
                 })
             }
 
-            <div id='modalDetail' className='modalDetail'>
+            {/* <div id='modalDetail' className='modalDetail'>
                 <fieldset>
                     <legend>Número</legend>
                     <span>{det? det.num : ''}</span>
@@ -268,7 +267,7 @@ const Extintores = () => {
                 </fieldset>}
 
                 <p onClick={()=>handleModalClose()}><i className="fa-regular fa-eye-slash"></i> Fechar</p>
-            </div>
+            </div> */}
 
         </div>
 

@@ -83,3 +83,37 @@
     color: rgb(126,203,126);
     text-shadow: rgb(126,203,126) 0 0 10px;
 }
+
+.fieldset textarea{
+    background-color: #000;
+    color: rgb(161, 161, 161);
+    outline: none;
+    border: none;
+    padding: 0 5px ;
+    resize: none;
+}
+
+
+.fieldset textarea:focus{
+    outline: none;
+}
+
+.pecasHidrante{
+    flex-direction: column;
+    align-items: start;
+}
+
+.pecasHidrante div{
+    /* border: 1px solid green; */
+    /* margin-left: 15px; */
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    flex-direction: column;
+
+}
+
+.pecasHidrante label{
+    margin-left: 35px;
+}
+

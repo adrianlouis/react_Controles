@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { GlobalContext } from './GlobalContext'
 import Input from './Input'
 import Select from './Select'
+import styles from './ExtNovo.module.css'
 
 import {adicionarRegistro, refreshBd, updateBd} from './crudFireBase'
 
@@ -47,6 +48,7 @@ const LdENovoReg = () => {
     }
 
     function validarNumeros(elem){
+      handleBlur(elem)
       const validacao = /[0-9]/
       if (elem.value.match(validacao)){
         elem.classList.remove('naoValidado')
@@ -55,11 +57,52 @@ const LdENovoReg = () => {
         elem.classList.add('naoValidado')
       }
     }
-    
-  return (
-    <>
 
-<div className='ldeContent'>
+    function handleFocus(el){
+      el.parentNode.style.border='2px solid rgb(166, 243, 166)'
+  }
+
+      function handleBlur(el){
+        el.parentNode.style.border='2px solid #3337'
+    }
+    
+  return (<div className={styles.novoExtContainer}>
+  <h2><i className="fa-solid fa-file-pen"/> Nova Luz de Emergência</h2>
+
+
+  <fieldset className={styles.fieldset}>
+    <i className="fa-solid fa-hashtag" />
+    <input  onFocus={({currentTarget})=>handleFocus(currentTarget)} type='tel' maxLength={2} onChange={({currentTarget})=>setNum(currentTarget.value)} placeholder='00' value={num} className={styles.inputNovoExt} onBlur={({currentTarget})=>{validarNumeros(currentTarget)}} />
+
+  </fieldset>
+
+  <fieldset className={styles.fieldset}>
+
+    <i className="fa-solid fa-location-dot"/>
+    <Select onBlur={({currentTarget})=>handleBlur(currentTarget)} onFocus={({currentTarget})=>handleFocus(currentTarget)} value={pav} selClass={styles.select} optClass={styles.option} selectValorInicial={pav} selectOnChange={({target})=>setPav(target.value)} optionDisabledValue='Local' options={['Subsolo', 'Acesso subsolo A', 'Acesso subsolo B', 'Escada A', 'Escada B', 'Escada C', 'Térreo', '2º Pav A', '2º Pav B', '2º Pav Escada C', '3º Pav A', '3º Pav B', '3º Pav Escada C', '4º Pav A', '4º Pav B', '4º Pav Escada C']} />
+  </fieldset>
+
+  <fieldset className={styles.fieldset}>
+  <i className="fa-solid fa-battery-three-quarters"/>
+  <Select onBlur={({currentTarget})=>handleBlur(currentTarget)} onFocus={({currentTarget})=>handleFocus(currentTarget)} value={dur} selClass={styles.select} optClass={styles.option} selectValorInicial={dur} selectOnChange={({target})=>setDur(target.value)} optionDisabledValue='Autonomia' options={['1h', '2h', '3h', '4h', '5h', '6h']} />
+  </fieldset>
+
+  <div className={styles.actionBtnsCreateWrapper}>
+            <span onClick={()=>navigate('/home/lde')}><i className="fa-solid fa-angle-left"/> Cancelar</span>
+            <span onClick={()=>handleSubmit(context.userLogado.id)}><i className="fa-regular fa-floppy-disk"/> Salvar</span>
+        </div>
+
+
+
+</div>
+
+   
+  )
+}
+
+export default LdENovoReg   
+
+{/* <div className='ldeContent'>
 
 <fieldset className='fieldsetFlexRow'>
 
@@ -100,10 +143,6 @@ const LdENovoReg = () => {
 
 </fieldset>
 
-</div>
+</div> */}
 
-    </>
-  )
-}
 
-export default LdENovoReg

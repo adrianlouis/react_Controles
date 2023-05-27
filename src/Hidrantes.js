@@ -60,7 +60,15 @@ const Hidrantes = () => {
     }
 
   function convertData(valor){
-    return (new Date(valor).toLocaleDateString('pt-br', {month:'long', year:'numeric'})).charAt(0).toUpperCase()+(new Date(valor).toLocaleDateString('pt-br', {month:'long', year:'numeric'})).slice(1)
+    if (valor.mes && valor.ano){
+      return new Date(valor.ano, Number(valor.mes)-1).toLocaleDateString('pt-br', {month:'long', year:'numeric'}).charAt(0).toUpperCase()+(new Date(valor.ano, Number(valor.mes)-1).toLocaleDateString('pt-br', {month:'long', year:'numeric'})).slice(1)
+    }else if(!valor.mes && valor.ano){
+      return valor.ano
+    }else if(!valor.ano && valor.mes){
+      return new Date(2020, Number(valor.mes)-1).toLocaleDateString('pt-br', {month:'long'}).charAt(0).toUpperCase()+(new Date(2020, Number(valor.mes)-1).toLocaleDateString('pt-br', {month:'long'})).slice(1)
+    }else{
+      return 'Data não informada'
+    }
   }
         
   async function excluirHd(idUser, item, campo){
