@@ -4,6 +4,7 @@ import AcoesCriandoItem from './AcoesCriandoItem'
 import css from './css/gas.css'
 import { GlobalContext } from './GlobalContext'
 import{updateBd} from './crudFireBase'
+import styles from './Gas.module.css'
 
 const GasNovo = () => {
 
@@ -91,10 +92,10 @@ const GasNovo = () => {
 
     <div className='ldeContent' >
 
-        <div className='listaAddGas'>
+        <div>
             {
                 medidores.medicao.map((m, i)=>{
-                    return <div className='listaAddGasLines'>
+                    return <div className={styles.wrapperEdicaoGas}>
                         <p id='listaAddGasSpan'>Loja: {m.loja} - Medição: {m.medicao}</p>
                         <i className="fa-solid fa-square-xmark" onClick={()=>excluirLinha(i)}></i>
                     </div>
@@ -102,7 +103,7 @@ const GasNovo = () => {
                 })
             }
 
-            <div className='addGasLine'>
+            {/* <div className='addGasLine'>
                 <div>
                     <label htmlFor='numeroLoja'>Loja</label>
                     <input id='numeroLoja' type='tel' maxLength={3} onChange={({target})=>setMedicao({...medicao, loja:target.value})} value={medicao.loja}></input>
@@ -116,16 +117,39 @@ const GasNovo = () => {
                 <div className='gasAcoes'>
                     <i className="fa-solid fa-square-plus" onClick={()=>addMedicaoDeLoja()}></i>
                 </div>
+            </div> */}
+
+
+
+            <div className={styles.addGasLine}>
+                <div>
+                    <label htmlFor='numeroLoja'>Loja: </label>
+                    <input id='numeroLoja' type='tel' maxLength={3} onChange={({target})=>setMedicao({...medicao, loja:target.value})} value={medicao.loja}></input>
+                </div>
+
+                <div>
+                    <label htmlFor='gasMedicao'>Medicao: </label>
+                    <input id='gasMedicao' type='tel' maxLength={8} onChange={({target})=>setMedicao({...medicao, medicao:target.value})} value={medicao.medicao} ></input>
+                </div>
+
+                <div className='gasAcoes'>
+                    <i className="fa-solid fa-square-plus" onClick={()=>addMedicaoDeLoja()}></i>
+                </div>
             </div>
 
         </div>
 
-        <fieldset className='fieldsetAcoes fieldsetFlexRow'>
+        {/* <fieldset className='fieldsetAcoes fieldsetFlexRow'>
 
             <span onClick={()=>navigate(`/home/gas`)}>cancelar</span>
             <span onClick={()=>save(ctx.userLogado.id)}>salvar</span>
 
-        </fieldset>            
+        </fieldset>         */}
+
+        <div className={styles.editActBtn}>
+            <span onClick={()=>navigate('/home/gas')} ><i className="fa-solid fa-angle-left"/> Cancelar</span>
+            <span onClick={()=>save(ctx.userLogado.id)}><i className="fa-regular fa-floppy-disk"/> Salvar</span>
+        </div>    
 
     </div>
 

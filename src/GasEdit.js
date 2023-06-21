@@ -68,12 +68,12 @@ const GasEdit = () => {
 
             <div className={styles.addGasLine}>
                 <div>
-                    <label htmlFor='numeroLoja'>Loja</label>
+                    <label htmlFor='numeroLoja'>Loja: </label>
                     <input id='numeroLoja' type='tel' maxLength={3} onChange={({target})=>setMedicaoNova({...medicaoNova, loja:target.value})} value={medicaoNova.loja}></input>
                 </div>
 
                 <div>
-                    <label htmlFor='gasMedicao'>Medicao</label>
+                    <label htmlFor='gasMedicao'>Medicao: </label>
                     <input id='gasMedicao' type='tel' maxLength={8} onChange={({target})=>setMedicaoNova({...medicaoNova, medicao:target.value})} value={medicaoNova.medicao} ></input>
                 </div>
 
