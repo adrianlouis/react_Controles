@@ -167,6 +167,10 @@ const Extintores = () => {
 
     // },[modalToogle])
 
+    function handleFilterEdit(id){
+        // context.setItensFiltrados('')
+        navigate(`extedit?id=${id}`)
+    }
 
   return (
     <>
@@ -228,7 +232,7 @@ const Extintores = () => {
 
                     </div>
                 
-                    <BtnAcoesItens funcDel={()=>excluirExtintor(context.userLogado.id, item, 'ext')} itemId={item.id} editarOnClick={()=>navigate(`extedit?id=${item.id}`)}  />
+                    <BtnAcoesItens funcDel={()=>excluirExtintor(context.userLogado.id, item, 'ext')} itemId={item.id} editarOnClick={()=>handleFilterEdit(item.id)}  />
             
                 </div>
                         

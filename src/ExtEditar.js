@@ -71,7 +71,22 @@ const ExtEditar = () => {
         updateBd(context.userLogado.id, {ext:res})
 
         context.setUserLogado({...context.userLogado, ext:[...res]})
-        
+
+        if(context.itensFiltrados && context.itensFiltrados.length > 1){
+            const filtr = context.itensFiltrados.map((m)=>{
+                if (m.id !== Number(search.get('id'))){
+                    return m
+                }else{
+                    return extEditado
+                }
+            })
+
+            context.setItensFiltrados(filtr)
+            
+        }else if(context.itensFiltrados && context.itensFiltrados.length === 1){
+            context.setItensFiltrados([extEditado])
+        }
+
         navigate('/home/ext')
     }
 
@@ -111,75 +126,6 @@ const ExtEditar = () => {
     
 
   return (
-
-    // <div  className='ldeContent'>
-
-    //     <fieldset className='fieldsetFlexRow'>
-
-    //         <legend>Extintor</legend>
-
-    //         <div>
-    //             <p className='cardTextoPqn'>número</p>
-    //             <Input className='newLde' inpTipo='text' onChange={({target})=>setNum(target.value)} value={num} />
-    //         </div>
-
-    //         <div>
-    //             <p className='cardTextoPqn'>tipo</p>
-    //             <Select className='newLde' selectValorInicial={tipo} selectOnChange={({target})=>setTipo(target.value)} optionDisabledValue='-----' options={['A', 'B', 'C']} />
-    //         </div>
-
-    //         <div>
-    //             <p className='cardTextoPqn'>local</p>
-    //             <Select className='newLde' style={{width:'115px'}} selectValorInicial={local} selectOnChange={({target})=>setLocal(target.value)} optionDisabledValue='-----' options={['Subsolo', 'Térreo', 'Brigada', '2º Pav A', '2º Pav B', '2º Pav C', '3º Pav A', '3º Pav B', '3º Pav C', '4º Pav A', '4º Pav B', '4º Pav C', 'CMI']} />
-    //         </div>
-
-    //     </fieldset>
-
-    //     <fieldset className='fieldsetFlexRow'>
-
-
-    //         <legend>Recarga</legend>
-    //         <div>
-    //             <p className='cardTextoPqn'>mês da próx. recarga</p>
-    //             <Select className='newLde' style={{width:'60px'}} selectValorInicial={mes} selectOnChange={({target})=>setMes(target.value)} optionDisabledValue=' mês ' options={['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']} />
-    //         </div>
-
-    //         <div>
-    //             <p className='cardTextoPqn'>ano da próx. recarga</p>
-    //             <Select className='newLde' style={{width:'80px'}} selectValorInicial={ano} selectOnChange={({target})=>setAno(target.value)} optionDisabledValue=' ano ' options={[ anoAtual-5, anoAtual-4, anoAtual-3, anoAtual-2, anoAtual-1 ,anoAtual, anoAtual+1, anoAtual+2, anoAtual+3, anoAtual+4, anoAtual+5 ]} />
-    //         </div>
-        
-    //     </fieldset>
-
-    //     <fieldset className='fieldsetFlexRow'>
-    //         <legend>Reteste Hidrostático</legend>
-    //         <div>
-    //             <p className='cardTextoPqn'>ano do próx. reteste</p>
-    //             <Input
-    //             className='newLde'
-    //                 inpTipo="tel"
-    //                 maxLength='4'
-    //                 value={ultRet}
-    //                 onChange={({target}) => setUltRet(target.value)}
-    //                 id='inputRetesteExt'
-    //             />
-    //         </div>
-    //     </fieldset>
-
-    //     <fieldset className='cardAvaria fieldsetFlexRow '>
-    //         <legend>Avarias</legend>
-    //         <textarea id='hdAvariasTxtArea' value={avaria} onChange={({target})=>setAvaria(target.value)}></textarea>
-    //     </fieldset>
-
-    //     <fieldset className='fieldsetAcoes fieldsetFlexRow'>
-    //         <div className='btnAcoesWrapper' onClick={()=>navigate('/home/ext')}>
-    //             <p>voltar</p>
-    //         </div>
-    //         <div className='btnAcoesWrapper' onClick={()=>salvarExt()}>
-    //             <p>salvar</p>
-    //         </div>
-    //     </fieldset>
-    // </div>
 
 
     <div  className={styles.novoExtContainer}>
