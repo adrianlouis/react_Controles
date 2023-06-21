@@ -90,7 +90,7 @@ const GasNovo = () => {
 
 
 
-    <div className='ldeContent' >
+    <div className={styles.edicaoContainer} >
 
         <div>
             {

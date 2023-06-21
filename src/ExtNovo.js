@@ -20,6 +20,11 @@ const ExtNovo = () => {
     const [avaria, setAvaria] = React.useState('')
     const anoAtual = new Date().getFullYear()
     const extNovo = {id:findId(), num:num, tipo:tipo, local:local, ultRec:{...ultRec, mes:mesRec.toLowerCase()}, ultRet:ultRet, avaria:avaria }
+    const extNumeros = context.userLogado.ext.map((m)=>{
+        return m.num
+    })
+    const numNegado = extNumeros.includes(num) ? styles.negado : ''
+    // console.log(extNumeros)
 
     function findId(){
         if (context.userLogado.ext.length > 0){
@@ -73,6 +78,16 @@ const ExtNovo = () => {
         el.parentNode.parentNode.style.border='2px solid #3337'
 
     } 
+    // function handleNumero(v){
+    //     setNum(v)
+    //     validarNumero(v)
+    // }
+    // function validarNumero(v){
+    //     if(extNumeros.includes(v)){
+    //         console.log('existente')
+    //         document.querySelector('#inpExtCriarNome').style.
+    //     }
+    // }
 
     return (
 
@@ -82,7 +97,7 @@ const ExtNovo = () => {
 
         <fieldset className={styles.fieldset}>
             <i className="fa-solid fa-hashtag" />
-            <input onBlur={({currentTarget})=>handleBlur(currentTarget)} onFocus={({currentTarget})=>handleFocus(currentTarget)} placeholder='Número' className={styles.inputNovoExt} type='tel' maxLength={5} onChange={({target})=>setNum(target.value)} value={num} ></input>
+            <input id='inpExtCriarNome' onBlur={({currentTarget})=>handleBlur(currentTarget)} onFocus={({currentTarget})=>handleFocus(currentTarget)} placeholder='Número' className={styles.inputNovoExt} type='tel' maxLength={5} onChange={({target})=>setNum(target.value)} value={num} ></input>
         </fieldset>
 
         <fieldset className={styles.fieldset}>
