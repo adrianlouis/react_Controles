@@ -49,8 +49,8 @@ const HidranteEdit = () => {
         }
       })
 
-      updateBd(idUser, {hd:hidrantes})
-      context.setUserLogado({...context.userLogado, hd:hidrantes})
+      updateBd(idUser, {hd:hidrantes.reverse()})
+      context.setUserLogado({...context.userLogado, hd:hidrantes.reverse()})
       navigate('/home/hd')
 
     }

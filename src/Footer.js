@@ -52,6 +52,8 @@ const Footer = ({numeroItens, itens, novoItem}) => {
 
             const locais = itens.extintores.map(m => m.local)
             const locaisUnicos = [...new Set(locais)]
+            const locaisUnicosOrdenados = locaisUnicos.sort()
+
             const locaisUnicoslength = locaisUnicos.map((m)=>{
                 
                 const a = itens.extintores.filter((f)=>{
@@ -70,7 +72,7 @@ const Footer = ({numeroItens, itens, novoItem}) => {
                 })
             })
     
-            setResultado({avariados:avariados, vencidos:[...vencidosAnoPassado, ...vencidosAnoAtual], venceProxMes:proxMes, reteste:retesteAnual, locais:locaisUnicos, locaisLength:locaisUnicoslength, itensPorLocal:itensPorLocal})
+            setResultado({avariados:avariados, vencidos:[...vencidosAnoPassado, ...vencidosAnoAtual], venceProxMes:proxMes, reteste:retesteAnual, locais:locaisUnicosOrdenados, locaisLength:locaisUnicoslength, itensPorLocal:itensPorLocal})
         }
 
         if(itens.hidrantes){
@@ -168,8 +170,13 @@ const Footer = ({numeroItens, itens, novoItem}) => {
         setModalAtivo(0)
     }
 
-    
-
+    function handleIconeBuscar(){
+        if (modalAtivo !== 2){
+            setModalAtivo(2)
+        }else{
+            handleCancelarBusca()
+        }
+    }
 
   return (
 
@@ -177,16 +184,18 @@ const Footer = ({numeroItens, itens, novoItem}) => {
 
         {/* ICONES DO FOOTER  */}
         <div className='ftr'>
-            {!itens.gas && <><i className="fa-solid fa-magnifying-glass" onClick={()=>setModalAtivo(modalAtivo === 2 ? 0 : 2)}></i>
-            <i className="fa-solid fa-location-dot" onClick={()=>setModalAtivo(modalAtivo === 3 ? 0 : 3)} ></i>
-            <i className="fa-solid fa-circle-info" onClick={()=>setModalAtivo(modalAtivo === 1? 0 : 1)} ></i></>}
+            {!itens.gas && <><i className="fa-solid fa-magnifying-glass" onClick={()=>handleIconeBuscar()}></i>
+            <i className="fa-solid fa-location-dot" onClick={()=>handleIconeBuscar(modalAtivo === 3 ? 0 : 3)} ></i>
             <NavLink to={novoItem} ><i className="fa-solid fa-plus"></i></NavLink>
+            <i className="fa-solid fa-circle-info" onClick={()=>setModalAtivo(modalAtivo === 1? 0 : 1)} ></i></>}
+            <i className="fa-solid fa-sliders"></i>
         </div>
 
         {/* DIV DO BUSCAR  */}
         <div className='divInputBuscar' style={{bottom:modalAtivo === 2 ? '50px' : '-110px'}}>
             <input placeholder='buscar por número' value={inputBuscar} onChange={({target})=>handleInputBuscar(target.value)} ></input>
             <i className="fa-solid fa-rectangle-xmark" onClick={()=>handleCancelarBusca()}></i>
+
         </div>
 
         {/* DIV COM RESUMO  */}
@@ -231,6 +240,16 @@ const Footer = ({numeroItens, itens, novoItem}) => {
 
         {/* DIV DOS LOCAIS EXISTENTES */}
         {resultado.locais && <div className='footerLocais' style={{bottom:modalAtivo === 3 ? '50px' : '-260px'}}>
+
+        <div className='graphWrap' onClick={()=>context.setItensFiltrados('')} >
+                <div className='progWrap' style={{'--graphColor':'#0a0', '--p':100}}>
+                    <span className='extResumePercent'  >{numeroItens}</span>
+                </div>
+                <span className='extResumeTitle filtroLocalTexto'>Total</span>
+            </div>
+
+        
+
            {resultado.locais.map((m, i)=>{
             return  <div className='graphWrap' key={i+'item'} onClick={()=>context.setItensFiltrados(resultado.itensPorLocal[i])} >
                         <div className={`progWrap ${graphPorcentagem(numeroItens, resultado.locaisLength[i]) < 50 ? 'less' : ''}`} style={{'--graphColor':'#a00c', '--p':(graphPorcentagem(numeroItens, resultado.locaisLength[i]))}}>
