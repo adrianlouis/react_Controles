@@ -93,7 +93,7 @@ const EditPerfil = () => {
         setModal(0)
         setTemps({...temps, fileFoto:false, foto:false, fCrop:false})
 
-        context.setImgTemp({...context.imgTemp, foto:false, fCrop:false})
+        // context.setImgTemp({...context.imgTemp, foto:false, fCrop:false})
     }
 
     async function handleWallpaper(e){
@@ -109,7 +109,7 @@ const EditPerfil = () => {
     function cancelWppCrop(){
         setImgBd({...imgBd, wpp:false})
         setTemps({...temps, wpp:false})
-        context.setImgTemp({...context.imgTemp, fileWpp:false, wpp:false, wCrop:false})
+        // context.setImgTemp({...context.imgTemp, fileWpp:false, wpp:false, wCrop:false})
         setModal(0)
     }
 
@@ -341,20 +341,24 @@ const EditPerfil = () => {
             </div>}
 
             {modal === 4 && <div className='perfilEditModalCrop'>
-            <div className='wrapperCrop'>
+            <div className={styles.wrapperCrop}>
                 <Cropper  cropShape='rect' showGrid={false}  image={context.imgTemp.wpp} crop={crop} zoom={zoom} aspect={3 / 1} onCropChange={setCrop} onCropComplete={onCropComplete} onZoomChange={setZoom} ></Cropper>
                 {/* <Cropper  cropShape='rect' showGrid={false}  image={context.userLogado.perfil.wallpaper} crop={crop} zoom={zoom} aspect={3 / 1} onCropChange={setCrop} onCropComplete={onCropComplete} onZoomChange={setZoom} ></Cropper> */}
             </div>
-            <button onClick={()=>cancelWppCrop()}>Cancelar</button>
-            <button onClick={()=>handleWppCrop()} >Recortar</button>
+            <div className={styles.wrapperCropBtns}>
+                <button onClick={()=>cancelWppCrop()}><i className="fa-solid fa-xmark"></i> Cancelar</button>
+                <button onClick={()=>handleWppCrop()} ><i className="fa-solid fa-scissors"></i> Recortar</button>
+            </div>
             </div>}
 
         {modal === 3 && <div className='perfilEditModalCrop'>
-            <div className='wrapperCrop'>
+            <div className={styles.wrapperCrop}>
                 <Cropper cropShape='round' showGrid={false} image={context.imgTemp.foto} crop={crop} zoom={zoom} aspect={1 / 1} onCropChange={setCrop} onCropComplete={onCropComplete} onZoomChange={setZoom} ></Cropper>
             </div>
-            <button onClick={()=>cancelCropFoto()}>Cancelar</button>
-            <button onClick={()=>handleCrop()} >Recortar</button>
+            <div className={styles.wrapperCropBtns}>
+                <button onClick={()=>cancelCropFoto()}><i className="fa-solid fa-xmark"></i> Cancelar</button>
+                <button onClick={()=>handleCrop()} ><i className="fa-solid fa-scissors"></i> Recortar</button>
+            </div>
             </div>}
 
         <div id='perfil' className='perfil'>

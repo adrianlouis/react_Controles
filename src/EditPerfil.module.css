@@ -29,3 +29,28 @@
     align-items: center; */
     flex-direction: column;
 }
+
+.wrapperCrop{
+   position: relative;
+   width: 350px;
+   height: 350px;
+   overflow: hidden;
+   margin: auto;
+   margin-bottom: 10px;
+}
+.wrapperCropBtns{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.wrapperCropBtns button{
+    padding: 5px 15px;
+    cursor: pointer;
+}
+.wrapperCropBtns button:first-child i{
+    color: red;
+}
+.wrapperCropBtns button:last-child i{
+    color: green;
+}
