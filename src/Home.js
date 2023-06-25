@@ -73,6 +73,7 @@ const Home = () => {
       img.onload=()=>{
         ctx.drawImage(img, ...context.imgTemp.fCrop)
       }
+
     }
 
     if (context.imgTemp.wpp && context.imgTemp.wCrop){
@@ -140,6 +141,7 @@ const Home = () => {
       })
 
     }
+
 
     if(!context.imgTemp.foto && !context.imgTemp.fCrop && context.userLogado.perfil.foto){
     // if(!context.imgTemp.foto && !context.imgTemp.fCrop && context.userLogado.perfil.foto){

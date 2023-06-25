@@ -542,7 +542,7 @@ z-index: 1;
     /* margin-bottom: 50px; */
     border-radius: 0;
     color: rgb(161, 161, 161);
-    padding-left: 8px;
+    /* padding-left: 8px; */
 }
 .editQuote:focus, .editNome:focus, .editNick:focus{
     border-radius: 0;

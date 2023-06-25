@@ -7,6 +7,7 @@ import { checkBd, updateBd } from './crudFireBase'
 import Cropper from 'react-easy-crop'
 import 'react-image-crop/dist/ReactCrop.css'
 import { getAuth } from 'firebase/auth'
+import styles from './EditPerfil.module.css'
 
 const EditPerfil = () => {
 
@@ -52,6 +53,7 @@ const EditPerfil = () => {
     const onCropComplete = React.useCallback((croppedArea, croppedAreaPixels)=>{
         setCut(croppedAreaPixels)
     },[])
+    const [backupFoto, setBackupFoto] = React.useState({foto:context.imgTemp.foto, fCrop: context.imgTemp.fCrop, wpp:context.imgTemp.wpp, wCrop: context.imgTemp.wCrop})
 
     // ADICIONAR IMAGEM NO FIREBASE 
     async function handleChange(e){
@@ -97,8 +99,8 @@ const EditPerfil = () => {
     async function handleWallpaper(e){
 
         const wpp = e.target.files[0]
-        setImgBd({...imgBd, wpp:wpp})
         setTemps({...temps, wpp:wpp})
+        setImgBd({...imgBd, wpp:wpp})
         context.setImgTemp({...context.imgTemp, fileWpp:wpp, wpp:URL.createObjectURL(wpp)})
 
         setModal(4)
@@ -134,7 +136,6 @@ const EditPerfil = () => {
         })
     }
 
-    console.log(excluirFotos)
 
     function deletarImg(type){
         // const img = ref(storage, `/${context.userLogado.profPic}`)
@@ -150,13 +151,14 @@ const EditPerfil = () => {
         // }
 
         if (type === 'f'){
-            context.setUserLogado({...context.userLogado, perfil:{...context.userLogado.perfil, foto:'', fotoCrop:''}})
             context.setImgTemp({...context.imgTemp, foto:false, fCrop:false})
             setExcluirFotos({...excluirFotos, foto:true})
 
-            
+
+
         }
         if (type === 'w'){
+            context.setImgTemp({...context.imgTemp, wpp:false, wCrop:false })
             setExcluirFotos({...excluirFotos, wpp:true})
         }
 
@@ -176,7 +178,6 @@ const EditPerfil = () => {
         img.onload=()=>{
             ctx.drawImage(img, ...context.imgTemp.fCrop)
         }
-        console.log('aulas')
     }
     
     if (context.imgTemp.wpp && context.imgTemp.wCrop){
@@ -218,12 +219,12 @@ const EditPerfil = () => {
                 setLoading(false)
             })
         }else if(excluirFotos.foto === true) {
-
             const img = ref(storage, `/${context.userLogado.id}fotoPerfil.jpg`)
             deleteObject(img)
 
             context.setUserLogado({...context.userLogado, perfil:{...context.userLogado.perfil, foto:'', fotoCrop:''}})
-            context.setImgTemp(prev => {return {...prev, foto:false, fCrop:false}})
+            context.setImgTemp({...context.imgTemp, foto:false, fCrop:false})
+
         }
 
         // SALVAR FOTO DO WALLPAPER NO FIREBASE STORAGE
@@ -231,8 +232,13 @@ const EditPerfil = () => {
         if (context.imgTemp.fileWpp && excluirFotos.wpp === false){
             const fotoWpp = ref(storage, `${context.userLogado.id}wpp.jpg`)
             uploadBytes(fotoWpp, context.imgTemp.fileWpp).then((snap)=>{
-                console.log('Foto do Wallpaper foi carregada. . .')
             })
+        }else if(excluirFotos.wpp === true){
+            const wpp = ref(storage, `/${context.userLogado.id}wpp.jpg`)
+            deleteObject(wpp)
+
+            context.setUserLogado({...context.userLogado, perfil:{...context.userLogado.perfil, wallpaper:'', wallpaperCrop:'' }})
+            context.setImgTemp({...context.imgTemp, wpp:false, wCrop:false})
         }
 
         const saveProf = {
@@ -254,7 +260,6 @@ const EditPerfil = () => {
             setLoadingWpp(true)
             const wppBd = ref(storage, `${context.userLogado.id}wpp.jpg`)
             uploadBytes(wppBd, imgBd.wpp).then((snap)=>{
-                console.log('Wallpaper carregado. . .')
                 setLoadingWpp(false)
             })
         }
@@ -262,18 +267,24 @@ const EditPerfil = () => {
 
     //CANCELAR MUDANCAS
     async function back(){
+        context.setImgTemp({foto:backupFoto.foto, fCrop:backupFoto.fCrop, wpp:backupFoto.wpp, wCrop:backupFoto.wCrop})
         setEditado('')
+        // context.setImgTemp({foto:false, fCrop:false, wpp:false, wCrop:false })
         navigate('/home/ext')
     }
 
     function inputFocus(el){
         el.previousElementSibling.style.color='rgb(166, 243, 166)'
+        console.log(el)
+        el.style.color= '#d1d1d1'
     }
     function inputBlur(el){
         el.previousElementSibling.style.color='rgb(161, 161, 161)'
+        el.style.color= '#a1a1a1'
     }
 
-    async function checkarNome(dadoProcurado, id) {
+    async function checkarNome(el, dadoProcurado, id) {
+        console.log(el)
         setEditado({...editado, nome:dadoProcurado})
 
         const b = await checkBd(dadoProcurado, id)
@@ -305,7 +316,6 @@ const EditPerfil = () => {
         setEditado({...editado, cor:rootCor})
     },[rootCor])
 
-    // console.log(context.userLogado.perfil.foto)
 
   return (
     <div>
@@ -315,7 +325,7 @@ const EditPerfil = () => {
             <div>
                 <p onClick={()=>document.querySelector('#editFoto').click()} >Mudar foto</p>
                 {context.imgTemp.foto && <p onClick={()=>setModal(3)} >Recortar foto</p>}
-                <p onClick={()=>deletarImg('f')} >Excluir foto</p>
+                {context.imgTemp.foto && <p onClick={()=>deletarImg('f')} >Excluir foto</p>}
             </div>
 
         </div>}
@@ -325,14 +335,15 @@ const EditPerfil = () => {
             <div>
                 <p onClick={()=>document.querySelector('#inputFileWallpaper').click()} >Mudar papel de parede</p>
                 {context.userLogado.perfil.wallpaper && <p onClick={()=>setModal(3)} >Recortar papel de parede</p>}
-                <p onClick={()=>deletarImg()} >Excluir papel de parede</p>
+                <p onClick={()=>deletarImg('w')} >Excluir papel de parede</p>
             </div>
 
             </div>}
 
             {modal === 4 && <div className='perfilEditModalCrop'>
             <div className='wrapperCrop'>
-                <Cropper  cropShape='rect' showGrid={false}  image={context.userLogado.perfil.wallpaper} crop={crop} zoom={zoom} aspect={3 / 1} onCropChange={setCrop} onCropComplete={onCropComplete} onZoomChange={setZoom} ></Cropper>
+                <Cropper  cropShape='rect' showGrid={false}  image={context.imgTemp.wpp} crop={crop} zoom={zoom} aspect={3 / 1} onCropChange={setCrop} onCropComplete={onCropComplete} onZoomChange={setZoom} ></Cropper>
+                {/* <Cropper  cropShape='rect' showGrid={false}  image={context.userLogado.perfil.wallpaper} crop={crop} zoom={zoom} aspect={3 / 1} onCropChange={setCrop} onCropComplete={onCropComplete} onZoomChange={setZoom} ></Cropper> */}
             </div>
             <button onClick={()=>cancelWppCrop()}>Cancelar</button>
             <button onClick={()=>handleWppCrop()} >Recortar</button>
@@ -351,8 +362,8 @@ const EditPerfil = () => {
             {/* PAPEL DE PAREDE COM CANVAS */}
             <div className='wallpaperCanvasWrapper' onClick={()=>setModal(2)} >
             {loadingWpp && <div className='loadingWpp'></div>}
-            <canvas id='canvWpp' width={larguraTela} height={larguraTela/3}>
-            </canvas>
+            {context.imgTemp.wpp && <canvas id='canvWpp' width={larguraTela} height={larguraTela/3}>
+            </canvas>}
 
             </div>
 
@@ -370,7 +381,8 @@ const EditPerfil = () => {
                 </canvas>
 
                 {loading && <div className='loadingFoto'></div>}
-                {!context.userLogado.perfil.foto && !context.imgTemp.foto && <i id='userSemFoto' className="fa-solid fa-user"></i>}
+                {/* {!context.userLogado.perfil.foto && !context.imgTemp.foto && <i id='userSemFoto' className="fa-solid fa-user"></i>} */}
+                {!context.imgTemp.foto && <i id='userSemFoto' className="fa-solid fa-user"></i>}
 
 
             </div>
@@ -382,7 +394,7 @@ const EditPerfil = () => {
             <div className='dadosPerfil'>
                 <div className='editInputWrapper'>
                     <label htmlFor='editNome'>Nome</label>
-                    <input id='editNome' className='inputEditProfile editNome' placeholder={context.fbAuth.displayName} value={editado.nome} onChange={({target})=>checkarNome(target.value, context.userLogado.id)} onFocus={({target})=>inputFocus(target)} onBlur={({target})=>inputBlur(target)} />
+                    <input id='editNome' className='inputEditProfile editNome' placeholder={context.fbAuth.displayName} value={editado.nome} onChange={({target, currentTarget})=>checkarNome(currentTarget, target.value, context.userLogado.id)} onFocus={({target})=>inputFocus(target)} onBlur={({target})=>inputBlur(target)} />
                     {/* <input id='editNome' className='inputEditProfile editNome' value={editado.nome} onChange={({target})=>checkarNome(target.value, context.userLogado.id)} onFocus={({target})=>inputFocus(target)} onBlur={({target})=>inputBlur(target)} /> */}
                     <p className='editNomeUsado'>Este nome já está em uso.</p>
                 </div>
@@ -395,12 +407,13 @@ const EditPerfil = () => {
 
                 <div className='editInputWrapper' >
                     <label htmlFor='editQuote'>Descrição</label>
-                    <textarea id='editQuote' className='textAreaEditProfile editQuote' maxLength={160} value={editado.quote} onChange={({target})=>setEditado({...editado, quote:target.value})} onFocus={({target})=>inputFocus(target)} onBlur={({target})=>inputBlur(target)} ></textarea>
+                    <textarea spellCheck={false} id='editQuote' className={styles.quote} maxLength={160} value={editado.quote} onChange={({target})=>setEditado({...editado, quote:target.value})} onFocus={({target})=>inputFocus(target)} onBlur={({target})=>inputBlur(target)} ></textarea>
+                    {/* <textarea id='editQuote' className='editQuote' maxLength={160} value={editado.quote} onChange={({target})=>setEditado({...editado, quote:target.value})} onFocus={({target})=>inputFocus(target)} onBlur={({target})=>inputBlur(target)} ></textarea> */}
                 </div>
 
-                <div className='editInputWrapper' >
+                <div className={styles.wrapCores} >
                     <label htmlFor='cor' >Cor dos destaques</label>
-                    <input type='color' onChange={({target})=>setRootCor(target.value)} value={rootCor}  ></input>
+                    <input className={styles.corInput} type='color' onChange={({target})=>setRootCor(target.value)} value={rootCor}  ></input>
                 </div>
 
             </div>

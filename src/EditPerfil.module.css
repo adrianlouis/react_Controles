@@ -1,0 +1,31 @@
+.quote{
+    color: #a1a1a1;
+    resize: none;
+    background-color: #000;
+    border: none;
+    height: 70px;
+}
+.quote:focus{
+    /* color: green; */
+    color: #d1d1d1;
+    outline: none;
+}
+
+.corInput{
+    width: 70px;
+    height: 20px;
+    border: none;
+    outline: none;
+    width: 100%;
+    margin-top: 5px;
+}
+
+.wrapCores{
+    margin-bottom: 50px;
+    position: relative;
+    /* border: 1px solid; */
+    display: flex;
+    /* justify-content: center;
+    align-items: center; */
+    flex-direction: column;
+}
