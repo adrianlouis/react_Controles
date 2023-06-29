@@ -185,7 +185,7 @@ const Footer = ({numeroItens, itens, novoItem}) => {
         {/* ICONES DO FOOTER  */}
         <div className='ftr'>
             {!itens.gas && <><i className="fa-solid fa-magnifying-glass" onClick={()=>handleIconeBuscar()}></i>
-            <i className="fa-solid fa-location-dot" onClick={()=>handleIconeBuscar(modalAtivo === 3 ? 0 : 3)} ></i>
+            <i className="fa-solid fa-location-dot" onClick={()=>setModalAtivo(modalAtivo === 3 ? 0 : 3)} ></i>
             <NavLink to={novoItem} ><i className="fa-solid fa-plus"></i></NavLink>
             <i className="fa-solid fa-circle-info" onClick={()=>setModalAtivo(modalAtivo === 1? 0 : 1)} ></i></>}
             <i className="fa-solid fa-sliders"></i>

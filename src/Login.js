@@ -111,7 +111,7 @@ const Login = () => {
             ctx.setFbAuth(user)
             userData()
 
-            console.log(userCredential)
+            // console.log(userCredential)
             // setFt(userCredential.photoURL)
 
             // navigate('/home')
@@ -133,6 +133,16 @@ const Login = () => {
         })
         
         if (log.length > 0){
+
+            // LEMBRAR USUARIO MARCADO
+            if (remember){
+                localStorage.setItem("logStorageEmail", log[0].email)
+                localStorage.setItem("logStoragePass", log[0].senha)
+            }else{
+                localStorage.removeItem("logStorageEmail")
+                localStorage.removeItem("logStoragePass")
+            }
+
             ctx.setUserLogado(...log)
             navigate('/home/ext')
         }else{
@@ -204,11 +214,23 @@ const Login = () => {
     }
 
     React.useEffect(()=>{
-        setLoginInput({nome:'', senha:''})
         setRegInput({nome:'', email:'', senha:'', confSenha:''})
         setRegMsg({nome:false, email:false, senha:false})
         setRegOk({nome:false, email:false, senha:false, confSenha:false})
         setToggleConfSenhaTexto(false)
+
+        if (form === 1){
+            if (localStorage.getItem('logStorageEmail') && localStorage.getItem('logStoragePass')){
+                const email = localStorage.getItem("logStorageEmail");
+                const senha = localStorage.getItem("logStoragePass");
+        
+                setLoginInput({...loginInput, nome:email, senha:senha})
+                setRemember(true)
+            }
+        }else{
+            setLoginInput({nome:'', senha:''})
+        }
+
     },[form])
     
     // VALIDAR SENHA COM REGEX
@@ -296,7 +318,6 @@ function aplicarCss(el){
 }
 
 
-
   return (
     <>
 
@@ -328,7 +349,7 @@ function aplicarCss(el){
                 <h1>Login</h1>
 
                 <div className='regInputWrapper'>
-                    <i className="fa-solid fa-user"></i>
+                    <i className="fa-solid fa-envelope"></i>
                     <input className='regInput' type='text' placeholder='email' value={loginInput.nome} onChange={({target})=>setLoginInput({...loginInput, nome:target.value})} onFocus={({currentTarget})=>aplicarCss(currentTarget)} onBlur={({currentTarget})=>aplicarCss(currentTarget)} required />
                 </div>
                 
