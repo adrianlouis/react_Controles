@@ -188,7 +188,7 @@ const Footer = ({numeroItens, itens, novoItem}) => {
             <i className="fa-solid fa-location-dot" onClick={()=>setModalAtivo(modalAtivo === 3 ? 0 : 3)} ></i>
             <NavLink to={novoItem} ><i className="fa-solid fa-plus"></i></NavLink>
             <i className="fa-solid fa-circle-info" onClick={()=>setModalAtivo(modalAtivo === 1? 0 : 1)} ></i></>}
-            <i className="fa-solid fa-sliders"></i>
+            {itens.gas && <NavLink to={novoItem} ><i className="fa-solid fa-plus"></i></NavLink>}
         </div>
 
         {/* DIV DO BUSCAR  */}

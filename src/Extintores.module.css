@@ -35,3 +35,79 @@
     margin: 10px 0;
     font-size: .9rem;
 }
+
+
+.nExt{
+    background-color: #121;
+    color: #ddd;
+    /* border: 1px solid red; */
+    height: 80px;
+    margin: 5px;
+    border-radius: 20px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    padding-right: 10px;
+
+    box-shadow: #222  0 0 3px 1px, inset #131 2px 2px 3px 1px, inset #121 -2px -2px 3px 1px ;
+    margin-bottom: 15px;
+    position: relative;
+}
+.nExt:last-child{
+    margin-bottom: 150px;
+}
+.nNum{
+    color: #ddd;
+    font-size: 1.2rem;
+}
+.nTipo{
+    font-size: 1.7rem;
+}
+
+.nTipoNumWrap{
+    /* border: 1px solid red; */
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 70px;
+}
+.nSecondary{
+    /* border: 1px solid red; */
+    width: 175px;
+}
+.nSecondary, .nIconsExt{
+    /* border: 1px solid red; */
+    /* margin-left: 5px; */
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+}
+.nSecondary span, .nIconsExt span{
+    font-size: .8rem;
+    /* margin-left: 5px; */
+}
+.nIconsExt span{
+    background-color: #665701;
+    padding: 0px 5px;
+    border-radius: 20px;
+    /* margin-bottom: 5px; */
+    /* border: 1px solid blue; */
+    /* position: absolute;
+    top: 5px;
+    right: 5px; */
+
+}
+.nIconsExt{
+    position: absolute;
+    top: 5px;
+    right: 50px;
+    /* border: 1px solid purple; */
+
+}
+.wrapIconInfo{
+    /* border: 1px solid green; */
+    position: absolute;
+    right: 20px;
+}

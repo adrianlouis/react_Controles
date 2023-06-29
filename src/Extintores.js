@@ -172,6 +172,27 @@ const Extintores = () => {
     <>
         <div className={styles.container}>
 
+            {/* <div className={styles.nExt}>
+                <div className={styles.nTipoNumWrap}>
+
+                    <span className={styles.nTipo} >AP</span>
+                    <span className={styles.Nnum}>16500</span>
+                </div>
+
+                <div className={styles.nSecondary}>
+                    <span>local: Subsolo</span>
+                    <span>recarga: Maio de 2024</span>
+                    <span>reteste: 2026</span>
+                </div>
+
+                <div className={styles.nIconsExt}>
+                    <span>avariado</span>
+                    <span>recarga</span>
+                </div>
+
+                <i className="fa-solid fa-chevron-right"></i>
+            </div> */}
+
             {!context.itensFiltrados && listaAtiva.map((item, i)=>{
                 return <div key={item.id+'ext'+i} className='ldeContent'  >
 
@@ -198,6 +219,30 @@ const Extintores = () => {
                     <BtnAcoesItens funcDel={()=>excluirExtintor(context.userLogado.id, item, 'ext')} itemId={item.id} editarOnClick={()=>navigate(`extedit?id=${item.id}`)}  />
                 
                     </div>
+
+            //     return <div key={item.id+'ext'+i} className={styles.nExt}>
+            //     <div className={styles.nTipoNumWrap}>
+
+            //         <span className={styles.nTipo} >{item.tipo}</span>
+            //         <span className={styles.Nnum}>{item.num}</span>
+            //     </div>
+
+            //     <div className={styles.nSecondary}>
+            //         <span>local: {item.local}</span>
+            //         <span>recarga: {item.ultRec.mes? dataLong(item.ultRec.mes)+(item.ultRec.ano? ' ' : '') : '' }{item.ultRec.ano ? Number(item.ultRec.ano) : ''}  {!item.ultRec.mes && !item.ultRec.ano && 'N/A'}</span>
+            //         <span>reteste: {item.ultRet?item.ultRet:'N/A'}</span>
+            //     </div>
+
+            //     <div className={styles.nIconsExt}>
+            //         <span>{item.avaria?'avariado':''}</span>
+            //         {/* <span>recarga</span> */}
+            //     </div>
+
+            //     <div className={styles.wrapIconInfo}>
+            //         <i className="fa-solid fa-chevron-right"></i>
+
+            //     </div>
+            // </div>
 
                 
                 })}
