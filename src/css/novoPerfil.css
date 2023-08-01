@@ -557,9 +557,30 @@ z-index: 1;
     height: 120px;
     overflow: hidden;
 
-    /* position:  absolute; */
-    top: 0;
 
+    /* height: 70px; */
+    /* border: 2px solid red; */
+    /* background-color: #9f9;
+    height: 75px;
+    overflow: hidden;
+    background-color: #000;
+    zin */
+    /* position:  absolute; */
+    /* height: 75px;
+    position: fixed;
+    z-index: 5;
+    top: 0; */
+
+    /* display: flex;
+    justify-content: start;
+    align-items: center; */
+}
+
+.miniWpp{
+    position: fixed;
+    height: 80px;
+    width: 100%;
+    object-fit: cover;
 }
 
 

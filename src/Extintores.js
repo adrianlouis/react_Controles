@@ -214,8 +214,8 @@ const Extintores = () => {
 
                     <div className={styles.title}>
                         {/* <p><i className="fa-solid fa-hashtag"></i> {item.num? item.num :'N/A'}</p> */}
-                        <p className={styles.legends}><i className="fa-solid fa-hashtag"></i> número</p>
-                        <p className={styles.values}>{item.num?item.num:'N/A'}</p>
+                        <p className={styles.legends}> número</p>
+                        <p className={styles.values}><i className="fa-solid fa-hashtag"></i>{item.num?item.num:'N/A'}</p>
                         {item.avaria && <p className={styles.legends} ><i className="fa-solid fa-triangle-exclamation"></i> avaria</p> }
                         <p className={styles.txtValues} > {item.avaria}</p>
 
@@ -224,19 +224,19 @@ const Extintores = () => {
                     <div className={styles.minorInfos}>
                         
                         <div>
-                            <p className={styles.legends}><i className="fa-solid fa-fire-extinguisher"></i> tipo</p>
-                            <p className={styles.txtValues}>{item.tipo? `${item.tipo} - ${tipoClasse(item.tipo)}` : 'N/A'}</p>
-                            <p className={styles.legends}><i className="fa-solid fa-location-dot"></i> local</p>
-                            <p className={styles.txtValues}>{item.local? item.local : 'N/A'}</p>
+                            <p className={styles.legends}> tipo</p>
+                            <p className={styles.txtValues}><i className="fa-solid fa-fire-extinguisher"></i>{item.tipo? `${item.tipo} - ${tipoClasse(item.tipo)}` : 'N/A'}</p>
+                            <p className={styles.legends}> local</p>
+                            <p className={styles.txtValues}><i className="fa-solid fa-location-dot"></i>{item.local? item.local : 'não informado'}</p>
                         </div>
 
 
                         <div>
-                            <p className={styles.legends}><i className="fa-solid fa-calendar-day"></i> recarga </p>
-                            <p className={styles.txtValues}>{datasPorExtenso(item.ultRec.ano, item.ultRec.mes)}</p>
+                            <p className={styles.legends}> recarga </p>
+                            <p className={styles.txtValues}><i className="fa-solid fa-calendar-day"></i> {datasPorExtenso(item.ultRec.ano, item.ultRec.mes)}</p>
 
-                            <p className={styles.legends}><i className="fa-regular fa-calendar"></i> reteste </p>
-                            <p className={styles.txtValues}> {item.ultRet?item.ultRet:'não informado'}</p>
+                            <p className={styles.legends}> reteste </p>
+                            <p className={styles.txtValues}><i className="fa-regular fa-calendar"></i> {item.ultRet?item.ultRet:'não informado'}</p>
                         </div>
 
                     </div>

@@ -189,12 +189,15 @@ function handleNavlink(elem, link){
 
 window.onscroll = () => {
   const foto = document.querySelector('.fotoPerfilWrapper')
+  const wallpaper = document.querySelector('canvas')
   const posTela = window.scrollY
+  const wcw = document.querySelector('.wallpaperCanvasWrapper')
 
   if (posTela <= 70){
     const valor = 1 - (posTela / 200)
     foto.style.transform = `scale(${valor})`
   }
+
 
 }
 

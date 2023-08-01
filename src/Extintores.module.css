@@ -27,6 +27,8 @@
     padding: 0;
     color: #439A86;
     margin-top: 20px;
+    margin-left: 25px;
+    transform: translate(0, +8px);
 }
 
 .values{
@@ -39,6 +41,7 @@
 .minorInfos i, .title i{
     color: #439A86;
     margin-right: 5px;
+    font-size: 1.4rem;
 }
 .txtValues{
     font-size: 1rem;
