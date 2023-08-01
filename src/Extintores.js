@@ -167,6 +167,22 @@ const Extintores = () => {
 
     // },[modalToogle])
 
+    function datasPorExtenso(ano, mes){
+
+        console.log(typeof ano)
+
+        if (ano && mes){
+            return new Date(ano+'-'+mes).toLocaleString('pt-BR', {month:'long', year:'numeric'})
+        }else if (!ano && mes){
+            return new Date(2020-mes).toLocaleDateString('pt-BR', {month:'long'})
+        }else if(!mes && ano){
+            return ano
+        }else{
+            return 'não informado'
+        }
+
+    }
+
 
   return (
     <>
@@ -197,21 +213,30 @@ const Extintores = () => {
                 return <div key={item.id+'ext'+i} className='ldeContent'  >
 
                     <div className={styles.title}>
-                        <p><i className="fa-solid fa-hashtag"></i> {item.num? item.num :'N/A'}</p>
-                        {item.avaria && <p ><i className="fa-solid fa-triangle-exclamation"></i> {item.avaria}</p> }
+                        {/* <p><i className="fa-solid fa-hashtag"></i> {item.num? item.num :'N/A'}</p> */}
+                        <p className={styles.legends}><i className="fa-solid fa-hashtag"></i> número</p>
+                        <p className={styles.values}>{item.num?item.num:'N/A'}</p>
+                        {item.avaria && <p className={styles.legends} ><i className="fa-solid fa-triangle-exclamation"></i> avaria</p> }
+                        <p className={styles.txtValues} > {item.avaria}</p>
+
                     </div>
 
                     <div className={styles.minorInfos}>
                         
                         <div>
-                            <p className='cardTextoPqn'><i className="fa-solid fa-fire-extinguisher"></i> Tipo: {item.tipo? `${item.tipo} - ${tipoClasse(item.tipo)}` : 'N/A'}</p>
-                            <p className='cardTextoPqn'><i className="fa-solid fa-location-dot"></i> Local: {item.local? item.local : 'N/A'}</p>
+                            <p className={styles.legends}><i className="fa-solid fa-fire-extinguisher"></i> tipo</p>
+                            <p className={styles.txtValues}>{item.tipo? `${item.tipo} - ${tipoClasse(item.tipo)}` : 'N/A'}</p>
+                            <p className={styles.legends}><i className="fa-solid fa-location-dot"></i> local</p>
+                            <p className={styles.txtValues}>{item.local? item.local : 'N/A'}</p>
                         </div>
 
 
                         <div>
-                            <p className='cardTextoPqn'><i className="fa-solid fa-calendar-day"></i> Recarga: {item.ultRec.mes? dataLong(item.ultRec.mes)+(item.ultRec.ano? ' ' : '') : '' }{item.ultRec.ano ? Number(item.ultRec.ano) : ''}  {!item.ultRec.mes && !item.ultRec.ano && 'N/A'}</p>
-                            <p className='cardTextoPqn'><i className="fa-regular fa-calendar"></i> Reteste: {item.ultRet?item.ultRet:'N/A'}</p>
+                            <p className={styles.legends}><i className="fa-solid fa-calendar-day"></i> recarga </p>
+                            <p className={styles.txtValues}>{datasPorExtenso(item.ultRec.ano, item.ultRec.mes)}</p>
+
+                            <p className={styles.legends}><i className="fa-regular fa-calendar"></i> reteste </p>
+                            <p className={styles.txtValues}> {item.ultRet?item.ultRet:'não informado'}</p>
                         </div>
 
                     </div>

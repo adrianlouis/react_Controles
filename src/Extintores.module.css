@@ -20,20 +20,29 @@
 
 }
 
-.title p:first-child{
-    font-size: 1rem;
+.legends{
+    font-size: .8rem;
+    /* margin: 10px 0 0 0; */
     margin: 0;
     padding: 0;
+    color: #439A86;
+    margin-top: 20px;
+}
+
+.values{
+    font-size: 1.4rem;
+    color: #BCD8C1;
+    font-weight: 900;
 }
 
 
-
-.minorInfos i{
-    color: rgb(161,161,161)
+.minorInfos i, .title i{
+    color: #439A86;
+    margin-right: 5px;
 }
-.minorInfos div p{
-    margin: 10px 0;
-    font-size: .9rem;
+.txtValues{
+    font-size: 1rem;
+    color: #BCD8C1;
 }
 
 

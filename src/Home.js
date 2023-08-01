@@ -187,6 +187,18 @@ function handleNavlink(elem, link){
 // },[])
 
 
+window.onscroll = () => {
+  const foto = document.querySelector('.fotoPerfilWrapper')
+  const posTela = window.scrollY
+
+  if (posTela <= 70){
+    const valor = 1 - (posTela / 200)
+    foto.style.transform = `scale(${valor})`
+  }
+
+}
+
+
 
 
   return (
