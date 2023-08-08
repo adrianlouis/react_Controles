@@ -14,7 +14,6 @@
     color: rgb(166, 243, 166);
     cursor: pointer;
 }
-
 .wrapper div:nth-child(2), .wrapperConfirmDel span:nth-child(3){
     color: rgb(200, 45, 0);
     cursor: pointer;

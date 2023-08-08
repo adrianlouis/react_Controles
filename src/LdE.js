@@ -40,25 +40,36 @@ const LdE = () => {
   return (
     < >
 
-        <div >
+        <div className={styles.mainContainer} >
 
         
 
         {!context.itensFiltrados && context.userLogado && context.userLogado.lde.map((item, index)=>{
-            return <div key={item.id} className={styles.container}>
+            return <div key={item.id} className='ldeContent'>
 
-                <div className={styles.hdNumAvaria} >
-                    <span ><i className="fa-solid fa-hashtag"></i> {item.num ? item.num : 'N/A'}</span>
-                    {item.avaria && <span><i className="fa-solid fa-triangle-exclamation"></i> {item.avaria}</span>}
+                <div className={styles.title} >
+                    <p className={styles.legends} >Número</p>
+                    <p className={styles.values} >{item.num}</p>
                 </div>
 
-                <div>
-                    <span><i className="fa-solid fa-location-dot"></i> Local: {item.local ? item.local : 'N/A'}</span>
+                <div className={styles.minorInfos}>
+                
+                    <div>
+                        <p className={styles.legends} >local</p>
+                        <p className={styles.txtValues} >{item.local}</p>
+                    </div>
+
+                    <div >
+                        <p className={styles.legends} >autonomia</p>
+                        <p className={styles.txtValues} >{item.dur}</p>
+                    </div>
+
+                   {item.avaria && <div>
+                        <p className={styles.legends}>avaria</p>
+                        <p className={styles.txtValues}>{item.avaria}</p>
+                    </div>}
                 </div>
 
-                <div>
-                    <span>{iconeBateria(item.dur)} Autonomia: {item.dur ? item.dur : 'N/A'}</span>
-                </div>
 
                 <BtnAcoesItens funcDel={()=>excluirLde(context.userLogado.id, item, 'lde')} itemId={item.id} editarOnClick={()=>navigate(`edit/id?id=${item.id}&ind=${index}`)} />
 
@@ -68,20 +79,31 @@ const LdE = () => {
 
 
         {context.itensFiltrados && context.userLogado && context.itensFiltrados.map((item, index)=>{
-            return <div key={item.id} className={styles.container}>
+            return <div key={item.id} className='ldeContent'>
 
-            <div className={styles.hdNumAvaria} >
-                <span ><i className="fa-solid fa-hashtag"></i> {item.num ? item.num : 'N/A'}</span>
-                {item.avaria && <span><i className="fa-solid fa-triangle-exclamation"></i> {item.avaria}</span>}
+            <div className={styles.title} >
+                <p className={styles.legends} >Número</p>
+                <p className={styles.values} >{item.num}</p>
             </div>
 
-            <div>
-                <span><i className="fa-solid fa-location-dot"></i> Local: {item.local ? item.local : 'N/A'}</span>
+            <div className={styles.minorInfos}>
+            
+                <div>
+                    <p className={styles.legends} >local</p>
+                    <p className={styles.txtValues} >{item.local}</p>
+                </div>
+
+                <div >
+                    <p className={styles.legends} >autonomia</p>
+                    <p className={styles.txtValues} >{item.dur}</p>
+                </div>
+
+               {item.avaria && <div>
+                    <p className={styles.legends}>avaria</p>
+                    <p className={styles.txtValues}>{item.avaria}</p>
+                </div>}
             </div>
 
-            <div>
-                <span>{iconeBateria(item.dur)} Autonomia: {item.dur ? item.dur : 'N/A'}</span>
-            </div>
 
             <BtnAcoesItens funcDel={()=>excluirLde(context.userLogado.id, item, 'lde')} itemId={item.id} editarOnClick={()=>navigate(`edit/id?id=${item.id}&ind=${index}`)} />
 

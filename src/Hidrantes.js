@@ -84,7 +84,7 @@ const Hidrantes = () => {
   return (
     <>
 
-      <div className={styles.hidrantes}>
+      <div className={styles.mainContainer}>
         {context.itensFiltrados && context.itensFiltrados.length === 0 && <div className='ldeResumoFiltro'>
               <p>Não foi encontrado Hidrante com o número digitado.</p>
         </div>}

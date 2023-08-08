@@ -1,6 +1,8 @@
-.hidrantes {
+.mainContainer {
     color: green;
     /* opacity: .2; */
+    max-width: 100vw;
+    overflow: hidden;
 }
 
 .container{

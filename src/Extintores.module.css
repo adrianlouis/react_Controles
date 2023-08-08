@@ -23,11 +23,17 @@
     margin-top: 5px;
     transform: translate(0, 5px);
 }
+.legends::first-letter{
+    text-transform: capitalize;
+}
 
 .values{
     font-size: 1.4rem;
     color: #BCD8C1;
     font-weight: 900;
+}
+.txtValues::first-letter{
+    text-transform: capitalize;
 }
 
 
