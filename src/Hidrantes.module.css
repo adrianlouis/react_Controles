@@ -81,3 +81,25 @@
     grid-template-columns: auto auto;
     margin-top: 20px;
 }
+
+
+
+
+.legends{
+    font-size: .8rem;
+    /* margin: 10px 0 0 0; */
+    margin: 0;
+    padding: 0;
+    color: #439A86;
+    margin-top: 5px;
+    transform: translate(0, 5px);
+}
+.values{
+    font-size: 1.4rem;
+    color: #BCD8C1;
+    font-weight: 900;
+}
+.txtValues{
+    font-size: 1rem;
+    color: #BCD8C1;
+}

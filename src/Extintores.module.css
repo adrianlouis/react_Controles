@@ -11,12 +11,6 @@
 
 .title{
     color: rgb(161,161,161);
-    margin-bottom: 20px;
-    /* background-color: rgb(20,20,20,.5); */
-    /* background-color: red; */
-    /* border-radius: 5px;
-    width: 90%;
-    padding: 0 10px; */
 
 }
 
@@ -26,9 +20,8 @@
     margin: 0;
     padding: 0;
     color: #439A86;
-    margin-top: 20px;
-    margin-left: 25px;
-    transform: translate(0, +8px);
+    margin-top: 5px;
+    transform: translate(0, 5px);
 }
 
 .values{
@@ -48,6 +41,11 @@
     color: #BCD8C1;
 }
 
+.minorInfos div:last-child{
+    width: calc(100vw - 20px);
+    margin: auto 0;
+    margin-bottom: 30px;
+}
 
 .nExt{
     background-color: #121;

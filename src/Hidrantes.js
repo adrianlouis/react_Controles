@@ -90,36 +90,51 @@ const Hidrantes = () => {
         </div>}
         
         {!context.itensFiltrados && context.userLogado.hd && (context.userLogado.hd.reverse()).map((item)=>{
-          return <div key={item.id} className={styles.container}>
+          return <div key={item.id} className='ldeContent'>
 
-            <div className={styles.hdNumAvaria} >
-              <span><i className="fa-solid fa-hashtag"></i> {item.num}</span>
-              {item.avaria && <span><i className="fa-solid fa-triangle-exclamation"></i> {item.avaria}</span>}
-            </div>
-
-            <div >
-              <span><i className="fa-solid fa-location-dot"></i> Local: {item.local ? item.local : 'Não informado'}</span>
-            </div>
-
-            <div>
-              <span><i className="fa-solid fa-store"></i> Abrigo: {item.abrigo ? item.abrigo : 'Não informado'}</span>
-            </div>
-
-            <div>
-              <span><i className="fa-solid fa-sign-hanging"></i> Sinalização: {item.placa ? item.placa : 'Não informado'}</span>
-            </div>
-
-            <div>
-              <span><i className="fa-solid fa-paint-roller"></i> Marcação no chão: {item.sinal ? item.sinal : 'Não informado'}</span>
-            </div>
+            <div className={styles.title} >
+              <p className={styles.legends}> número</p>
+              <p className={styles.values}> {item.num}</p>
               
-            <div className={styles.pecasDiv}>
-              {item.pecas.length === 0 && <span><i className="fa-solid fa-wrench"></i> Peças: Nenhuma peça</span>}
-              {item.pecas.length > 0 && <span><i className="fa-solid fa-wrench"></i> Peças: {item.pecas.map((m, ind, l)=> {return  m + ((ind != (l.length-1 ))? ', ': '.') })} </span>}
             </div>
 
-            <div >
-              <span><i className="fa-regular fa-calendar"></i> Reteste: {item.val ? convertData(item.val) : 'N/A'}</span>
+            <div className={styles.minorInfos}>
+              
+              {item.avaria && <div>
+                <p className={styles.legends}>avaria</p>  
+                <p className={styles.txtValues}>{item.avaria}</p>
+              </div>}  
+
+              <div>
+                <p className={styles.legends}>local</p>  
+                <p className={styles.txtValues}>{item.local?item.local:'não informado'}</p>
+              </div>  
+
+              <div>
+                <p className={styles.legends}>abrigo</p>  
+                <p className={styles.txtValues}>{item.abrigo?item.abrigo:'não informado'}</p>
+              </div>
+              
+              <div>
+                <p className={styles.legends}>sinalização</p>  
+                <p className={styles.txtValues}>{item.placa?item.placa:'não informado'}</p>
+              </div>
+
+              <div>
+                <p className={styles.legends}>marcação no chão</p>  
+                <p className={styles.txtValues}>{item.sinal?item.sinal:'não informado'}</p>
+              </div>
+
+              <div>
+                <p className={styles.legends}>peças</p>  
+                <p className={styles.txtValues} >{item.pecas.length === 0 ? 'nenhuma peça registrada':item.pecas.map((m, ind, l)=>{return m + ((ind != (l.length-1))? ', ': '.') })}</p>
+              </div>
+
+              <div>
+                <p className={styles.legends}>reteste</p>  
+                <p className={styles.txtValues}>{convertData(item.val)}</p>
+              </div>
+
             </div>
 
             <BtnAcoesItens funcDel={()=>excluirHd(context.userLogado.id, item, 'hd')} itemId={item.id} editarOnClick={()=>navigate(`edit?id=${item.id}`)} />
@@ -129,53 +144,56 @@ const Hidrantes = () => {
         })}
 
         {context.itensFiltrados.length > 0 && (context.itensFiltrados.reverse()).map((item)=>{
-        return <div key={item.id} className={styles.container}>
+        return <div key={item.id} className='ldeContent'>
 
-        <div className={styles.hdNumAvaria} >
-          <span><i className="fa-solid fa-hashtag"></i> {item.num}</span>
-          {item.avaria && <span><i className="fa-solid fa-triangle-exclamation"></i> {item.avaria}</span>}
-        </div>
-
-        <div >
-          <span><i className="fa-solid fa-location-dot"></i> Local: {item.local ? item.local : 'Não informado'}</span>
-        </div>
-
-        <div>
-          <span><i className="fa-solid fa-store"></i> Abrigo: {item.abrigo ? item.abrigo : 'Não informado'}</span>
-        </div>
-
-        <div>
-          <span><i className="fa-solid fa-sign-hanging"></i> Sinalização: {item.placa ? item.placa : 'Não informado'}</span>
-        </div>
-
-        <div>
-          <span><i className="fa-solid fa-paint-roller"></i> Marcação no chão: {item.sinal ? item.sinal : 'Não informado'}</span>
-        </div>
+        <div className={styles.title} >
+          <p className={styles.legends}> número</p>
+          <p className={styles.values}> {item.num}</p>
           
-        <div className={styles.pecasDiv}>
-          {item.pecas.length === 0 && <span><i className="fa-solid fa-wrench"></i> Peças: Nenhuma peça</span>}
-          {item.pecas.length > 0 && <span><i className="fa-solid fa-wrench"></i> Peças: {item.pecas.map((m, ind, l)=> {return  m + ((ind != (l.length-1 ))? ', ': '.') })} </span>}
         </div>
 
-        <div >
-          <span><i className="fa-regular fa-calendar"></i> Reteste: {item.val ? convertData(item.val) : 'N/A'}</span>
+        <div className={styles.minorInfos}>
+          
+          {item.avaria && <div>
+            <p className={styles.legends}>avaria</p>  
+            <p className={styles.txtValues}>{item.avaria}</p>
+          </div>}  
+
+          <div>
+            <p className={styles.legends}>local</p>  
+            <p className={styles.txtValues}>{item.local?item.local:'não informado'}</p>
+          </div>  
+
+          <div>
+            <p className={styles.legends}>abrigo</p>  
+            <p className={styles.txtValues}>{item.abrigo?item.abrigo:'não informado'}</p>
+          </div>
+          
+          <div>
+            <p className={styles.legends}>sinalização</p>  
+            <p className={styles.txtValues}>{item.placa?item.placa:'não informado'}</p>
+          </div>
+
+          <div>
+            <p className={styles.legends}>marcação no chão</p>  
+            <p className={styles.txtValues}>{item.sinal?item.sinal:'não informado'}</p>
+          </div>
+
+          <div>
+            <p className={styles.legends}>peças</p>  
+            <p className={styles.txtValues} >{item.pecas.length === 0 ? 'nenhuma peça registrada':item.pecas.map((m, ind, l)=>{return m + ((ind != (l.length-1))? ', ': '.') })}</p>
+          </div>
+
+          <div>
+            <p className={styles.legends}>reteste</p>  
+            <p className={styles.txtValues}>{convertData(item.val)}</p>
+          </div>
+
         </div>
 
         <BtnAcoesItens funcDel={()=>excluirHd(context.userLogado.id, item, 'hd')} itemId={item.id} editarOnClick={()=>navigate(`edit?id=${item.id}`)} />
 
-        {/* <fieldset className='fieldsetAcoes fieldsetFlexRow'  >
-                <div className='btnAcoesWrapper' onClick={()=>navigate(`edit?id=${item.id}`)}>
-                  <i className="fa-solid fa-pen-to-square"></i>
-                  <p>editar</p>
-                </div>
-                <div className='btnAcoesWrapper' onClick={()=>excluirHd(context.userLogado.id, item, 'hd')}>
-                  <i className="fa-solid fa-trash-can" ></i>
-                  <p>excluir</p>
-                </div>
-
-            </fieldset> */}
-
-        </div>
+      </div>
         }) }
 
       </div>
