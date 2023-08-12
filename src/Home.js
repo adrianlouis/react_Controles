@@ -6,6 +6,8 @@ import { getDownloadURL, getStorage, ref } from 'firebase/storage'
 import { onAuthStateChanged } from 'firebase/auth'
 import { auth } from './firebase-config'
 
+import styles from './Home.module.css'
+
 const Home = () => {
   const navigate = useNavigate()
   const context = React.useContext(GlobalContext)
@@ -19,9 +21,8 @@ const Home = () => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         const uid = user.uid;
-        // console.log('uid', uid)
       }else{
-        // console.log('user não logado')
+        return 
       }
     })
 
@@ -114,6 +115,7 @@ const Home = () => {
       
     }
 
+
     const carregarWallpaper = async () => {
       setLoadingWpp(true)
 
@@ -155,6 +157,21 @@ const Home = () => {
     if (context.userLogado.perfil.cor){
       document.querySelector(':root').style.setProperty('--corEscolhida', context.userLogado.perfil.cor)
     }
+
+
+
+    // NOVO HEADER / PAPEL DE PAREDE, FOTO, ETC 
+    const fotoRef = ref(storage, `/${context.userLogado.id}fotoPerfil.jpg`)
+
+    //PEGAR URL DO DOWNLOAD E APLICAR EM <CANVAS>
+    getDownloadURL(fotoRef).then((url)=>{
+      // console.log(url)
+      // document.querySelector('#testeImagem').src=url
+    })
+
+
+
+
         
   },[])
 
@@ -187,60 +204,115 @@ function handleNavlink(elem, link){
 // },[])
 
 
+
 window.onscroll = () => {
-  const foto = document.querySelector('.fotoPerfilWrapper')
-  const wallpaper = document.querySelector('canvas')
+  const div = document.querySelector('#perfilWrapper')
+  const foto = document.querySelector('#canv')
+  const wallpaper = document.querySelector('#wppCanvasWrapper')
+  const canvWpp = document.querySelector('#canvWpp')
   const posTela = window.scrollY
   const wcw = document.querySelector('.wallpaperCanvasWrapper')
 
   if (posTela <= 70){
-    const valor = 1 - (posTela / 200)
-    foto.style.transform = `scale(${valor})`
+    const valor = 1 - (posTela / 135)
+    foto.style.transform = `scale(${valor}) translate(25px, -40px)`
+    foto.style.width='80px'
+    foto.style.height='80px'
+
+    wallpaper.style.zIndex=0
+    canvWpp.style.filter='brightness(100%) blur(0px)'
+  }else{
+    // mask.style.top=0
+    wallpaper.style.zIndex=1
+    canvWpp.style.filter='brightness(30%) blur(5px)'
   }
 
+  if (posTela >= 223){
+    document.querySelector('#headerProfName').style.visibility='visible'
+    document.querySelector('#headerProfName').style.opacity='1'
 
+  }else{
+    document.querySelector('#headerProfName').style.visibility='hidden'
+    document.querySelector('#headerProfName').style.opacity='0'
+  }
+
+  
 }
 
 
 
 
+// em Home.module.css posso modificar a altura da classe .wpp para que a imagem
+// do canvas do wpp fique centralizado, como no twitter mobile. 
   return (
-    <div >
+    // <div >
     
-      <div id='perfil' className='perfil'  >
+    //   <div id='perfil' className='perfil'  >
 
-      <div className='wallpaperCanvasWrapper' >
+    //   <div className='wallpaperCanvasWrapper' >
 
-        <canvas id='canvWpp' width={larguraTela} height={larguraTela / 3}>
-        </canvas>
+    //     <canvas id='canvWpp' width={larguraTela} height={larguraTela / 3}>
+    //     </canvas>
 
-        {loadingWpp && <div className='loadingWpp'></div>}
+    //     {loadingWpp && <div className='loadingWpp'></div>}
 
+    //   </div>
+
+    //     <div className='fotoPerfilWrapper' >
+
+    //       {loading && <div className='loadingFoto'></div>}
+
+    //       <canvas width='80' height='80' id='canv' >
+    //         <p>Seu navegador não suporta Canvas</p>
+    //       </canvas>
+
+    //       {!context.imgTemp.foto && <i id='userSemFoto' className="fa-solid fa-user"></i>}
+
+    //     </div>
+
+    //     <div id='botaoEditarPerfil'>
+    //       <span onClick={()=>navigate('/editprofile')}>Editar perfil</span>
+    //     </div>
+
+    //     <div className='dadosPerfil'>
+    //       {/* <p className='nome'>{context.userLogado.perfil.nome}</p> */}
+    //       <p className='nome'>{context.userLogado.perfil.nome}</p>
+    //       <p className='tag'>{context.userLogado.perfil.nick && '@'+context.userLogado.perfil.nick}</p>
+    //       <p className='bio'>{context.userLogado.perfil.quote}</p>
+    //     </div>
+        
+    //   </div>
+
+    //   <div id='linksScroll' >
+
+    //     <ul id='navbarPerfil'>
+    //       <li className='liVerde' onClick={({currentTarget})=>handleNavlink(currentTarget, '/home/ext')}>Extintores</li>
+    //       <li onClick={({currentTarget})=>handleNavlink(currentTarget, '/home/hd')}>Hidrantes</li>
+    //       <li onClick={({currentTarget})=>handleNavlink(currentTarget, '/home/lde')}>Luzes de Emergência</li>
+    //       <li onClick={({currentTarget})=>handleNavlink(currentTarget, '/home/gas')}>Medição de Gás</li>
+    //     </ul>
+
+    //   </div>
+
+    //   <Outlet/>
+
+    // </div>
+
+
+    <div>
+
+      <div id='wppCanvasWrapper' className={styles.wpp}>
+        <canvas className={styles.canv} id='canvWpp' width={larguraTela } height={larguraTela / 3} ></canvas>
       </div>
 
-        <div className='fotoPerfilWrapper' >
+      <span id='headerProfName' className={styles.headerProfName}>@{context.userLogado.perfil.nick}</span>
 
-          {loading && <div className='loadingFoto'></div>}
-
-          <canvas width='80' height='80' id='canv' >
-            <p>Seu navegador não suporta Canvas</p>
-          </canvas>
-
-          {!context.imgTemp.foto && <i id='userSemFoto' className="fa-solid fa-user"></i>}
-
-        </div>
-
-        <div id='botaoEditarPerfil'>
-          <span onClick={()=>navigate('/editprofile')}>Editar perfil</span>
-        </div>
-
-        <div className='dadosPerfil'>
-          {/* <p className='nome'>{context.userLogado.perfil.nome}</p> */}
-          <p className='nome'>{context.userLogado.perfil.nome}</p>
-          <p className='tag'>{context.userLogado.perfil.nick && '@'+context.userLogado.perfil.nick}</p>
-          <p className='bio'>{context.userLogado.perfil.quote}</p>
-        </div>
-        
+      <div id='perfilWrapper' className={styles.perfil} >
+        <canvas  className={styles.fotoPerfil} width='80' height='80' id='canv' ></canvas>
+        <p className={styles.nomePerfil}>{context.userLogado.perfil.nome}</p>
+        <p className={styles.nicknamePerfil} >{context.userLogado.perfil.nick &&  '@'+context.userLogado.perfil.nick}</p>
+        <span className={styles.btnEditPerfil} onClick={()=>navigate('/editprofile')}>Editar perfil</span>
+        <p className={styles.quote}>{context.userLogado.perfil.quote}</p>
       </div>
 
       <div id='linksScroll' >
@@ -253,10 +325,12 @@ window.onscroll = () => {
         </ul>
 
       </div>
-
       <Outlet/>
 
+
+
     </div>
+
   )
 }
 
