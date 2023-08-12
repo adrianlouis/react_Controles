@@ -224,7 +224,7 @@ window.onscroll = () => {
   }else{
     // mask.style.top=0
     wallpaper.style.zIndex=1
-    canvWpp.style.filter='brightness(30%) blur(5px)'
+    canvWpp.style.filter='brightness(50%) blur(5px)'
   }
 
   if (posTela >= 223){
