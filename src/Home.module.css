@@ -78,3 +78,7 @@
     top: 130px;
     right: 10px;
 }
+
+.canv{
+    cursor: default;
+}

@@ -79,67 +79,89 @@ const Extintores = () => {
         <div className={styles.container}>
 
             {!context.itensFiltrados && listaAtiva.map((item, i)=>{
-                return <div key={item.id+'ext'+i} className='ldeContent'  >
 
-                    <div className={styles.title}>
-                        <p className={styles.legends}> número</p>
-                        <p className={styles.values}>{item.num?item.num:'N/A'}</p>
+                // return <div key={item.id+'ext'+i} className='ldeContent'  >
 
-                    </div>
+                //     <div className={styles.title}>
+                //         <p className={styles.legends}> número</p>
+                //         <p className={styles.values}>{item.num?item.num:'N/A'}</p>
 
-                    <div className={styles.minorInfos}>
+                //     </div>
+
+                //     <div className={styles.minorInfos}>
                         
-                        <div>
-                            <p className={styles.legends}> tipo</p>
-                            <p className={styles.txtValues}>{item.tipo? `${item.tipo} - ${tipoClasse(item.tipo)}` : 'N/A'}</p>
-                            <p className={styles.legends}> local</p>
-                            <p className={styles.txtValues}>{item.local? item.local : 'não informado'}</p>
-                        </div>
+                //         <div>
+                //             <p className={styles.legends}> tipo</p>
+                //             <p className={styles.txtValues}>{item.tipo? `${item.tipo} - ${tipoClasse(item.tipo)}` : 'N/A'}</p>
+                //             <p className={styles.legends}> local</p>
+                //             <p className={styles.txtValues}>{item.local? item.local : 'não informado'}</p>
+                //         </div>
 
 
-                        <div>
-                            <p className={styles.legends}> recarga </p>
-                            <p className={styles.txtValues}> {datasPorExtenso(item.ultRec.ano, item.ultRec.mes)}</p>
+                //         <div>
+                //             <p className={styles.legends}> recarga </p>
+                //             <p className={styles.txtValues}> {datasPorExtenso(item.ultRec.ano, item.ultRec.mes)}</p>
 
-                            <p className={styles.legends}> reteste </p>
-                            <p className={styles.txtValues}>{item.ultRet?item.ultRet:'não informado'}</p>
-                        </div>
+                //             <p className={styles.legends}> reteste </p>
+                //             <p className={styles.txtValues}>{item.ultRet?item.ultRet:'não informado'}</p>
+                //         </div>
 
-                        <div>
-                            {item.avaria && <p className={styles.legends} >avaria</p> }
-                            <p className={styles.txtValues} > {item.avaria}</p>
+                //         <div>
+                //             {item.avaria && <p className={styles.legends} >avaria</p> }
+                //             <p className={styles.txtValues} > {item.avaria}</p>
                         
-                        </div>
+                //         </div>
 
-                    </div>
+                //     </div>
                     
-                    <BtnAcoesItens funcDel={()=>excluirExtintor(context.userLogado.id, item, 'ext')} itemId={item.id} editarOnClick={()=>navigate(`extedit?id=${item.id}`)}  />
+                //     <BtnAcoesItens funcDel={()=>excluirExtintor(context.userLogado.id, item, 'ext')} itemId={item.id} editarOnClick={()=>navigate(`extedit?id=${item.id}`)}  />
                 
+                //     </div>
+
+
+                return <div key={item.id+'ext'+i} className={styles.containerGrid}>
+                    <div className={styles.cardMinor}>
+                        <div>
+
+                            <span className={styles.legends}>Número</span>
+                            <span className={styles.values}>{item.num}</span>
+                        </div>
+                        <div>
+                            <span className={styles.legends}>Tipo</span>
+                            <span className={styles.values}>{item.tipo}</span>
+
+                        </div>
                     </div>
 
-            //     return <div key={item.id+'ext'+i} className={styles.nExt}>
-            //     <div className={styles.nTipoNumWrap}>
+                    <div className={styles.cardMedium}>
+                        <div >
+                            <span className={styles.legends}>local</span>
+                            <span className={styles.infoGeral} >{item.local? item.local : 'não informado'}</span>
+                        </div>
+                        <div>
+                            <span className={styles.legends}>recarga</span>
+                            <span className={styles.infoGeral} >{datasPorExtenso(item.ultRec.ano, item.ultRec.mes)}</span>
+                        </div>
+                        <div>
+                            <span className={styles.legends}>reteste</span>
+                            <span className={styles.infoGeral} >{item.ultRet?item.ultRet:'não informado'}</span>
+                        </div>
+                    </div>
 
-            //         <span className={styles.nTipo} >{item.tipo}</span>
-            //         <span className={styles.Nnum}>{item.num}</span>
-            //     </div>
 
-            //     <div className={styles.nSecondary}>
-            //         <span>local: {item.local}</span>
-            //         <span>recarga: {item.ultRec.mes? dataLong(item.ultRec.mes)+(item.ultRec.ano? ' ' : '') : '' }{item.ultRec.ano ? Number(item.ultRec.ano) : ''}  {!item.ultRec.mes && !item.ultRec.ano && 'N/A'}</span>
-            //         <span>reteste: {item.ultRet?item.ultRet:'N/A'}</span>
-            //     </div>
+                    {item.avaria && <div className={styles.cardAvarias}>
+                    {/* <hr></hr> */}
+                        <span className={styles.legends}>avarias</span>
+                        <span className={styles.infoGeral}>{item.avaria}</span>
+                    </div>}
 
-            //     <div className={styles.nIconsExt}>
-            //         <span>{item.avaria?'avariado':''}</span>
-            //         {/* <span>recarga</span> */}
-            //     </div>
+                    <div className={styles.cardBtn}>
+                        <BtnAcoesItens funcDel={()=>excluirExtintor(context.userLogado.id, item, 'ext')} itemId={item.id} editarOnClick={()=>navigate(`extedit?id=${item.id}`)}  />
+                    <hr></hr>
+                    </div>
 
-            //     <div className={styles.wrapIconInfo}>
-            //         <i className="fa-solid fa-chevron-right"></i>
+                </div>
 
-            //     </div>
-            // </div>
 
                 
                 })}
@@ -148,7 +170,6 @@ const Extintores = () => {
                 return <div key={item.id+'ext'+i} className='ldeContent'  >
 
                 <div className={styles.title}>
-                    {/* <p><i className="fa-solid fa-hashtag"></i> {item.num? item.num :'N/A'}</p> */}
                     <p className={styles.legends}> número</p>
                     <p className={styles.values}>{item.num?item.num:'N/A'}</p>
                     

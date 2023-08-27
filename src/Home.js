@@ -178,6 +178,8 @@ const Home = () => {
 function handleNavlink(elem, link){
   const links = document.querySelectorAll('#navbarPerfil li')
   context.setItensFiltrados('')
+
+  window.scrollTo({top:260, behavior:'smooth'})
   
   for (let i = 0; i < links.length; i++) {
     links[i].classList.remove('liVerde');
@@ -227,7 +229,7 @@ window.onscroll = () => {
     canvWpp.style.filter='brightness(50%) blur(5px)'
   }
 
-  if (posTela >= 223){
+  if (posTela >= 175){
     document.querySelector('#headerProfName').style.visibility='visible'
     document.querySelector('#headerProfName').style.opacity='1'
 
@@ -236,7 +238,7 @@ window.onscroll = () => {
     document.querySelector('#headerProfName').style.opacity='0'
   }
 
-  
+  console.log(posTela)
 }
 
 
@@ -305,10 +307,16 @@ window.onscroll = () => {
         <canvas className={styles.canv} id='canvWpp' width={larguraTela } height={larguraTela / 3} ></canvas>
       </div>
 
+
       <span id='headerProfName' className={styles.headerProfName}>@{context.userLogado.perfil.nick}</span>
 
       <div id='perfilWrapper' className={styles.perfil} >
-        <canvas  className={styles.fotoPerfil} width='80' height='80' id='canv' ></canvas>
+
+        <div>
+          {/* <canvas  className={`${styles.fotoPerfil} ${loading?styles.loadingFoto: ''} ` } width='80' height='80' id='canv' ></canvas> */}
+          <canvas  className={`${styles.fotoPerfil}` } width='80' height='80' id='canv' ></canvas>
+        </div>
+
         <p className={styles.nomePerfil}>{context.userLogado.perfil.nome}</p>
         <p className={styles.nicknamePerfil} >{context.userLogado.perfil.nick &&  '@'+context.userLogado.perfil.nick}</p>
         <span className={styles.btnEditPerfil} onClick={()=>navigate('/editprofile')}>Editar perfil</span>
