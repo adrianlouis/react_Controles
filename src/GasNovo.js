@@ -93,15 +93,19 @@ const GasNovo = () => {
     <div className={styles.edicaoContainer} >
 
         <div>
+            <div className={styles.medicoesTemp}>
+
             {
                 medidores.medicao.map((m, i)=>{
                     return <div className={styles.wrapperEdicaoGas}>
-                        <p id='listaAddGasSpan'>Loja: {m.loja} - Medição: {m.medicao}</p>
+                        <p className={styles.medicaoTempLoja} >Loja: {m.loja}</p>
+                        <p className={styles.medicaoTempMedicao}>Medição: {m.medicao}</p>
                         <i className="fa-solid fa-square-xmark" onClick={()=>excluirLinha(i)}></i>
                     </div>
 
                 })
             }
+            </div>
 
             {/* <div className='addGasLine'>
                 <div>

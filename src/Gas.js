@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { GlobalContext } from './GlobalContext'
 import { updateBd } from './crudFireBase'
 import Footer from './Footer'
-import styles from './Hidrantes.module.css'
+import styles from './Gas.module.css'
 import BtnAcoesItens from './components/BtnAcoesItens'
 
 const Gas = () => {
@@ -37,23 +37,27 @@ const Gas = () => {
         <div className={styles.mainContainer}>
 
             {(ctx.userLogado.gas && gases).map((item)=>{
-                return <div key={item.id} className='ldeContent' >
+                return <div key={item.id} className={styles.gasContainer} >
 
                     <div className={styles.title}>
-                        <p className={styles.legends}>{item.diaCriado}</p>
-                        <p className={styles.values}>{item.horaCriado}h</p>
+                        <p className={styles.legends}>{item.diaCriado} - {item.horaCriado}</p>
                     </div>
 
                     <div className={styles.infos}>
+
+                        <div>
+                            <p>Loja</p>
+                            <p>Medição</p>
+                        </div>
 
                         {arrOrdemCresc(item.medicao.map((m)=>{return m.loja})).map((ordem)=>{
                             return item.medicao.map((lojas)=>{
                                 if (lojas.loja == ordem ){
                                     return <div key={'medicao'+item.id+'_'+lojas.loja} className={styles.dados} >
-                                        <div>
-                                            <p className={styles.legends} >Loja {lojas.loja}</p>
+                                        {/* <div> */}
+                                            <p className={styles.legends} >{lojas.loja}</p>
                                             <p className={styles.txtValues}>{lojas.medicao}</p>
-                                        </div>
+                                        {/* </div> */}
                                     </div>
                                 }
                             })
@@ -61,8 +65,10 @@ const Gas = () => {
 
                     </div>
 
+
                     <BtnAcoesItens funcDel={()=>deletar(item,ctx.userLogado.id)} itemId={item.id} editarOnClick={()=>navigate(`edit/id?id=${item.id}`)} />
                     
+                    <hr></hr>
 
                 </div>
                 
