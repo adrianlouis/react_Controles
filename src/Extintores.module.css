@@ -1,0 +1,223 @@
+.container{
+    /* border: 1px solid red ; */
+    overflow: hidden;
+    /* padding: 5px; */
+    max-width: 100vw;
+    /* display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; */
+
+    /* aplicando para aprimorar novo css - agosto 2023 */
+    padding: 0 10px;
+}
+
+.title{
+    color: rgb(161,161,161);
+
+}
+
+.legends{
+    font-size: .8rem;
+    /* margin: 10px 0 0 0; */
+    margin: 0;
+    padding: 0;
+    color: #439A86;
+    margin-top: 5px;
+    transform: translate(0, 5px);
+}
+.legends::first-letter{
+    text-transform: capitalize;
+}
+
+.values{
+    font-size: 1.4rem;
+    color: #BCD8C1;
+    font-weight: 900;
+}
+.txtValues::first-letter{
+    text-transform: capitalize;
+}
+
+
+.minorInfos i, .title i{
+    color: #439A86;
+    margin-right: 5px;
+    font-size: 1.4rem;
+}
+.txtValues{
+    font-size: 1rem;
+    color: #BCD8C1;
+}
+
+.minorInfos div:last-child{
+    width: calc(100vw - 20px);
+    margin: auto 0;
+    margin-bottom: 30px;
+}
+
+.nExt{
+    background-color: #121;
+    color: #ddd;
+    /* border: 1px solid red; */
+    height: 80px;
+    margin: 5px;
+    border-radius: 20px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    padding-right: 10px;
+
+    box-shadow: #222  0 0 3px 1px, inset #131 2px 2px 3px 1px, inset #121 -2px -2px 3px 1px ;
+    margin-bottom: 15px;
+    position: relative;
+}
+.nExt:last-child{
+    margin-bottom: 150px;
+}
+.nNum{
+    color: #ddd;
+    font-size: 1.2rem;
+}
+.nTipo{
+    font-size: 1.7rem;
+}
+
+.nTipoNumWrap{
+    /* border: 1px solid red; */
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 70px;
+}
+.nSecondary{
+    /* border: 1px solid red; */
+    width: 175px;
+}
+.nSecondary, .nIconsExt{
+    /* border: 1px solid red; */
+    /* margin-left: 5px; */
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+}
+.nSecondary span, .nIconsExt span{
+    font-size: .8rem;
+    /* margin-left: 5px; */
+}
+.nIconsExt span{
+    background-color: #665701;
+    padding: 0px 5px;
+    border-radius: 20px;
+    /* margin-bottom: 5px; */
+    /* border: 1px solid blue; */
+    /* position: absolute;
+    top: 5px;
+    right: 5px; */
+
+}
+.nIconsExt{
+    position: absolute;
+    top: 5px;
+    right: 50px;
+    /* border: 1px solid purple; */
+
+}
+.wrapIconInfo{
+    /* border: 1px solid green; */
+    position: absolute;
+    right: 20px;
+}
+
+
+
+
+
+
+
+
+
+
+ /* Nova versão de card em Extintores, com uso de grid e possivelmente neomorphism */
+ .containerGrid{
+    /* border: 1px solid #d1d1d1; */
+    border-radius: 10px;
+    margin: 20px 0;
+    display: grid;
+    /* grid-template-columns: auto auto; */
+    justify-content: space-between;
+    /* align-items: start; */
+    /* grid-area: ; */
+    grid-template-areas: 
+    ' cardMinor cardMinor cardMedium cardMedium'
+    'cardMinor cardMinor cardMedium cardMedium'
+    'avarias avarias avarias avarias'
+    'btn btn btn btn';
+    /* gap: 10px; */
+
+    /* box-shadow: #1b1b1b 0 0 10px, inset #1b1b1b 0 0 10px; */
+
+ }
+
+ .cardMinor{
+    /* border: 1px solid pink; */
+    display: flex;
+    align-items: start;
+    width: fit-content;
+    /* padding: 10px; */
+    flex-direction: column;
+    grid-area:cardMinor;
+    background-color: #000;
+
+
+ }
+ .cardMinor div{
+    /* border: 1px solid yellow; */
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+ }
+
+ 
+ .cardMedium{
+    grid-area: cardMedium;
+    flex-direction: column;
+    /* border: 1px solid rgb(17, 29, 0); */
+    margin: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    
+ }
+ .cardMedium div{
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+    /* border: 1px solid blue; */
+    /* margin: 10px 0; */
+
+ }
+
+ .cardAvarias{
+    /* border: 1px solid blue; */
+    /* margin: 5px; */
+    /* padding: 10px; */
+    display: flex;
+    flex-direction: column;
+    grid-area: avarias;
+ }
+ .cardBtn{
+    /* border: 1px solid darkblue; */
+    grid-area: btn;
+ }
+ .infoGeral{
+    /* border: 1px solid green; */
+    font-size: .8rem;
+    color: #d1d1d1;
+
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+ }

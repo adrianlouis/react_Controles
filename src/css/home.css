@@ -1,0 +1,234 @@
+
+
+.homeContainer{
+    margin: auto;
+    width: 100%;
+    height: 100vh;
+    background-color: #3333;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+
+    /* display: grid;
+    grid-template-columns: auto auto;
+    justify-content: space-evenly;
+    align-items: center; */
+}
+
+.cards{
+    margin: 50px auto;
+    /* border: 1px solid green; */
+    /* width: 80vw; */
+    
+    display: grid;
+    grid-template-columns: auto auto;
+    row-gap: 20px;
+    column-gap: 20px;
+}
+
+.mainContainerHome{
+height: 115px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin: 10px;
+/* border: 1px solid blue; */
+}
+
+.profilePic{
+    /* border: 2px solid red; */
+    height: 100%;
+    width: 25%;
+    display: flex;
+    justify-content: start;
+    flex-direction: column;
+    align-items: center;
+}
+.homeUserImg{
+    width: 80px;
+    height: 80px;
+    border-radius: 50px;
+    /* background-image: url('../img/silverhand.jpg'); */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border: 3px solid #d1d1d1;
+    overflow: hidden;
+    /* border: 1px solid white; */
+    position: relative;
+    transition: all .3s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.postNick, .postNickComp{
+    font-size: .8rem;
+    text-align: left;
+    margin: 0 0 20px;
+}
+.postNickComp{
+    color: #616161;
+}
+.postMsg{
+    text-align: left;
+}
+
+
+
+#editIconFoto{
+    /* display: flex;
+    align-items: center;
+    justify-content: center; */
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff0;
+    /* visibility: hidden; */
+    transition: all .3s;
+}
+
+.homeUserImg:hover #editIconFoto{
+    /* visibility: visible; */
+    color: #ffff;
+    transition: all .3s;
+}
+
+.profileNomes{
+    /* border: 1px solid blue; */
+    height: 100%;
+    width: 75%;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 0 5px;
+}
+
+.profileNomes span:last-child{
+    font-weight: 700;
+    font-size: .8rem;
+    margin: 10px 0;
+}
+
+.homeUserNome{
+    font-size: 1.2rem;
+    color: #d1d1d1;
+}
+.homeUserNick{
+    font-size: .8rem;
+    color: #a1a1a1;
+}
+.homeUserQuote{
+    font-size: .8rem;
+    margin-top: 10px;
+    color: #a1a1a1;
+}
+
+.profileScroller{
+    height: 60px;
+    width: 100vw;
+    /* border: 1px solid white; */
+    overflow: scroll;
+    margin: 10px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.profileScrollerIcons{
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.profileScrollerIcons * {
+    margin: 0 10px;
+}
+
+.profileScrollerIcons i{
+    /* border: 1px solid #d1d1d1 ; */
+    background-color: #222;
+    height: 50px;
+    width: 50px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* margin: 0 10px; */
+    transition: all .3s;
+    box-shadow: inset #41414177 2px 2px  5px, inset #0007 -2px -2px 5px;
+}
+
+.profileScrollerIcons i:hover{
+    color: #d1d1d1;
+}
+
+.homeUserImg input{
+    visibility: hidden;
+}
+
+
+.profLastPost{
+    margin: 10px 10px 20px 10px;
+    /* border: 1px solid #aaa7; */
+    background-color: #222;
+    padding: 10px ;
+    border-radius: 10px;
+    color: #d1d1d1;
+
+    box-shadow: #0007 5px 5px 10px;
+}
+.profLastPostFooter{
+display: flex;
+justify-content: space-between;
+align-items: flex-end;
+margin-top: 15px;
+}
+.profLastPostFooter p{
+    font-size: .8rem;
+}
+
+.profMenu{
+    position: absolute;
+    right: 20px;
+    top: 15px;
+
+}
+
+.profTitles{
+    margin: 10px;
+}
+
+.profLastPostFooter i{
+    font-size: 1.2rem;
+    margin-right: 10px;
+}
+
+.picIcons{
+    /* border: 1px solid green; */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    /* align-items: center; */
+}
+.picIcons i{
+    margin: 5px ;
+    font-size: 1rem;
+}
+.picIcons i:hover{
+    color: #d1d1d1;
+}
+
+.iconsNames{
+    margin: 0;
+    position: absolute;
+    /* border: 1px solid red; */
+    /* top: 100px; */
+    transform: translate(0, 20px);
+    font-size: .8rem;
+
+}

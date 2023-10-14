@@ -1,0 +1,130 @@
+.inputNovoExt{
+    color: rgb(161, 161, 161);
+    background-color: transparent;
+    border: transparent;
+    width: 275px;
+}
+.inputNovoExt:focus{
+    outline: none;
+}
+
+.select, .selectRec{
+    width: 265px;
+    border: none;
+    background-color: transparent;
+    color: rgb(121,121,121);
+    cursor: inherit;
+    line-height: inherit;
+    outline: none;
+}
+.select:focus, .selectRec:focus{
+    border: none;
+    outline: none;
+
+}
+
+.select:checked, .select:active{
+    outline: none;
+    border: none;
+}
+
+.selectRec{
+    width: 100px;
+}
+.wrapperSelectRecarga{
+    display: flex;
+    justify-content: space-between;
+    width: 265px;
+}
+
+.option{
+    color: rgb(121,121,121);
+    background-color: #000;
+}
+
+.fieldset{
+    border: 2px solid #3337;
+    border-radius: 5px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    padding: 10px 0;
+    margin-bottom: 15px;
+    width: 90%;
+}
+.fieldset i{
+    width: 30px;
+    text-align: center;
+}
+
+.novoExtContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+}
+
+.actionBtnsCreateWrapper{
+   width: 90%;
+   display: flex;
+   justify-content: space-evenly;
+   padding: 10px 0 20px;
+}
+
+.actionBtnsCreateWrapper span{
+    cursor: pointer;
+}
+
+.actionBtnsCreateWrapper span:nth-child(1){
+    color: rgb(170, 51, 51);
+}
+.actionBtnsCreateWrapper span:nth-child(1):hover{
+    color: rgb(130, 11, 11);
+    text-shadow: rgb(130, 11, 11) 0 0 10px;
+}
+
+.actionBtnsCreateWrapper span:nth-child(2){
+    color: rgb(166,243,166);
+}
+.actionBtnsCreateWrapper span:nth-child(2):hover{
+    color: rgb(126,203,126);
+    text-shadow: rgb(126,203,126) 0 0 10px;
+}
+
+.fieldset textarea{
+    background-color: #000;
+    color: rgb(161, 161, 161);
+    outline: none;
+    border: none;
+    padding: 0 5px ;
+    resize: none;
+}
+
+
+.fieldset textarea:focus{
+    outline: none;
+}
+
+.pecasHidrante{
+    flex-direction: column;
+    align-items: start;
+}
+
+.pecasHidrante div{
+    /* border: 1px solid green; */
+    /* margin-left: 15px; */
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    flex-direction: column;
+
+}
+
+.pecasHidrante label{
+    margin-left: 35px;
+}
+
+.negado{
+    border: 2px solid red;
+}

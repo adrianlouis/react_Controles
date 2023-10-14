@@ -1,0 +1,482 @@
+@import url('https://fonts.googleapis.com/css2?family=Zeyada&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Julee&family=Zeyada&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch&family=Space+Grotesk&display=swap');
+
+.cardExt{
+    width: 75%;
+    margin: 50px auto;
+    grid-auto-columns: 45%;
+    display: grid;
+    gap: 15px 5px; 
+    grid-template-areas: "numero local"
+    "tipo agente"
+    "proxRec proxRet"
+    "mais mais"
+    "avaria avaria"
+    "botoes botoes";
+    justify-content: center;
+    /* box-shadow: #0007 10px 10px 10px, #0007 -5px -5px 10px, inset #3337 10px 10px 20px, inset #0007 -10px -10px 20px;    border-radius: 20px; */
+    border-radius: 50px;
+    background-color: #3333;
+    padding: 20px 5px;
+
+    border: 2px solid transparent;
+    box-shadow: #0007 5px 5px 5px, #4447 -2px -2px 2px, inset #3337 10px 10px 20px, inset #0007 -10px -10px 20px;
+    /* border-radius: 10px; */
+
+}
+.cardExt:nth-last-child(2){
+    margin-bottom: 120px;
+    /* display: none; */
+}
+
+
+textarea{
+    background-color: transparent;
+    outline: none;
+    border: 2px solid transparent;
+    /* margin-bottom: 80px; */
+    border-radius: 5px;
+    height: 80px;
+    resize: none;
+    color: #d1d1d1;
+    font-size: .89rem;
+}
+textarea:focus{
+    outline: none;
+    border: 2px solid transparent;
+}
+
+.extSpanAvarias{
+    padding: 10px 5px; 
+}
+
+#extNum {
+    grid-area: numero;
+    /* border-top-left-radius: 10px; */
+}
+#extTipo {
+    grid-area: tipo;
+}
+#extAgente {
+    grid-area: agente;
+}
+#extLocal {
+    grid-area: local;
+    /* border-top-right-radius: 10px; */
+}
+#extProxRec {
+    grid-area: proxRec;
+}
+#extProxRet{
+    grid-area: proxRet;
+}
+#extMais{
+    grid-area: mais;
+    border-radius: 20px;
+    padding: 0;
+}
+#extMais span{
+    transform: translateY(-3px);
+}
+#extAvaria{
+    grid-area: avaria;
+    box-shadow: inset #0007 3px 3px 5px, inset #3337 -3px -3px 5px;
+    border-radius: 10px;
+}
+.containerCriarExt #extAvaria{
+    box-shadow: none;
+}
+#extUltRec{
+    grid-area: ultRec;
+}
+#extUltRet{
+    grid-area: ultRet;
+}
+.extBtns{
+    grid-area: botoes;
+    border: 1px solid #0f0;
+    width: 100%;
+    display: flex;
+    height: 40px;
+    justify-content: space-evenly;
+    border-radius: 0 0 10px 10px;
+    
+}
+
+.extDetail{
+    /* border: 1px solid #0a0; */
+    border-radius: 20px;
+}
+.extDetailSpan{
+    color: #777;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.shadow{
+    box-shadow: #0007  2px 2px 15px, #3337  -1px -1px 1px;
+
+}
+.shadowInset{
+    box-shadow: #0007 inset 3px 3px 3px, #3337 inset -3px -3px 3px;
+
+}
+
+.extEditarDataRecarga{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    width: calc(65% - 4px);
+}
+
+.containerCriarExt{
+    width: 90%;
+    /* border: 1px solid red; */
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    margin: 0 auto;
+    margin-bottom: 100px;
+
+    /* background-color: #111; */
+    /* display: grid;
+    grid-template-areas: "numero tipo"
+    "local ultRec"
+    "ultRet ultRet"
+    "avaria avaria"; */
+}
+.containerCriarExt *{
+    color: #777;
+}
+
+.containerCriarExt #extNum{
+    margin-top: 10px;
+}
+
+.containerCriarExt #extNum, .containerCriarExt #extLocal{
+    /* border-top-left-radius: unset; */
+    /* margin-top: 10px; */
+    border-radius: 0;
+}
+
+.hdInfo{
+    /* background-color: #111; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* border: none; */
+    /* box-shadow: 5px 5px 5px #000, -5px -5px 5px #222;
+    border-radius: 10px; */
+    /* border-radius: 5px; */
+    /* padding: 10px 0; */
+    /* margin: 10px 0; */
+}
+.hdInfo input{
+    width: calc(65% - 4px);
+
+}
+.hdInfo input[type='checkbox']{
+    width: 20px;
+    margin: 5px;
+}
+.avariaInvisible{
+    display: none;
+    box-shadow: #0007 3px 3px 3px, #3337 -3px -3px 3px;
+
+}
+
+.containerCriarExt .hdInfo{
+    margin-bottom: 10px ;
+    padding: 10px 0;
+}
+.containerCriarExt label{
+    display: none;
+}
+.containerCriarExt span{
+    margin-bottom: 10px;
+}
+
+.modalFiltro{
+    /* border: 2px solid red; */
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    /* z-index: 5; */
+    /* margin-top: 25px; */
+    background-color: #000;
+
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-direction: column;
+    padding: 15px 0;
+}
+
+
+.footerBuscarContainer{
+    position: absolute;
+    bottom: 0;
+    background-color: #000;
+    border-top: 2px solid #0a0;
+
+    height: 70px;
+    width: 100%;
+    left: -101%;
+
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.toggleFooter{
+    left: 0;
+}
+
+#containerBuscar, #containerFiltrar{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.filtroAtivo{
+    color:#0f0
+}
+
+#botoesEdicao{
+    flex-direction: row;
+}
+
+
+/* Choice is an illusion... .. .
+
+                              __
+                     /\    .-" /
+                    /  ; .'  .' 
+                   :   :/  .'   
+                    \  ;-.'     
+       .--""""--..__/     `.    
+     .'           .'    `o  \   
+    /                    `   ;  
+   :                  \      :  
+ .-;        -.         `.__.-'  
+:  ;          \     ,   ;       
+'._:           ;   :   (        
+    \/  .__    ;    \   `-.     
+ bug ;     "-,/_..--"`-..__)    
+     '""--.._:
+ */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Follow the white rabbit */
+
+
+.extCard{
+    margin: 40px 20px;
+    /* background-color: #21212177; */
+    background-image: linear-gradient(to bottom right, #2227, #3337);
+
+    padding: 5px 10px ;
+    border-radius: 10px;
+    border: 2px solid #5557;
+    box-shadow: #0007 5px 5px 10px, inset #3337 3px 3px 5px;
+
+}
+
+@media only screen and (max-width: 1200px) and (min-width: 360px){
+  
+}
+
+
+.extCard legend{
+    color: #3a3;
+    filter: drop-shadow(#3a3 0 0 3px);
+    margin: 5px 15px;
+    padding: 0 10px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+}
+
+.extCard legend:not(.fieldsetFlexRow:hover legend){
+    color: #fff;
+    /* opacity: 70%; */
+
+    /* filter: drop-shadow(#3a3 0 0 3px); */
+
+}
+
+
+
+.fieldsetFlexRow, .cardAvaria{
+    border: 2px solid #3337;
+    border-radius: 5px;
+    color: #d1d1d1;
+    margin: 10px 0;
+    padding-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+#hdAvariasTxtArea{
+    padding: 5px;
+    width: 95%;
+    height: 100%;
+    margin-bottom: 5px;
+    color: #ddd;
+    resize: none;
+}
+#hdAvariasTxtArea:focus{
+    outline: none;
+    /* border: 1px solid #0a0 */
+}
+
+/* .fieldsetFlexRow:hover{
+    border: 2px solid #7f77;
+
+} */
+
+.fieldsetFlexRow:not(.fieldsetFlexRow:hover){
+    /* opacity: 15%; */
+    border: 2px solid #3337;
+
+}
+
+
+.extCard p:not(.cardTextoPqn){
+    text-align: left;
+    margin: 5px 8px 10px 8px;
+    font-size: .89rem;
+    color: #fff;
+}
+
+.extCard p:not(.cardTextoPqn)::first-letter{
+    text-transform: uppercase;
+}
+
+.cardTextoPqn{
+    font-size: .8rem;
+    /* margin: 0 5px; */
+    padding: unset;
+    text-align: left;
+}
+
+.extCard select, .extCard input{
+    margin: 2px 5px 0;
+    padding: 2px;
+    width: 50px;
+    background-color: #111;
+    color: #777;
+    font-size: .9rem;
+    font-family: 'Julee', cursive;
+    font-family: 'Chakra Petch', sans-serif;
+
+}
+
+.extCard input:focus, .extCard select:focus{
+    color: #7f77;
+    /* font-weight: 900; */
+    border: 2px solid #7f77;
+}
+select option{
+    font-weight: 400;
+    color: #aaa;
+}
+/* 
+select option:active{
+    color: red;
+    background-color: red;
+} */
+
+.extCard select{
+    width: 90px;
+}
+
+.fieldsetAcoes{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 0;
+}
+/* .fieldsetAcoes span:hover{
+    color: rgb(166,243,166);
+} */
+.fieldsetAcoes i{
+    padding-top: 10px;
+}
+.fieldsetAcoes div:hover i, .fieldsetAcoes div:hover p{
+    color: rgb(170, 51, 51);
+}
+.btnAcoesWrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    cursor: pointer;
+}
+.cardAvaria{
+    /* display: flex; */
+    justify-content: left;
+
+    /* align-items: start;
+    justify-content: start;
+    text-align: start; */
+}
+
+.cardAvaria p::first-letter{
+margin-left: 1rem;
+}
+
+.extCard:nth-last-child(2){
+    margin-bottom: 100px;
+}
+
+.pecasDiv{
+    display: flex;
+    /* flex-direction: row; */
+}
+
+#inputRetesteExt{
+    width: 120px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

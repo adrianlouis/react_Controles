@@ -1,0 +1,24 @@
+#acoesCriandoItemContainer{
+    border-top: 3px solid #fff;
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 5px 0;
+    height: 60px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    background-color: #222;
+    color: #ddd;
+}
+#acoesCriandoItemContainer :is(i, a)  {
+    color: #ddd;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    text-decoration: none;
+}

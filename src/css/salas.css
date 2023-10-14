@@ -1,0 +1,103 @@
+.cardCont{
+    width: 80%;
+    height: 225px;
+    /* border: 1px solid red; */
+    margin: 0 auto;
+    position: relative;
+    background-color: transparent;
+    transform-style: preserve-3d;
+}
+
+.cardCont p, .cardCont span{
+    margin: 2px 5px;
+}
+
+.cardSalista{
+    width: 100%;
+    height: 100%;
+    /* border: 1px solid #777; */
+    position: absolute;
+
+    /* margin: 15px auto; */
+
+    display: grid;
+
+    grid-template-areas: "foto nomes nomes nomes"
+    "foto subnome subnome subnome"
+    "foto subnome subnome subnome "
+    "footer footer footer footer"
+    "footer footer footer footer"
+    "footer footer footer footer"
+    ;
+    column-gap: 5px;
+    row-gap: 5px;
+    /* padding: 15px; */
+
+    transition: 1s;
+    backface-visibility: hidden;
+    border-radius: 10px;
+
+    background-color: #222;
+    box-shadow: #0007 10px 10px 15px, inset #4447 5px 5px 10px, inset -5px -5px 10px #0007;
+}
+
+/* .cardCont:hover .cardSalista{
+    transform: rotateY(180deg);
+}
+.cardCont:hover .cardSalistaVerso{
+    transform: rotateY(0);
+} */
+
+.cardSalistaVerso{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: 1px solid #777;
+    transform: rotateY(180deg);
+    backface-visibility: hidden;
+    transition: 1s;
+}
+
+
+.flex{
+    display: flex;
+    justify-content: start;
+    align-items: flex-start;
+    padding: 2px;
+    flex-direction: column;
+}
+
+.cardSubnomes{
+    grid-area: subnome;
+    /* border: 1px solid #3d3; */
+}
+
+.cardFooter{
+    grid-area: footer;
+    /* border: 1px solid #f33; */
+    height: 100px;
+    
+}
+
+.cardFoto{
+    border: 1px solid #333;
+    width: 80px;
+    height: 100px;
+    /* margin: 10px; */
+    grid-area: foto;
+    margin: 5px 0 0 5px;
+}
+
+.cardNomes{
+    /* border: 1px solid #999; */
+    grid-area: nomes;
+}
+
+.cardNomes p{
+    font-size: 1.2rem;
+    font-weight: 900;
+}
+.cardSubnomes p{
+    font-size: .9rem;
+    margin: 0;
+}

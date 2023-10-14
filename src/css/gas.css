@@ -1,0 +1,289 @@
+.gasContainer{
+    /* min-height: 100vh; */
+    min-width: 100vw;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+
+    color: #050;
+
+
+}
+
+.gasCard{
+    padding: 10px;
+    width: 90%;
+    margin-top: 15px;
+    /* gap: 10px; */
+    background-color: #111;
+    margin: 15px auto;
+    color: #050;
+    border: 3px solid transparent;
+    border-radius: 20px;
+    box-shadow: #0007 3px 3px 3px, #2227 -3px -3px 3px, inset #2227 3px 3px 2px, inset #0007 -2px -2px 5px ;
+    
+}
+/* .gasCard:hover{
+    box-shadow: #0007 7px 7px 7px,#2227 -3px -3px 3px;
+    transform: translate(-2px, -2px);
+} */
+
+.gasCardData{
+    border: 1px solid green;
+    border-radius: 5px;
+    padding: 5px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    margin: unset;
+    text-align: left;
+    color: #ddd;
+    
+    
+}
+
+.gasCardContent{
+    width: 100%;
+    border-radius: 10px;
+    /* margin: 20px 0  ; */
+    display: grid;
+    grid-template-columns: auto auto auto;
+    gap: 20px 5px;
+    justify-content: space-evenly;
+    padding: 15px 0;
+}
+
+.gasCardContent div{
+    /* border: 1px solid #f00; */
+    text-align: center;
+    width: 100px;
+    height: 50px;
+    margin-bottom: 0px;
+
+    display: flex;
+    align-items: start;
+    justify-content: start;
+    flex-direction: column;
+}
+
+
+.gasCardContent div p:nth-child(2){
+    /* color: red; */
+    font-size: 1rem;
+    margin: 0;
+}
+#containerGas{
+    margin: 20px;
+    width: 100%;
+    /* background-color: #000; */
+}
+
+#containerGas:nth-last-child(2){
+    margin-bottom: 100px;
+}
+
+.gasCardContentEdit{
+
+    /* border: 1px solid red; */
+    height: 100%;
+}
+
+#inputGasEdit{
+    width: 100px;
+    border: 2px solid transparent;
+}
+
+#inputGasEdit:focus{
+    border: 2px solid #7f77;
+    font-weight: 400;
+    color: #7f77;
+    box-shadow: #7f77 0 0 5px;
+}
+
+
+.gasCardContentEdit .gasCardWrapper{
+    margin: 20px 0;
+}
+.gasCardContentEdit .gasCardWrapper:nth-last-child(2){
+    margin-bottom: 250px;
+}
+
+.gasCardWrapper{
+    /* border: 1px solid green; */
+    /* background-color: #333; */
+    color: #ddd;
+
+    height: 20px;
+    width: 150px;
+    border-radius: 10px;
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: unset;
+    align-items: center;
+
+    box-shadow: #0007 5px 5px 5px, #2227 -5px -5px 5px;
+
+    /* border: 3px solid transparent; */
+    border-radius: 20px;
+    box-shadow: #0007 3px 3px 3px, #2227 -3px -3px 3px, inset #2227 3px 3px 2px, inset #0007 -2px -2px 5px ;
+    
+}
+
+.gasCardWrapper span:nth-child(1){
+    font-size: .8rem;
+    margin-bottom: 5px;
+}
+.act{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    /* border: 1px solid green; */
+    border-radius: 5px;
+    padding: 20px 0;
+}
+
+.act i, .escolhasDel i {
+    color: #ddd;
+    width: 50px;
+    height: 50px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
+    border: 3px solid transparent;
+    border-radius: 20px;
+    box-shadow: #0007 3px 3px 3px, #2227 -3px -3px 3px, inset #2227 3px 3px 2px, inset #0007 -2px -2px 5px ;
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+
+}
+
+.confirmarDelContainer{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    color: #ddd;
+}
+.escolhasDel{
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    margin: 15px;
+}
+
+
+.medidoresContainer{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+
+}
+.medidoresContainer input{
+    margin-bottom: 15px;
+}
+
+.hideContent{
+    display: none;
+}
+
+.gasCard:nth-last-child(2){
+    margin-bottom: 150px;
+}
+
+.inputGas{
+    width: 100px;
+    border: none;
+    color: #0a0;
+}
+.inputGasEditavel{
+    border: 1px solid #0a0;
+}
+
+
+/* NOVO CSS PARA GASNOVO  */
+
+.gasNovoContainer{
+    background-color: #333;
+    width: 100%;
+    height: 400px;
+    padding-top: 30px;
+}
+.gasNovoCard{
+    width: 90%;
+    background-color: #ddd;
+    border-radius: 20px;
+    /* height: 200px; */
+    /* margin-top: 30px; */
+}
+.gasNovoHora{
+    /* border: 1px solid red; */
+    /* padding-left: 10px ; */
+    text-align: center;
+    /* margin-top: 10px ; */
+    padding-top: 5px;
+}
+.gasNovoMedidores{
+    /* border: 1px solid blue; */
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.gasNovoUnd{
+    /* background-color: #888; */
+    width: 100px;
+    height: 60px;
+}
+.gasNovoUnd p{
+    font-size: .8rem;
+}
+.novoGasInput{
+    width: 120px;
+    border-radius: 5px;
+    border: none;
+    border: 1px solid transparent;
+    color: #aaa;
+    background-color: #111;
+    box-shadow: inset #222 -2px -2px 2px, inset #000 2px 2px 3px;
+    letter-spacing: 1px;
+}
+.novoGasInput:focus{
+    /* border: 1px solid #0a0; */
+    /* box-shadow:   #555 0 0 5px; */
+    color: #fff;
+}
+
+.novoGasInput::placeholder{
+    color: #555;
+}
+
+.testContainer{
+    background-color: #222;
+    width: 100%;
+    height: 100vh;
+}
+
+.fieldsetManometros{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.manometrosMarcados{
+    border: 1px solid green;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}

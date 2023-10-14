@@ -1,0 +1,24 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates&family=Orbitron&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+*{
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  transition: all .3s;
+  user-select: none 
+}
+
+body {
+  background-color: #111;
+  max-width: 412px;
+  color: #555;
+}
+
+@media screen and (max-width: 412px){
+  body{
+    max-width: 412px;
+  }
+}
