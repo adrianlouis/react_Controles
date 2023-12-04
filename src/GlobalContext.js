@@ -79,7 +79,7 @@ export const GlobalStorage = ({ children }) => {
     //   setUsuarios([...item, userLogado]);
     // }
 
-    // codigo acima sem utilidade atualmente
+    // codigo acima sem utilidade atualmente . . .
 
     const getUsers = async () => {
       const data = await getDocs(usersCollectionRef);
