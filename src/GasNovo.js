@@ -1,123 +1,115 @@
-import React, { useContext } from 'react'
-import { useNavigate } from 'react-router-dom'
-import AcoesCriandoItem from './AcoesCriandoItem'
-import css from './css/gas.css'
-import { GlobalContext } from './GlobalContext'
-import{updateBd} from './crudFireBase'
-import styles from './Gas.module.css'
+import React, { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import AcoesCriandoItem from './AcoesCriandoItem';
+import css from './css/gas.css';
+import { GlobalContext } from './GlobalContext';
+import { updateBd } from './crudFireBase';
+import styles from './Gas.module.css';
 
 const GasNovo = () => {
+  const ctx = useContext(GlobalContext);
+  const navigate = useNavigate();
+  const [id, setId] = React.useState(novoId);
+  const dataFull = {
+    data: new Date().toLocaleString('pt-BR', { dateStyle: 'short' }),
+    hora: new Date().toLocaleString('pt-BR', {
+      hour: '2-digit',
+      minute: '2-digit',
+    }),
+  };
+  // const [medidores, setMedidores] = React.useState({
+  //     id:id,
+  //     diaCriado:dataFull.data,
+  //     horaCriado:dataFull.hora,
+  //     l128:'',
+  //     l132:'',
+  //     l137:'',
+  //     l141:'',
+  //     l152:'',
+  //     l154:'',
+  //     l157:''
+  // })
 
-    const ctx = useContext(GlobalContext)
-    const navigate = useNavigate()
-    const [id, setId] = React.useState(novoId)
-    const dataFull = {
-        data:new Date().toLocaleString('pt-BR', {dateStyle:'short'}),
-        hora:new Date().toLocaleString('pt-BR', {hour:'2-digit', minute:'2-digit'})
+  // React.useEffect(()=>{
+  //   window.scrollTo({top:0, left:0,behavior:'smooth'})
+  //   console.log('Wadda?!')
+  // },[])
+
+  // window.scrollTo(0,0)
+
+  // ENCONTRAR ID
+  function novoId() {
+    if (ctx.userLogado.gas.length > 0) {
+      const numeros = Object.keys(ctx.userLogado.gas).map((item) => {
+        return ctx.userLogado.gas[item].id;
+      });
+      return Math.max(...numeros) + 1;
+    } else {
+      return 1;
     }
-    // const [medidores, setMedidores] = React.useState({
-    //     id:id,
-    //     diaCriado:dataFull.data,
-    //     horaCriado:dataFull.hora,
-    //     l128:'',
-    //     l132:'',
-    //     l137:'',
-    //     l141:'',
-    //     l152:'',
-    //     l154:'',
-    //     l157:''
-    // })
+  }
 
-    // React.useEffect(()=>{
-    //   window.scrollTo({top:0, left:0,behavior:'smooth'})
-    //   console.log('Wadda?!')
-    // },[])
+  function save(id) {
+    const novoArrGas = { gas: [...ctx.userLogado.gas, medidores] };
+    ctx.setUserLogado({
+      ...ctx.userLogado,
+      gas: [...ctx.userLogado.gas, medidores],
+    });
+    updateBd(id, novoArrGas);
 
-    // window.scrollTo(0,0)
+    navigate('/home/gas');
+  }
 
-    // ENCONTRAR ID
-    function novoId() {
+  // React.useEffect(()=>{
+  //     updateBd(ctx.userLogado.id, {gas:[...ctx.userLogado.gas]})
+  // },[ctx.userLogado.gas])
 
-        if (ctx.userLogado.gas.length > 0) {
-        const numeros = Object.keys(ctx.userLogado.gas).map((item) => {
-            return ctx.userLogado.gas[item].id;
-        });
-        return (Math.max(...numeros) + 1);
-        } else {
-        return 1;
-        }
-    }
+  //     id:id,
+  //     diaCriado:dataFull.data,
+  //     horaCriado:dataFull.hora,
+  const [medicao, setMedicao] = React.useState({ loja: '', medicao: '' });
+  const [medidores, setMedidores] = React.useState({
+    id: id,
+    diaCriado: dataFull.data,
+    horaCriado: dataFull.hora,
+    medicao: [],
+  });
 
-    function save(id){
+  function addMedicaoDeLoja() {
+    setMedidores({ ...medidores, medicao: [...medidores.medicao, medicao] });
+    setMedicao({ loja: '', medicao: '' });
+    document.querySelector('#numeroLoja').focus();
+  }
 
-        const novoArrGas = {gas:[...ctx.userLogado.gas, medidores]}
-        ctx.setUserLogado({...ctx.userLogado, gas:[...ctx.userLogado.gas, medidores]})
-        updateBd(id, novoArrGas)
+  function excluirLinha(ind) {
+    const abah = medidores.medicao.filter((f, i) => {
+      if (i !== ind) {
+        return f;
+      }
+    });
 
-        navigate('/home/gas')
-    }
-    
-    // React.useEffect(()=>{
-    //     updateBd(ctx.userLogado.id, {gas:[...ctx.userLogado.gas]})
-    // },[ctx.userLogado.gas])
-    
-    
-    
-    //     id:id,
-    //     diaCriado:dataFull.data,
-    //     horaCriado:dataFull.hora,
-    const [medicao, setMedicao] = React.useState({loja:'', medicao:''})
-    const [medidores, setMedidores] = React.useState({id:id, diaCriado:dataFull.data, horaCriado:dataFull.hora, medicao:[]})
+    setMedidores({ ...medidores, medicao: abah });
+  }
+  // console.log(medidores)
 
-    function addMedicaoDeLoja(){
-        setMedidores({...medidores, medicao:[...medidores.medicao, medicao]})
-        setMedicao({loja:'', medicao:''})
-        document.querySelector('#numeroLoja').focus()
-    }
-
-    function excluirLinha(ind){
-        const abah = medidores.medicao.filter((f, i)=>{
-            if (i !== ind){
-                return f
-            }
-        })
-
-        setMedidores({...medidores, medicao:abah})
-    }
-    // console.log(medidores)
-    
-    return (
-
-
-
-    <div className={styles.edicaoContainer} >
-
-        <div>
-<<<<<<< HEAD
-            {
-                medidores.medicao.map((m, i)=>{
-                    return <div className={styles.wrapperEdicaoGas}>
-                        <p id='listaAddGasSpan'>Loja: {m.loja} - Medição: {m.medicao}</p>
-=======
-            <div className={styles.medicoesTemp}>
-
-            {
-                medidores.medicao.map((m, i)=>{
-                    return <div className={styles.wrapperEdicaoGas}>
-                        <p className={styles.medicaoTempLoja} >Loja: {m.loja}</p>
-                        <p className={styles.medicaoTempMedicao}>Medição: {m.medicao}</p>
->>>>>>> 0d92dbf3db58bd000613f7f314c420e2c91a9b62
-                        <i className="fa-solid fa-square-xmark" onClick={()=>excluirLinha(i)}></i>
-                    </div>
-
-                })
-            }
-<<<<<<< HEAD
-=======
+  return (
+    <div className={styles.edicaoContainer}>
+      <div>
+        {medidores.medicao.map((m, i) => {
+          return (
+            <div className={styles.wrapperEdicaoGas}>
+              <p id="listaAddGasSpan">
+                Loja: {m.loja} - Medição: {m.medicao}
+              </p>
+              <i
+                className="fa-solid fa-square-xmark"
+                onClick={() => excluirLinha(i)}
+              ></i>
             </div>
->>>>>>> 0d92dbf3db58bd000613f7f314c420e2c91a9b62
+          );
+        })}
 
-            {/* <div className='addGasLine'>
+        {/* <div className='addGasLine'>
                 <div>
                     <label htmlFor='numeroLoja'>Loja</label>
                     <input id='numeroLoja' type='tel' maxLength={3} onChange={({target})=>setMedicao({...medicao, loja:target.value})} value={medicao.loja}></input>
@@ -133,41 +125,59 @@ const GasNovo = () => {
                 </div>
             </div> */}
 
+        <div className={styles.addGasLine}>
+          <div>
+            <label htmlFor="numeroLoja">Loja: </label>
+            <input
+              id="numeroLoja"
+              type="tel"
+              maxLength={3}
+              onChange={({ target }) =>
+                setMedicao({ ...medicao, loja: target.value })
+              }
+              value={medicao.loja}
+            ></input>
+          </div>
 
+          <div>
+            <label htmlFor="gasMedicao">Medicao: </label>
+            <input
+              id="gasMedicao"
+              type="tel"
+              maxLength={8}
+              onChange={({ target }) =>
+                setMedicao({ ...medicao, medicao: target.value })
+              }
+              value={medicao.medicao}
+            ></input>
+          </div>
 
-            <div className={styles.addGasLine}>
-                <div>
-                    <label htmlFor='numeroLoja'>Loja: </label>
-                    <input id='numeroLoja' type='tel' maxLength={3} onChange={({target})=>setMedicao({...medicao, loja:target.value})} value={medicao.loja}></input>
-                </div>
-
-                <div>
-                    <label htmlFor='gasMedicao'>Medicao: </label>
-                    <input id='gasMedicao' type='tel' maxLength={8} onChange={({target})=>setMedicao({...medicao, medicao:target.value})} value={medicao.medicao} ></input>
-                </div>
-
-                <div className='gasAcoes'>
-                    <i className="fa-solid fa-square-plus" onClick={()=>addMedicaoDeLoja()}></i>
-                </div>
-            </div>
-
+          <div className="gasAcoes">
+            <i
+              className="fa-solid fa-square-plus"
+              onClick={() => addMedicaoDeLoja()}
+            ></i>
+          </div>
         </div>
+      </div>
 
-        {/* <fieldset className='fieldsetAcoes fieldsetFlexRow'>
+      {/* <fieldset className='fieldsetAcoes fieldsetFlexRow'>
 
             <span onClick={()=>navigate(`/home/gas`)}>cancelar</span>
             <span onClick={()=>save(ctx.userLogado.id)}>salvar</span>
 
         </fieldset>         */}
 
-        <div className={styles.editActBtn}>
-            <span onClick={()=>navigate('/home/gas')} ><i className="fa-solid fa-angle-left"/> Cancelar</span>
-            <span onClick={()=>save(ctx.userLogado.id)}><i className="fa-regular fa-floppy-disk"/> Salvar</span>
-        </div>    
-
+      <div className={styles.editActBtn}>
+        <span onClick={() => navigate('/home/gas')}>
+          <i className="fa-solid fa-angle-left" /> Cancelar
+        </span>
+        <span onClick={() => save(ctx.userLogado.id)}>
+          <i className="fa-regular fa-floppy-disk" /> Salvar
+        </span>
+      </div>
     </div>
+  );
+};
 
-  )
-}
-
-export default GasNovo
+export default GasNovo;
