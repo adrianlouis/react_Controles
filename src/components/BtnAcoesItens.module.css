@@ -7,16 +7,24 @@
 
 .wrapper, .wrapperConfirmDel{
     display: flex;
+<<<<<<< HEAD
     align-items: start;
     justify-content: start;
     /* flex-direction: column; */
     /* padding: 5px 10px; */
     /* border: 1px solid blue; */
+=======
+    align-items: center;
+    justify-content: space-evenly;
+    /* flex-direction: column; */
+    /* padding: 5px 10px; */
+>>>>>>> 0d92dbf3db58bd000613f7f314c420e2c91a9b62
     position: relative;
 }
 
 .wrapper div{
     display: flex;
+<<<<<<< HEAD
     align-items: center;
     /* border: 1px solid green; */
     margin: 10px 45px 10px 0;
@@ -28,13 +36,42 @@
     cursor: pointer;
     /* border: 1px solid white; */
     width: 50%;
+=======
+    margin: 10px 0px 10px 0;
+    /* color: #e0e0e0; */
+    width: 40%;
+    justify-content: center;
+    /* clip-path: polygon(0% 0%, 100% 0%, 100% 50%, 90% 100%, 0% 100%); */
+    /* background-color: white; */
+    /* border: 3px solid red; */
+
+}
+
+
+
+.wrapper div:first-child, .wrapperConfirmDel span:nth-child(2) {
+    color: rgb(166, 243, 166);
+    cursor: pointer;
+    /* border: 1px  solid red; */
+
+>>>>>>> 0d92dbf3db58bd000613f7f314c420e2c91a9b62
 }
 .wrapper div:nth-child(2), .wrapperConfirmDel span:nth-child(3){
     color: rgb(200, 45, 0);
     cursor: pointer;
+<<<<<<< HEAD
     /* border: 1px solid white; */
     /* margin: 5px 0; */
     width: 50%;
+=======
+    /* border-radius: 15px; */
+
+}
+
+.wrapper div:nth-child(2):hover{
+    /* background-color: rgb(151, 0, 0); */
+    /* clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%); */
+>>>>>>> 0d92dbf3db58bd000613f7f314c420e2c91a9b62
 
 }
 

@@ -238,6 +238,10 @@ window.onscroll = () => {
     document.querySelector('#headerProfName').style.opacity='0'
   }
 
+<<<<<<< HEAD
+=======
+  console.log(posTela)
+>>>>>>> 0d92dbf3db58bd000613f7f314c420e2c91a9b62
 }
 
 

@@ -1,9 +1,15 @@
 .wrapperEdicaoGas{
     /* border: 1px solid red; */
     display: flex;
+<<<<<<< HEAD
     justify-content: space-evenly;
     align-items: center;
     padding: 10px 0;
+=======
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+>>>>>>> 0d92dbf3db58bd000613f7f314c420e2c91a9b62
 }
 
 .inputEdicaoLoja, .inputEdicaoMedicao{
@@ -64,4 +70,101 @@ h2{
 
 .edicaoContainer{
     max-width: 100vw;
+<<<<<<< HEAD
+=======
+}
+
+
+
+.gasContainer{
+    margin: 20px 10px;
+    /* border: 1px solid #1f1f1f; */
+    padding: 5px;
+    border-radius: 15px;
+}
+.title{
+    display: flex;
+    justify-content: space-evenly;
+}
+.title .legends{
+    color: #439A86;
+    font-size: 1.3rem;
+}
+
+.infos{
+    margin: 15px 0;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.dados{
+    display: flex;
+    justify-content: space-between;
+    padding: 2px 15px;
+    align-items: center;
+    flex-direction: row;
+    background-color: #2b2b2b90;
+    color: #BCD8C1;
+}
+
+.dados p, .infos div:first-child p{
+    width: 50%;
+}
+
+.dados:nth-child(2n){
+    background-color: #1f1f1f90;
+}
+
+.infos div:first-child{
+    display: flex;
+    background-color: #439a8690;
+    color: #BCD8C1;
+    font-weight: 900;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 2px 15px;
+}
+.infos div:first-child p{
+    font-size: 1.2rem;
+}
+
+
+
+.edicaoContainer .wrapperEdicaoGas{
+    margin: 2px 10px;
+}
+
+.edicaoContainer .wrapperEdicaoGas{
+    background-color: #1b1b1b;
+}
+
+.edicaoContainer .wrapperEdicaoGas:nth-child(2n){
+    background-color: #1f1f1f90;
+}
+
+.edicaoContainer .wrapperEdicaoGas:first-child{
+    border-radius: 15px 15px 0 0;
+}
+
+.edicaoContainer .wrapperEdicaoGas:last-child{
+    border-radius: 0 0 15px 15px;
+}
+
+.edicaoContainer .wrapperEdicaoGas i{
+    width: 15px;
+    color: rgb(255, 61, 61);
+}
+
+.medicaoTempLoja{
+    /* border: 1px solid red; */
+    text-align: left;
+    width:75px;
+    color: #BCD8C1;
+}
+.medicaoTempMedicao{
+    /* border: 1px solid green; */
+    width: 180px;
+    text-align: left;
+    color: #BCD8C1;
+>>>>>>> 0d92dbf3db58bd000613f7f314c420e2c91a9b62
 }
