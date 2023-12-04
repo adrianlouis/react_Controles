@@ -79,6 +79,8 @@ export const GlobalStorage = ({ children }) => {
     //   setUsuarios([...item, userLogado]);
     // }
 
+    // codigo acima sem utilidade atualmente
+
     const getUsers = async () => {
       const data = await getDocs(usersCollectionRef);
       setUsers(data.docs.map((docs) => ({ ...docs.data(), id: docs.id })));
