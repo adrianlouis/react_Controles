@@ -235,12 +235,12 @@ const Home = () => {
   // },[])
 
   window.onscroll = () => {
-    const div = document.querySelector('#perfilWrapper');
+    const arroba = document.querySelector('#headerProfName');
+    const menu = document.querySelector('#menu');
     const foto = document.querySelector('#canv');
     const wallpaper = document.querySelector('#wppCanvasWrapper');
     const canvWpp = document.querySelector('#canvWpp');
     const posTela = window.scrollY;
-    const wcw = document.querySelector('.wallpaperCanvasWrapper');
 
     if (posTela <= 70) {
       const valor = 1 - posTela / 135;
@@ -252,75 +252,28 @@ const Home = () => {
       canvWpp.style.filter = 'brightness(100%) blur(0px)';
     } else {
       // mask.style.top=0
-      wallpaper.style.zIndex = 1;
+      wallpaper.style.zIndex = 5;
       canvWpp.style.filter = 'brightness(50%) blur(5px)';
     }
 
     if (posTela >= 175) {
-      document.querySelector('#headerProfName').style.visibility = 'visible';
-      document.querySelector('#headerProfName').style.opacity = '1';
+      arroba.style.visibility = 'visible';
+      menu.style.visibility = 'visible';
+      arroba.style.opacity = '1';
+      menu.style.opacity = '1';
+      arroba.style.transform = 'translateY(.5rem )';
+      menu.style.transform = 'translateY(.3rem )';
     } else {
-      document.querySelector('#headerProfName').style.visibility = 'hidden';
-      document.querySelector('#headerProfName').style.opacity = '0';
+      menu.style.visibility = 'hidden';
+      menu.style.opacity = '0';
+      arroba.style.transform = 'translateY(0px )';
+      menu.style.transform = 'translateY(0px )';
+      arroba.style.visibility = 'hidden';
+      arroba.style.opacity = '0';
     }
   };
 
-  // em Home.module.css posso modificar a altura da classe .wpp para que a imagem
-  // do canvas do wpp fique centralizado, como no twitter mobile.
   return (
-    // <div >
-
-    //   <div id='perfil' className='perfil'  >
-
-    //   <div className='wallpaperCanvasWrapper' >
-
-    //     <canvas id='canvWpp' width={larguraTela} height={larguraTela / 3}>
-    //     </canvas>
-
-    //     {loadingWpp && <div className='loadingWpp'></div>}
-
-    //   </div>
-
-    //     <div className='fotoPerfilWrapper' >
-
-    //       {loading && <div className='loadingFoto'></div>}
-
-    //       <canvas width='80' height='80' id='canv' >
-    //         <p>Seu navegador não suporta Canvas</p>
-    //       </canvas>
-
-    //       {!context.imgTemp.foto && <i id='userSemFoto' className="fa-solid fa-user"></i>}
-
-    //     </div>
-
-    //     <div id='botaoEditarPerfil'>
-    //       <span onClick={()=>navigate('/editprofile')}>Editar perfil</span>
-    //     </div>
-
-    //     <div className='dadosPerfil'>
-    //       {/* <p className='nome'>{context.userLogado.perfil.nome}</p> */}
-    //       <p className='nome'>{context.userLogado.perfil.nome}</p>
-    //       <p className='tag'>{context.userLogado.perfil.nick && '@'+context.userLogado.perfil.nick}</p>
-    //       <p className='bio'>{context.userLogado.perfil.quote}</p>
-    //     </div>
-
-    //   </div>
-
-    //   <div id='linksScroll' >
-
-    //     <ul id='navbarPerfil'>
-    //       <li className='liVerde' onClick={({currentTarget})=>handleNavlink(currentTarget, '/home/ext')}>Extintores</li>
-    //       <li onClick={({currentTarget})=>handleNavlink(currentTarget, '/home/hd')}>Hidrantes</li>
-    //       <li onClick={({currentTarget})=>handleNavlink(currentTarget, '/home/lde')}>Luzes de Emergência</li>
-    //       <li onClick={({currentTarget})=>handleNavlink(currentTarget, '/home/gas')}>Medição de Gás</li>
-    //     </ul>
-
-    //   </div>
-
-    //   <Outlet/>
-
-    // </div>
-
     <div>
       <div id="wppCanvasWrapper" className={styles.wpp}>
         <canvas
@@ -331,13 +284,18 @@ const Home = () => {
         ></canvas>
       </div>
 
-      <span id="headerProfName" className={styles.headerProfName}>
-        @{context.userLogado.perfil.nick}
-      </span>
+      <div className={styles.minHeader}>
+        <span id="headerProfName" className={styles.headerProfName}>
+          @{context.userLogado.perfil.nick}
+        </span>
+
+        <div id="menu" className={styles.menu}>
+          <i className="fa-solid fa-magnifying-glass"></i>
+        </div>
+      </div>
 
       <div id="perfilWrapper" className={styles.perfil}>
         <div>
-          {/* <canvas  className={`${styles.fotoPerfil} ${loading?styles.loadingFoto: ''} ` } width='80' height='80' id='canv' ></canvas> */}
           <canvas
             className={`${styles.fotoPerfil}`}
             width="80"
@@ -345,6 +303,10 @@ const Home = () => {
             id="canv"
           ></canvas>
         </div>
+
+        <span id="headerProfName" className={styles.headerProfName}>
+          @{context.userLogado.perfil.nick}
+        </span>
 
         <p className={styles.nomePerfil}>{context.userLogado.perfil.nome}</p>
         <p className={styles.nicknamePerfil}>

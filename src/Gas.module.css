@@ -36,6 +36,7 @@
 }
 .dados span{
     text-align: start;
+    margin: unset;
 }
 .dados:nth-child(2n){
     background-color: #111;
