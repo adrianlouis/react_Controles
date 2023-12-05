@@ -38,38 +38,39 @@ const Gas = () => {
         {(ctx.userLogado.gas && gases).map((item) => {
           return (
             <div key={item.id} className={styles.gasContainer}>
-              <div className={styles.title}>
-                <p className={styles.legends}>
-                  {item.diaCriado} - {item.horaCriado}
-                </p>
-              </div>
-
               <div className={styles.infos}>
+                <div className={styles.title}>
+                  <p className={styles.legends}>
+                    {item.diaCriado} - {item.horaCriado} h
+                  </p>
+                </div>
                 {arrOrdemCresc(
                   item.medicao.map((m) => {
                     return m.loja;
                   }),
                 ).map((ordem) => {
                   return item.medicao.map((lojas) => {
-                    if (lojas.loja == ordem) {
+                    if (lojas.loja === ordem) {
                       return (
                         <div
                           key={'medicao' + item.id + '_' + lojas.loja}
                           className={styles.dados}
-                        ></div>
+                        >
+                          <span>Loja {lojas.loja}</span>
+                          <span>Medição {lojas.medicao}</span>
+                        </div>
                       );
                     }
                   });
                 })}
+                <div className={styles.btnAcoesWrap}>
+                  <BtnAcoesItens
+                    funcDel={() => deletar(item, ctx.userLogado.id)}
+                    itemId={item.id}
+                    editarOnClick={() => navigate(`edit/id?id=${item.id}`)}
+                  />
+                </div>
               </div>
-
-              <BtnAcoesItens
-                funcDel={() => deletar(item, ctx.userLogado.id)}
-                itemId={item.id}
-                editarOnClick={() => navigate(`edit/id?id=${item.id}`)}
-              />
-
-              <hr></hr>
             </div>
           );
         })}
