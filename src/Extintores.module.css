@@ -142,27 +142,18 @@
 
  /* Nova versão de card em Extintores, com uso de grid e possivelmente neomorphism */
  .containerGrid{
-    /* border: 1px solid #d1d1d1; */
     border-radius: 10px;
     margin: 20px 0;
     display: grid;
-    /* grid-template-columns: auto auto; */
     justify-content: space-between;
-    /* align-items: start; */
-    /* grid-area: ; */
     grid-template-areas: 
     ' cardMinor cardMinor cardMedium cardMedium'
     'cardMinor cardMinor cardMedium cardMedium'
     'avarias avarias avarias avarias'
     'btn btn btn btn';
-    /* gap: 10px; */
-
-    /* box-shadow: #1b1b1b 0 0 10px, inset #1b1b1b 0 0 10px; */
-
  }
 
  .cardMinor{
-    /* border: 1px solid pink; */
     display: flex;
     align-items: start;
     width: fit-content;
@@ -170,14 +161,13 @@
     flex-direction: column;
     grid-area:cardMinor;
     background-color: #000;
+    margin: unset;
 
 
  }
  .cardMinor div{
-    /* border: 1px solid yellow; */
     display: flex;
     flex-direction: column;
-    /* align-items: center; */
     margin: unset;
  }
 
@@ -188,37 +178,26 @@
     margin: 5px auto;
     text-align: left;
     display: block;
-    /* flex-direction: column;
-    justify-content: start; */
-    
  }
  .cardMedium div{
     display: flex;
     flex-direction: column;
     text-align: start;
-    /* border: 1px solid blue; */
-    /* margin: 10px 0; */
-
  }
 
  .cardAvarias{
-    /* border: 1px solid blue; */
-    /* margin: 5px; */
-    /* padding: 10px; */
     display: flex;
     flex-direction: column;
     grid-area: avarias;
+    margin: unset;
  }
  .cardBtn{
-    /* border: 1px solid darkblue; */
     grid-area: btn;
     width: 100%;
  }
  .infoGeral{
-    /* border: 1px solid green; */
     font-size: .8rem;
     color: #d1d1d1;
-
     margin: 0;
     padding: 0;
     line-height: 1;
