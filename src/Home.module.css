@@ -111,3 +111,22 @@
     cursor: default;
 }
 
+.menuOpened{
+    /* height: 500px; */
+    width: 100%;
+    background-color: #222;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.menuOpened p{
+    padding: 1rem 0;
+    border: 1px solid transparent;
+    width: 100%;
+}
+.menuOpened p:hover{
+    border: 1px solid white;
+    color: white;
+    background-color: #333;
+}

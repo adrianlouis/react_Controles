@@ -1,12 +1,13 @@
 import React from 'react';
 import css from './css/novoPerfil.css';
-import { useNavigate, Outlet } from 'react-router-dom';
+import { useNavigate, Outlet, useLocation } from 'react-router-dom';
 import { GlobalContext } from './GlobalContext';
 import { getDownloadURL, getStorage, ref } from 'firebase/storage';
 import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from './firebase-config';
+import { auth, db } from './firebase-config';
 
 import styles from './Home.module.css';
+import { arrayUnion, collection, doc, updateDoc } from 'firebase/firestore';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -15,6 +16,29 @@ const Home = () => {
   const storage = getStorage();
   const [loading, setLoading] = React.useState(false);
   const [loadingWpp, setLoadingWpp] = React.useState(false);
+  const [openMenu, setOpenMenu] = React.useState(false);
+  const local = useLocation();
+  const [menuLabel, setMenuLabel] = React.useState('');
+
+  React.useEffect(() => {
+    switch (local.pathname) {
+      case '/home/ext':
+        setMenuLabel('Extintores');
+        break;
+      case '/home/hd':
+        setMenuLabel('Hidrantes');
+        break;
+      case '/home/gas':
+        setMenuLabel('Medição de gases');
+        break;
+      case '/home/lde':
+        setMenuLabel('Luzes de emergência');
+        break;
+      default:
+        setMenuLabel('');
+        break;
+    }
+  }, [local]);
 
   React.useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -273,6 +297,29 @@ const Home = () => {
     }
   };
 
+  function handleMenu() {
+    setOpenMenu(!openMenu);
+    console.log(local.pathname);
+  }
+
+  // TO-DO: ESTA FUNÇÃO DEVE SALVAR UM OBJETO COM MES E ANO E TODAS OS DADOS SALVOS. NO MOMENTO, ESTÁ SALVANDO APENAS UM OBJETO SOBREESCREVENDO QUALQUER OUTRO JÁ SALVO PREVIAMENTE.
+  async function handleSaveSheet() {
+    const mensal = new Date();
+    const mes = mensal.toLocaleDateString('pt-br', {
+      month: 'long',
+    });
+    const ano = mensal.toLocaleDateString('pt-br', {
+      year: '2-digit',
+    });
+    const url = local.pathname.slice(6);
+    const sheet = context.userLogado[url];
+    const usersCollectionRef = collection(db, 'users');
+    const document = doc(db, 'users', context.userLogado.id);
+    await updateDoc(document, {
+      saved: { [url]: { [mes + ano]: sheet } },
+    });
+  }
+
   return (
     <div>
       <div id="wppCanvasWrapper" className={styles.wpp}>
@@ -289,9 +336,21 @@ const Home = () => {
           @{context.userLogado.perfil.nick}
         </span>
 
-        <div id="menu" className={styles.menu}>
-          <i className="fa-solid fa-magnifying-glass"></i>
-        </div>
+        {!openMenu && (
+          <div id="menu" className={styles.menu} onClick={() => handleMenu()}>
+            <i className="fa-solid fa-bars"></i>
+          </div>
+        )}
+        {openMenu && (
+          <div
+            className={styles.menuOpened}
+            onClick={() => setOpenMenu(!openMenu)}
+          >
+            <p>{menuLabel}</p>
+            <p onClick={() => handleSaveSheet()}>Salvar {menuLabel} atual</p>
+            <p>Visualizar {menuLabel} salvos</p>
+          </div>
+        )}
       </div>
 
       <div id="perfilWrapper" className={styles.perfil}>
