@@ -35,7 +35,7 @@
     position: fixed;
     margin-left: 1rem;
     top:0rem;
-    z-index: 50;
+    z-index: 0;
     text-transform: lowercase;
     visibility: hidden;
     opacity: 0;
@@ -50,7 +50,7 @@
 }
 
 .menu{
-    border: 1px solid white;
+    border: 2px solid #439a86;
     display: block;
     position: absolute;
     width: 1.75rem;
@@ -61,11 +61,11 @@
     align-items: center;
     justify-content: center;
     top: 0rem;
-    z-index: 50;
     right: 1rem;
     visibility: hidden;
     opacity: 0;
     cursor: pointer;
+    z-index: 0;
 }
 
 .fotoPerfil{
@@ -119,6 +119,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    z-index: 1;
 }
 .menuOpened p{
     padding: 1rem 0;

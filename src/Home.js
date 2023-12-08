@@ -7,7 +7,13 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { auth, db } from './firebase-config';
 
 import styles from './Home.module.css';
-import { arrayUnion, collection, doc, updateDoc } from 'firebase/firestore';
+import {
+  arrayUnion,
+  collection,
+  doc,
+  getDoc,
+  updateDoc,
+} from 'firebase/firestore';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -302,7 +308,6 @@ const Home = () => {
     console.log(local.pathname);
   }
 
-  // TO-DO: ESTA FUNÇÃO DEVE SALVAR UM OBJETO COM MES E ANO E TODAS OS DADOS SALVOS. NO MOMENTO, ESTÁ SALVANDO APENAS UM OBJETO SOBREESCREVENDO QUALQUER OUTRO JÁ SALVO PREVIAMENTE.
   async function handleSaveSheet() {
     const mensal = new Date();
     const mes = mensal.toLocaleDateString('pt-br', {
@@ -315,8 +320,10 @@ const Home = () => {
     const sheet = context.userLogado[url];
     const usersCollectionRef = collection(db, 'users');
     const document = doc(db, 'users', context.userLogado.id);
+    const dados = await getDoc(document);
+    const userData = dados.data();
     await updateDoc(document, {
-      saved: { [url]: { [mes + ano]: sheet } },
+      saved: { ...userData.saved, [url]: { [mes + ano]: sheet } },
     });
   }
 
@@ -333,14 +340,18 @@ const Home = () => {
 
       <div className={styles.minHeader}>
         <span id="headerProfName" className={styles.headerProfName}>
-          @{context.userLogado.perfil.nick}
+          {!openMenu && `@${context.userLogado.perfil.nick}`}
         </span>
 
-        {!openMenu && (
-          <div id="menu" className={styles.menu} onClick={() => handleMenu()}>
-            <i className="fa-solid fa-bars"></i>
-          </div>
-        )}
+        <div
+          id="menu"
+          style={{ visibility: openMenu ? 'hidden' : 'visible' }}
+          className={styles.menu}
+          onClick={() => handleMenu()}
+        >
+          <i className="fa-solid fa-bars"></i>
+        </div>
+
         {openMenu && (
           <div
             className={styles.menuOpened}
