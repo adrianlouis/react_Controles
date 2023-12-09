@@ -40,12 +40,12 @@ function App() {
 
         <Routes>
           <Route exact path="/" element={<Login />} />
-          <Route exact path="perfil" element={<Profile />} />
 
           {/* <Route path='/' element={<AreaParaTestes/>} /> */}
           <Route exact path="testes" element={<AreaParaTestes />} />
 
           <Route exact path="home" element={<Home />}>
+            <Route exact path="perfil" element={<Profile />} />
             <Route exact path="lde" element={<LdE />} />
             <Route exact path="lde/ldenovo" element={<LdENovoReg />} />
             <Route exact path="lde/edit/:id" element={<LdeEdit />} />

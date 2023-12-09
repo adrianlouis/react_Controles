@@ -34,7 +34,7 @@ const Gas = () => {
   return (
     <>
       {/* <NavLink to='gasnovo' className='novoRegistro' >Registrar medidores de gás</NavLink> */}
-      <div className={styles.mainContainer}>
+      <div className={`${styles.mainContainer} animateLeft`}>
         {(ctx.userLogado.gas && gases).map((item) => {
           return (
             <div key={item.id} className={styles.gasContainer}>

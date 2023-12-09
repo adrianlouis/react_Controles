@@ -36,8 +36,37 @@
     transform: rotate(360deg);
   }
 } */
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&family=Poppins&family=Spectral+SC:wght@700&display=swap');
+
 body{
   background-color: #000;
   margin: 0 auto;
   width: 100%;
+}
+
+h3{
+  color: red;
+  margin: 1rem 0;
+  text-decoration: underline;
+  color: #439a86;
+  font-size: 1.15rem;
+  margin-left: .7rem;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.animateLeft{
+  animation: loadleft;
+  animation-duration: .3s;
+}
+
+
+@keyframes loadleft {
+  from{
+      transform: translate(15px);
+      opacity:0
+  }to{
+      transform: translate(0px);
+      opacity:1
+  }
 }

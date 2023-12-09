@@ -339,7 +339,11 @@ const Home = () => {
       </div>
 
       <div className={styles.minHeader}>
-        <span id="headerProfName" className={styles.headerProfName}>
+        <span
+          id="headerProfName"
+          className={styles.headerProfName}
+          onClick={() => navigate('/home/perfil')}
+        >
           {!openMenu && `@${context.userLogado.perfil.nick}`}
         </span>
 
@@ -357,7 +361,8 @@ const Home = () => {
             className={styles.menuOpened}
             onClick={() => setOpenMenu(!openMenu)}
           >
-            <p>{menuLabel}</p>
+            {/* <p>{menuLabel}</p> */}
+            <p onClick={() => navigate('/home/perfil')}>Home</p>
             <p onClick={() => handleSaveSheet()}>Salvar {menuLabel} atual</p>
             <p>Visualizar {menuLabel} salvos</p>
           </div>
@@ -374,11 +379,20 @@ const Home = () => {
           ></canvas>
         </div>
 
-        <span id="headerProfName" className={styles.headerProfName}>
+        <span
+          id="headerProfName"
+          className={styles.headerProfName}
+          onClick={() => navigate('/home/perfil')}
+        >
           @{context.userLogado.perfil.nick}
         </span>
 
-        <p className={styles.nomePerfil}>{context.userLogado.perfil.nome}</p>
+        <p
+          className={styles.nomePerfil}
+          onClick={() => navigate('/home/perfil')}
+        >
+          {context.userLogado.perfil.nome}
+        </p>
         <p className={styles.nicknamePerfil}>
           {context.userLogado.perfil.nick &&
             '@' + context.userLogado.perfil.nick}

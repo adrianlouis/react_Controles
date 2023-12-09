@@ -53,8 +53,6 @@ const Extintores = () => {
   }
 
   function datasPorExtenso(ano, mes) {
-    console.log(typeof ano);
-
     if (ano && mes) {
       return new Date(ano + '-' + mes).toLocaleString('pt-BR', {
         month: 'long',
@@ -71,48 +69,21 @@ const Extintores = () => {
     }
   }
 
+  // function handleLoad(t) {
+  //   t.style.transform = 'translate(0px)';
+  //   console.log(t);
+  // }
+
+  // React.useEffect(() => {
+  //   document.querySelector('#container').style.transform = 'translate(0px)';
+
+  // }, []);
+
   return (
     <>
-      <div className={styles.container}>
+      <div className={`${styles.container} animateLeft`} id="container">
         {!context.itensFiltrados &&
           listaAtiva.map((item, i) => {
-            // return <div key={item.id+'ext'+i} className='ldeContent'  >
-
-            //     <div className={styles.title}>
-            //         <p className={styles.legends}> número</p>
-            //         <p className={styles.values}>{item.num?item.num:'N/A'}</p>
-
-            //     </div>
-
-            //     <div className={styles.minorInfos}>
-
-            //         <div>
-            //             <p className={styles.legends}> tipo</p>
-            //             <p className={styles.txtValues}>{item.tipo? `${item.tipo} - ${tipoClasse(item.tipo)}` : 'N/A'}</p>
-            //             <p className={styles.legends}> local</p>
-            //             <p className={styles.txtValues}>{item.local? item.local : 'não informado'}</p>
-            //         </div>
-
-            //         <div>
-            //             <p className={styles.legends}> recarga </p>
-            //             <p className={styles.txtValues}> {datasPorExtenso(item.ultRec.ano, item.ultRec.mes)}</p>
-
-            //             <p className={styles.legends}> reteste </p>
-            //             <p className={styles.txtValues}>{item.ultRet?item.ultRet:'não informado'}</p>
-            //         </div>
-
-            //         <div>
-            //             {item.avaria && <p className={styles.legends} >avaria</p> }
-            //             <p className={styles.txtValues} > {item.avaria}</p>
-
-            //         </div>
-
-            //     </div>
-
-            //     <BtnAcoesItens funcDel={()=>excluirExtintor(context.userLogado.id, item, 'ext')} itemId={item.id} editarOnClick={()=>navigate(`extedit?id=${item.id}`)}  />
-
-            //     </div>
-
             return (
               <div key={item.id + 'ext' + i} className={styles.containerGrid}>
                 <div className={styles.cardMinor}>

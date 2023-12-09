@@ -1,33 +1,69 @@
-import React from 'react'
+import React, { useContext } from 'react';
 // import css from './css/profile.css'
-import css2 from './css/login.css'
-import NewUserInput from './components/NewUserInput'
+import styles from './Profile.module.css';
+import { USER_GET } from './funcoes/Api';
+import { GlobalContext } from './GlobalContext';
 
 const Profile = () => {
+  const ctx = useContext(GlobalContext);
+  const [user, setUser] = React.useState('');
+  const [loading, setLoading] = React.useState(true);
 
-  const [perfil, setPerfil] = React.useState({
-    nome:'',
-    nick:'',
+  async function handleData(id) {
+    const userData = await USER_GET(id);
+    setLoading(false);
+    setUser(userData);
+    // console.log(userData);
+    // return userData;
+  }
 
-  })
+  React.useEffect(() => {
+    setUser(handleData(ctx.userLogado.id));
+  }, [ctx.userLogado.id]);
 
-  console.log(perfil)
-  
   return (
-    <div id='profile'>
-      <h1>Crie seu perfil</h1>  
+    <div className={styles.perfil}>
+      <h3>Dados salvos atuais</h3>
+      <div className={styles.savedItensWrap}>
+        {!loading && (
+          <>
+            <div className={styles.cardSavedItens}>
+              <div className={`${styles.iconWrapper} animateLeft`}>
+                <i className="fa-solid fa-fire-extinguisher"></i>
+                <p>{user.ext ? user.ext.length : '0'}</p>
+              </div>
+              <span className={`${styles.cardSpan} animateLeft`}>Extintor</span>
+            </div>
 
-      <div className='perfilWrapper'>
-        {/* <i className={regOk.nome?"fa-solid fa-user ":"fa-solid fa-user regInvalido"}></i> */}
-        {/* <input className='regInput ' type='text' placeholder='Primeiro nome' value={perfil.nome} onChange={({target})=>setPerfil({...perfil, nome:target.value})} required/> */}
-     <NewUserInput tipo='text' placeholder='nome de usuário' valor={perfil.nome} onchange={({target})=>setPerfil({...perfil, nome:target.value})}></NewUserInput>
-     </div>
+            <div className={styles.cardSavedItens}>
+              <div className={`${styles.iconWrapper} animateLeft`}>
+                <i className="fa-solid fa-faucet"></i>
+                <p>{user.hd ? user.hd.length : '0'}</p>
+              </div>
+              <span className={`${styles.cardSpan} animateLeft`}>Hidrante</span>
+            </div>
+            <div className={styles.cardSavedItens}>
+              <div className={`${styles.iconWrapper} animateLeft`}>
+                <i className="fa-solid fa-lightbulb"></i>
+                <p>{user.lde ? user.lde.length : '0'}</p>
+              </div>
+              <span className={`${styles.cardSpan} animateLeft`}>
+                Luz de Emergência
+              </span>
+            </div>
+          </>
+        )}
 
-
-
-
+        {loading && (
+          <>
+            <div className={styles.cardSavedItens}></div>
+            <div className={styles.cardSavedItens}></div>
+            <div className={styles.cardSavedItens}></div>
+          </>
+        )}
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default Profile
+export default Profile;

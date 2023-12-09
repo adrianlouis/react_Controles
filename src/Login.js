@@ -90,21 +90,6 @@ const Login = () => {
 
   const usersCollectionRef = collection(db, 'users');
 
-  const getUsers = async () => {
-    const data = await getDocs(usersCollectionRef);
-    const users = data.docs.map((docs) => ({ ...docs.data(), id: docs.id }));
-    const log = users.filter((f) => {
-      return f.nome === loginInput.nome;
-    });
-
-    if (log.length > 0) {
-      ctx.setUserLogado(...log);
-      navigate('/home/ext');
-    } else {
-      setLoginMsg('Verifique usuário e senha');
-    }
-  };
-
   // REGISTRO COM AUTH
   const registrarSubmit = async (e) => {
     e.preventDefault();
@@ -183,7 +168,7 @@ const Login = () => {
       }
 
       ctx.setUserLogado(...log);
-      navigate('/home/ext');
+      navigate('/home/perfil');
     } else {
       setLoginMsg('Verifique usuário e senha');
     }
