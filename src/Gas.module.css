@@ -29,7 +29,7 @@
 }
 
 .dados{
-    padding: .2rem 1rem;
+    padding: .5rem 1rem;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     background-color: #111a;
@@ -37,6 +37,7 @@
 .dados span{
     text-align: start;
     margin: unset;
+    color: #BCD8C1;
 }
 .dados:nth-child(2n){
     background-color: #111;
@@ -54,9 +55,15 @@
     padding: 0 1rem; 
 }
 
-.title{
-    color: #d1d1d1;
-    padding: .5rem 0;
+.legends{
+    padding-left: 1rem;
+    font-weight: 700;
+    background-color: #4447;
+    color: #439A86;
+    font-family: 'Montserrat';
+    font-size: 1.2rem;
+    border-top-right-radius: .2rem;
+    border-top-left-radius: .2rem;
 }
 
 .editActBtn span:nth-child(2){
