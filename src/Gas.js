@@ -15,6 +15,24 @@ const Gas = () => {
   const gases = ctx.userLogado.gas.sort((a, b) => {
     return b.id - a.id;
   });
+  const [pages, setPages] = React.useState(Number(gases.length));
+
+  function settingPages(pg, func) {
+    if (func === 'mais' && pg > 0) {
+      for (let i = pg; i !== pg - 5; i--) {
+        console.log(gases[i]);
+        console.log('ind: ' + i);
+        if (i === pg - 4) setPages(i);
+      }
+    } else if (func === 'menos' && pg < gases.length) {
+      for (let i = 0; i < pg + 5; i++) {
+        console.log(gases[i]);
+        console.log('ind: ' + i);
+        if (i === pg + 4) setPages(i);
+      }
+    }
+  }
+
   // console.log(ctx.userLogado);
   function deletar(elem, id) {
     const res = gases.filter((f) => {
@@ -44,8 +62,9 @@ const Gas = () => {
 
   return (
     <>
-      {/* <NavLink to='gasnovo' className='novoRegistro' >Registrar medidores de gás</NavLink> */}
       <div className={`${styles.mainContainer} animateLeft`}>
+        <button onClick={() => settingPages(pages, 'menos')}>MENOS</button>
+        <button onClick={() => settingPages(pages, 'mais')}>MAIS</button>
         {user &&
           gases.map((item) => {
             return (
