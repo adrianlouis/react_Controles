@@ -6,6 +6,7 @@ import { GlobalContext } from './GlobalContext';
 import styles from './ExtNovo.module.css';
 import Select from './Select';
 import { updateBd } from './crudFireBase';
+import { USER_GET } from './funcoes/Api';
 
 const LdeEdit = () => {
   const location = useLocation();
@@ -37,16 +38,16 @@ const LdeEdit = () => {
     setAvaria(item[0].avaria);
   }, []);
 
-  function salvarEdicao(ind) {
-    const ldeEditado = Object.keys(context.userLogado.lde).map((item, ind) => {
-      if (ind !== Number(index)) {
-        return context.userLogado.lde[item];
+  async function salvarEdicao(userId) {
+    const ldeEditado = context.userLogado.lde.map((m, i) => {
+      if (m.id !== Number(search.get('id'))) {
+        return m;
       } else {
         return itemEditado;
       }
     });
 
-    updateBd(context.userLogado.id, { lde: ldeEditado });
+    updateBd(userId, { lde: ldeEditado });
     context.setUserLogado({ ...context.userLogado, lde: ldeEditado });
     navigate('/home/lde');
   }

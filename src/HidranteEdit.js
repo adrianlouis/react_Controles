@@ -1,100 +1,110 @@
-import React, { useContext } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
-import { updateBd } from './crudFireBase'
-import { GlobalContext } from './GlobalContext'
-import Input from './Input'
-import Select from './Select'
-import styles from './ExtNovo.module.css'
+import React, { useContext } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { updateBd } from './crudFireBase';
+import { GlobalContext } from './GlobalContext';
+import Input from './Input';
+import Select from './Select';
+import styles from './ExtNovo.module.css';
 
 const HidranteEdit = () => {
+  const location = useLocation();
+  const context = useContext(GlobalContext);
+  const navigate = useNavigate();
+  const search = new URLSearchParams(location.search);
 
-    const location = useLocation()
-    const context = useContext(GlobalContext)
-    const navigate = useNavigate()
-    const search = new URLSearchParams(location.search)
+  const itemPraEditar = context.userLogado.hd.filter((f) => {
+    return f.id === Number(search.get('id'));
+  });
 
-    const itemPraEditar = context.userLogado.hd.filter((f)=>{
-      return f.id === Number(search.get('id'))
-    })
-    
-    const [num, setNum] = React.useState(itemPraEditar[0].num)
-    const [local, setLocal] = React.useState(itemPraEditar[0].local)
-    const [abrigo, setAbrigo] = React.useState(itemPraEditar[0].abrigo)
-    const [sinal, setSinal] = React.useState(itemPraEditar[0].sinal)
-    const [placa, setPlaca] = React.useState(itemPraEditar[0].placa)
-    // const [hdVal, setHdVal] = React.useState(itemPraEditar[0].val)
-    const [hdVal, setHdVal] = React.useState({mes:itemPraEditar[0].val.mes, ano:itemPraEditar[0].val.ano})
-    const [avarias, setAvarias] = React.useState(itemPraEditar[0].avaria)
-    const [pecas, setPecas] = React.useState(itemPraEditar[0].pecas)
-    const hdEditado = {id:itemPraEditar[0].id, num:num, local:local, abrigo:abrigo, sinal:sinal, placa:placa, val:{mes:hdVal.mes, ano:itemPraEditar[0].val.ano}, avaria:avarias, pecas:pecas}
-    const anoAtual = new Date().getFullYear()
-    function handleCheck(item){
-      if (pecas.includes(item)){
-        const peca = pecas.filter((f)=>{
-          return f !== item
-        })
-        setPecas([...peca])
-      }else{
-        setPecas([...pecas, item])
-      }
+  const [num, setNum] = React.useState(itemPraEditar[0].num);
+  const [local, setLocal] = React.useState(itemPraEditar[0].local);
+  const [abrigo, setAbrigo] = React.useState(itemPraEditar[0].abrigo);
+  const [sinal, setSinal] = React.useState(itemPraEditar[0].sinal);
+  const [placa, setPlaca] = React.useState(itemPraEditar[0].placa);
+  // const [hdVal, setHdVal] = React.useState(itemPraEditar[0].val)
+  const [hdVal, setHdVal] = React.useState({
+    mes: itemPraEditar[0].val.mes,
+    ano: itemPraEditar[0].val.ano,
+  });
+  const [avarias, setAvarias] = React.useState(itemPraEditar[0].avaria);
+  const [pecas, setPecas] = React.useState(itemPraEditar[0].pecas);
+  const hdEditado = {
+    id: itemPraEditar[0].id,
+    num: num,
+    local: local,
+    abrigo: abrigo,
+    sinal: sinal,
+    placa: placa,
+    val: { mes: hdVal.mes, ano: itemPraEditar[0].val.ano },
+    avaria: avarias,
+    pecas: pecas,
+  };
+  const anoAtual = new Date().getFullYear();
+  function handleCheck(item) {
+    if (pecas.includes(item)) {
+      const peca = pecas.filter((f) => {
+        return f !== item;
+      });
+      setPecas([...peca]);
+    } else {
+      setPecas([...pecas, item]);
     }
-    
-    function salvarEditado(idUser){
-
-      const hidrantes = context.userLogado.hd.map((m)=>{
-        if (m.id !== Number(search.get('id'))){
-          return m
-        }else{
-          return hdEditado
-        }
-      })
-
-      updateBd(idUser, {hd:hidrantes})
-      context.setUserLogado({...context.userLogado, hd:hidrantes})
-      navigate('/home/hd')
-
-    }
-
-    function handleBlur(el){
-      el.parentNode.style.border='2px solid #3337'
-    }
-    function handleFocus(el){
-      el.parentNode.style.border='2px solid rgb(166, 243, 166)'
-    }
-
-    function handleSelect(el, sel){
-      if (sel=== 1){
-        setHdVal({...hdVal, mes:el.value})
-      }else if (sel===2){
-        setHdVal({...hdVal, ano:el.value})
-      }else if (sel===3){
-        setLocal(el.value)
-      }
-
-      el.style.color='rgb(161,161,161)'
-    }
-
-    function handleMouseLeave(el){
-      el.style.border='2px solid #3337'
-    }
-
-    function handleMouseEnter(el){
-      el.style.border='2px solid rgb(166,243,166)'
-    }
-
-    function handleBlurDatas(el){
-      el.parentNode.parentNode.style.border='2px solid #3337'
-  } 
-
-  function handleFocusDatas(el){
-      el.parentNode.parentNode.style.border='2px solid rgb(166, 243, 166)'
   }
 
+  function salvarEditado(idUser) {
+    const hidrantes = context.userLogado.hd.map((m) => {
+      if (m.id !== Number(search.get('id'))) {
+        return m;
+      } else {
+        return hdEditado;
+      }
+    });
 
-    
+    console.log(hidrantes);
+
+    // updateBd(idUser, {hd:hidrantes})
+    // context.setUserLogado({...context.userLogado, hd:hidrantes})
+    // navigate('/home/hd')
+  }
+
+  function handleBlur(el) {
+    el.parentNode.style.border = '2px solid #3337';
+  }
+  function handleFocus(el) {
+    el.parentNode.style.border = '2px solid rgb(166, 243, 166)';
+  }
+
+  function handleSelect(el, sel) {
+    if (sel === 1) {
+      setHdVal({ ...hdVal, mes: el.value });
+    } else if (sel === 2) {
+      setHdVal({ ...hdVal, ano: el.value });
+    } else if (sel === 3) {
+      setLocal(el.value);
+    }
+
+    el.style.color = 'rgb(161,161,161)';
+  }
+
+  function handleMouseLeave(el) {
+    el.style.border = '2px solid #3337';
+  }
+
+  function handleMouseEnter(el) {
+    el.style.border = '2px solid rgb(166,243,166)';
+  }
+
+  function handleBlurDatas(el) {
+    el.parentNode.parentNode.style.border = '2px solid #3337';
+  }
+
+  function handleFocusDatas(el) {
+    el.parentNode.parentNode.style.border = '2px solid rgb(166, 243, 166)';
+  }
+
   return (
-<>
-    {/* <div className='ldeContent'>
+    <>
+      {/* <div className='ldeContent'>
       <fieldset className='fieldsetFlexRow'>
         <legend>Hidrante</legend>
         <div>
@@ -213,98 +223,201 @@ const HidranteEdit = () => {
 
     </div> */}
 
-    <div  className={styles.novoExtContainer}>
+      <div className={styles.novoExtContainer}>
+        <h2>
+          <i className="fa-regular fa-pen-to-square" /> Editar Hidrante
+        </h2>
 
-      <h2><i className="fa-regular fa-pen-to-square"/> Editar Hidrante</h2>
-
-      <fieldset className={styles.fieldset}>
+        <fieldset className={styles.fieldset}>
           <i className="fa-solid fa-hashtag" />
-          <input onBlur={({currentTarget})=>handleBlur(currentTarget)} onFocus={({currentTarget})=>handleFocus(currentTarget)} placeholder='Número' className={styles.inputNovoExt} type='tel' maxLength={5} onChange={({target})=>setNum(target.value)} value={num} ></input>
-      </fieldset>
+          <input
+            onBlur={({ currentTarget }) => handleBlur(currentTarget)}
+            onFocus={({ currentTarget }) => handleFocus(currentTarget)}
+            placeholder="Número"
+            className={styles.inputNovoExt}
+            type="tel"
+            maxLength={5}
+            onChange={({ target }) => setNum(target.value)}
+            value={num}
+          ></input>
+        </fieldset>
 
-      {/* <fieldset className={styles.fieldset}>
+        {/* <fieldset className={styles.fieldset}>
           <i className="fa-solid fa-fire-extinguisher" />
           <Select id='selTipo' onBlur={({currentTarget})=>handleBlur(currentTarget)} onFocus={({currentTarget})=>handleFocus(currentTarget)} optionDisabledValue={'Tipo'} selClass={styles.select} optClass={styles.option} selectValorInicial={tipo} selectOnChange={({currentTarget})=>handleSelect(currentTarget, 1)}  options={['A', 'B', 'C']} />
       </fieldset> */}
 
-      <fieldset className={styles.fieldset} >
+        <fieldset className={styles.fieldset}>
           <i className="fa-solid fa-location-dot" />
-          <Select onBlur={({currentTarget})=>handleBlur(currentTarget)} onFocus={({currentTarget})=>handleFocus(currentTarget)} selClass={styles.select} optClass={styles.option} selectValorInicial={local} selectOnChange={({currentTarget})=>handleSelect(currentTarget, 3)} optionDisabledValue='Local' options={['Subsolo', 'Térreo', 'Brigada', '2º Pav A', '2º Pav B', '2º Pav C', '3º Pav A', '3º Pav B', '3º Pav C', '4º Pav A', '4º Pav B', '4º Pav C', 'CMI']} />
-      </fieldset>
-
-      <fieldset className={styles.fieldset} >
-        <i className="fa-solid fa-store" />
-        <Select
-          onBlur={({currentTarget})=>handleBlur(currentTarget)}
-          onFocus={({currentTarget})=>handleFocus(currentTarget)}
-          optClass={styles.option}
-          selectValorInicial={abrigo}
-          options={["Ok", "Nok"]}
-          selectOnChange={({target})=>setAbrigo(target.value)}
-          selClass={styles.select}
-        />
-      </fieldset>
-
-      <fieldset className={styles.fieldset} >
-        <i className="fa-solid fa-sign-hanging" />
           <Select
-            onBlur={({currentTarget})=>handleBlur(currentTarget)}
-            onFocus={({currentTarget})=>handleFocus(currentTarget)}
+            onBlur={({ currentTarget }) => handleBlur(currentTarget)}
+            onFocus={({ currentTarget }) => handleFocus(currentTarget)}
+            selClass={styles.select}
+            optClass={styles.option}
+            selectValorInicial={local}
+            selectOnChange={({ currentTarget }) =>
+              handleSelect(currentTarget, 3)
+            }
+            optionDisabledValue="Local"
+            options={[
+              'Subsolo',
+              'Térreo',
+              'Brigada',
+              '2º Pav A',
+              '2º Pav B',
+              '2º Pav C',
+              '3º Pav A',
+              '3º Pav B',
+              '3º Pav C',
+              '4º Pav A',
+              '4º Pav B',
+              '4º Pav C',
+              'CMI',
+            ]}
+          />
+        </fieldset>
+
+        <fieldset className={styles.fieldset}>
+          <i className="fa-solid fa-store" />
+          <Select
+            onBlur={({ currentTarget }) => handleBlur(currentTarget)}
+            onFocus={({ currentTarget }) => handleFocus(currentTarget)}
+            optClass={styles.option}
+            selectValorInicial={abrigo}
+            options={['Ok', 'Nok']}
+            selectOnChange={({ target }) => setAbrigo(target.value)}
+            selClass={styles.select}
+          />
+        </fieldset>
+
+        <fieldset className={styles.fieldset}>
+          <i className="fa-solid fa-sign-hanging" />
+          <Select
+            onBlur={({ currentTarget }) => handleBlur(currentTarget)}
+            onFocus={({ currentTarget }) => handleFocus(currentTarget)}
             selClass={styles.select}
             optClass={styles.option}
             selectValorInicial={placa}
-            options={["Ok", "Nok"]}
-            selectOnChange={({target})=>setPlaca(target.value)}
+            options={['Ok', 'Nok']}
+            selectOnChange={({ target }) => setPlaca(target.value)}
           />
-      </fieldset>
+        </fieldset>
 
-      <fieldset className={styles.fieldset} >
-        <i className="fa-solid fa-paint-roller" />
-        <Select
-            onBlur={({currentTarget})=>handleBlur(currentTarget)}
-            onFocus={({currentTarget})=>handleFocus(currentTarget)}
+        <fieldset className={styles.fieldset}>
+          <i className="fa-solid fa-paint-roller" />
+          <Select
+            onBlur={({ currentTarget }) => handleBlur(currentTarget)}
+            onFocus={({ currentTarget }) => handleFocus(currentTarget)}
             selectValorInicial={sinal}
-            options={["Ok", "Nok"]}
-            selectOnChange={({target})=>setSinal(target.value)}
+            options={['Ok', 'Nok']}
+            selectOnChange={({ target }) => setSinal(target.value)}
             selClass={styles.select}
             optClass={styles.option}
           />
-      </fieldset>
+        </fieldset>
 
-      <fieldset onClick={({currentTarget})=>handleMouseEnter(currentTarget)} onMouseLeave={({currentTarget})=>handleMouseLeave(currentTarget)} className={`${styles.fieldset} ${styles.pecasHidrante}`} >
-        <div>
+        <fieldset
+          onClick={({ currentTarget }) => handleMouseEnter(currentTarget)}
+          onMouseLeave={({ currentTarget }) => handleMouseLeave(currentTarget)}
+          className={`${styles.fieldset} ${styles.pecasHidrante}`}
+        >
+          <div>
+            <label className="pecasLabel" htmlFor="esguicho">
+              <input
+                id="esguicho"
+                type="checkbox"
+                value={pecas.includes('Esguicho')}
+                checked={pecas.includes('Esguicho')}
+                onChange={() => handleCheck('Esguicho')}
+              />{' '}
+              Esguicho
+            </label>
 
-          <label className='pecasLabel' htmlFor='esguicho'>
-          <input id='esguicho' type='checkbox' value={pecas.includes('Esguicho')} checked={pecas.includes('Esguicho')} onChange={()=>handleCheck('Esguicho')}/> Esguicho</label>
+            <label className="pecasLabel" htmlFor="mangueira">
+              <input
+                id="mangueira"
+                type="checkbox"
+                value={pecas.includes('Mangueira')}
+                checked={pecas.includes('Mangueira')}
+                onChange={() => handleCheck('Mangueira')}
+              />{' '}
+              2 Mangueiras
+            </label>
 
-          <label className='pecasLabel' htmlFor='mangueira'>
-          <input id='mangueira' type='checkbox' value={pecas.includes('Mangueira')} checked={pecas.includes('Mangueira')} onChange={()=>handleCheck('Mangueira')}/> 2 Mangueiras</label>
+            <label className="pecasLabel" htmlFor="storz">
+              <input
+                id="storz"
+                type="checkbox"
+                value={pecas.includes('Storz')}
+                checked={pecas.includes('Storz')}
+                onChange={() => handleCheck('Storz')}
+              />{' '}
+              Storz
+            </label>
+          </div>
+        </fieldset>
 
-          <label className='pecasLabel' htmlFor='storz'>
-          <input id='storz' type='checkbox' value={pecas.includes('Storz')} checked={pecas.includes('Storz')} onChange={()=>handleCheck('Storz')} /> Storz</label>
+        <fieldset className={styles.fieldset}>
+          <i className="fa-solid fa-calendar-day" />
+          <div className={styles.wrapperSelectRecarga}>
+            <Select
+              onFocus={({ currentTarget }) => handleFocusDatas(currentTarget)}
+              onBlur={({ currentTarget }) => handleBlurDatas(currentTarget)}
+              className={styles.selectRec}
+              optClass={styles.option}
+              selectValorInicial={hdVal.mes}
+              selectOnChange={({ currentTarget }) =>
+                handleSelect(currentTarget, 1)
+              }
+              optionDisabledValue="Mês"
+              options={[
+                '01',
+                '02',
+                '03',
+                '04',
+                '05',
+                '06',
+                '07',
+                '08',
+                '09',
+                '10',
+                '11',
+                '12',
+              ]}
+            />
+            <Select
+              className={styles.selectRec}
+              optClass={styles.option}
+              selectValorInicial={hdVal.ano}
+              selectOnChange={({ currentTarget }) =>
+                handleSelect(currentTarget, 2)
+              }
+              optionDisabledValue="Ano"
+              options={[
+                anoAtual - 3,
+                anoAtual - 2,
+                anoAtual - 1,
+                anoAtual,
+                anoAtual + 1,
+              ]}
+            />
+          </div>
+        </fieldset>
 
-        </div>
-      </fieldset>
+        <fieldset className={`${styles.fieldset} ${styles.textareaWrapper}`}>
+          <textarea
+            spellCheck="false"
+            className={styles.textarea}
+            placeholder="Avarias . . ."
+            onBlur={({ currentTarget }) => handleBlur(currentTarget)}
+            onFocus={({ currentTarget }) => handleFocus(currentTarget)}
+            id="hdAvariasTxtArea"
+            value={avarias}
+            onChange={({ target }) => setAvarias(target.value)}
+          ></textarea>
+        </fieldset>
 
-      <fieldset className={styles.fieldset} >
-        <i className="fa-solid fa-calendar-day" />
-        <div className={styles.wrapperSelectRecarga}>
-            <Select onFocus={({currentTarget})=>handleFocusDatas(currentTarget)} onBlur={({currentTarget})=>handleBlurDatas(currentTarget)} className={styles.selectRec} optClass={styles.option} selectValorInicial={hdVal.mes}  selectOnChange={({currentTarget})=>handleSelect(currentTarget, 1)} optionDisabledValue='Mês' options={['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']} />
-            <Select className={styles.selectRec} optClass={styles.option} selectValorInicial={hdVal.ano} selectOnChange={({currentTarget})=>handleSelect(currentTarget, 2)} optionDisabledValue='Ano' options={[anoAtual-3, anoAtual-2, anoAtual-1, anoAtual, anoAtual+1]} />
-        </div>
-    </fieldset>
-
-    <fieldset className={`${styles.fieldset} ${styles.textareaWrapper}`} >
-        <textarea spellCheck='false' className={styles.textarea} placeholder='Avarias . . .' onBlur={({currentTarget})=>handleBlur(currentTarget)} onFocus={({currentTarget})=>handleFocus(currentTarget)} id='hdAvariasTxtArea' value={avarias} onChange={({target})=>setAvarias(target.value)}></textarea>
-    </fieldset>
-
-
-
-
-
-
-
-      {/* <fieldset className={styles.fieldset} >
+        {/* <fieldset className={styles.fieldset} >
           <i className="fa-solid fa-calendar-day" />
           <div className={styles.wrapperSelectRecarga}>
               <Select onBlur={({currentTarget})=>handleBlurRecarga(currentTarget)} onFocus={({currentTarget})=>handleFocusRecarga(currentTarget)} className={styles.selectRec} optClass={styles.option} selectValorInicial={mes} selectOnChange={({currentTarget})=>handleSelect(currentTarget, 3)} optionDisabledValue='Mês' options={['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']} />
@@ -312,24 +425,26 @@ const HidranteEdit = () => {
           </div>
       </fieldset> */}
 
-      {/* <fieldset className={styles.fieldset}>
+        {/* <fieldset className={styles.fieldset}>
           <i className="fa-regular fa-calendar" />
           <input value={ultRet} onBlur={({currentTarget})=>handleBlur(currentTarget)} onFocus={({currentTarget})=>handleFocus(currentTarget)} placeholder='Data de reteste' min='2000' max={anoAtual + 5} className={styles.inputNovoExt} type='tel' maxLength={4} onChange={({target}) => setUltRet(target.value)} ></input>
       </fieldset> */}
 
-      {/* <fieldset className={`${styles.fieldset} ${styles.textareaWrapper}`} >
+        {/* <fieldset className={`${styles.fieldset} ${styles.textareaWrapper}`} >
           <textarea spellCheck='false' className={styles.textarea} placeholder='Avarias' onBlur={({currentTarget})=>handleBlur(currentTarget)} onFocus={({currentTarget})=>handleFocus(currentTarget)} id='hdAvariasTxtArea' value={avaria} onChange={({target})=>setAvaria(target.value)}></textarea>
       </fieldset> */}
 
-      <div className={styles.actionBtnsCreateWrapper}>
-          <span onClick={()=>navigate('/home/hd')}><i className="fa-solid fa-angle-left"/> Cancelar</span>
-          <span onClick={()=>salvarEditado(context.userLogado.id)}><i className="fa-regular fa-floppy-disk"/> Salvar</span>
+        <div className={styles.actionBtnsCreateWrapper}>
+          <span onClick={() => navigate('/home/hd')}>
+            <i className="fa-solid fa-angle-left" /> Cancelar
+          </span>
+          <span onClick={() => salvarEditado(context.userLogado.id)}>
+            <i className="fa-regular fa-floppy-disk" /> Salvar
+          </span>
+        </div>
       </div>
-
-    </div>
-
     </>
-  )
-}
+  );
+};
 
-export default HidranteEdit
+export default HidranteEdit;
