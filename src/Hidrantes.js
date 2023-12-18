@@ -113,75 +113,81 @@ const Hidrantes = () => {
 
         {!context.itensFiltrados &&
           context.userLogado.hd &&
-          context.userLogado.hd.reverse().map((item) => {
-            return (
-              <div key={item.id} className="ldeContent">
-                <div className={styles.title}>
-                  <p className={styles.legends}> número</p>
-                  <p className={styles.values}> {item.num}</p>
-                </div>
+          context.userLogado.hd
+            .sort((a, b) => {
+              return a.num - b.num;
+            })
+            .map((item) => {
+              return (
+                <div key={item.id} className="ldeContent">
+                  <div className={styles.title}>
+                    <p className={styles.legends}> número</p>
+                    <p className={styles.values}> {item.num}</p>
+                  </div>
 
-                <div className={styles.minorInfos}>
-                  {item.avaria && (
+                  <div className={styles.minorInfos}>
+                    {item.avaria && (
+                      <div>
+                        <p className={styles.legends}>avaria</p>
+                        <p className={styles.txtValues}>{item.avaria}</p>
+                      </div>
+                    )}
+
                     <div>
-                      <p className={styles.legends}>avaria</p>
-                      <p className={styles.txtValues}>{item.avaria}</p>
+                      <p className={styles.legends}>local</p>
+                      <p className={styles.txtValues}>
+                        {item.local ? item.local : 'não informado'}
+                      </p>
                     </div>
-                  )}
 
-                  <div>
-                    <p className={styles.legends}>local</p>
-                    <p className={styles.txtValues}>
-                      {item.local ? item.local : 'não informado'}
-                    </p>
+                    <div>
+                      <p className={styles.legends}>abrigo</p>
+                      <p className={styles.txtValues}>
+                        {item.abrigo ? item.abrigo : 'não informado'}
+                      </p>
+                    </div>
+
+                    <div>
+                      <p className={styles.legends}>sinalização</p>
+                      <p className={styles.txtValues}>
+                        {item.placa ? item.placa : 'não informado'}
+                      </p>
+                    </div>
+
+                    <div>
+                      <p className={styles.legends}>marcação no chão</p>
+                      <p className={styles.txtValues}>
+                        {item.sinal ? item.sinal : 'não informado'}
+                      </p>
+                    </div>
+
+                    <div>
+                      <p className={styles.legends}>peças</p>
+                      <p className={styles.txtValues}>
+                        {item.pecas.length === 0
+                          ? 'nenhuma peça registrada'
+                          : item.pecas.map((m, ind, l) => {
+                              return m + (ind != l.length - 1 ? ', ' : '.');
+                            })}
+                      </p>
+                    </div>
+
+                    <div>
+                      <p className={styles.legends}>reteste</p>
+                      <p className={styles.txtValues}>
+                        {convertData(item.val)}
+                      </p>
+                    </div>
                   </div>
 
-                  <div>
-                    <p className={styles.legends}>abrigo</p>
-                    <p className={styles.txtValues}>
-                      {item.abrigo ? item.abrigo : 'não informado'}
-                    </p>
-                  </div>
-
-                  <div>
-                    <p className={styles.legends}>sinalização</p>
-                    <p className={styles.txtValues}>
-                      {item.placa ? item.placa : 'não informado'}
-                    </p>
-                  </div>
-
-                  <div>
-                    <p className={styles.legends}>marcação no chão</p>
-                    <p className={styles.txtValues}>
-                      {item.sinal ? item.sinal : 'não informado'}
-                    </p>
-                  </div>
-
-                  <div>
-                    <p className={styles.legends}>peças</p>
-                    <p className={styles.txtValues}>
-                      {item.pecas.length === 0
-                        ? 'nenhuma peça registrada'
-                        : item.pecas.map((m, ind, l) => {
-                            return m + (ind != l.length - 1 ? ', ' : '.');
-                          })}
-                    </p>
-                  </div>
-
-                  <div>
-                    <p className={styles.legends}>reteste</p>
-                    <p className={styles.txtValues}>{convertData(item.val)}</p>
-                  </div>
+                  <BtnAcoesItens
+                    funcDel={() => excluirHd(context.userLogado.id, item, 'hd')}
+                    itemId={item.id}
+                    editarOnClick={() => navigate(`edit?id=${item.id}`)}
+                  />
                 </div>
-
-                <BtnAcoesItens
-                  funcDel={() => excluirHd(context.userLogado.id, item, 'hd')}
-                  itemId={item.id}
-                  editarOnClick={() => navigate(`edit?id=${item.id}`)}
-                />
-              </div>
-            );
-          })}
+              );
+            })}
 
         {context.itensFiltrados.length > 0 &&
           context.itensFiltrados.reverse().map((item) => {

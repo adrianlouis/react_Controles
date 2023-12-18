@@ -9,6 +9,9 @@ import Footer from './Footer';
 const LdE = () => {
   const context = React.useContext(GlobalContext);
   const navigate = useNavigate();
+  const luzesOrdenadas = context.userLogado.lde.sort((a, b) => {
+    return a.num - b.num;
+  });
 
   async function excluirLde(idUser, item, campo) {
     // deletar
@@ -41,47 +44,43 @@ const LdE = () => {
       <div className={`${styles.mainContainer} animateLeft`}>
         {!context.itensFiltrados &&
           context.userLogado &&
-          context.userLogado.lde
-            .map((item, index) => {
-              return (
-                <div key={item.id} className="ldeContent">
-                  <div className={styles.title}>
-                    <p className={styles.legends}>Número</p>
-                    <p className={styles.values}>{item.num}</p>
-                  </div>
-
-                  <div className={styles.minorInfos}>
-                    <div>
-                      <p className={styles.legends}>local</p>
-                      <p className={styles.txtValues}>{item.local}</p>
-                    </div>
-
-                    <div>
-                      <p className={styles.legends}>autonomia</p>
-                      <p className={styles.txtValues}>{item.dur}</p>
-                    </div>
-
-                    {item.avaria && (
-                      <div>
-                        <p className={styles.legends}>avaria</p>
-                        <p className={styles.txtValues}>{item.avaria}</p>
-                      </div>
-                    )}
-                  </div>
-
-                  <BtnAcoesItens
-                    funcDel={() =>
-                      excluirLde(context.userLogado.id, item, 'lde')
-                    }
-                    itemId={item.id}
-                    editarOnClick={() =>
-                      navigate(`edit/id?id=${item.id}&ind=${index}`)
-                    }
-                  />
+          luzesOrdenadas.map((item, index) => {
+            return (
+              <div key={item.id} className="ldeContent">
+                <div className={styles.title}>
+                  <p className={styles.legends}>Número</p>
+                  <p className={styles.values}>{item.num}</p>
                 </div>
-              );
-            })
-            .reverse()}
+
+                <div className={styles.minorInfos}>
+                  <div>
+                    <p className={styles.legends}>local</p>
+                    <p className={styles.txtValues}>{item.local}</p>
+                  </div>
+
+                  <div>
+                    <p className={styles.legends}>autonomia</p>
+                    <p className={styles.txtValues}>{item.dur}</p>
+                  </div>
+
+                  {item.avaria && (
+                    <div>
+                      <p className={styles.legends}>avaria</p>
+                      <p className={styles.txtValues}>{item.avaria}</p>
+                    </div>
+                  )}
+                </div>
+
+                <BtnAcoesItens
+                  funcDel={() => excluirLde(context.userLogado.id, item, 'lde')}
+                  itemId={item.id}
+                  editarOnClick={() =>
+                    navigate(`edit/id?id=${item.id}&ind=${index}`)
+                  }
+                />
+              </div>
+            );
+          })}
 
         {context.itensFiltrados &&
           context.userLogado &&
