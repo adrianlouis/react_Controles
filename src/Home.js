@@ -25,6 +25,8 @@ const Home = () => {
   const [openMenu, setOpenMenu] = React.useState(false);
   const local = useLocation();
   const [menuLabel, setMenuLabel] = React.useState('');
+  const [searchRes, setSearchRes] = React.useState('');
+  const [searchToogle, setSearchToogle] = React.useState(false);
 
   React.useEffect(() => {
     switch (local.pathname) {
@@ -327,6 +329,15 @@ const Home = () => {
     });
   }
 
+  function handleSearch(v) {
+    setSearchRes(v);
+  }
+
+  function handleCloseSearch() {
+    setSearchToogle(false);
+    setSearchRes('');
+  }
+
   return (
     <div>
       <div id="wppCanvasWrapper" className={styles.wpp}>
@@ -358,16 +369,35 @@ const Home = () => {
 
         {openMenu && (
           <div
-            className={styles.menuOpened}
             onClick={() => setOpenMenu(!openMenu)}
+            className={styles.menuOpened}
           >
             {/* <p>{menuLabel}</p> */}
             <p onClick={() => navigate('/home/perfil')}>Home</p>
+            <p onClick={() => setSearchToogle(true)}>Buscar {menuLabel}</p>
             <p onClick={() => handleSaveSheet()}>Salvar {menuLabel} atual</p>
             <p>Visualizar {menuLabel} salvos</p>
+            <p onClick={() => setOpenMenu(!openMenu)}>Fechar</p>
           </div>
         )}
       </div>
+
+      {searchToogle && (
+        <div className={styles.search}>
+          <i className="fa-solid fa-magnifying-glass"></i>
+          <input
+            className={styles.searchInput}
+            type="text"
+            value={searchRes}
+            onChange={({ target }) => handleSearch(target.value)}
+          />
+          <i
+            className="fa-solid fa-xmark"
+            style={{ cursor: 'pointer' }}
+            onClick={() => handleCloseSearch()}
+          ></i>
+        </div>
+      )}
 
       <div id="perfilWrapper" className={styles.perfil}>
         <div>

@@ -141,3 +141,39 @@
     color: white;
     background-color: #333;
 }
+
+.search{
+    /* border: 2px solid red; */
+    position: fixed;
+    bottom: 1rem;
+    left: 50%;
+    transform: translate(-50%);
+    width: 90%;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #222;
+    z-index: 2;
+    border-radius: 2rem;
+    background-color: #e1e1e1;
+}
+
+.searchInput{
+    width: calc(100% - 2rem);
+    border-radius: 2rem;
+    background-color: #e1e1e1;
+    outline: none;
+    border: none;
+}
+.search i{
+    /* border: 1px solid red; */
+    height: 100%;
+    width: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #439a86;
+    font-size: 1.3rem;
+    padding: 0 .3rem;
+}
