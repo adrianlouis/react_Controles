@@ -8,6 +8,7 @@ import { Filtro } from './funcoes/filtroFuncoes';
 import { refreshBd, removerRegistro, updateBd } from './crudFireBase';
 import Footer from './Footer';
 import BtnAcoesItens from './components/BtnAcoesItens';
+import { convertData } from './funcoes/extDatas';
 
 const Hidrantes = () => {
   const context = useContext(GlobalContext);
@@ -66,32 +67,46 @@ const Hidrantes = () => {
     context.setUserLogado({ ...context.userLogado, hd: [...decresc] });
   }
 
-  function convertData(valor) {
-    if (valor.mes && valor.ano) {
-      return (
-        new Date(valor.ano, Number(valor.mes) - 1)
-          .toLocaleDateString('pt-br', { month: 'long', year: 'numeric' })
-          .charAt(0)
-          .toUpperCase() +
-        new Date(valor.ano, Number(valor.mes) - 1)
-          .toLocaleDateString('pt-br', { month: 'long', year: 'numeric' })
-          .slice(1)
-      );
-    } else if (!valor.mes && valor.ano) {
-      return valor.ano;
-    } else if (!valor.ano && valor.mes) {
-      return (
-        new Date(2020, Number(valor.mes) - 1)
-          .toLocaleDateString('pt-br', { month: 'long' })
-          .charAt(0)
-          .toUpperCase() +
-        new Date(2020, Number(valor.mes) - 1)
-          .toLocaleDateString('pt-br', { month: 'long' })
-          .slice(1)
-      );
-    } else {
-      return 'Data não informada';
-    }
+  function converttData(valor) {
+    // if (valor.mes && valor.ano) {
+    //   return (
+    //     new Date(valor.ano, Number(valor.mes) - 1)
+    //       .toLocaleDateString('pt-br', { month: 'long', year: 'numeric' })
+    //       .charAt(0)
+    //       .toUpperCase() +
+    //     new Date(valor.ano, Number(valor.mes) - 1)
+    //       .toLocaleDateString('pt-br', { month: 'long', year: 'numeric' })
+    //       .slice(1)
+    //   );
+    // } else if (!valor.mes && valor.ano) {
+    //   return valor.ano;
+    // } else if (!valor.ano && valor.mes) {
+    //   return (
+    //     new Date(2020, Number(valor.mes) - 1)
+    //       .toLocaleDateString('pt-br', { month: 'long' })
+    //       .charAt(0)
+    //       .toUpperCase() +
+    //     new Date(2020, Number(valor.mes) - 1)
+    //       .toLocaleDateString('pt-br', { month: 'long' })
+    //       .slice(1)
+    //   );
+    // } else {
+    //   return 'Data não informada';
+    // }
+    // const parseDate = () => {
+    //   if (!mes && !ano) return 'não informado';
+    //   if (!mes && ano) return ano;
+    //   if (mes && !ano)
+    //     return new Date('', Number(mes) - 1).toLocaleDateString('pt-Br', {
+    //       month: 'long',
+    //     });
+    //   if (ano && mes)
+    //     return new Date(Number(ano), Number(mes) - 1).toLocaleDateString(
+    //       'pt-Br',
+    //       { month: 'long', year: 'numeric' },
+    //     );
+    // };
+    // return parseDate();
   }
 
   async function excluirHd(idUser, item, campo) {
@@ -174,7 +189,7 @@ const Hidrantes = () => {
                     </div>
 
                     <div>
-                      <p className={styles.legends}>reteste</p>
+                      <p className={styles.legends}>último reteste</p>
                       <p className={styles.txtValues}>
                         {convertData(item.val)}
                       </p>

@@ -1,8 +1,6 @@
 import React, { useContext } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { updateBd } from './crudFireBase';
 import { GlobalContext } from './GlobalContext';
-import Input from './Input';
 import Select from './Select';
 import styles from './ExtNovo.module.css';
 import { UPDATE_DATA, USER_GET } from './funcoes/Api';
@@ -13,66 +11,36 @@ const HidranteEdit = () => {
   const navigate = useNavigate();
   const search = new URLSearchParams(location.search);
   const userId = search.get('userId');
-
   const itemPraEditar = context.userLogado.hd.filter((f) => {
     return f.id === Number(search.get('id'));
   });
-
-  const [num, setNum] = React.useState(itemPraEditar[0].num);
-  const [local, setLocal] = React.useState(itemPraEditar[0].local);
-  const [abrigo, setAbrigo] = React.useState(itemPraEditar[0].abrigo);
-  const [sinal, setSinal] = React.useState(itemPraEditar[0].sinal);
-  const [placa, setPlaca] = React.useState(itemPraEditar[0].placa);
-  // const [hdVal, setHdVal] = React.useState(itemPraEditar[0].val)
-  const [hdVal, setHdVal] = React.useState({
-    mes: itemPraEditar[0].val.mes,
-    ano: itemPraEditar[0].val.ano,
-  });
-  const [avarias, setAvarias] = React.useState(itemPraEditar[0].avaria);
-  const [pecas, setPecas] = React.useState(itemPraEditar[0].pecas);
-  const hdEditado = {
-    id: itemPraEditar[0].id,
-    num: num,
-    local: local,
-    abrigo: abrigo,
-    sinal: sinal,
-    placa: placa,
-    val: { mes: hdVal.mes, ano: itemPraEditar[0].val.ano },
-    avaria: avarias,
-    pecas: pecas,
-  };
+  const [nItem, setNItem] = React.useState({ ...itemPraEditar[0] });
   const anoAtual = new Date().getFullYear();
-  // const [params, setParams] = URLSearchParams();
 
   function handleCheck(item) {
-    if (pecas.includes(item)) {
-      const peca = pecas.filter((f) => {
-        return f !== item;
-      });
-      setPecas([...peca]);
+    const peca = nItem.pecas.filter((f) => {
+      return f !== item;
+    });
+
+    if (nItem.pecas.includes(item)) {
+      setNItem({ ...nItem, pecas: [...peca] });
     } else {
-      setPecas([...pecas, item]);
+      setNItem({ ...nItem, pecas: [...peca, item] });
     }
   }
 
-  async function salvarEditado() {
+  async function handleSave() {
     const hidrantes = context.userLogado.hd.map((m) => {
       if (m.id !== Number(search.get('id'))) {
         return m;
       } else {
-        return hdEditado;
+        return nItem;
       }
     });
-
-    // console.log(hidrantes);
 
     await UPDATE_DATA(userId, hidrantes, 'hd');
     context.setUserLogado(await USER_GET(userId));
     navigate('/home/hd');
-
-    // updateBd(idUser, {hd:hidrantes})
-    // context.setUserLogado({...context.userLogado, hd:hidrantes})
-    // navigate('/home/hd')
   }
 
   function handleBlur(el) {
@@ -80,18 +48,6 @@ const HidranteEdit = () => {
   }
   function handleFocus(el) {
     el.parentNode.style.border = '2px solid rgb(166, 243, 166)';
-  }
-
-  function handleSelect(el, sel) {
-    if (sel === 1) {
-      setHdVal({ ...hdVal, mes: el.value });
-    } else if (sel === 2) {
-      setHdVal({ ...hdVal, ano: el.value });
-    } else if (sel === 3) {
-      setLocal(el.value);
-    }
-
-    el.style.color = 'rgb(161,161,161)';
   }
 
   function handleMouseLeave(el) {
@@ -126,8 +82,8 @@ const HidranteEdit = () => {
             className={styles.inputNovoExt}
             type="tel"
             maxLength={5}
-            onChange={({ target }) => setNum(target.value)}
-            value={num}
+            onChange={({ target }) => setNItem({ ...nItem, num: target.value })}
+            value={nItem.num}
           ></input>
         </fieldset>
 
@@ -138,9 +94,9 @@ const HidranteEdit = () => {
             onFocus={({ currentTarget }) => handleFocus(currentTarget)}
             selClass={styles.select}
             optClass={styles.option}
-            selectValorInicial={local}
-            selectOnChange={({ currentTarget }) =>
-              handleSelect(currentTarget, 3)
+            selectValorInicial={nItem.local}
+            selectOnChange={({ target }) =>
+              setNItem({ ...nItem, local: target.value })
             }
             optionDisabledValue="Local"
             options={[
@@ -167,9 +123,11 @@ const HidranteEdit = () => {
             onBlur={({ currentTarget }) => handleBlur(currentTarget)}
             onFocus={({ currentTarget }) => handleFocus(currentTarget)}
             optClass={styles.option}
-            selectValorInicial={abrigo}
+            selectValorInicial={nItem.abrigo}
             options={['Ok', 'Nok']}
-            selectOnChange={({ target }) => setAbrigo(target.value)}
+            selectOnChange={({ target }) =>
+              setNItem({ ...nItem, abrigo: target.value })
+            }
             selClass={styles.select}
           />
         </fieldset>
@@ -181,9 +139,11 @@ const HidranteEdit = () => {
             onFocus={({ currentTarget }) => handleFocus(currentTarget)}
             selClass={styles.select}
             optClass={styles.option}
-            selectValorInicial={placa}
+            selectValorInicial={nItem.placa}
             options={['Ok', 'Nok']}
-            selectOnChange={({ target }) => setPlaca(target.value)}
+            selectOnChange={({ target }) =>
+              setNItem({ ...nItem, placa: target.value })
+            }
           />
         </fieldset>
 
@@ -192,9 +152,11 @@ const HidranteEdit = () => {
           <Select
             onBlur={({ currentTarget }) => handleBlur(currentTarget)}
             onFocus={({ currentTarget }) => handleFocus(currentTarget)}
-            selectValorInicial={sinal}
+            selectValorInicial={nItem.sinal}
             options={['Ok', 'Nok']}
-            selectOnChange={({ target }) => setSinal(target.value)}
+            selectOnChange={({ target }) =>
+              setNItem({ ...nItem, sinal: target.value })
+            }
             selClass={styles.select}
             optClass={styles.option}
           />
@@ -210,8 +172,8 @@ const HidranteEdit = () => {
               <input
                 id="esguicho"
                 type="checkbox"
-                value={pecas.includes('Esguicho')}
-                checked={pecas.includes('Esguicho')}
+                value={nItem.pecas.includes('Esguicho')}
+                checked={nItem.pecas.includes('Esguicho')}
                 onChange={() => handleCheck('Esguicho')}
               />{' '}
               Esguicho
@@ -221,8 +183,8 @@ const HidranteEdit = () => {
               <input
                 id="mangueira"
                 type="checkbox"
-                value={pecas.includes('Mangueira')}
-                checked={pecas.includes('Mangueira')}
+                value={nItem.pecas.includes('Mangueira')}
+                checked={nItem.pecas.includes('Mangueira')}
                 onChange={() => handleCheck('Mangueira')}
               />{' '}
               2 Mangueiras
@@ -232,8 +194,8 @@ const HidranteEdit = () => {
               <input
                 id="storz"
                 type="checkbox"
-                value={pecas.includes('Storz')}
-                checked={pecas.includes('Storz')}
+                value={nItem.pecas.includes('Storz')}
+                checked={nItem.pecas.includes('Storz')}
                 onChange={() => handleCheck('Storz')}
               />{' '}
               Storz
@@ -249,9 +211,9 @@ const HidranteEdit = () => {
               onBlur={({ currentTarget }) => handleBlurDatas(currentTarget)}
               className={styles.selectRec}
               optClass={styles.option}
-              selectValorInicial={hdVal.mes}
-              selectOnChange={({ currentTarget }) =>
-                handleSelect(currentTarget, 1)
+              selectValorInicial={nItem.val.mes}
+              selectOnChange={({ target }) =>
+                setNItem({ ...nItem, val: { ...nItem.val, mes: target.value } })
               }
               optionDisabledValue="Mês"
               options={[
@@ -272,9 +234,9 @@ const HidranteEdit = () => {
             <Select
               className={styles.selectRec}
               optClass={styles.option}
-              selectValorInicial={hdVal.ano}
-              selectOnChange={({ currentTarget }) =>
-                handleSelect(currentTarget, 2)
+              selectValorInicial={nItem.val.ano}
+              selectOnChange={({ target }) =>
+                setNItem({ ...nItem, val: { ...nItem.val, ano: target.value } })
               }
               optionDisabledValue="Ano"
               options={[
@@ -296,33 +258,18 @@ const HidranteEdit = () => {
             onBlur={({ currentTarget }) => handleBlur(currentTarget)}
             onFocus={({ currentTarget }) => handleFocus(currentTarget)}
             id="hdAvariasTxtArea"
-            value={avarias}
-            onChange={({ target }) => setAvarias(target.value)}
+            value={nItem.avaria}
+            onChange={({ target }) =>
+              setNItem({ ...nItem, avaria: target.value })
+            }
           ></textarea>
         </fieldset>
-
-        {/* <fieldset className={styles.fieldset} >
-          <i className="fa-solid fa-calendar-day" />
-          <div className={styles.wrapperSelectRecarga}>
-              <Select onBlur={({currentTarget})=>handleBlurRecarga(currentTarget)} onFocus={({currentTarget})=>handleFocusRecarga(currentTarget)} className={styles.selectRec} optClass={styles.option} selectValorInicial={mes} selectOnChange={({currentTarget})=>handleSelect(currentTarget, 3)} optionDisabledValue='Mês' options={['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']} />
-              <Select onBlur={({currentTarget})=>handleBlurRecarga(currentTarget)} onFocus={({currentTarget})=>handleFocusRecarga(currentTarget)} className={styles.selectRec} optClass={styles.option} selectValorInicial={ano} selectOnChange={({currentTarget})=>handleSelect(currentTarget, 4)} optionDisabledValue='Ano' options={[anoAtual-3, anoAtual-2, anoAtual-1, anoAtual, anoAtual+1]} />
-          </div>
-      </fieldset> */}
-
-        {/* <fieldset className={styles.fieldset}>
-          <i className="fa-regular fa-calendar" />
-          <input value={ultRet} onBlur={({currentTarget})=>handleBlur(currentTarget)} onFocus={({currentTarget})=>handleFocus(currentTarget)} placeholder='Data de reteste' min='2000' max={anoAtual + 5} className={styles.inputNovoExt} type='tel' maxLength={4} onChange={({target}) => setUltRet(target.value)} ></input>
-      </fieldset> */}
-
-        {/* <fieldset className={`${styles.fieldset} ${styles.textareaWrapper}`} >
-          <textarea spellCheck='false' className={styles.textarea} placeholder='Avarias' onBlur={({currentTarget})=>handleBlur(currentTarget)} onFocus={({currentTarget})=>handleFocus(currentTarget)} id='hdAvariasTxtArea' value={avaria} onChange={({target})=>setAvaria(target.value)}></textarea>
-      </fieldset> */}
 
         <div className={styles.actionBtnsCreateWrapper}>
           <span onClick={() => navigate('/home/hd')}>
             <i className="fa-solid fa-angle-left" /> Cancelar
           </span>
-          <span onClick={() => salvarEditado()}>
+          <span onClick={() => handleSave()}>
             <i className="fa-regular fa-floppy-disk" /> Salvar
           </span>
         </div>
