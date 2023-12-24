@@ -134,6 +134,7 @@ const Hidrantes = () => {
                     )}
 
                     <div>
+                      <p className={styles.txtValues}></p>
                       <p className={styles.legends}>local</p>
                       <p className={styles.txtValues}>
                         {item.local ? item.local : 'não informado'}
@@ -183,7 +184,11 @@ const Hidrantes = () => {
                   <BtnAcoesItens
                     funcDel={() => excluirHd(context.userLogado.id, item, 'hd')}
                     itemId={item.id}
-                    editarOnClick={() => navigate(`edit?id=${item.id}`)}
+                    editarOnClick={() =>
+                      navigate(
+                        `edit?id=${item.id}&userId=${context.userLogado.id}`,
+                      )
+                    }
                   />
                 </div>
               );

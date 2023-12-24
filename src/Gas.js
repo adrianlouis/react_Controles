@@ -16,22 +16,35 @@ const Gas = () => {
     return b.id - a.id;
   });
   const [pages, setPages] = React.useState(Number(gases.length));
+  const [activeItens, setActiveItens] = React.useState([]);
 
   function settingPages(pg, func) {
+    const itens = [];
     if (func === 'mais' && pg > 0) {
       for (let i = pg; i !== pg - 5; i--) {
-        console.log(gases[i]);
-        console.log('ind: ' + i);
-        if (i === pg - 4) setPages(i);
+        if (i <= 0) {
+          console.log('pare');
+          return;
+        }
+        console.log(i);
+        itens.push(i);
+        // console.log(gases[i]);
+        // console.log('ind: ' + i);
+        if (i === pg - 4) {
+          setPages(i - 1);
+          setActiveItens(itens);
+        }
       }
     } else if (func === 'menos' && pg < gases.length) {
       for (let i = 0; i < pg + 5; i++) {
-        console.log(gases[i]);
-        console.log('ind: ' + i);
+        // console.log(gases[i]);
+        // console.log('ind: ' + i);
         if (i === pg + 4) setPages(i);
       }
     }
   }
+
+  // console.log(activeItens);
 
   // console.log(ctx.userLogado);
   function deletar(elem, id) {
@@ -63,8 +76,8 @@ const Gas = () => {
   return (
     <>
       <div className={`${styles.mainContainer} animateLeft`}>
-        <button onClick={() => settingPages(pages, 'menos')}>MENOS</button>
-        <button onClick={() => settingPages(pages, 'mais')}>MAIS</button>
+        {/* <button onClick={() => settingPages(pages, 'menos')}>MENOS</button>
+        <button onClick={() => settingPages(pages, 'mais')}>MAIS</button> */}
         {user &&
           gases.map((item) => {
             return (
@@ -110,6 +123,14 @@ const Gas = () => {
             );
           })}
       </div>
+
+      {/* <div className={styles.paginacao}>
+        <p>Esq.</p>
+        <p>1</p>
+        <p>2</p>
+        <p>3</p>
+        <p>Dir.</p>
+      </div> */}
 
       <Footer
         numeroItens={ctx.userLogado.gas.length}
