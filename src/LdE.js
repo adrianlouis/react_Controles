@@ -136,7 +136,12 @@ const LdE = () => {
         novoItem={'ldenovo'}
       /> */}
 
-      <SearchItens itens={context.userLogado.hd} onClose={handleCloseSearch} />
+      {context.searchInput && (
+        <SearchItens
+          itens={context.userLogado.lde}
+          onClose={handleCloseSearch}
+        />
+      )}
     </>
   );
 };

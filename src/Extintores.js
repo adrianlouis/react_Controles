@@ -208,7 +208,7 @@ const Extintores = () => {
       /> */}
       {context.searchInput && (
         <SearchItens
-          itens={context.userLogado.hd}
+          itens={context.userLogado.ext}
           onClose={handleCloseSearch}
         />
       )}

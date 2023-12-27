@@ -78,7 +78,7 @@ const Hidrantes = () => {
   }
 
   function handleCloseSearch() {
-    // setSearchToogle(false);
+    setSearchToogle(false);
     context.setItensFiltrados('');
   }
 
@@ -239,7 +239,11 @@ const Hidrantes = () => {
                 <BtnAcoesItens
                   funcDel={() => excluirHd(context.userLogado.id, item, 'hd')}
                   itemId={item.id}
-                  editarOnClick={() => navigate(`edit?id=${item.id}`)}
+                  editarOnClick={() =>
+                    navigate(
+                      `edit?id=${item.id}&userId=${context.userLogado.id}`,
+                    )
+                  }
                 />
               </div>
             );
