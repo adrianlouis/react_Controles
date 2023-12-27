@@ -6,9 +6,11 @@ import { useNavigate } from 'react-router-dom';
 import { refreshBd, removerRegistro } from './crudFireBase';
 import Footer from './Footer';
 import BtnAcoesItens from './components/BtnAcoesItens';
+import SearchItens from './components/SearchItens';
 
 const Extintores = () => {
   const context = useContext(GlobalContext);
+  const [searchToogle, setSearchToogle] = React.useState(false);
   const [listaAtiva, setListaAtiva] = React.useState(
     [...context.userLogado.ext].reverse(),
   );
@@ -78,6 +80,11 @@ const Extintores = () => {
   //   document.querySelector('#container').style.transform = 'translate(0px)';
 
   // }, []);
+
+  function handleCloseSearch() {
+    setSearchToogle(false);
+    context.setItensFiltrados('');
+  }
 
   return (
     <>
@@ -194,11 +201,17 @@ const Extintores = () => {
           })}
       </div>
 
-      <Footer
+      {/* <Footer
         numeroItens={context.userLogado.ext.length}
         itens={{ extintores: context.userLogado.ext }}
         novoItem={'extnovo'}
-      />
+      /> */}
+      {context.searchInput && (
+        <SearchItens
+          itens={context.userLogado.hd}
+          onClose={handleCloseSearch}
+        />
+      )}
     </>
   );
 };

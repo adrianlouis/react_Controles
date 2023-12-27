@@ -20,6 +20,7 @@ export const GlobalStorage = ({ children }) => {
   const [usuarios, setUsuarios] = useLocalStorage('usuarios', '');
   const [users, setUsers] = React.useState([]);
   const [userLogado, setUserLogado] = React.useState([]);
+  const [searchInput, setSearchInput] = React.useState(false);
   const [imgTemp, setImgTemp] = React.useState({
     foto: false,
     fCrop: false,
@@ -112,6 +113,8 @@ export const GlobalStorage = ({ children }) => {
         setUsuarios,
         userLogado,
         setUserLogado,
+        searchInput,
+        setSearchInput,
       }}
     >
       {children}

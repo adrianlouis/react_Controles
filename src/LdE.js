@@ -5,10 +5,12 @@ import { GlobalContext } from './GlobalContext';
 import { refreshBd, removerRegistro } from './crudFireBase';
 import BtnAcoesItens from './components/BtnAcoesItens';
 import Footer from './Footer';
+import SearchItens from './components/SearchItens';
 
 const LdE = () => {
   const context = React.useContext(GlobalContext);
   const navigate = useNavigate();
+  const [searchToogle, setSearchToogle] = React.useState(false);
   const luzesOrdenadas = context.userLogado.lde.sort((a, b) => {
     return a.num - b.num;
   });
@@ -37,6 +39,11 @@ const LdE = () => {
       default:
         return <i className="fa-solid fa-battery-empty"></i>;
     }
+  }
+
+  function handleCloseSearch() {
+    setSearchToogle(false);
+    context.setItensFiltrados('');
   }
 
   return (
@@ -123,11 +130,13 @@ const LdE = () => {
           })}
       </div>
 
-      <Footer
+      {/* <Footer
         numeroItens={context.userLogado.ext.length}
         itens={{ lde: context.userLogado.lde }}
         novoItem={'ldenovo'}
-      />
+      /> */}
+
+      <SearchItens itens={context.userLogado.hd} onClose={handleCloseSearch} />
     </>
   );
 };
