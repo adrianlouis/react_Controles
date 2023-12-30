@@ -1,0 +1,11 @@
+.newPost{
+  color: white;
+  position: fixed;
+  bottom: 4rem;
+  right: 1.5rem;
+}
+.newPost i{
+  cursor: pointer;
+  font-size: 2.5rem;
+
+}

@@ -17,6 +17,7 @@ export const GlobalContext = React.createContext();
 
 export const GlobalStorage = ({ children }) => {
   const [upload, setUpload] = React.useState(false);
+  const [token, setToken] = React.useState('');
   const [usuarios, setUsuarios] = useLocalStorage('usuarios', '');
   const [users, setUsers] = React.useState([]);
   const [userLogado, setUserLogado] = React.useState([]);
@@ -115,6 +116,8 @@ export const GlobalStorage = ({ children }) => {
         setUserLogado,
         searchInput,
         setSearchInput,
+        token,
+        setToken,
       }}
     >
       {children}

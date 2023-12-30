@@ -60,8 +60,6 @@ const Login = () => {
     localStorage.getItem('logStoragePass'),
   );
 
-  //   console.log(user);
-
   const newUser = {
     nome: regInput.nome,
     email: regInput.email,
@@ -168,7 +166,7 @@ const Login = () => {
       }
 
       ctx.setUserLogado(...log);
-      navigate('/home/perfil');
+      navigate('/home/inicio');
     } else {
       setLoginMsg('Verifique usuário e senha');
     }

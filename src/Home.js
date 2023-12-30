@@ -5,6 +5,7 @@ import { GlobalContext } from './GlobalContext';
 import { getDownloadURL, getStorage, ref } from 'firebase/storage';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth, db } from './firebase-config';
+import Footer from './Footer';
 
 import styles from './Home.module.css';
 import {
@@ -247,7 +248,7 @@ const Home = () => {
 
   window.onscroll = () => {
     const arroba = document.querySelector('#headerProfName');
-    const menu = document.querySelector('#menu');
+    // const menu = document.querySelector('#menu');
     const foto = document.querySelector('#canv');
     const wallpaper = document.querySelector('#wppCanvasWrapper');
     const canvWpp = document.querySelector('#canvWpp');
@@ -269,16 +270,16 @@ const Home = () => {
 
     if (posTela >= 175) {
       arroba.style.visibility = 'visible';
-      menu.style.visibility = 'visible';
+      // menu.style.visibility = 'visible';
       arroba.style.opacity = '1';
-      menu.style.opacity = '1';
+      // menu.style.opacity = '1';
       arroba.style.transform = 'translateY(.5rem )';
-      menu.style.transform = 'translateY(.3rem )';
+      // menu.style.transform = 'translateY(.3rem )';
     } else {
-      menu.style.visibility = 'hidden';
-      menu.style.opacity = '0';
+      // menu.style.visibility = 'hidden';
+      // menu.style.opacity = '0';
       arroba.style.transform = 'translateY(0px )';
-      menu.style.transform = 'translateY(0px )';
+      // menu.style.transform = 'translateY(0px )';
       arroba.style.visibility = 'hidden';
       arroba.style.opacity = '0';
     }
@@ -333,7 +334,7 @@ const Home = () => {
           className={styles.menu}
           onClick={() => handleMenu()}
         >
-          <i className="fa-solid fa-bars"></i>
+          <i className="fa-solid fa-ellipsis-vertical"></i>
         </div>
 
         {openMenu && (
@@ -424,6 +425,7 @@ const Home = () => {
         </ul>
       </div>
       <Outlet />
+      <Footer />
     </div>
   );
 };

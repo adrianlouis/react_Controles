@@ -1,0 +1,71 @@
+.txtAreaWrapper{
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 2rem;
+}
+
+.newPost{
+  background-color: #000;
+  border-radius: .5rem;
+  padding: .5rem;
+  width: 90%;
+  color: #d1d1d1;
+  border: 2px solid #333;
+}
+.newPost:focus{
+  border: 2px solid #d1d1d1;
+  
+  outline: none;
+}
+
+.postsWrapper{
+  margin-bottom: 5rem;
+}
+
+.iconsWrapper{
+  /* border: 1px solid red; */
+  padding: 1.5rem 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  width: 80%;
+}
+
+.iconsWrapper i{
+  font-size: 1.5rem;
+}
+
+.iconTxtWrapper{
+  text-align: center;
+  color: #d1d1d1;
+
+}
+
+
+.cardPost{
+  border: 2px solid #444;
+  background-color: #4444;
+  color: #d1d1d1;
+  border-radius: .5rem;
+  margin: 1.5rem .5rem ;
+  padding: 1rem .5rem .3rem;
+
+}
+
+.cardSignature{
+  margin-top: 1rem;
+  font-size: .8rem;
+  text-align: left;
+  text-transform: lowercase;
+  color: #848484;
+  cursor: pointer;
+}
+
+.postUserNick{
+  font-size: .8rem;
+}
+.postUserNick:hover{
+  color: #d1d1d1;
+}

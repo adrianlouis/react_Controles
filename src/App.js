@@ -31,6 +31,7 @@ import Profile from './Profile';
 import NotFound from './NotFound';
 import EditPerfil from './EditPerfil';
 import Footer from './Footer';
+import Inicio from './Inicio.js';
 
 function App() {
   return (
@@ -46,6 +47,7 @@ function App() {
 
           <Route exact path="home" element={<Home />}>
             <Route exact path="perfil" element={<Profile />} />
+            <Route exact path="inicio" element={<Inicio />} />
             <Route exact path="lde" element={<LdE />} />
             <Route exact path="lde/ldenovo" element={<LdENovoReg />} />
             <Route exact path="lde/edit/:id" element={<LdeEdit />} />
