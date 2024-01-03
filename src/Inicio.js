@@ -1,7 +1,7 @@
 import React from 'react';
 import BtnNewPost from './components/BtnNewPost';
 import styles from './Inicio.module.css';
-import { UPDATE_DATA, USER_GET } from './funcoes/Api';
+import { GET_POSTS, UPDATE_DATA, USER_GET } from './funcoes/Api';
 import { GlobalContext } from './GlobalContext';
 import { Timestamp } from 'firebase/firestore';
 
@@ -10,6 +10,35 @@ const Inicio = () => {
   const [post, setPost] = React.useState('');
   const context = React.useContext(GlobalContext);
   const userId = context.userLogado.id;
+  const [posts, setPosts] = React.useState();
+
+  const tes = async () => {
+    const getPost = await GET_POSTS();
+    const stamps = getPost
+      .map((m) => {
+        return m.timestamp;
+      })
+      .sort((a, b) => {
+        return a - b;
+      });
+
+    let narr = [];
+
+    stamps.reverse().forEach((el) => {
+      getPost.filter((f) => {
+        if (f.timestamp === el) {
+          narr.push(f);
+        } else {
+          return '';
+        }
+      });
+    });
+    setPosts(narr);
+  };
+  React.useEffect(() => {
+    tes();
+    console.log('tes');
+  }, [textareaToogle]);
 
   async function handleSave() {
     const timestamp = Timestamp.fromDate(new Date()).seconds;
@@ -40,34 +69,33 @@ const Inicio = () => {
         />
       )}
 
-      <div className={styles.postsWrapper}>
-        {context.userLogado.posts &&
-          context.userLogado.posts.map((m, i) => {
-            return (
-              <div key={'post' + i} className={styles.cardPost}>
-                <span>{m.post}</span>
-                <p className={styles.cardSignature}>
-                  <span className={styles.postUserNick}>
-                    @{context.userLogado.perfil.nick}
-                  </span>{' '}
-                  -{' '}
-                  {new Date(m.timestamp * 1000).toLocaleDateString('pt-Br', {
-                    day: '2-digit',
-                    month: 'short',
-                    year: '2-digit',
-                  })}{' '}
-                  -{' '}
-                  {new Date(m.timestamp * 1000).toLocaleTimeString('pt-Br', {
-                    hour: '2-digit',
-                    minute: '2-digit',
-                  })}
-                </p>
-              </div>
-            );
-          })}
+      {!textareaToogle && (
+        <div className={styles.postsWrapper}>
+          {posts &&
+            posts.map((m, i) => {
+              return (
+                <div key={'post' + i} className={styles.cardPost}>
+                  <span>{m.post}</span>
+                  <p className={styles.cardSignature}>
+                    <span className={styles.postUserNick}>@{m.name}</span> -{' '}
+                    {new Date(m.timestamp * 1000).toLocaleDateString('pt-Br', {
+                      day: '2-digit',
+                      month: 'short',
+                      year: '2-digit',
+                    })}{' '}
+                    -{' '}
+                    {new Date(m.timestamp * 1000).toLocaleTimeString('pt-Br', {
+                      hour: '2-digit',
+                      minute: '2-digit',
+                    })}
+                  </p>
+                </div>
+              );
+            })}
 
-        {!context.userLogado.posts && <h3>Não há postagens. . .</h3>}
-      </div>
+          {!context.userLogado.posts && <h3>Não há postagens. . .</h3>}
+        </div>
+      )}
 
       {/* https://firebase.google.com/docs/firestore/query-data/queries?hl=pt-br#collection-group-query */}
 
