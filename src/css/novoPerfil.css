@@ -113,7 +113,7 @@
     position: sticky;
     top: 40px;
     background-color: #000;
-    z-index: 2;
+    z-index: 5;
     scrollbar-color: transparent transparent;
 }
 ul{

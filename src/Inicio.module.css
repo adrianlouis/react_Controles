@@ -26,11 +26,54 @@
 }
 
 .iconsWrapper{
-  /* border: 1px solid red; */
   padding: 1.5rem 0;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   width: 80%;
+}
+
+.fotoPerfil{
+  width: 100%;
+  height: 100%;
+  border-radius: 100px;
+  background-color: black;
+}
+
+.canvWrapper{
+  width: 3rem;
+  height: 3rem;
+  border-radius: 3rem;
+  margin: 0 1rem 0 0;
+
+}
+
+.nickDate{
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+}
+
+.postUserData{
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  margin: .75rem 0;
+}
+.postUserData i{
+  width: 2rem;
+  height: 2rem;
+  border-radius: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto 0;
+  position: absolute;
+  right: .5rem;
+  top: 1rem;
+}
+.userDataNick{
+  margin: unset;
+  text-transform: lowercase;
 }
 
 .iconsWrapper i{
@@ -44,6 +87,19 @@
 
 }
 
+.socialIcons{
+  /* border: 1px solid red; */
+  height: 1.5rem;
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.socialIcons i{
+  /* margin-right: 1.5rem; */
+  font-size: 1.2rem;
+}
 
 .cardPost{
   border: 2px solid #444;
@@ -51,12 +107,15 @@
   color: #d1d1d1;
   border-radius: .5rem;
   margin: 1.5rem .5rem ;
-  padding: 1rem .5rem .3rem;
+  padding: 0 .5rem .5rem ;
   position: relative;
 }
 
+.postsWrapper .cardPost:nth-last-child(1){
+  margin-bottom: 8rem;
+}
+
 .cardSignature{
-  margin-top: 1rem;
   font-size: .8rem;
   text-align: left;
   text-transform: lowercase;

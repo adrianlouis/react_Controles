@@ -34,6 +34,8 @@ export async function GET_POSTS() {
         ...doc.data().posts.map((m) => {
           return {
             name: doc.data().perfil.nick,
+            foto: doc.data().perfil.foto,
+            crop: doc.data().perfil.fotoCrop,
             post: m.post,
             timestamp: m.timestamp,
           };
@@ -44,6 +46,34 @@ export async function GET_POSTS() {
     }
   });
 
-  // console.log(postagens);
   return postagens;
+}
+
+export async function a() {
+  const nickRef = collection(db, 'users');
+  const q = query(nickRef, where('avaria', '==', true));
+  const qSnap = await getDocs(q);
+  const nickArr = [];
+  qSnap.forEach((doc) => {
+    console.log(doc.data());
+    nickArr.push(doc.data());
+  });
+  return nickArr;
+}
+
+export async function simpleQuery(nick) {
+  const ref = collection(db, 'users');
+  const q = query(ref, where('perfil.nick', '!=', nick));
+
+  const querySnapshot = await getDocs(q);
+  let arr = [];
+  querySnapshot.forEach((doc) => {
+    // console.log(doc.data().nome);
+    arr.push({
+      nick: doc.data().perfil.nick,
+      foto: doc.data().perfil.foto,
+      crop: doc.data().perfil.fotoCrop,
+    });
+  });
+  return arr;
 }

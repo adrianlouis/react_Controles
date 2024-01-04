@@ -233,21 +233,6 @@ const Login = () => {
     setRegMsg({ nome: false, email: false, senha: false });
     setRegOk({ nome: false, email: false, senha: false, confSenha: false });
     setToggleConfSenhaTexto(false);
-
-    // if (form === 1) {
-    //   if (
-    //     localStorage.getItem('logStorageEmail') &&
-    //     localStorage.getItem('logStoragePass')
-    //   ) {
-    //     const email = localStorage.getItem('logStorageEmail');
-    //     const senha = localStorage.getItem('logStoragePass');
-
-    //     setLoginInput({ ...loginInput, nome: email, senha: senha });
-    //     setRemember(true);
-    //   }
-    // } else {
-    //   setLoginInput({ nome: '', senha: '' });
-    // }
   }, [form]);
 
   // VALIDAR SENHA COM REGEX

@@ -15,6 +15,7 @@ import {
   getDoc,
   updateDoc,
 } from 'firebase/firestore';
+import Navbar from './components/Navbar';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -391,7 +392,7 @@ const Home = () => {
         <p className={styles.quote}>{context.userLogado.perfil.quote}</p>
       </div>
 
-      <div id="linksScroll">
+      {/* <div id="linksScroll">
         <ul id="navbarPerfil">
           <li
             className="liVerde"
@@ -423,7 +424,8 @@ const Home = () => {
             Medição de Gás
           </li>
         </ul>
-      </div>
+      </div> */}
+      <Navbar />
       <Outlet />
       <Footer />
     </div>

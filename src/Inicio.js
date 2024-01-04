@@ -1,7 +1,13 @@
 import React from 'react';
 import BtnNewPost from './components/BtnNewPost';
 import styles from './Inicio.module.css';
-import { GET_POSTS, UPDATE_DATA, USER_GET } from './funcoes/Api';
+import {
+  GET_POSTS,
+  UPDATE_DATA,
+  USER_GET,
+  a,
+  simpleQuery,
+} from './funcoes/Api';
 import { GlobalContext } from './GlobalContext';
 import { Timestamp } from 'firebase/firestore';
 
@@ -11,8 +17,10 @@ const Inicio = () => {
   const context = React.useContext(GlobalContext);
   const userId = context.userLogado.id;
   const [posts, setPosts] = React.useState();
+  const [prof, setProf] = React.useState(null);
+  const [userCrops, setUserCrops] = React.useState([]);
 
-  const tes = async () => {
+  const timelineOrder = async () => {
     const getPost = await GET_POSTS();
     const stamps = getPost
       .map((m) => {
@@ -35,10 +43,18 @@ const Inicio = () => {
     });
     setPosts(narr);
   };
-  React.useEffect(() => {
-    tes();
-    console.log('tes');
-  }, [textareaToogle]);
+
+  const test = async () => {
+    const res = await a();
+    // console.log(res);
+    return res;
+  };
+
+  const getPostPhotos = async () => {
+    const res = await simpleQuery(context.userLogado.perfil.nick);
+    setUserCrops(res);
+    return res;
+  };
 
   async function handleSave() {
     const timestamp = Timestamp.fromDate(new Date()).seconds;
@@ -59,6 +75,45 @@ const Inicio = () => {
     setTextareaToogle(false);
   }
 
+  if (context.imgTemp.foto && context.imgTemp.fCrop) {
+    const canvas = document.querySelectorAll('#canva');
+    canvas.forEach((el) => {
+      const ctx = el.getContext('2d');
+      const img = new Image();
+      img.src = context.imgTemp.foto;
+      img.onload = () => {
+        ctx.drawImage(img, ...context.imgTemp.fCrop);
+      };
+    });
+  }
+
+  const user = async () => {
+    const perfil = await USER_GET(userId);
+    // console.log(perfil.perfil.foto);
+    setProf(perfil.perfil.foto);
+    return perfil;
+  };
+
+  function fotopost(ind, foto, crop) {
+    const canvas = document.querySelector(`#canv${ind}`);
+    if (canvas) {
+      const ctx = canvas.getContext('2d');
+      const img = new Image();
+      img.src = foto;
+      img.onload = () => {
+        ctx.drawImage(img, ...crop);
+      };
+    } else {
+      return;
+    }
+  }
+
+  React.useEffect(() => {
+    timelineOrder();
+    user();
+    getPostPhotos();
+  }, [textareaToogle]);
+
   return (
     <div>
       {!textareaToogle && (
@@ -75,20 +130,47 @@ const Inicio = () => {
             posts.map((m, i) => {
               return (
                 <div key={'post' + i} className={styles.cardPost}>
-                  <span>{m.post}</span>
-                  <p className={styles.cardSignature}>
-                    <span className={styles.postUserNick}>@{m.name}</span> -{' '}
-                    {new Date(m.timestamp * 1000).toLocaleDateString('pt-Br', {
-                      day: '2-digit',
-                      month: 'short',
-                      year: '2-digit',
-                    })}{' '}
-                    -{' '}
-                    {new Date(m.timestamp * 1000).toLocaleTimeString('pt-Br', {
-                      hour: '2-digit',
-                      minute: '2-digit',
-                    })}
-                  </p>
+                  <div className={styles.postUserData}>
+                    <div className={styles.canvWrapper}>
+                      <canvas
+                        className={`${styles.fotoPerfil} canvasFotoPost`}
+                        width="80"
+                        height="80"
+                        id={`canv${i}`}
+                      ></canvas>
+                      {fotopost(i, m.foto, m.crop)}
+                    </div>
+                    <div className={styles.nickDate}>
+                      <span className={styles.userDataNick}>@{m.name}</span>
+                      <span className={styles.cardSignature}>
+                        {new Date(m.timestamp * 1000).toLocaleDateString(
+                          'pt-Br',
+                          {
+                            day: '2-digit',
+                            month: 'short',
+                            year: '2-digit',
+                          },
+                        )}{' '}
+                        -{' '}
+                        {new Date(m.timestamp * 1000).toLocaleTimeString(
+                          'pt-Br',
+                          {
+                            hour: '2-digit',
+                            minute: '2-digit',
+                          },
+                        )}
+                        h.
+                      </span>
+                    </div>
+                    <i className="fa-solid fa-ellipsis-vertical"></i>
+                  </div>
+                  <span className={styles.txtPost}>{m.post}</span>
+                  <div className={styles.socialIcons}>
+                    <i className="fa-regular fa-comment"></i>
+                    <i className="fa-regular fa-thumbs-up"></i>
+                    <i className="fa-solid fa-retweet"></i>
+                    <i className="fa-solid fa-thumbtack"></i>
+                  </div>
                 </div>
               );
             })}
