@@ -1,5 +1,7 @@
 import {
   collection,
+  deleteDoc,
+  deleteField,
   doc,
   getDoc,
   getDocs,
@@ -49,17 +51,16 @@ export async function GET_POSTS() {
   return postagens;
 }
 
-export async function a() {
-  const nickRef = collection(db, 'users');
-  const q = query(nickRef, where('avaria', '==', true));
-  const qSnap = await getDocs(q);
-  const nickArr = [];
-  qSnap.forEach((doc) => {
-    console.log(doc.data());
-    nickArr.push(doc.data());
-  });
-  return nickArr;
-}
+// export async function a() {
+//   const nickRef = collection(db, 'users');
+//   const q = query(nickRef, where('avaria', '==', true));
+//   const qSnap = await getDocs(q);
+//   const nickArr = [];
+//   qSnap.forEach((doc) => {
+//     nickArr.push(doc.data());
+//   });
+//   return nickArr;
+// }
 
 export async function simpleQuery(nick) {
   const ref = collection(db, 'users');
@@ -77,3 +78,11 @@ export async function simpleQuery(nick) {
   });
   return arr;
 }
+
+// DELETAR TODO O ARRAY
+// export async function DEL_POST(userId) {
+//   const userRef = doc(db, 'users', userId);
+//   await updateDoc(userRef, {
+//     posts: deleteField(),
+//   });
+// }

@@ -2,6 +2,7 @@ import React from 'react';
 import BtnNewPost from './components/BtnNewPost';
 import styles from './Inicio.module.css';
 import {
+  DEL_POST,
   GET_POSTS,
   UPDATE_DATA,
   USER_GET,
@@ -19,6 +20,8 @@ const Inicio = () => {
   const [posts, setPosts] = React.useState();
   const [prof, setProf] = React.useState(null);
   const [userCrops, setUserCrops] = React.useState([]);
+  const [postModal, setPostModal] = React.useState(false);
+  const [stampToDel, setStampToDel] = React.useState(null);
 
   const timelineOrder = async () => {
     const getPost = await GET_POSTS();
@@ -44,11 +47,11 @@ const Inicio = () => {
     setPosts(narr);
   };
 
-  const test = async () => {
-    const res = await a();
-    // console.log(res);
-    return res;
-  };
+  // const test = async () => {
+  //   const res = await a();
+  //   // console.log(res);
+  //   return res;
+  // };
 
   const getPostPhotos = async () => {
     const res = await simpleQuery(context.userLogado.perfil.nick);
@@ -108,6 +111,24 @@ const Inicio = () => {
     }
   }
 
+  function handlePostMenu(tstamp) {
+    setPostModal(true);
+    setStampToDel(tstamp);
+  }
+
+  async function handleExclude() {
+    setPostModal(false);
+
+    const itemToDel = context.userLogado.posts.filter((f) => {
+      return f.timestamp !== stampToDel;
+    });
+
+    await UPDATE_DATA(userId, itemToDel, 'posts');
+    const user = await USER_GET(userId);
+    context.setUserLogado(user);
+    timelineOrder();
+  }
+
   React.useEffect(() => {
     timelineOrder();
     user();
@@ -126,6 +147,27 @@ const Inicio = () => {
 
       {!textareaToogle && (
         <div className={styles.postsWrapper}>
+          {postModal && (
+            <div
+              className={styles.postMenuModal}
+              onClick={() => {
+                setPostModal(false);
+              }}
+            >
+              <p
+                className="animeUp"
+                onClick={() => {
+                  handleExclude();
+                }}
+              >
+                <i className="fa-regular fa-trash-can"></i>
+                Excluir
+              </p>
+              <p className="animeUp">
+                <i className="fa-solid fa-pencil"></i>Editar
+              </p>
+            </div>
+          )}
           {posts &&
             posts.map((m, i) => {
               return (
@@ -162,7 +204,16 @@ const Inicio = () => {
                         h.
                       </span>
                     </div>
-                    <i className="fa-solid fa-ellipsis-vertical"></i>
+                    {m.name === context.userLogado.perfil.nick ? (
+                      <i
+                        className={`fa-solid fa-ellipsis-vertical ${styles.menuPost}`}
+                        onClick={() => {
+                          handlePostMenu(m.timestamp);
+                        }}
+                      ></i>
+                    ) : (
+                      ''
+                    )}
                   </div>
                   <span className={styles.txtPost}>{m.post}</span>
                   <div className={styles.socialIcons}>

@@ -60,6 +60,11 @@ h3{
   animation-duration: .3s;
 }
 
+.animeUp{
+  animation: loadUp;
+  animation-duration: .3s;
+}
+
 
 @keyframes loadleft {
   from{
@@ -68,5 +73,15 @@ h3{
   }to{
       transform: translate(0px);
       opacity:1
+  }
+}
+
+@keyframes loadUp {
+  from{
+    transform: translateY(15px);
+    opacity: 0;
+  }to{
+    transform: translateY(0);
+    opacity: 1;
   }
 }
