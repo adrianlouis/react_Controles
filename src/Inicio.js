@@ -144,16 +144,23 @@ const Inicio = () => {
 
   return (
     <div>
-      {!textareaToogle && (
+      {/* {!textareaToogle && (
         <BtnNewPost
           onclick={() => {
             setTextareaToogle(!textareaToogle);
           }}
         />
-      )}
+      )} */}
 
       {!textareaToogle && (
         <div className={styles.postsWrapper}>
+          '{' '}
+          <BtnNewPost
+            onclick={() => {
+              setTextareaToogle(!textareaToogle);
+            }}
+          />
+          '
           {postModal && (
             <div
               className={styles.postMenuModal}
@@ -233,7 +240,6 @@ const Inicio = () => {
                 </div>
               );
             })}
-
           {!context.userLogado.posts && <h3>Não há postagens. . .</h3>}
         </div>
       )}
@@ -247,7 +253,7 @@ const Inicio = () => {
             name=""
             id=""
             cols="30"
-            rows="8"
+            rows="6"
             value={post}
             onChange={({ target }) => handleTextArea(target.value)}
           ></textarea>

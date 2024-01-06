@@ -11,7 +11,7 @@ const Footer = () => {
         onClick={() => navigate('/home/inicio')}
       ></i>
       <i className="fa-solid fa-magnifying-glass"></i>
-      <i className="fa-solid fa-users"></i>
+      <i className="fa-solid fa-users" onClick={() => navigate('/profile')}></i>
       <i className="fa-solid fa-envelope"></i>
     </footer>
   );

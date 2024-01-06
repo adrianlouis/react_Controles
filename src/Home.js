@@ -28,7 +28,7 @@ const Home = () => {
   const [openMenu, setOpenMenu] = React.useState(false);
   const local = useLocation();
   const [menuLabel, setMenuLabel] = React.useState('');
-  const [newItem, setNewItem] = React.useState(true);
+  const [newItem, setNewItem] = React.useState(false);
 
   // TO-DO: AO BUSCAR POR UM ITEM ESPECIFICO PELO NUMERO, EM HD, LDE E EXT, A EDIÇÃO DO ITEM NÃO ESTÁ FUNCIONANDO CORRETAMENTE
 
@@ -234,17 +234,16 @@ const Home = () => {
 
     //PEGAR URL DO DOWNLOAD E APLICAR EM <CANVAS>
     getDownloadURL(fotoRef).then((url) => {});
-    setNewItem(true);
   }, []);
-  // console.log(local.pathname.slice(6));
 
-  // React.useEffect(() => {
-  //   if (local.pathname.slice(6) !== ('ext' || 'lde' || 'gas')) {
-  //     setNewItem(false);
-  //   } else {
-  //     setNewItem(true);
-  //   }
-  // }, [local.pathname]);
+  React.useEffect(() => {
+    const path = local.pathname.slice(6);
+    if (path.length > 3) {
+      setNewItem(false);
+    } else {
+      setNewItem(true);
+    }
+  }, [local.pathname]);
 
   function handleNavlink(elem, link) {
     const links = document.querySelectorAll('#navbarPerfil li');
@@ -325,23 +324,19 @@ const Home = () => {
     const path = local.pathname.slice(6);
     switch (path) {
       case 'hd':
-        setNewItem(false);
         navigate('hd/hdnovo');
         break;
       case 'ext':
-        setNewItem(false);
         navigate('ext/extnovo');
         break;
       case 'lde':
-        setNewItem(false);
         navigate('lde/ldenovo');
         break;
       case 'gas':
-        setNewItem(false);
         navigate('gas/gasnovo');
         break;
       default:
-        navigate('/inicio');
+        setNewItem(false);
         break;
     }
   }
@@ -461,7 +456,6 @@ const Home = () => {
       </div> */}
       {newItem && <BtnNewPost onclick={() => handleAction()} />}{' '}
       <Navbar onclick={() => setNewItem(true)} />
-      {console.log(newItem)}
       <Outlet />
       <Footer />
     </div>

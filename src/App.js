@@ -32,6 +32,7 @@ import NotFound from './NotFound';
 import EditPerfil from './EditPerfil';
 import Footer from './Footer';
 import Inicio from './Inicio.js';
+import FriendProfile from './components/FriendProfile.js';
 
 function App() {
   return (
@@ -65,6 +66,8 @@ function App() {
             <Route exact path="gas/edit/:id" element={<GasEdit />} />
             {/* <Route exact path='lde' element={<LdE/>} /> */}
           </Route>
+
+          <Route path="profile" element={<FriendProfile />} />
 
           <Route path="editprofile" element={<EditPerfil />} />
 
