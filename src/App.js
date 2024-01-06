@@ -67,7 +67,7 @@ function App() {
             {/* <Route exact path='lde' element={<LdE/>} /> */}
           </Route>
 
-          <Route path="profile" element={<FriendProfile />} />
+          <Route path="profile/:user" element={<FriendProfile />} />
 
           <Route path="editprofile" element={<EditPerfil />} />
 

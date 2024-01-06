@@ -275,6 +275,7 @@ const EditPerfil = () => {
     // SALVAR FOTO DO PERFIL NO FIREBASE STORAGE
     if (context.imgTemp.fileFoto && excluirFotos.foto === false) {
       setLoading(true);
+      // NA LINHA ABAIXO MODIFIQUEI O ID DO USERLOGADO PARA O PERFIL NICK, PARA FUTURAS BUSCAS EM OUTRAS PARTES DO SITE
       const fotoPerfil = ref(storage, `${context.userLogado.id}fotoPerfil.jpg`);
       uploadBytes(fotoPerfil, context.imgTemp.fileFoto).then((snapshot) => {
         setLoading(false);

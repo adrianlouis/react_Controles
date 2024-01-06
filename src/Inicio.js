@@ -11,8 +11,10 @@ import {
 } from './funcoes/Api';
 import { GlobalContext } from './GlobalContext';
 import { Timestamp } from 'firebase/firestore';
+import { useNavigate } from 'react-router-dom';
 
 const Inicio = () => {
+  const navigate = useNavigate();
   const [textareaToogle, setTextareaToogle] = React.useState(false);
   const [post, setPost] = React.useState('');
   const context = React.useContext(GlobalContext);
@@ -197,7 +199,12 @@ const Inicio = () => {
                       {fotopost(i, m.foto, m.crop)}
                     </div>
                     <div className={styles.nickDate}>
-                      <span className={styles.userDataNick}>@{m.name}</span>
+                      <span
+                        className={styles.userDataNick}
+                        onClick={() => navigate(`/profile/user?nick=${m.name}`)}
+                      >
+                        @{m.name}
+                      </span>
                       <span className={styles.cardSignature}>
                         {new Date(m.timestamp * 1000).toLocaleDateString(
                           'pt-Br',
@@ -229,7 +236,6 @@ const Inicio = () => {
                       ''
                     )}
                   </div>
-                  {/* <span className={styles.txtPost}>{m.post}</span> */}
                   <div className={styles.txtPost}>{m.post}</div>
                   <div className={styles.socialIcons}>
                     <i className="fa-regular fa-comment"></i>

@@ -76,6 +76,11 @@
   margin: unset;
   text-transform: lowercase;
 }
+.userDataNick:hover{
+  text-decoration: underline;
+  color: #a1f1f1;
+  cursor: pointer;
+}
 
 .iconsWrapper i{
   font-size: 1.5rem;

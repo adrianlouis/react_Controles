@@ -1,13 +1,144 @@
 .header{
   width: 100%;
   text-align: center;
+}
+/* 
+.body{
   display: flex;
+  justify-content: center;
   align-items: center;
-  justify-content: start;
+} */
+
+.canvPicWrapper{
+  border-radius: 5rem;
+  height: 5rem;
+  width: 5rem;
+  border: 2px solid #000;
+  position: absolute;
+  left: 1.5rem;
+  top: 6rem;
+  background-color: #000;
+  overflow: hidden;
+}
+
+.headerUserData{
+  display: flex;
   flex-direction: column;
-  position: sticky;
-  top: 0;
-  /* background-color: #000; */
-  z-index: 1;
-  border: 2px solid greenyellow;
+  align-items: flex-start;
+  justify-content: space-evenly;
+  text-align: start;
+  padding: 3rem 1.5rem 1rem;
+}
+.headerUserData *{
+  margin: 0;
+}
+
+.nome{
+  color: #d1d1d1;
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+.quote{
+  margin: 1rem 0 0;
+  color: #d1d1d1;
+}
+
+.cardPost{
+  border: 2px solid #444;
+  background-color: #111;
+  color: #d1d1d1;
+  border-radius: .5rem;
+  margin: 1.5rem .5rem ;
+  padding: 0 .5rem .5rem ;
+  position: relative;
+}
+
+.postsWrapper .cardPost:nth-last-child(1){
+  margin-bottom: 8rem;
+}
+.canvWrapper{
+  width: 3rem;
+  height: 3rem;
+  border-radius: 3rem;
+  margin: 0 1rem 0 0;
+
+}
+.fotoPerfil{
+  width: 100%;
+  height: 100%;
+  border-radius: 100px;
+  background-color: black;
+}
+
+.nickDate{
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+}
+
+.userDataNick{
+  margin: unset;
+  text-transform: lowercase;
+  margin: 0;
+  text-align: start;
+}
+.userDataNick:hover{
+  text-decoration: underline;
+  color: #a1f1f1;
+  cursor: pointer;
+}
+.cardSignature{
+  font-size: .8rem;
+  text-align: left;
+  text-transform: lowercase;
+  color: #848484;
+  cursor: pointer;
+}
+
+.menuPost{
+  cursor: pointer;
+  width: 1.75rem;
+  height: 1.75rem;
+  background-color: #0003;
+}
+
+.txtPost{
+  text-align: start;
+  background-color: transparent;
+  /* color: #afe; */
+  white-space: pre-line;
+  /* display: block; */
+  border: none;
+}
+
+.socialIcons{
+  /* border: 1px solid red; */
+  height: 1.5rem;
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.socialIcons i{
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+.postUserData{
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  margin: .75rem 0;
+}
+.postUserData i{
+  width: 2rem;
+  height: 2rem;
+  border-radius: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto 0;
+  position: absolute;
+  right: .5rem;
+  top: 1rem;
 }

@@ -79,6 +79,18 @@ export async function simpleQuery(nick) {
   return arr;
 }
 
+export async function GET_USER_BY_NICK(nick) {
+  const ref = collection(db, 'users');
+  const q = query(ref, where('perfil.nick', '==', nick));
+
+  const querySnapshot = await getDocs(q);
+  let arr = [];
+  querySnapshot.forEach((doc) => {
+    arr.push({ ...doc.data(), id: doc.id });
+  });
+  return arr;
+}
+
 // DELETAR TODO O ARRAY
 // export async function DEL_POST(userId) {
 //   const userRef = doc(db, 'users', userId);
