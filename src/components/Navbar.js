@@ -2,7 +2,7 @@ import React from 'react';
 import { GlobalContext } from '../GlobalContext';
 import { useNavigate } from 'react-router-dom';
 
-const Navbar = () => {
+const Navbar = ({ onclick }) => {
   const context = React.useContext(GlobalContext);
   const navigate = useNavigate();
 
@@ -19,7 +19,7 @@ const Navbar = () => {
     navigate(link);
   }
   return (
-    <div id="linksScroll">
+    <div id="linksScroll" onClick={onclick}>
       <ul id="navbarPerfil">
         <li
           className="liVerde"

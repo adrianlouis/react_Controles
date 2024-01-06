@@ -234,17 +234,17 @@ const Home = () => {
 
     //PEGAR URL DO DOWNLOAD E APLICAR EM <CANVAS>
     getDownloadURL(fotoRef).then((url) => {});
+    setNewItem(true);
   }, []);
   // console.log(local.pathname.slice(6));
 
-  React.useEffect(() => {
-    if (local.pathname.slice(6) !== ('ext' || 'lde' || 'gas')) {
-      console.log(local.pathname.slice(6));
-      setNewItem(false);
-    } else {
-      setNewItem(true);
-    }
-  }, [local.pathname]);
+  // React.useEffect(() => {
+  //   if (local.pathname.slice(6) !== ('ext' || 'lde' || 'gas')) {
+  //     setNewItem(false);
+  //   } else {
+  //     setNewItem(true);
+  //   }
+  // }, [local.pathname]);
 
   function handleNavlink(elem, link) {
     const links = document.querySelectorAll('#navbarPerfil li');
@@ -328,9 +328,20 @@ const Home = () => {
         setNewItem(false);
         navigate('hd/hdnovo');
         break;
-
+      case 'ext':
+        setNewItem(false);
+        navigate('ext/extnovo');
+        break;
+      case 'lde':
+        setNewItem(false);
+        navigate('lde/ldenovo');
+        break;
+      case 'gas':
+        setNewItem(false);
+        navigate('gas/gasnovo');
+        break;
       default:
-        navigate('home/inicio');
+        navigate('/inicio');
         break;
     }
   }
@@ -448,7 +459,9 @@ const Home = () => {
           </li>
         </ul>
       </div> */}
-      {newItem && <BtnNewPost onclick={() => handleAction()} />} <Navbar />
+      {newItem && <BtnNewPost onclick={() => handleAction()} />}{' '}
+      <Navbar onclick={() => setNewItem(true)} />
+      {console.log(newItem)}
       <Outlet />
       <Footer />
     </div>

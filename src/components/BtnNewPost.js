@@ -3,7 +3,7 @@ import styles from './BtnNewPost.module.css';
 
 const BtnNewPost = ({ onclick }) => {
   return (
-    <div className={styles.newPost} onClick={onclick}>
+    <div className={`${styles.newPost} animateLeft`} onClick={onclick}>
       <i className="fa-solid fa-circle-plus"></i>
     </div>
   );

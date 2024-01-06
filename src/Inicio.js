@@ -132,8 +132,8 @@ const Inicio = () => {
   function handleTextArea(v) {
     setPost(v);
 
-    const convert = v.replace(/[^\n]/g, 'oi');
-    console.log(convert);
+    // const convert = v.replace(/[^\n]/g, 'oi');
+    // console.log(convert);
   }
 
   React.useEffect(() => {
@@ -223,7 +223,7 @@ const Inicio = () => {
                     )}
                   </div>
                   {/* <span className={styles.txtPost}>{m.post}</span> */}
-                  <span className={styles.txtPost}>{m.post}</span>
+                  <div className={styles.txtPost}>{m.post}</div>
                   <div className={styles.socialIcons}>
                     <i className="fa-regular fa-comment"></i>
                     <i className="fa-regular fa-thumbs-up"></i>
