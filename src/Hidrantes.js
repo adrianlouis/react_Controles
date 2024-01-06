@@ -250,11 +250,11 @@ const Hidrantes = () => {
           })}
       </div>
 
-      {/* <Footer
+      <Footer
         numeroItens={context.userLogado.hd.length}
         itens={{ hidrantes: context.userLogado.hd }}
         novoItem={'hdnovo'}
-      ></Footer> */}
+      ></Footer>
       {context.searchInput && (
         <SearchItens
           itens={context.userLogado.hd}

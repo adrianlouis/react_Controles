@@ -16,6 +16,7 @@ import {
   updateDoc,
 } from 'firebase/firestore';
 import Navbar from './components/Navbar';
+import BtnNewPost from './components/BtnNewPost';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -27,6 +28,7 @@ const Home = () => {
   const [openMenu, setOpenMenu] = React.useState(false);
   const local = useLocation();
   const [menuLabel, setMenuLabel] = React.useState('');
+  const [newItem, setNewItem] = React.useState(true);
 
   // TO-DO: AO BUSCAR POR UM ITEM ESPECIFICO PELO NUMERO, EM HD, LDE E EXT, A EDIÇÃO DO ITEM NÃO ESTÁ FUNCIONANDO CORRETAMENTE
 
@@ -233,6 +235,16 @@ const Home = () => {
     //PEGAR URL DO DOWNLOAD E APLICAR EM <CANVAS>
     getDownloadURL(fotoRef).then((url) => {});
   }, []);
+  // console.log(local.pathname.slice(6));
+
+  React.useEffect(() => {
+    if (local.pathname.slice(6) !== ('ext' || 'lde' || 'gas')) {
+      console.log(local.pathname.slice(6));
+      setNewItem(false);
+    } else {
+      setNewItem(true);
+    }
+  }, [local.pathname]);
 
   function handleNavlink(elem, link) {
     const links = document.querySelectorAll('#navbarPerfil li');
@@ -309,6 +321,20 @@ const Home = () => {
     });
   }
 
+  function handleAction() {
+    const path = local.pathname.slice(6);
+    switch (path) {
+      case 'hd':
+        setNewItem(false);
+        navigate('hd/hdnovo');
+        break;
+
+      default:
+        navigate('home/inicio');
+        break;
+    }
+  }
+
   return (
     <div>
       <div id="wppCanvasWrapper" className={styles.wpp}>
@@ -319,7 +345,6 @@ const Home = () => {
           height={larguraTela / 3}
         ></canvas>
       </div>
-
       <div className={styles.minHeader}>
         <span
           id="headerProfName"
@@ -354,7 +379,6 @@ const Home = () => {
           </div>
         )}
       </div>
-
       <div id="perfilWrapper" className={styles.perfil}>
         <div>
           <canvas
@@ -391,7 +415,6 @@ const Home = () => {
         </span>
         <p className={styles.quote}>{context.userLogado.perfil.quote}</p>
       </div>
-
       {/* <div id="linksScroll">
         <ul id="navbarPerfil">
           <li
@@ -425,7 +448,7 @@ const Home = () => {
           </li>
         </ul>
       </div> */}
-      <Navbar />
+      {newItem && <BtnNewPost onclick={() => handleAction()} />} <Navbar />
       <Outlet />
       <Footer />
     </div>

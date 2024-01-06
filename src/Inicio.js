@@ -129,6 +129,13 @@ const Inicio = () => {
     timelineOrder();
   }
 
+  function handleTextArea(v) {
+    setPost(v);
+
+    const convert = v.replace(/[^\n]/g, 'oi');
+    console.log(convert);
+  }
+
   React.useEffect(() => {
     timelineOrder();
     user();
@@ -215,6 +222,7 @@ const Inicio = () => {
                       ''
                     )}
                   </div>
+                  {/* <span className={styles.txtPost}>{m.post}</span> */}
                   <span className={styles.txtPost}>{m.post}</span>
                   <div className={styles.socialIcons}>
                     <i className="fa-regular fa-comment"></i>
@@ -241,7 +249,7 @@ const Inicio = () => {
             cols="30"
             rows="8"
             value={post}
-            onChange={({ target }) => setPost(target.value)}
+            onChange={({ target }) => handleTextArea(target.value)}
           ></textarea>
           <div className={styles.iconsWrapper}>
             <div
