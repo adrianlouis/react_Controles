@@ -1,7 +1,5 @@
 import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import AcoesCriandoItem from './AcoesCriandoItem';
-import css from './css/gas.css';
 import { GlobalContext } from './GlobalContext';
 import { updateBd } from './crudFireBase';
 import styles from './Gas.module.css';
@@ -17,25 +15,6 @@ const GasNovo = () => {
       minute: '2-digit',
     }),
   };
-  // const [medidores, setMedidores] = React.useState({
-  //     id:id,
-  //     diaCriado:dataFull.data,
-  //     horaCriado:dataFull.hora,
-  //     l128:'',
-  //     l132:'',
-  //     l137:'',
-  //     l141:'',
-  //     l152:'',
-  //     l154:'',
-  //     l157:''
-  // })
-
-  // React.useEffect(()=>{
-  //   window.scrollTo({top:0, left:0,behavior:'smooth'})
-  //   console.log('Wadda?!')
-  // },[])
-
-  // window.scrollTo(0,0)
 
   // ENCONTRAR ID
   function novoId() {
@@ -60,13 +39,6 @@ const GasNovo = () => {
     navigate('/home/gas');
   }
 
-  // React.useEffect(()=>{
-  //     updateBd(ctx.userLogado.id, {gas:[...ctx.userLogado.gas]})
-  // },[ctx.userLogado.gas])
-
-  //     id:id,
-  //     diaCriado:dataFull.data,
-  //     horaCriado:dataFull.hora,
   const [medicao, setMedicao] = React.useState({ loja: '', medicao: '' });
   const [medidores, setMedidores] = React.useState({
     id: id,
@@ -90,41 +62,30 @@ const GasNovo = () => {
 
     setMedidores({ ...medidores, medicao: abah });
   }
-  // console.log(medidores)
 
   return (
     <div className={styles.edicaoContainer}>
       <div>
-        {medidores.medicao.map((m, i) => {
-          return (
-            <div className={styles.wrapperEdicaoGas}>
-              <p id="listaAddGasSpan">
-                <i className="fa-solid fa-store"></i> {m.loja} -{' '}
-                <i className="fa-solid fa-gauge"></i> {m.medicao}
-              </p>
-              <i
-                className="fa-regular fa-trash-can"
-                onClick={() => excluirLinha(i)}
-              ></i>
-            </div>
-          );
-        })}
-
-        {/* <div className='addGasLine'>
-                <div>
-                    <label htmlFor='numeroLoja'>Loja</label>
-                    <input id='numeroLoja' type='tel' maxLength={3} onChange={({target})=>setMedicao({...medicao, loja:target.value})} value={medicao.loja}></input>
+        <div className={styles.recordsWrapper}>
+          {medidores.medicao.map((m, i) => {
+            return (
+              <div className={styles.recordsLine}>
+                <div className={styles.recordsItens}>
+                  <i className="fa-solid fa-store"></i> {m.loja}
                 </div>
-
-                <div>
-                    <label htmlFor='gasMedicao'>Medicao</label>
-                    <input id='gasMedicao' type='tel' maxLength={8} onChange={({target})=>setMedicao({...medicao, medicao:target.value})} value={medicao.medicao} ></input>
+                <div className={styles.recGasWrapper}>
+                  <i className="fa-solid fa-gauge"></i> {m.medicao}
                 </div>
-
-                <div className='gasAcoes'>
-                    <i className="fa-solid fa-square-plus" onClick={()=>addMedicaoDeLoja()}></i>
+                <div className={styles.recDelIcon}>
+                  <i
+                    className="fa-regular fa-trash-can"
+                    onClick={() => excluirLinha(i)}
+                  ></i>
                 </div>
-            </div> */}
+              </div>
+            );
+          })}
+        </div>
 
         <div className={styles.addGasLine}>
           <div className={styles.inputWrapper}>
@@ -158,21 +119,14 @@ const GasNovo = () => {
             ></input>
           </div>
 
-          <div className="gasAcoes">
+          <div className={styles.plusIconWrapper}>
             <i
-              className="fa-solid fa-square-plus"
+              className={`fa-solid fa-square-plus ${styles.plusIcon}`}
               onClick={() => addMedicaoDeLoja()}
             ></i>
           </div>
         </div>
       </div>
-
-      {/* <fieldset className='fieldsetAcoes fieldsetFlexRow'>
-
-            <span onClick={()=>navigate(`/home/gas`)}>cancelar</span>
-            <span onClick={()=>save(ctx.userLogado.id)}>salvar</span>
-
-        </fieldset>         */}
 
       <div className={styles.editActBtn}>
         <span onClick={() => navigate('/home/gas')}>

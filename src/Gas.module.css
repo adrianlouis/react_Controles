@@ -48,7 +48,6 @@
     padding: .5rem .5rem;
     margin: .2rem .5rem 2rem .5rem;
     border-radius: .3rem;
-    
 }
 
 .btnAcoesWrap{
@@ -86,8 +85,8 @@ h2{
     border-radius: 1rem;
     padding:.5rem;
     display: flex;
-
-    justify-content: space-evenly;
+    align-items: center;
+    justify-content: space-between;
     margin: 20px 1rem;
     background-color: #141414;
 }
@@ -105,8 +104,29 @@ h2{
     border-radius: .5rem;
     background-color: #1f1f1f;
     padding: .2rem .7rem;
+    color: #b4b4b4;
     margin: 0 .5rem 0 0;
+}
+.inputWrapper:nth-child(2){
+    width: 50%;
+}
 
+.plusIcon{
+    color: rgb(166, 243, 166);
+    height: 2.08rem;
+    width: 2rem;
+    font-size: 1.2rem;
+    background-color: #1f1f1f;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.plusIconWrapper{
+    border-radius: .5rem;
+    overflow: hidden;
+    margin: 0;
 }
 
 .edicaoContainer{
@@ -133,7 +153,53 @@ h2{
     align-items: center;
 }
 
-/* .newStoreNumber{
-    border: 2px solid red;
-    background-color: white;
-} */
+
+.recordsWrapper{
+    margin: 0;
+    padding:  1rem;
+}
+.recordsLine{
+    background-color: #141414;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0;
+    overflow: hidden;
+    text-align: left;
+    color: #b4b4b4;
+    padding: .5rem;
+    padding-left: .3rem;
+}
+.recordsLine:nth-child(2n){
+    background-color: #212121;
+}
+.recordsLine:nth-child(1){
+    border-top-left-radius: .5rem;
+    border-top-right-radius: .5rem;
+}
+.recordsLine:last-child{
+    border-bottom-left-radius: .5rem;
+    border-bottom-right-radius: .5rem;
+}
+.recordsLine i{
+    margin: 0;
+}
+
+.recordsItens{
+    padding: .3rem 1rem;
+    width: 6rem;
+    margin: 0;
+}
+.recDelIcon{
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    color: #d37a7a;
+}
+.recGasWrapper{
+    margin: 0;
+    width: 50%;
+}
