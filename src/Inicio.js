@@ -148,13 +148,12 @@ const Inicio = () => {
     <div>
       {!textareaToogle && (
         <div className={styles.postsWrapper}>
-          '{' '}
           <BtnNewPost
             onclick={() => {
               setTextareaToogle(!textareaToogle);
             }}
           />
-          '
+
           {postModal && (
             <div
               className={styles.postMenuModal}
