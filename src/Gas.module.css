@@ -25,7 +25,7 @@
 .editActBtn{
     display: flex;
     justify-content: space-evenly;
-    margin: 25px 0;
+    margin: 25px 0 5rem;
 }
 
 .dados{
@@ -83,19 +83,30 @@ h2{
 
 
 .addGasLine{
-    border-top: 1px solid rgb(161, 161, 161);
-    border-bottom: 1px solid rgb(161, 161, 161);
-    /* border-radius: 10px; */
-    padding:15px 10px;
+    border-radius: 1rem;
+    padding:.5rem;
     display: flex;
+
     justify-content: space-evenly;
-    margin: 20px 0;
-    background-color: #090909;
+    margin: 20px 1rem;
+    background-color: #141414;
 }
 .addGasLine input{
     background-color: transparent;
+    height: 1.7rem;
+    margin-left: .3rem;
     border: none;
-    border-bottom: 1px solid rgb(161, 161, 161);
+}
+.addGasLine i{
+    font-size: 1.2rem;
+}
+
+.inputWrapper{
+    border-radius: .5rem;
+    background-color: #1f1f1f;
+    padding: .2rem .7rem;
+    margin: 0 .5rem 0 0;
+
 }
 
 .edicaoContainer{
@@ -121,3 +132,8 @@ h2{
     justify-content: center;
     align-items: center;
 }
+
+/* .newStoreNumber{
+    border: 2px solid red;
+    background-color: white;
+} */

@@ -146,14 +146,6 @@ const Inicio = () => {
 
   return (
     <div>
-      {/* {!textareaToogle && (
-        <BtnNewPost
-          onclick={() => {
-            setTextareaToogle(!textareaToogle);
-          }}
-        />
-      )} */}
-
       {!textareaToogle && (
         <div className={styles.postsWrapper}>
           '{' '}

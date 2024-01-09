@@ -99,10 +99,11 @@ const GasNovo = () => {
           return (
             <div className={styles.wrapperEdicaoGas}>
               <p id="listaAddGasSpan">
-                Loja: {m.loja} - Medição: {m.medicao}
+                <i className="fa-solid fa-store"></i> {m.loja} -{' '}
+                <i className="fa-solid fa-gauge"></i> {m.medicao}
               </p>
               <i
-                className="fa-solid fa-square-xmark"
+                className="fa-regular fa-trash-can"
                 onClick={() => excluirLinha(i)}
               ></i>
             </div>
@@ -126,10 +127,13 @@ const GasNovo = () => {
             </div> */}
 
         <div className={styles.addGasLine}>
-          <div>
-            <label htmlFor="numeroLoja">Loja: </label>
+          <div className={styles.inputWrapper}>
+            <label htmlFor="numeroLoja">
+              <i className="fa-solid fa-store"></i>
+            </label>
             <input
               id="numeroLoja"
+              className={styles.newStoreNumber}
               type="tel"
               maxLength={3}
               onChange={({ target }) =>
@@ -139,8 +143,10 @@ const GasNovo = () => {
             ></input>
           </div>
 
-          <div>
-            <label htmlFor="gasMedicao">Medicao: </label>
+          <div className={styles.inputWrapper}>
+            <label htmlFor="gasMedicao">
+              <i className="fa-solid fa-gauge"></i>{' '}
+            </label>
             <input
               id="gasMedicao"
               type="tel"
