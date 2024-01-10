@@ -61,7 +61,6 @@ const Header = () => {
         });
       });
     }
-    console.log(data.posts);
   }, [data]);
 
   React.useEffect(() => {

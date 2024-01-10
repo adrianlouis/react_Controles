@@ -1,17 +1,8 @@
 import React from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
 import useLocalStorage from './useLocalStorage';
 
 import { db } from './firebase-config';
-import {
-  collection,
-  getDocs,
-  addDoc,
-  updateDoc,
-  doc,
-  deleteDoc,
-} from 'firebase/firestore';
-import { refreshPages } from './funcoes/refresh';
+import { collection, getDocs, doc, deleteDoc } from 'firebase/firestore';
 
 export const GlobalContext = React.createContext();
 
@@ -29,9 +20,10 @@ export const GlobalStorage = ({ children }) => {
     wCrop: false,
   });
 
+  const [photosCash, setPhotosCash] = React.useState({});
+
   const [uploadLde, setUploadLde] = React.useState(false);
   const [lde, setLde] = React.useState([]);
-  const navigate = useNavigate();
   const [modalFooter, setModalFooter] = React.useState(0);
 
   const [itensFiltrados, setItensFiltrados] = React.useState('');
@@ -118,6 +110,8 @@ export const GlobalStorage = ({ children }) => {
         setSearchInput,
         token,
         setToken,
+        photosCash,
+        setPhotosCash,
       }}
     >
       {children}

@@ -12,6 +12,7 @@ import {
 import { GlobalContext } from './GlobalContext';
 import { Timestamp } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
+import CanvasPosts from './components/CanvasPosts';
 
 const Inicio = () => {
   const navigate = useNavigate();
@@ -48,12 +49,6 @@ const Inicio = () => {
     });
     setPosts(narr);
   };
-
-  // const test = async () => {
-  //   const res = await a();
-  //   // console.log(res);
-  //   return res;
-  // };
 
   const getPostPhotos = async () => {
     const res = await simpleQuery(context.userLogado.perfil.nick);
@@ -94,24 +89,23 @@ const Inicio = () => {
 
   const user = async () => {
     const perfil = await USER_GET(userId);
-    // console.log(perfil.perfil.foto);
     setProf(perfil.perfil.foto);
     return perfil;
   };
 
-  function fotopost(ind, foto, crop) {
-    const canvas = document.querySelector(`#canv${ind}`);
-    if (canvas) {
-      const ctx = canvas.getContext('2d');
-      const img = new Image();
-      img.src = foto;
-      img.onload = () => {
-        ctx.drawImage(img, ...crop);
-      };
-    } else {
-      return;
-    }
-  }
+  // function fotopost(ind, foto, crop) {
+  //   const canvas = document.querySelector(`#canv${ind}`);
+  //   if (canvas) {
+  //     const ctx = canvas.getContext('2d');
+  //     const img = new Image();
+  //     img.src = foto;
+  //     img.onload = () => {
+  //       ctx.drawImage(img, ...crop);
+  //     };
+  //   } else {
+  //     return;
+  //   }
+  // }
 
   function handlePostMenu(tstamp) {
     setPostModal(true);
@@ -133,9 +127,6 @@ const Inicio = () => {
 
   function handleTextArea(v) {
     setPost(v);
-
-    // const convert = v.replace(/[^\n]/g, 'oi');
-    // console.log(convert);
   }
 
   React.useEffect(() => {
@@ -181,13 +172,14 @@ const Inicio = () => {
                 <div key={'post' + i} className={styles.cardPost}>
                   <div className={styles.postUserData}>
                     <div className={styles.canvWrapper}>
-                      <canvas
+                      <CanvasPosts userId={m.userId} canvasId={`canv${i}`} />
+                      {/* <canvas
                         className={`${styles.fotoPerfil} canvasFotoPost`}
                         width="80"
                         height="80"
                         id={`canv${i}`}
                       ></canvas>
-                      {fotopost(i, m.foto, m.crop)}
+                      {fotopost(i, m.foto, m.crop)} */}
                     </div>
                     <div className={styles.nickDate}>
                       <span

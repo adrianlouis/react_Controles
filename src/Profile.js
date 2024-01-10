@@ -13,8 +13,6 @@ const Profile = () => {
     const userData = await USER_GET(id);
     setLoading(false);
     setUser(userData);
-    // console.log(userData);
-    // return userData;
   }
 
   React.useEffect(() => {

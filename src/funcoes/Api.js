@@ -40,6 +40,7 @@ export async function GET_POSTS() {
             crop: doc.data().perfil.fotoCrop,
             post: m.post,
             timestamp: m.timestamp,
+            userId: doc.id,
           };
         }),
       ];

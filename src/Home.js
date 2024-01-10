@@ -30,8 +30,6 @@ const Home = () => {
   const [menuLabel, setMenuLabel] = React.useState('');
   const [newItem, setNewItem] = React.useState(false);
 
-  // TO-DO: AO BUSCAR POR UM ITEM ESPECIFICO PELO NUMERO, EM HD, LDE E EXT, A EDIÇÃO DO ITEM NÃO ESTÁ FUNCIONANDO CORRETAMENTE
-
   React.useEffect(() => {
     switch (local.pathname) {
       case '/home/ext':
@@ -245,18 +243,18 @@ const Home = () => {
     }
   }, [local.pathname]);
 
-  function handleNavlink(elem, link) {
-    const links = document.querySelectorAll('#navbarPerfil li');
-    context.setItensFiltrados('');
+  // function handleNavlink(elem, link) {
+  //   const links = document.querySelectorAll('#navbarPerfil li');
+  //   context.setItensFiltrados('');
 
-    window.scrollTo({ top: 260, behavior: 'smooth' });
+  //   window.scrollTo({ top: 260, behavior: 'smooth' });
 
-    for (let i = 0; i < links.length; i++) {
-      links[i].classList.remove('liVerde');
-    }
-    elem.classList.add('liVerde');
-    navigate(link);
-  }
+  //   for (let i = 0; i < links.length; i++) {
+  //     links[i].classList.remove('liVerde');
+  //   }
+  //   elem.classList.add('liVerde');
+  //   navigate(link);
+  // }
 
   window.onscroll = () => {
     const arroba = document.querySelector('#headerProfName');
