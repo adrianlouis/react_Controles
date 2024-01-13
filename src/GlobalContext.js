@@ -20,7 +20,7 @@ export const GlobalStorage = ({ children }) => {
     wCrop: false,
   });
 
-  const [photosCash, setPhotosCash] = React.useState({});
+  const [photosCash, setPhotosCash] = React.useState([]);
 
   const [uploadLde, setUploadLde] = React.useState(false);
   const [lde, setLde] = React.useState([]);

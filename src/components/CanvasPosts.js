@@ -12,7 +12,7 @@ const CanvasPosts = ({ userId, canvasId }) => {
     if (photosCash[userId]) {
       setCanvasImg(photosCash[userId].foto, photosCash[userId].crop);
     } else {
-      GET_USERS_PHOTOS();
+      await GET_USERS_PHOTOS();
     }
   }
 

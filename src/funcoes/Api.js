@@ -10,6 +10,7 @@ import {
   where,
 } from 'firebase/firestore';
 import { db } from '../firebase-config';
+import { getDownloadURL, getStorage, ref } from 'firebase/storage';
 
 export async function USER_GET(id) {
   const document = doc(db, 'users', id);
@@ -23,14 +24,34 @@ export async function UPDATE_DATA(userId, obj, field) {
   await updateDoc(document, { [field]: obj });
 }
 
+export async function GET_CANVAS_PROFILE_PIC(userId) {
+  const storage = getStorage();
+  const gsRef = ref(
+    storage,
+    `gs://projectfiatlux-5a6ee.appspot.com/${userId}fotoPerfil.jpg`,
+  );
+  return getDownloadURL(gsRef).then((url) => {
+    if (url) {
+      return url;
+    } else {
+      return '';
+    }
+  });
+}
+
 export async function GET_POSTS() {
   let postagens = [];
   const userRef = collection(db, 'users');
   const q = query(userRef);
   const querySnap = await getDocs(q);
+
   querySnap.forEach((doc) => {
     // console.log(doc.id, ' => ', doc.data().posts);
     if (doc.data().posts) {
+      // const urlPhoto = doc.data().perfil.foto
+      //   ? await GET_CANVAS_PROFILE_PIC(doc.id)
+      //   : '';
+
       postagens = [
         ...postagens,
         ...doc.data().posts.map((m) => {
@@ -70,7 +91,6 @@ export async function simpleQuery(nick) {
   const querySnapshot = await getDocs(q);
   let arr = [];
   querySnapshot.forEach((doc) => {
-    // console.log(doc.data().nome);
     arr.push({
       nick: doc.data().perfil.nick,
       foto: doc.data().perfil.foto,

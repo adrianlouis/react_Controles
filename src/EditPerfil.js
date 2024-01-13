@@ -196,28 +196,7 @@ const EditPerfil = () => {
     setModal(0);
   }
 
-  function download() {
-    // BAIXAR IMAGEM E SETAR NA FOTO DO PERFIL
-    getDownloadURL(ref(storage, '/' + context.userLogado.profPic)).then(
-      (url) => {
-        document.querySelector('#foto').setAttribute('src', url);
-      },
-    );
-  }
-
   function deletarImg(type) {
-    // const img = ref(storage, `/${context.userLogado.profPic}`)
-
-    // if (type === 'f'){
-    //     const img = ref(storage, `/${context.userLogado.id}fotoPerfil.jpg`)
-    //     deleteObject(img)
-    //     context.setUserLogado({...context.userLogado, perfil:{...context.userLogado.perfil, foto:'', fotoCrop:''}})
-    // }
-    // if(type === 'w'){
-    //     const img = ref(storage, `${context.userLogado.id}wpp.jpg`)
-    //     deleteObject(img)
-    // }
-
     if (type === 'f') {
       context.setImgTemp({ ...context.imgTemp, foto: false, fCrop: false });
       setExcluirFotos({ ...excluirFotos, foto: true });
@@ -260,23 +239,14 @@ const EditPerfil = () => {
   }
 
   async function handleSave() {
-    // const img = ref(storage, `/${context.userLogado.profPic}`)
-
-    // if (type === 'f'){
-    //     const img = ref(storage, `/${context.userLogado.id}fotoPerfil.jpg`)
-    //     deleteObject(img)
-    //     context.setUserLogado({...context.userLogado, perfil:{...context.userLogado.perfil, foto:'', fotoCrop:''}})
-    // }
-    // if(type === 'w'){
-    //     const img = ref(storage, `${context.userLogado.id}wpp.jpg`)
-    //     deleteObject(img)
-    // }
-
     // SALVAR FOTO DO PERFIL NO FIREBASE STORAGE
     if (context.imgTemp.fileFoto && excluirFotos.foto === false) {
       setLoading(true);
-      // NA LINHA ABAIXO MODIFIQUEI O ID DO USERLOGADO PARA O PERFIL NICK, PARA FUTURAS BUSCAS EM OUTRAS PARTES DO SITE
       const fotoPerfil = ref(storage, `${context.userLogado.id}fotoPerfil.jpg`);
+      const photosCashed = context.photosCash.filter((el) => {
+        return el.id !== context.userLogado.id;
+      });
+      context.setPhotosCash(photosCashed);
       uploadBytes(fotoPerfil, context.imgTemp.fileFoto).then((snapshot) => {
         setLoading(false);
       });
