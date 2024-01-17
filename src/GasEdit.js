@@ -85,7 +85,7 @@ const GasEdit = () => {
   }
 
   return (
-    <div>
+    <div className={styles.recordsWrapper}>
       <h2>Edição da medição</h2>
 
       {objToEdit &&
@@ -94,7 +94,8 @@ const GasEdit = () => {
             <div
               id={'divInput' + ind}
               key={'item' + ind}
-              className={styles.wrapperEdicaoGas}
+              // className={styles.wrapperEdicaoGas}
+              // className={styles.recordsLine}
             >
               <GasEdt
                 loja={m.loja}

@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './GasEdt.module.css';
+import styles from '../Gas.module.css';
 
 const GasEdt = ({
   onDel,
@@ -10,25 +10,33 @@ const GasEdt = ({
   ...props
 }) => {
   return (
-    <div id="editWrap" className={styles.editWrap}>
-      <input
-        className={styles.lojaInput}
-        type="tel"
-        {...props}
-        value={loja}
-        onChange={onchangeLoja}
-        maxLength={3}
-      ></input>
+    <div id="editWrap" className={styles.recordsLine}>
+      <div className={styles.recordsItens}>
+        <i className="fa-solid fa-store"></i>
+        <input
+          className={styles.inpStoreEdit}
+          type="tel"
+          {...props}
+          value={loja}
+          onChange={onchangeLoja}
+          maxLength={3}
+        ></input>
+      </div>
 
-      <input
-        className={styles.medicaoInput}
-        type="tel"
-        maxLength={8}
-        value={valor}
-        onChange={onchangeMedicao}
-      ></input>
+      <div className={styles.recGasWrapper}>
+        <i className="fa-solid fa-gauge"></i>
+        <input
+          className={styles.inpGasEdit}
+          type="tel"
+          maxLength={8}
+          value={valor}
+          onChange={onchangeMedicao}
+        ></input>
+      </div>
 
-      <i className="fa-solid fa-square-xmark" onClick={onDel}></i>
+      <div className={styles.recDelIcon}>
+        <i className="fa-solid fa-square-xmark" onClick={onDel}></i>
+      </div>
     </div>
   );
 };

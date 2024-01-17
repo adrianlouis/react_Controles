@@ -85,7 +85,10 @@ const Gas = () => {
                 <div className={styles.infos}>
                   <div className={styles.title}>
                     <p className={styles.legends}>
-                      {item.diaCriado} - {item.horaCriado} h
+                      <i className="fa-solid fa-calendar-day"></i>
+                      {' ' + item.diaCriado} -{' '}
+                      <i className="fa-regular fa-clock"></i>
+                      {' ' + item.horaCriado}
                     </p>
                   </div>
                   {arrOrdemCresc(
@@ -98,10 +101,16 @@ const Gas = () => {
                         return (
                           <div
                             key={'medicao' + item.id + '_' + lojas.loja}
-                            className={styles.dados}
+                            // className={styles.dados}
+                            className={styles.recordsLine}
                           >
-                            <span>Loja {lojas.loja}</span>
-                            <span>Medição {lojas.medicao}</span>
+                            <div className={styles.recordsItens}>
+                              <i className="fa-solid fa-store"></i> {lojas.loja}
+                            </div>
+                            <div className={styles.recGasWrapper}>
+                              <i className="fa-solid fa-gauge"></i>{' '}
+                              {lojas.medicao}
+                            </div>
                           </div>
                         );
                       }
