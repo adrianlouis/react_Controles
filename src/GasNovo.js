@@ -67,24 +67,29 @@ const GasNovo = () => {
     <div className={styles.edicaoContainer}>
       <div>
         <div className={styles.recordsWrapper}>
-          {medidores.medicao.map((m, i) => {
-            return (
-              <div className={styles.recordsLine}>
-                <div className={styles.recordsItens}>
-                  <i className="fa-solid fa-store"></i> {m.loja}
+          <h3>
+            <i className="fa-regular fa-pen-to-square"></i> Nova medição
+          </h3>
+          <div>
+            {medidores.medicao.map((m, i) => {
+              return (
+                <div className={styles.recordsLine}>
+                  <div className={styles.recordsItens}>
+                    <i className="fa-solid fa-store"></i> {m.loja}
+                  </div>
+                  <div className={styles.recGasWrapper}>
+                    <i className="fa-solid fa-gauge"></i> {m.medicao}
+                  </div>
+                  <div className={styles.recDelIcon}>
+                    <i
+                      className="fa-regular fa-trash-can"
+                      onClick={() => excluirLinha(i)}
+                    ></i>
+                  </div>
                 </div>
-                <div className={styles.recGasWrapper}>
-                  <i className="fa-solid fa-gauge"></i> {m.medicao}
-                </div>
-                <div className={styles.recDelIcon}>
-                  <i
-                    className="fa-regular fa-trash-can"
-                    onClick={() => excluirLinha(i)}
-                  ></i>
-                </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
 
         <div className={styles.addGasLine}>

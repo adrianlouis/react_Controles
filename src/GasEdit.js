@@ -85,34 +85,32 @@ const GasEdit = () => {
   }
 
   return (
-    <div className={styles.recordsWrapper}>
-      <h2>Edição da medição</h2>
+    <>
+      <div className={`${styles.recordsWrapper} animateLeft`}>
+        <h3>
+          <i className="fa-solid fa-pencil"></i> Edição das medições
+        </h3>
 
-      {objToEdit &&
-        objToEdit.map((m, ind) => {
-          return (
-            <div
-              id={'divInput' + ind}
-              key={'item' + ind}
-              // className={styles.wrapperEdicaoGas}
-              // className={styles.recordsLine}
-            >
-              <GasEdt
-                loja={m.loja}
-                valor={m.medicao}
-                onchangeLoja={({ currentTarget }) =>
-                  handleEdit('l', currentTarget, ind)
-                }
-                onchangeMedicao={({ currentTarget }) =>
-                  handleEdit('m', currentTarget, ind)
-                }
-                onDel={() => handleDelete(ind)}
-              />
-            </div>
-          );
-        })}
+        <div>
+          {objToEdit &&
+            objToEdit.map((m, ind) => {
+              return (
+                <GasEdt
+                  loja={m.loja}
+                  valor={m.medicao}
+                  onchangeLoja={({ currentTarget }) =>
+                    handleEdit('l', currentTarget, ind)
+                  }
+                  onchangeMedicao={({ currentTarget }) =>
+                    handleEdit('m', currentTarget, ind)
+                  }
+                  onDel={() => handleDelete(ind)}
+                />
+              );
+            })}
+        </div>
 
-      <div className={styles.addGasLine}>
+        {/* <div className={styles.addGasLine}>
         <div>
           <label htmlFor="numeroLoja">Loja: </label>
           <input
@@ -150,6 +148,52 @@ const GasEdit = () => {
             onClick={() => handleAdd()}
           ></i>
         </div>
+      </div> */}
+      </div>
+
+      <div className={styles.addGasLine}>
+        <div className={styles.inputWrapper}>
+          <label htmlFor="numeroLoja">
+            <i className="fa-solid fa-store"></i>
+          </label>
+          <input
+            id="numeroLoja"
+            className={styles.newStoreNumber}
+            type="tel"
+            maxLength={3}
+            onChange={({ target }) =>
+              setNItem({ ...nItem, loja: target.value })
+            }
+            value={nItem.loja}
+          ></input>
+        </div>
+
+        <div className={styles.inputWrapper}>
+          <label htmlFor="gasMedicao">
+            <i className="fa-solid fa-gauge"></i>{' '}
+          </label>
+          <input
+            id="gasMedicao"
+            type="tel"
+            maxLength={8}
+            onChange={({ target }) =>
+              setNItem({ ...nItem, medicao: target.value })
+            }
+            value={nItem.medicao}
+          ></input>
+        </div>
+
+        <div className={styles.plusIconWrapper}>
+          <i
+            className={`fa-solid fa-square-plus ${styles.plusIcon}`}
+            style={
+              nItem.loja === '' || nItem.medicao === ''
+                ? { color: 'rgb(121,121,121)', cursor: 'not-allowed' }
+                : { color: 'rgb(166,243,166)', cursor: 'pointer' }
+            }
+            onClick={() => handleAdd()}
+          ></i>
+        </div>
       </div>
 
       <div className={styles.editActBtn}>
@@ -160,7 +204,7 @@ const GasEdit = () => {
           <i className="fa-regular fa-floppy-disk" /> Salvar
         </span>
       </div>
-    </div>
+    </>
   );
 };
 

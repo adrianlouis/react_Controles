@@ -12,7 +12,8 @@
     border: none;
     /* border: 1px solid white; */
     width: 3rem;
-    text-align: center;
+    text-align: left;
+    margin-left: 0.263rem;
 }
 .inpGasEdit{
     width: 8rem;

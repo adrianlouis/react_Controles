@@ -35,7 +35,7 @@ const GasEdt = ({
       </div>
 
       <div className={styles.recDelIcon}>
-        <i className="fa-solid fa-square-xmark" onClick={onDel}></i>
+        <i className="fa-regular fa-trash-can" onClick={onDel}></i>
       </div>
     </div>
   );
