@@ -81,16 +81,7 @@
     border-top-left-radius: .2rem;
     text-align: left;
 }
-/* .legends{
-    padding-left: 1rem;
-    font-weight: 700;
-    background-color: #4447;
-    color: #439A86;
-    font-family: 'Montserrat';
-    font-size: 1.2rem;
-    border-top-right-radius: .2rem;
-    border-top-left-radius: .2rem;
-} */
+
 
 .editActBtn span:nth-child(2){
     color: rgb(166, 243, 166);
