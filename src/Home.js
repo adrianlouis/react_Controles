@@ -17,6 +17,7 @@ import {
 } from 'firebase/firestore';
 import Navbar from './components/Navbar';
 import BtnNewPost from './components/BtnNewPost';
+import SearchItens from './components/SearchItens';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -29,6 +30,7 @@ const Home = () => {
   const local = useLocation();
   const [menuLabel, setMenuLabel] = React.useState('');
   const [newItem, setNewItem] = React.useState(false);
+  const [searchToogle, setSearchToogle] = React.useState(false);
 
   React.useEffect(() => {
     switch (local.pathname) {
@@ -48,6 +50,9 @@ const Home = () => {
         setMenuLabel('');
         break;
     }
+
+    context.setSearchInput(false);
+    context.setItensFiltrados('');
   }, [local]);
 
   React.useEffect(() => {
@@ -452,9 +457,12 @@ const Home = () => {
           </li>
         </ul>
       </div> */}
-      {newItem && <BtnNewPost onclick={() => handleAction()} />}{' '}
+      {newItem && !context.searchInput && (
+        <BtnNewPost onclick={() => handleAction()} />
+      )}{' '}
       <Navbar onclick={() => setNewItem(true)} />
       <Outlet />
+      {context.searchInput && <SearchItens />}
       <Footer />
     </div>
   );

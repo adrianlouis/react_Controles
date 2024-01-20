@@ -11,25 +11,25 @@ const SearchItens = ({ itens }) => {
   const [found, setFound] = React.useState('');
   const [path, setPath] = React.useState(local.pathname.slice(6));
 
-  React.useEffect(() => {
-    switch (local.pathname) {
-      case '/home/ext':
-        setMenuLabel('Extintores');
-        break;
-      case '/home/hd':
-        setMenuLabel('Hidrantes');
-        break;
-      case '/home/gas':
-        setMenuLabel('Medição de gases');
-        break;
-      case '/home/lde':
-        setMenuLabel('Luzes de emergência');
-        break;
-      default:
-        setMenuLabel('');
-        break;
-    }
-  }, [local]);
+  // React.useEffect(() => {
+  //   switch (local.pathname) {
+  //     case '/home/ext':
+  //       setMenuLabel('Extintores');
+  //       break;
+  //     case '/home/hd':
+  //       setMenuLabel('Hidrantes');
+  //       break;
+  //     case '/home/gas':
+  //       setMenuLabel('Medição de gases');
+  //       break;
+  //     case '/home/lde':
+  //       setMenuLabel('Luzes de emergência');
+  //       break;
+  //     default:
+  //       setMenuLabel('');
+  //       break;
+  //   }
+  // }, [local]);
 
   React.useEffect(() => {
     const res = ctx.userLogado[path].filter((f) => {
@@ -49,7 +49,7 @@ const SearchItens = ({ itens }) => {
   }
 
   return (
-    <div className={styles.search}>
+    <div className={`${styles.search} animeFadeout`}>
       {ctx.itensFiltrados.length !== 0 && (
         <p className={styles.searchLength}>
           {found.length}{' '}

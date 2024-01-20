@@ -30,6 +30,11 @@ h3 i{
   animation-duration: .3s;
 }
 
+.animeFadeout{
+  animation: fadeout;
+  animation-duration: .5s;
+}
+
 
 @keyframes loadleft {
   from{
@@ -47,6 +52,14 @@ h3 i{
     opacity: 0;
   }to{
     transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeout {
+  from{
+    opacity: 0;
+  }to{
     opacity: 1;
   }
 }
