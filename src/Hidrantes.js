@@ -1,15 +1,11 @@
 import React, { useContext } from 'react';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
-// import css from "./css/hd.css";
+import { useNavigate } from 'react-router-dom';
 import styles from './Hidrantes.module.css';
 import { GlobalContext } from './GlobalContext';
-import MenuFooter from './MenuFooter';
-import { Filtro } from './funcoes/filtroFuncoes';
-import { refreshBd, removerRegistro, updateBd } from './crudFireBase';
+import { refreshBd, removerRegistro } from './crudFireBase';
 import Footer from './Footer';
 import BtnAcoesItens from './components/BtnAcoesItens';
 import { convertData } from './funcoes/extDatas';
-import SearchItens from './components/SearchItens';
 
 const Hidrantes = () => {
   const context = useContext(GlobalContext);
@@ -20,8 +16,6 @@ const Hidrantes = () => {
   const [ordenar, setOrdenar] = React.useState('');
   const [resFiltragem, setResFiltragem] = React.useState('');
   const userHds = context.userLogado.hd;
-  const filtrados = new Filtro(context.userLogado.hd);
-  const [searchToogle, setSearchToogle] = React.useState(false);
 
   React.useEffect(() => {
     if (ordenar) {
@@ -75,11 +69,6 @@ const Hidrantes = () => {
     // refresh
     const update = await refreshBd(context.userLogado.nome);
     await context.setUserLogado(...update);
-  }
-
-  function handleCloseSearch() {
-    setSearchToogle(false);
-    context.setItensFiltrados('');
   }
 
   return (
@@ -255,12 +244,6 @@ const Hidrantes = () => {
         itens={{ hidrantes: context.userLogado.hd }}
         novoItem={'hdnovo'}
       ></Footer>
-      {context.searchInput && (
-        <SearchItens
-          itens={context.userLogado.hd}
-          onClose={handleCloseSearch}
-        />
-      )}
     </>
   );
 };

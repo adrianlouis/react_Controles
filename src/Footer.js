@@ -9,9 +9,13 @@ const Footer = () => {
   const local = useLocation();
 
   function handleSearch() {
-    if (local.pathname.slice(6) === 'gas') {
+    if (
+      local.pathname.slice(6) === 'gas' ||
+      local.pathname.slice(6) === 'inicio'
+    ) {
       ctx.setItensFiltrados('');
       ctx.setSearchInput(false);
+      // document.querySelector('#iconSearch').style.color = '#515151';
     } else {
       ctx.setItensFiltrados('');
       ctx.setSearchInput(true);
@@ -25,6 +29,7 @@ const Footer = () => {
         onClick={() => navigate('/home/inicio')}
       ></i>
       <i
+        id="iconSearch"
         style={{ color: ctx.searchInput ? '#53aa96' : '#d1d1d1' }}
         className="fa-solid fa-magnifying-glass"
         onClick={() => handleSearch()}

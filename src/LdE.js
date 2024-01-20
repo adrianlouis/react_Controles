@@ -4,13 +4,10 @@ import { useNavigate } from 'react-router-dom';
 import { GlobalContext } from './GlobalContext';
 import { refreshBd, removerRegistro } from './crudFireBase';
 import BtnAcoesItens from './components/BtnAcoesItens';
-import Footer from './Footer';
-import SearchItens from './components/SearchItens';
 
 const LdE = () => {
   const context = React.useContext(GlobalContext);
   const navigate = useNavigate();
-  const [searchToogle, setSearchToogle] = React.useState(false);
   const luzesOrdenadas = context.userLogado.lde.sort((a, b) => {
     return a.num - b.num;
   });
@@ -22,28 +19,6 @@ const LdE = () => {
     //refresh
     const update = await refreshBd(context.userLogado.nome);
     await context.setUserLogado(...update);
-  }
-
-  function iconeBateria(dur) {
-    switch (dur) {
-      case '6h':
-        return <i className="fa-solid fa-battery-full"></i>;
-      case '5h':
-        return <i className="fa-solid fa-battery-three-quarters"></i>;
-      case '4h':
-        return <i className="fa-solid fa-battery-half"></i>;
-      case '3h':
-        return <i className="fa-solid fa-battery-half"></i>;
-      case '2h':
-        return <i className="fa-solid fa-battery-quarter"></i>;
-      default:
-        return <i className="fa-solid fa-battery-empty"></i>;
-    }
-  }
-
-  function handleCloseSearch() {
-    setSearchToogle(false);
-    context.setItensFiltrados('');
   }
 
   return (
@@ -135,13 +110,6 @@ const LdE = () => {
         itens={{ lde: context.userLogado.lde }}
         novoItem={'ldenovo'}
       /> */}
-
-      {context.searchInput && (
-        <SearchItens
-          itens={context.userLogado.lde}
-          onClose={handleCloseSearch}
-        />
-      )}
     </>
   );
 };
