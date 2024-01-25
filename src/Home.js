@@ -378,12 +378,21 @@ const Home = () => {
             className={styles.menuOpened}
           >
             {/* <p>{menuLabel}</p> */}
-            <p onClick={() => navigate('/home/perfil')}>Home</p>
-            <p onClick={() => context.setSearchInput(!context.searchInput)}>
-              {!context.searchInput ? 'Buscar ' + menuLabel : 'Fechar Buscar'}
+            <p onClick={() => navigate('/home/perfil')}>
+              <i className="fa-solid fa-house"></i> Home
             </p>
-            <p onClick={() => handleSaveSheet()}>Salvar {menuLabel} atual</p>
-            <p>Visualizar {menuLabel} salvos</p>
+            {/* <p onClick={() => context.setSearchInput(!context.searchInput)}>
+              {!context.searchInput ? 'Buscar ' + menuLabel : 'Fechar Buscar'}
+            </p> */}
+            {/* <p onClick={() => handleSaveSheet()}>Salvar {menuLabel} atual</p> */}
+            {/* <p>Visualizar {menuLabel} salvos</p> */}
+            <p>
+              <i className="fa-solid fa-car"></i> Acesso à garagem
+            </p>
+            <p>
+              <i className="fa-solid fa-id-card"></i> Liberações
+            </p>
+            <p>Colaboradores</p>
             <p onClick={() => setOpenMenu(!openMenu)}>Fechar</p>
           </div>
         )}

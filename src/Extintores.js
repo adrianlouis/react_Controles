@@ -78,11 +78,51 @@ const Extintores = () => {
   //   document.querySelector('#container').style.transform = 'translate(0px)';
 
   // }, []);
+  function ultRec(ano, mes) {
+    const data = new Date(ano, mes);
+    const ptbr = data.toLocaleDateString('pt-Br', {
+      month: 'long',
+      year: 'numeric',
+    });
+    return ptbr;
+  }
+
+  function rotate(elem) {
+    elem.style.transform = 'rotateY(180deg)';
+  }
+
+  function rotateNormal(elem) {
+    elem.style.transform = 'rotateY(0deg)';
+  }
 
   return (
     <>
       <div className={`${styles.container} animateLeft`} id="container">
         {!context.itensFiltrados &&
+          listaAtiva.map((item, i) => {
+            return (
+              <div
+                key={'key' + i}
+                className={styles.itemContainer}
+                onClick={({ currentTarget }) => rotate(currentTarget)}
+                onMouseLeave={({ currentTarget }) =>
+                  rotateNormal(currentTarget)
+                }
+              >
+                <p className={styles.itemNum}>{item.num}</p>
+                <p className={styles.itemType}>{item.tipo}</p>
+                <p className={styles.itemPlace}>{item.local}</p>
+                <p className={styles.itemRec}>
+                  {ultRec(item.ultRec.ano, item.ultRec.mes)}
+                </p>
+                <p className={styles.itemRet}>
+                  {ultRec(item.ultRet, item.ultRec.mes)}
+                </p>
+              </div>
+            );
+          })}
+
+        {/* {!context.itensFiltrados &&
           listaAtiva.map((item, i) => {
             return (
               <div key={item.id + 'ext' + i} className={styles.containerGrid}>
@@ -120,7 +160,6 @@ const Extintores = () => {
 
                 {item.avaria && (
                   <div className={styles.cardAvarias}>
-                    {/* <hr></hr> */}
                     <span className={styles.legends}>avarias</span>
                     <span className={styles.infoGeral}>{item.avaria}</span>
                   </div>
@@ -138,7 +177,7 @@ const Extintores = () => {
                 </div>
               </div>
             );
-          })}
+          })} */}
 
         {context.itensFiltrados &&
           context.itensFiltrados.map((item, i) => {

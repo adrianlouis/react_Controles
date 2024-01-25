@@ -204,3 +204,52 @@
     padding: 0;
     line-height: 1;
  }
+
+ .itemContainer{
+    margin-bottom: 4rem;
+    background-color: #111;
+    padding:  1rem ;
+ }
+
+ /* .itemContainer:hover{
+    transform: rotateY(180deg);
+ } */
+
+    
+        
+    .itemContainer p{
+    border: 1px solid #333;
+    display: inline-block;
+    padding: .3rem .6rem;
+    border-radius: .2rem;
+    color: #d1d1d1;
+    background-color: #000;
+    position: relative;
+    min-width: 1.5rem;
+    text-align: left;
+    margin: 1rem 1rem 1rem 0;
+    font-weight: 700;
+ }
+ /* .itemNum::after { */
+    .itemContainer p::after{
+    content: 'número';
+    font-size: .7rem;
+    position: absolute;
+    left: 0;
+    top: -1.2rem;
+    padding: 0 .6rem;
+    font-weight: 400;
+ }
+
+ .itemType::after{
+    content: 'tipo' !important;
+ }
+ .itemPlace::after{
+    content: 'local' !important;
+ }
+ .itemRec::after{
+    content:'última recarga' !important;
+ }
+ .itemRet::after{
+    content:'próx. reteste' !important;
+ }
