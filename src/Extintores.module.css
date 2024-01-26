@@ -1,15 +1,7 @@
 .container{
-    /* border: 1px solid red ; */
     overflow: hidden;
-    /* padding: 5px; */
     max-width: 100vw;
-    /* display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column; */
-
-    /* aplicando para aprimorar novo css - agosto 2023 */
-    padding: 0 10px;
+    padding: 1rem 10px;
     
 }
 
@@ -133,17 +125,7 @@
     right: 20px;
 }
 
-
-
-
-
-
-
-
-
-
- /* Nova versão de card em Extintores, com uso de grid e possivelmente neomorphism */
- .containerGrid{
+.containerGrid{
     border-radius: 10px;
     margin: 20px 0;
     display: grid;
@@ -153,9 +135,9 @@
     'cardMinor cardMinor cardMedium cardMedium'
     'avarias avarias avarias avarias'
     'btn btn btn btn';
- }
+}
 
- .cardMinor{
+.cardMinor{
     display: flex;
     align-items: start;
     width: fit-content;
@@ -166,72 +148,136 @@
     margin: unset;
 
 
- }
- .cardMinor div{
+}
+.cardMinor div{
     display: flex;
     flex-direction: column;
     margin: unset;
- }
+}
 
  
- .cardMedium{
+.cardMedium{
     grid-area: cardMedium;
     flex-direction: column;
     margin: 5px auto;
     text-align: left;
     display: block;
- }
- .cardMedium div{
+}
+.cardMedium div{
     display: flex;
     flex-direction: column;
     text-align: start;
- }
+}
 
- .cardAvarias{
+.cardAvarias{
     display: flex;
     flex-direction: column;
     grid-area: avarias;
     margin: unset;
- }
- .cardBtn{
+}
+.cardBtn{
     grid-area: btn;
     width: 100%;
- }
- .infoGeral{
+}
+.infoGeral{
     font-size: .8rem;
     color: #d1d1d1;
     margin: 0;
     padding: 0;
     line-height: 1;
- }
+}
 
- .itemContainer{
-    margin-bottom: 4rem;
+.itemContainer{
+    /* margin-bottom: 4rem;
     background-color: #111;
     padding:  1rem ;
- }
+    position: relative;
+    background-color: transparent;
+  width: 300px;
+  height: 300px;
+  perspective: 1000px;
+  border: 1px solid #232; */
 
- /* .itemContainer:hover{
+  background-color: transparent;
+  /* width: 300px; */
+  height: 300px;
+  border: 2px solid #333;
+  border-radius: .3rem;
+  perspective: 1000px;
+  margin-bottom: 5rem;
+  padding: .5rem .3rem;
+
+}
+.frontSide, .backSide{
+    position: absolute;
+    width: 100%;
+    background-color: transparent;
+    height: 100%;
+    -webkit-backface-visibility: hidden; /* Safari */
+    backface-visibility: hidden;
+}
+.backSide{
+    transform: rotateY(-180deg);
+    color: #d1d1d1;
+}
+
+.innerSide{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+}
+
+.itemContainer:hover .frontSide{
     transform: rotateY(180deg);
- } */
+}
+.itemContainer:hover .backSide{
+    transform: rotateY(0deg);
+}
+
+.wrapper, .wrapperMonths{
+    display: grid;
+    grid-template-columns: repeat(1, 1fr 1fr 1fr);
+    /* border: 1px solid #afb; */
+    /* background-color: burlywood; */
+}
+
+.wrapper i{
+    /* padding: 2rem; */
+    border: 2px solid #232;
+    border-radius: .4rem;
+    /* width: 2rem;
+    height: 2rem; */
+    /* padding: .8rem; */
+    color: #d1d1d1;
+}
+
+.wrapperMonths{
+     grid-template-columns: repeat(auto-fill, 20rem);
+    /* flex-direction: row; */
+    /* border: 1px solid red; */
+}
+
 
     
-        
-    .itemContainer p{
+.itemContainer p{
     border: 1px solid #333;
-    display: inline-block;
+    display: inline-grid;
     padding: .3rem .6rem;
     border-radius: .2rem;
     color: #d1d1d1;
-    background-color: #000;
+    background-color: transparent;
     position: relative;
     min-width: 1.5rem;
     text-align: left;
     margin: 1rem 1rem 1rem 0;
     font-weight: 700;
- }
- /* .itemNum::after { */
-    .itemContainer p::after{
+}
+
+.itemContainer p::after{
     content: 'número';
     font-size: .7rem;
     position: absolute;
@@ -239,17 +285,53 @@
     top: -1.2rem;
     padding: 0 .6rem;
     font-weight: 400;
- }
+}
 
- .itemType::after{
+.itemType::after{
     content: 'tipo' !important;
- }
- .itemPlace::after{
+}
+.itemPlace::after{
     content: 'local' !important;
- }
- .itemRec::after{
+}
+.itemRec::after{
     content:'última recarga' !important;
- }
- .itemRet::after{
+}
+.itemRet::after{
     content:'próx. reteste' !important;
- }
+}
+
+
+.cont{
+    border: 2px solid white;
+    width: 200px;
+    height: 200px;
+    background-color: transparent;
+}
+.cont:hover .bck {
+    transform: rotateY(180deg);
+}
+.cont:hover .frnt{
+    transform: rotateY(0deg);
+}
+.frnt{
+    transform: rotateY(180deg);
+    background-color: blue;
+}
+.bck{
+    background-color: red;
+}
+.innerC{
+    border: 2px solid blue;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+.frnt, .bck{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    /* background-color: #439A86; */
+    /* background-color: transparent; */
+    color: white;
+    backface-visibility: hidden;
+}

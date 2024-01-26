@@ -88,37 +88,73 @@ const Extintores = () => {
   }
 
   function rotate(elem) {
-    elem.style.transform = 'rotateY(180deg)';
+    // elem.style.transform = 'rotateY(180deg)';
+    console.log('aoei');
   }
 
   function rotateNormal(elem) {
-    elem.style.transform = 'rotateY(0deg)';
+    // elem.style.transform = 'rotateY(0deg)';
+    console.log('aoei');
   }
 
   return (
     <>
+      {/* <div className={styles.cont}>
+        <div className={styles.innerC}>
+          <div className={styles.frnt}>FRTENT</div>
+          <div className={styles.bck}>COSTAs</div>
+        </div>
+      </div> */}
+
       <div className={`${styles.container} animateLeft`} id="container">
         {!context.itensFiltrados &&
           listaAtiva.map((item, i) => {
             return (
-              <div
-                key={'key' + i}
-                className={styles.itemContainer}
-                onClick={({ currentTarget }) => rotate(currentTarget)}
-                onMouseLeave={({ currentTarget }) =>
-                  rotateNormal(currentTarget)
-                }
-              >
-                <p className={styles.itemNum}>{item.num}</p>
-                <p className={styles.itemType}>{item.tipo}</p>
-                <p className={styles.itemPlace}>{item.local}</p>
-                <p className={styles.itemRec}>
-                  {ultRec(item.ultRec.ano, item.ultRec.mes)}
-                </p>
-                <p className={styles.itemRet}>
-                  {ultRec(item.ultRet, item.ultRec.mes)}
-                </p>
-              </div>
+              <>
+                <div
+                  key={'key' + i}
+                  className={styles.itemContainer}
+                  onClick={({ currentTarget }) => rotate(currentTarget)}
+                  onMouseLeave={({ currentTarget }) =>
+                    rotateNormal(currentTarget)
+                  }
+                >
+                  <div className={styles.innerSide}>
+                    <div className={styles.frontSide}>
+                      <div className={styles.wrapper}>
+                        <p className={styles.itemNum}>{item.num}</p>
+                        <p className={styles.itemType}>{item.tipo}</p>
+                        <p className={styles.itemPlace}>{item.local}</p>
+                        {/* <i className="fa-regular fa-eye"></i> */}
+                      </div>
+
+                      <div className={styles.wrapperMonths}>
+                        <p className={styles.itemRec}>
+                          {ultRec(item.ultRec.ano, item.ultRec.mes)}
+                        </p>
+                        <p className={styles.itemRet}>
+                          {ultRec(item.ultRet, item.ultRec.mes)}
+                        </p>
+                      </div>
+                      <div className={styles.cardBtn}>
+                        <BtnAcoesItens
+                          funcDel={() =>
+                            excluirExtintor(context.userLogado.id, item, 'ext')
+                          }
+                          itemId={item.id}
+                          editarOnClick={() =>
+                            navigate(`extedit?id=${item.id}`)
+                          }
+                        />
+                      </div>
+                    </div>
+                    <div className={styles.backSide}>
+                      <h2>Avarias:</h2>
+                      <span>{item.avaria}</span>
+                    </div>
+                  </div>
+                </div>
+              </>
             );
           })}
 
