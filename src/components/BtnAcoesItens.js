@@ -36,7 +36,7 @@ const BtnAcoesItens = ({ funcDel, editarOnClick, itemId }) => {
           className={styles.delYes}
           onClick={({ currentTarget }) => handleCancel(currentTarget, itemId)}
         >
-          <i class="fa-solid fa-arrow-left"></i> Não
+          <i className="fa-solid fa-arrow-left"></i> Não
         </span>
         <span className={styles.delNo} onClick={funcDel}>
           <i className="fa-regular fa-trash-can" /> Sim

@@ -87,14 +87,20 @@ const Extintores = () => {
     return ptbr;
   }
 
-  function rotate(elem) {
-    // elem.style.transform = 'rotateY(180deg)';
-    console.log('aoei');
+  function flipFront(elem) {
+    const front = elem.parentElement.parentElement;
+    const back = elem.parentElement.parentElement.nextSibling;
+
+    front.style.transform = 'rotateY(180deg)';
+    back.style.transform = 'rotateY(0deg)';
   }
 
-  function rotateNormal(elem) {
-    // elem.style.transform = 'rotateY(0deg)';
-    console.log('aoei');
+  function flipBack(elem) {
+    const back = elem.parentElement;
+    const front = elem.parentElement.previousSibling;
+
+    back.style.transform = 'rotateY(180deg)';
+    front.style.transform = 'rotateY(0deg)';
   }
 
   return (
@@ -111,21 +117,23 @@ const Extintores = () => {
           listaAtiva.map((item, i) => {
             return (
               <>
-                <div
-                  key={'key' + i}
-                  className={styles.itemContainer}
-                  onClick={({ currentTarget }) => rotate(currentTarget)}
-                  onMouseLeave={({ currentTarget }) =>
-                    rotateNormal(currentTarget)
-                  }
-                >
+                <div key={'key' + i} className={styles.itemContainer}>
                   <div className={styles.innerSide}>
                     <div className={styles.frontSide}>
                       <div className={styles.wrapper}>
                         <p className={styles.itemNum}>{item.num}</p>
                         <p className={styles.itemType}>{item.tipo}</p>
                         <p className={styles.itemPlace}>{item.local}</p>
-                        {/* <i className="fa-regular fa-eye"></i> */}
+                        {item.avaria && (
+                          <p
+                            className={styles.avariaIcon}
+                            onClick={({ currentTarget }) =>
+                              flipFront(currentTarget)
+                            }
+                          >
+                            <i className="fa-regular fa-eye"></i>
+                          </p>
+                        )}
                       </div>
 
                       <div className={styles.wrapperMonths}>
@@ -149,8 +157,14 @@ const Extintores = () => {
                       </div>
                     </div>
                     <div className={styles.backSide}>
-                      <h2>Avarias:</h2>
-                      <span>{item.avaria}</span>
+                      <p
+                        className={styles.flipbackCard}
+                        onClick={({ currentTarget }) => flipBack(currentTarget)}
+                      >
+                        <i className="fa-solid fa-arrow-left"></i>
+                      </p>
+                      {/* <h2>Avarias:</h2> */}
+                      <p className={styles.paraAvaria}>{item.avaria}</p>
                     </div>
                   </div>
                 </div>
@@ -218,7 +232,7 @@ const Extintores = () => {
         {context.itensFiltrados &&
           context.itensFiltrados.map((item, i) => {
             return (
-              <div key={item.id + 'ext' + i} className="ldeContent">
+              <div key={'ext' + i} className="ldeContent">
                 <div className={styles.title}>
                   <p className={styles.legends}> número</p>
                   <p className={styles.values}>{item.num ? item.num : 'N/A'}</p>
