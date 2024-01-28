@@ -188,28 +188,30 @@
 
 .itemContainer{
   height: 300px;
-  /* border: 2px solid #333; */
-  box-shadow:  #222a 5px 5px 20px, inset 2px 2px 5px #333;
-  background-color: #111;
-  border: 3px solid #0002;
   border-radius: 1rem;
   perspective: 1000px;
   margin-bottom: 5rem;
-  padding: .5rem .3rem;
-
+  /* padding: .5rem .3rem; */
 }
-/* n  */
+/* n  */    
 .frontSide, .backSide{
     position: absolute;
-    width: 100%;
+    width: 95%;
     border-radius: .3rem;
     height: 100%;
     -webkit-backface-visibility: hidden; /* Safari */
     backface-visibility: hidden;
+    background-color: #111;
+    padding: 1rem .3rem 0;      
+    box-shadow:  #222a 5px 5px 20px, inset 2px 2px 5px #333;
+
 }
 .backSide{
     transform: rotateY(-180deg);
     color: #d1d1d1;
+    /* padding-top: 1rem; */
+    margin: 2rem 0;
+
 }
 
 .innerSide{
@@ -220,28 +222,19 @@
     transition: transform 0.8s;
     transform-style: preserve-3d;
     backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
 }
 
-/* .itemContainer:hover .frontSide{
-    transform: rotateY(180deg);
-}
-.itemContainer:hover .backSide{
-    transform: rotateY(0deg);
-} */
 
 .wrapper, .wrapperMonths{
     display: grid;
     grid-template-columns: repeat(1, .6fr .3fr 1fr .5fr  );
 
-    /* border: 1px solid #afb; */
-    /* background-color: burlywood; */
 }
 
-/* .wrapper i{
-    border: 2px solid #232;
-    border-radius: .4rem;
-    color: #d1d1d1;
-} */
 
 
 
@@ -254,17 +247,15 @@
 
     
 .wrapper > p, .wrapperMonths > p, .flipbackCard{
-    /* border: 1px solid #333; */
     display: inline-grid;
+    align-items: center;
     padding: .3rem ;
     border-radius: .5rem;
     color: #d1d1d1;
-    /* background-color: #000;
-    background-color: #111; */
     position: relative;
     min-width: 1.5rem;
     text-align: left;
-    margin: 1rem 1rem 1rem 0;
+    margin: 1rem 1rem 1rem .3rem;
     font-weight: 700;
     box-shadow: inset #000 2px 2px 10px, inset #222 -2px -2px 5px ;
 }
@@ -308,13 +299,32 @@
 .avariaIcon::after{
     content: 'avaria' !important;
 }
+.avariaIcon{
+    /* background-color: white; */
+    width: 2rem;
+    height: 2rem;
+    border-radius: 2rem !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: inset #222 3px 3px 5px, inset #000 -3px -3px 5px !important;
+    cursor: pointer;
+    
+}
 
 .flipbackCard{
+    width: 2rem;
+    height: 2rem;
+    border-radius: 2rem !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: inset #222 3px 3px 5px, inset #000 -3px -3px 5px !important;
     position: absolute;
-    right: .5rem;
-    top: 0rem;
+    right: .8rem;
+    top: 1rem;
+    cursor: pointer;
 }
 .flipbackCard::after{
     content:'voltar'
 }
-
