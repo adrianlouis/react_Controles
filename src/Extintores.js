@@ -12,6 +12,7 @@ const Extintores = () => {
   const [listaAtiva, setListaAtiva] = React.useState(
     [...context.userLogado.ext].reverse(),
   );
+  const [toogleTeste, setToogleTeste] = React.useState(false);
 
   if (!context.userLogado.ext) {
     context.setUserLogado({ ...context.userLogado, ext: [] });
@@ -103,6 +104,21 @@ const Extintores = () => {
     front.style.transform = 'rotateY(0deg)';
   }
 
+  function handleToogle(ind, elem) {
+    const toogle = window
+      .getComputedStyle(elem.nextSibling)
+      .getPropertyValue('opacity');
+
+    if (toogle === '1') {
+      elem.nextSibling.style.opacity = 0;
+      elem.nextSibling.style.visibility = 'hidden';
+    } else {
+      elem.nextSibling.style.opacity = 1;
+      elem.nextSibling.style.visibility = 'visible';
+    }
+    console.log(toogle);
+  }
+
   return (
     <>
       {/* <div className={styles.cont}>
@@ -117,46 +133,52 @@ const Extintores = () => {
           listaAtiva.map((item, i) => {
             return (
               <div className={styles.item}>
-                <fieldset className={styles.fieldset}>
+                <fieldset
+                  onClick={({ currentTarget }) =>
+                    handleToogle(i, currentTarget)
+                  }
+                  className={styles.fieldset}
+                >
                   <i className="fa-solid fa-hashtag" />
                   <span>{item.num}</span>
                 </fieldset>
-
-                <fieldset className={styles.fieldset}>
-                  <i className="fa-solid fa-fire-extinguisher" />
-                  <span>{item.tipo}</span>
-                </fieldset>
-
-                <fieldset className={styles.fieldset}>
-                  <i className="fa-solid fa-location-dot" />
-
-                  <span>{item.local}</span>
-                </fieldset>
-
-                <fieldset className={styles.fieldset}>
-                  <i className="fa-solid fa-calendar-day" />
-
-                  <span>{ultRec(item.ultRec.ano, item.ultRec.mes)}</span>
-                </fieldset>
-
-                <fieldset className={styles.fieldset}>
-                  <i className="fa-regular fa-calendar" />
-                  <span>{ultRec(item.ultRet, item.ultRec.mes)}</span>
-                </fieldset>
-
-                {item.avaria && (
-                  <fieldset className={styles.fieldsetAvaria}>
-                    <span className={styles.avaria}>{item.avaria}</span>
+                <div className={styles.toogleOff}>
+                  <fieldset className={styles.fieldset}>
+                    <i className="fa-solid fa-fire-extinguisher" />
+                    <span>{item.tipo}</span>
                   </fieldset>
-                )}
 
-                <BtnAcoesItens
-                  funcDel={() =>
-                    excluirExtintor(context.userLogado.id, item, 'ext')
-                  }
-                  itemId={item.id}
-                  editarOnClick={() => navigate(`extedit?id=${item.id}`)}
-                />
+                  <fieldset className={styles.fieldset}>
+                    <i className="fa-solid fa-location-dot" />
+
+                    <span>{item.local}</span>
+                  </fieldset>
+
+                  <fieldset className={styles.fieldset}>
+                    <i className="fa-solid fa-calendar-day" />
+
+                    <span>{ultRec(item.ultRec.ano, item.ultRec.mes)}</span>
+                  </fieldset>
+
+                  <fieldset className={styles.fieldset}>
+                    <i className="fa-regular fa-calendar" />
+                    <span>{ultRec(item.ultRet, item.ultRec.mes)}</span>
+                  </fieldset>
+
+                  {item.avaria && (
+                    <fieldset className={styles.fieldsetAvaria}>
+                      <span className={styles.avaria}>{item.avaria}</span>
+                    </fieldset>
+                  )}
+
+                  <BtnAcoesItens
+                    funcDel={() =>
+                      excluirExtintor(context.userLogado.id, item, 'ext')
+                    }
+                    itemId={item.id}
+                    editarOnClick={() => navigate(`extedit?id=${item.id}`)}
+                  />
+                </div>
               </div>
               // <>
               //   <div key={'key' + i} className={styles.itemContainer}>

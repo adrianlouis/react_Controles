@@ -1,0 +1,22 @@
+.filter{
+  height: 2rem;
+  width: 2rem;
+  position: absolute;
+  /* bottom: 4.1rem; */
+  /* right: 5rem; */
+  z-index: 45;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 2rem;
+  background-color: white;
+  color: black;
+  cursor: pointer;
+  opacity: .3;
+  transform: scale(.7);
+}
+
+.filter:hover{
+  transform: scale(1);
+  opacity: 1;
+}

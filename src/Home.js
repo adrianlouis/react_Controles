@@ -18,6 +18,7 @@ import {
 import Navbar from './components/Navbar';
 import BtnNewPost from './components/BtnNewPost';
 import SearchItens from './components/SearchItens';
+import Filter from './components/Filter';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -467,7 +468,9 @@ const Home = () => {
         </ul>
       </div> */}
       {newItem && !context.searchInput && (
-        <BtnNewPost onclick={() => handleAction()} />
+        <>
+          <BtnNewPost onclick={() => handleAction()} />
+        </>
       )}{' '}
       <Navbar onclick={() => setNewItem(true)} />
       <Outlet />
