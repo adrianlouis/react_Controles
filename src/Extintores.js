@@ -116,59 +116,101 @@ const Extintores = () => {
         {!context.itensFiltrados &&
           listaAtiva.map((item, i) => {
             return (
-              <>
-                <div key={'key' + i} className={styles.itemContainer}>
-                  <div className={styles.innerSide}>
-                    <div className={styles.frontSide}>
-                      <div className={styles.wrapper}>
-                        <p className={styles.itemNum}>{item.num}</p>
-                        <p className={styles.itemType}>{item.tipo}</p>
-                        <p className={styles.itemPlace}>{item.local}</p>
-                        {item.avaria && (
-                          <p
-                            className={styles.avariaIcon}
-                            onClick={({ currentTarget }) =>
-                              flipFront(currentTarget)
-                            }
-                          >
-                            <i className="fa-regular fa-eye"></i>
-                          </p>
-                        )}
-                      </div>
+              <div className={styles.item}>
+                <fieldset className={styles.fieldset}>
+                  <i className="fa-solid fa-hashtag" />
+                  <span>{item.num}</span>
+                </fieldset>
 
-                      <div className={styles.wrapperMonths}>
-                        <p className={styles.itemRec}>
-                          {ultRec(item.ultRec.ano, item.ultRec.mes)}
-                        </p>
-                        <p className={styles.itemRet}>
-                          {ultRec(item.ultRet, item.ultRec.mes)}
-                        </p>
-                      </div>
-                      <div className={styles.cardBtn}>
-                        <BtnAcoesItens
-                          funcDel={() =>
-                            excluirExtintor(context.userLogado.id, item, 'ext')
-                          }
-                          itemId={item.id}
-                          editarOnClick={() =>
-                            navigate(`extedit?id=${item.id}`)
-                          }
-                        />
-                      </div>
-                    </div>
-                    <div className={styles.backSide}>
-                      <p
-                        className={styles.flipbackCard}
-                        onClick={({ currentTarget }) => flipBack(currentTarget)}
-                      >
-                        <i className="fa-solid fa-arrow-left"></i>
-                      </p>
-                      {/* <h2>Avarias:</h2> */}
-                      <p className={styles.paraAvaria}>{item.avaria}</p>
-                    </div>
-                  </div>
-                </div>
-              </>
+                <fieldset className={styles.fieldset}>
+                  <i className="fa-solid fa-fire-extinguisher" />
+                  <span>{item.tipo}</span>
+                </fieldset>
+
+                <fieldset className={styles.fieldset}>
+                  <i className="fa-solid fa-location-dot" />
+
+                  <span>{item.local}</span>
+                </fieldset>
+
+                <fieldset className={styles.fieldset}>
+                  <i className="fa-solid fa-calendar-day" />
+
+                  <span>{ultRec(item.ultRec.ano, item.ultRec.mes)}</span>
+                </fieldset>
+
+                <fieldset className={styles.fieldset}>
+                  <i className="fa-regular fa-calendar" />
+                  <span>{ultRec(item.ultRet, item.ultRec.mes)}</span>
+                </fieldset>
+
+                {item.avaria && (
+                  <fieldset className={styles.fieldsetAvaria}>
+                    <span className={styles.avaria}>{item.avaria}</span>
+                  </fieldset>
+                )}
+
+                <BtnAcoesItens
+                  funcDel={() =>
+                    excluirExtintor(context.userLogado.id, item, 'ext')
+                  }
+                  itemId={item.id}
+                  editarOnClick={() => navigate(`extedit?id=${item.id}`)}
+                />
+              </div>
+              // <>
+              //   <div key={'key' + i} className={styles.itemContainer}>
+              //     <div className={styles.innerSide}>
+              //       <div className={styles.frontSide}>
+              //         <div className={styles.wrapper}>
+              //           <p className={styles.itemNum}>{item.num}</p>
+
+              //           <p className={styles.itemType}>{item.tipo}</p>
+              //           <p className={styles.itemPlace}>{item.local}</p>
+              //           {item.avaria && (
+              //             <p
+              //               className={styles.avariaIcon}
+              //               onClick={({ currentTarget }) =>
+              //                 flipFront(currentTarget)
+              //               }
+              //             >
+              //               <i className="fa-regular fa-eye"></i>
+              //             </p>
+              //           )}
+              //         </div>
+
+              //         <div className={styles.wrapperMonths}>
+              //           <p className={styles.itemRec}>
+              //             {ultRec(item.ultRec.ano, item.ultRec.mes)}
+              //           </p>
+              //           <p className={styles.itemRet}>
+              //             {ultRec(item.ultRet, item.ultRec.mes)}
+              //           </p>
+              //         </div>
+              //         <div className={styles.cardBtn}>
+              //           <BtnAcoesItens
+              //             funcDel={() =>
+              //               excluirExtintor(context.userLogado.id, item, 'ext')
+              //             }
+              //             itemId={item.id}
+              //             editarOnClick={() =>
+              //               navigate(`extedit?id=${item.id}`)
+              //             }
+              //           />
+              //         </div>
+              //       </div>
+              //       <div className={styles.backSide}>
+              //         <p
+              //           className={styles.flipbackCard}
+              //           onClick={({ currentTarget }) => flipBack(currentTarget)}
+              //         >
+              //           <i className="fa-solid fa-arrow-left"></i>
+              //         </p>
+              //         <p className={styles.paraAvaria}>{item.avaria}</p>
+              //       </div>
+              //     </div>
+              //   </div>
+              // </>
             );
           })}
 
