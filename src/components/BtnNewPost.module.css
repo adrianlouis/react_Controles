@@ -3,18 +3,37 @@
   bottom: 4rem;
   right: 1.5rem;
   z-index: 50;
-  /* border: 2px solid red; */
-  display: flex;
+
+  /* display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center; */
+
+  /* border: 1px solid red; */
+  width: 2rem;
+  height: 2rem;
+  border-top-left-radius: 50%;
 }
 
 .newPost{
   color: white;
-  /* position: fixed; */
-  bottom: 4rem;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+
+  /* bottom: 4rem; */
   /* right: 1.5rem; */
-  /* z-index: 50; */
+}
+.newPost::after{
+  width: 80%;
+  height: 80%;
+  z-index: -1;
+  border-radius: 10rem;
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  background-color: black;
+  display: block;
+  content: '';
 }
 .newPost i{
   cursor: pointer;
