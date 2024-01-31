@@ -390,15 +390,34 @@
     text-transform: uppercase;
 }
 
-.testeNum{
-    border: 1px solid #afc;
-    /* padding: .5rem 2rem; */
-    margin: 2rem ;
-    border-radius: .5rem;
+.filterBarWrapper{
+    position: sticky;
+    box-shadow: 0 10px 25px #000;
+    top: 5rem;
+    background-color: #000;
 }
 
-.toogleOff{
-    display: block;
+.filterBar{
+    /* border: 1px solid white; */
+    height: 3rem;
+    margin: .5rem 0;
+    display: flex;
+    align-items: center;
+    
 }
-.toogleOn{
+.filterBar p{
+    border: 1px solid #333;
+    padding: 0 .3rem;
+    border-radius: .5rem;
+    cursor: pointer;
+}
+.filterBar p:hover{
+    color: #8a8a8a;
+    background-color: #222;
+}
+
+.typeFilter{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    width: 100%;
 }

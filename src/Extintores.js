@@ -12,7 +12,7 @@ const Extintores = () => {
   const [listaAtiva, setListaAtiva] = React.useState(
     [...context.userLogado.ext].reverse(),
   );
-  const [toogleTeste, setToogleTeste] = React.useState(false);
+  const [filter, setFilter] = React.useState(null);
 
   if (!context.userLogado.ext) {
     context.setUserLogado({ ...context.userLogado, ext: [] });
@@ -88,57 +88,112 @@ const Extintores = () => {
     return ptbr;
   }
 
-  function flipFront(elem) {
-    const front = elem.parentElement.parentElement;
-    const back = elem.parentElement.parentElement.nextSibling;
-
-    front.style.transform = 'rotateY(180deg)';
-    back.style.transform = 'rotateY(0deg)';
+  function handleFilter(type, elem) {
+    const filtered = context.userLogado.ext.filter((f) => {
+      return f.tipo === type.toUpperCase();
+    });
+    context.setItensFiltrados(filtered);
+    const spans = document.querySelectorAll('#typeSpan');
+    spans.forEach((el) => {
+      el.style.backgroundColor = '#222';
+      el.style.color = '#8a8a8a';
+    });
+    elem.style.backgroundColor = '#d1d1d1';
+    elem.style.color = '#575757';
   }
 
-  function flipBack(elem) {
-    const back = elem.parentElement;
-    const front = elem.parentElement.previousSibling;
-
-    back.style.transform = 'rotateY(180deg)';
-    front.style.transform = 'rotateY(0deg)';
+  function clearFilter() {
+    setFilter(null);
+    context.setItensFiltrados(null);
   }
 
-  function handleToogle(ind, elem) {
-    const toogle = window
-      .getComputedStyle(elem.nextSibling)
-      .getPropertyValue('opacity');
-
-    if (toogle === '1') {
-      elem.nextSibling.style.opacity = 0;
-      elem.nextSibling.style.visibility = 'hidden';
-    } else {
-      elem.nextSibling.style.opacity = 1;
-      elem.nextSibling.style.visibility = 'visible';
-    }
-    console.log(toogle);
-  }
+  const opt = ['terreo', 'subsolo', '2 andar'];
 
   return (
     <>
-      {/* <div className={styles.cont}>
-        <div className={styles.innerC}>
-          <div className={styles.frnt}>FRTENT</div>
-          <div className={styles.bck}>COSTAs</div>
+      <div className={styles.filterBarWrapper}>
+        <div className={styles.filterBar}>
+          {!filter && (
+            <>
+              <p onClick={() => setFilter('tipo')}>tipo</p>
+              <p onClick={() => setFilter('local')}>local</p>
+              <p>recarga</p>
+              <p>reteste</p>
+            </>
+          )}
+
+          {filter === 'local' && (
+            <>
+              <p onClick={() => clearFilter()}>
+                <i className="fa-solid fa-filter-circle-xmark"></i> limpar
+              </p>
+
+              <select
+                style={{
+                  color: '#d1d1d1',
+                  backgroundColor: 'transparent',
+                  outline: 'none',
+                  border: 'none',
+                }}
+                name=""
+                id=""
+                options={opt}
+              >
+                <option value="">Térreo</option>
+                <option value="">Subsolo</option>
+                <option value="">2° Pav</option>
+                <option value="">2° Pav A</option>
+                <option value="">2° Pav B</option>
+                <option value="">2° Pav C</option>
+              </select>
+            </>
+          )}
+
+          {filter === 'tipo' && (
+            <div className={styles.typeFilter}>
+              {context.itensFiltrados && (
+                <p onClick={() => clearFilter()}>
+                  <i className="fa-solid fa-filter-circle-xmark"></i> limpar
+                </p>
+              )}
+              {!context.itensFiltrados && (
+                <p onClick={() => setFilter(null)}>voltar</p>
+              )}
+              <p
+                onClick={({ currentTarget }) =>
+                  handleFilter('a', currentTarget)
+                }
+                id="typeSpan"
+              >
+                A
+              </p>
+              <p
+                onClick={({ currentTarget }) =>
+                  handleFilter('b', currentTarget)
+                }
+                id="typeSpan"
+              >
+                B
+              </p>
+              <p
+                onClick={({ currentTarget }) =>
+                  handleFilter('c', currentTarget)
+                }
+                id="typeSpan"
+              >
+                C
+              </p>
+            </div>
+          )}
         </div>
-      </div> */}
+      </div>
 
       <div className={`${styles.container} animateLeft`} id="container">
         {!context.itensFiltrados &&
           listaAtiva.map((item, i) => {
             return (
               <div className={styles.item}>
-                <fieldset
-                  onClick={({ currentTarget }) =>
-                    handleToogle(i, currentTarget)
-                  }
-                  className={styles.fieldset}
-                >
+                <fieldset className={styles.fieldset}>
                   <i className="fa-solid fa-hashtag" />
                   <span>{item.num}</span>
                 </fieldset>
@@ -296,52 +351,95 @@ const Extintores = () => {
         {context.itensFiltrados &&
           context.itensFiltrados.map((item, i) => {
             return (
-              <div key={'ext' + i} className="ldeContent">
-                <div className={styles.title}>
-                  <p className={styles.legends}> número</p>
-                  <p className={styles.values}>{item.num ? item.num : 'N/A'}</p>
+              // <div key={'ext' + i} className="ldeContent">
+              //   <div className={styles.title}>
+              //     <p className={styles.legends}> número</p>
+              //     <p className={styles.values}>{item.num ? item.num : 'N/A'}</p>
+              //   </div>
+
+              //   <div className={styles.minorInfos}>
+              //     <div>
+              //       <p className={styles.legends}> tipo</p>
+              //       <p className={styles.txtValues}>
+              //         {item.tipo
+              //           ? `${item.tipo} - ${tipoClasse(item.tipo)}`
+              //           : 'N/A'}
+              //       </p>
+              //       <p className={styles.legends}> local</p>
+              //       <p className={styles.txtValues}>
+              //         {item.local ? item.local : 'não informado'}
+              //       </p>
+              //     </div>
+
+              //     <div>
+              //       <p className={styles.legends}> recarga </p>
+              //       <p className={styles.txtValues}>
+              //         {' '}
+              //         {datasPorExtenso(item.ultRec.ano, item.ultRec.mes)}
+              //       </p>
+
+              //       <p className={styles.legends}> reteste </p>
+              //       <p className={styles.txtValues}>
+              //         {item.ultRet ? item.ultRet : 'não informado'}
+              //       </p>
+              //     </div>
+
+              //     <div>
+              //       {item.avaria && <p className={styles.legends}>avaria</p>}
+              //       <p className={styles.txtValues}> {item.avaria}</p>
+              //     </div>
+              //   </div>
+
+              //   <BtnAcoesItens
+              //     funcDel={() =>
+              //       excluirExtintor(context.userLogado.id, item, 'ext')
+              //     }
+              //     itemId={item.id}
+              //     editarOnClick={() => navigate(`extedit?id=${item.id}`)}
+              //   />
+              // </div>
+              <div className={styles.item}>
+                <fieldset className={styles.fieldset}>
+                  <i className="fa-solid fa-hashtag" />
+                  <span>{item.num}</span>
+                </fieldset>
+                <div className={styles.toogleOff}>
+                  <fieldset className={styles.fieldset}>
+                    <i className="fa-solid fa-fire-extinguisher" />
+                    <span>{item.tipo}</span>
+                  </fieldset>
+
+                  <fieldset className={styles.fieldset}>
+                    <i className="fa-solid fa-location-dot" />
+
+                    <span>{item.local}</span>
+                  </fieldset>
+
+                  <fieldset className={styles.fieldset}>
+                    <i className="fa-solid fa-calendar-day" />
+
+                    <span>{ultRec(item.ultRec.ano, item.ultRec.mes)}</span>
+                  </fieldset>
+
+                  <fieldset className={styles.fieldset}>
+                    <i className="fa-regular fa-calendar" />
+                    <span>{ultRec(item.ultRet, item.ultRec.mes)}</span>
+                  </fieldset>
+
+                  {item.avaria && (
+                    <fieldset className={styles.fieldsetAvaria}>
+                      <span className={styles.avaria}>{item.avaria}</span>
+                    </fieldset>
+                  )}
+
+                  <BtnAcoesItens
+                    funcDel={() =>
+                      excluirExtintor(context.userLogado.id, item, 'ext')
+                    }
+                    itemId={item.id}
+                    editarOnClick={() => navigate(`extedit?id=${item.id}`)}
+                  />
                 </div>
-
-                <div className={styles.minorInfos}>
-                  <div>
-                    <p className={styles.legends}> tipo</p>
-                    <p className={styles.txtValues}>
-                      {item.tipo
-                        ? `${item.tipo} - ${tipoClasse(item.tipo)}`
-                        : 'N/A'}
-                    </p>
-                    <p className={styles.legends}> local</p>
-                    <p className={styles.txtValues}>
-                      {item.local ? item.local : 'não informado'}
-                    </p>
-                  </div>
-
-                  <div>
-                    <p className={styles.legends}> recarga </p>
-                    <p className={styles.txtValues}>
-                      {' '}
-                      {datasPorExtenso(item.ultRec.ano, item.ultRec.mes)}
-                    </p>
-
-                    <p className={styles.legends}> reteste </p>
-                    <p className={styles.txtValues}>
-                      {item.ultRet ? item.ultRet : 'não informado'}
-                    </p>
-                  </div>
-
-                  <div>
-                    {item.avaria && <p className={styles.legends}>avaria</p>}
-                    <p className={styles.txtValues}> {item.avaria}</p>
-                  </div>
-                </div>
-
-                <BtnAcoesItens
-                  funcDel={() =>
-                    excluirExtintor(context.userLogado.id, item, 'ext')
-                  }
-                  itemId={item.id}
-                  editarOnClick={() => navigate(`extedit?id=${item.id}`)}
-                />
               </div>
             );
           })}
