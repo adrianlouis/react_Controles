@@ -7,11 +7,13 @@ import { refreshBd, removerRegistro } from './crudFireBase';
 import Footer from './Footer';
 import BtnAcoesItens from './components/BtnAcoesItens';
 import SelectFilter from './components/SelectFilter';
+import { Timestamp } from 'firebase/firestore';
 
 const Extintores = () => {
   const context = useContext(GlobalContext);
   const navigate = useNavigate();
   const [filter, setFilter] = React.useState(null);
+  const [check, setCheck] = React.useState(null);
   const [listaAtiva, setListaAtiva] = React.useState(
     [...context.userLogado.ext].reverse(),
   );
@@ -90,17 +92,24 @@ const Extintores = () => {
   }
 
   function handleFilter(type, elem) {
+    // background-color: #439A86;
+    // box-shadow: inset #83dAc6 2px 2px 4px ,inset #035A46 -5px -5px 10px;
+
     const filtered = context.userLogado.ext.filter((f) => {
       return f.tipo === type.toUpperCase();
     });
     context.setItensFiltrados(filtered);
     const spans = document.querySelectorAll('#typeSpan');
     spans.forEach((el) => {
-      el.style.backgroundColor = '#222';
-      el.style.color = '#8a8a8a';
+      el.style.backgroundColor = '#111';
+      el.style.color = '#555';
+      elem.style.boxShadow =
+        'inset #3337 2px 2px 4px ,inset #0007 -5px -5px 10px ';
     });
-    elem.style.backgroundColor = '#d1d1d1';
-    elem.style.color = '#575757';
+    elem.style.backgroundColor = '#439A86';
+    elem.style.color = '#d1d1d1';
+    elem.style.boxShadow =
+      'inset #83dAc6 2px 2px 4px ,inset #035A46 -5px -5px 10px ';
   }
 
   function clearFilter() {
@@ -108,6 +117,17 @@ const Extintores = () => {
     context.setItensFiltrados(null);
   }
 
+  function handleCheck(elem) {
+    const stamp = new Date();
+    // console.log(elem.firstChild.nextSibling.innerHTML);
+    elem.firstChild.nextSibling.innerHTML = stamp.toLocaleDateString('pt-Br', {
+      day: '2-digit',
+      month: 'short',
+      year: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+    });
+  }
   return (
     <>
       <div className={styles.filterBarWrapper}>
@@ -118,6 +138,8 @@ const Extintores = () => {
               <p onClick={() => setFilter('local')}>local</p>
               <p>recarga</p>
               <p>reteste</p>
+              <p>avariados</p>
+              <p>check</p>
             </>
           )}
 
@@ -179,6 +201,7 @@ const Extintores = () => {
                   <i className="fa-solid fa-hashtag" />
                   <span>{item.num}</span>
                 </fieldset>
+
                 <div className={styles.toogleOff}>
                   <fieldset className={styles.fieldset}>
                     <i className="fa-solid fa-fire-extinguisher" />
@@ -204,6 +227,15 @@ const Extintores = () => {
                         ? ultRec(item.ultRet, item.ultRec.mes)
                         : 'Reteste não informado'}
                     </span>
+                  </fieldset>
+
+                  <fieldset
+                    className={styles.fieldset}
+                    onClick={({ currentTarget }) => handleCheck(currentTarget)}
+                  >
+                    <i className={`${styles.vistoriaIcon} fa-solid fa-check`} />
+
+                    <span>{item.check ? item.check : 'vistoriar'}</span>
                   </fieldset>
 
                   {item.avaria && (
@@ -410,6 +442,15 @@ const Extintores = () => {
                   <fieldset className={styles.fieldset}>
                     <i className="fa-regular fa-calendar" />
                     <span>{ultRec(item.ultRet, item.ultRec.mes)}</span>
+                  </fieldset>
+
+                  <fieldset
+                    className={styles.fieldset}
+                    onClick={({ currentTarget }) => handleCheck(currentTarget)}
+                  >
+                    <i className={`${styles.vistoriaIcon} fa-solid fa-check`} />
+
+                    <span>{item.check ? item.check : 'vistoriar'}</span>
                   </fieldset>
 
                   {item.avaria && (
