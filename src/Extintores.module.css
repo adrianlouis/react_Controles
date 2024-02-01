@@ -406,14 +406,17 @@
     
 }
 .filterBar p{
-    border: 1px solid #333;
-    padding: 0 .3rem;
-    border-radius: .5rem;
+    border: 2px solid #333;
+    padding: 0 .7rem;
+    border-radius: 1rem;
     cursor: pointer;
+    background-color: #111;
+    box-shadow: inset #3337 2px 2px 4px ,inset #0007 -5px -5px 10px;
 }
 .filterBar p:hover{
-    color: #8a8a8a;
-    background-color: #222;
+    color: #3f3f3f;
+    background-color: #439A86;
+    box-shadow: inset #63bAa6 2px 2px 4px ,inset #237A66 -5px -5px 10px;
 }
 
 .typeFilter{

@@ -6,18 +6,19 @@ import { useNavigate } from 'react-router-dom';
 import { refreshBd, removerRegistro } from './crudFireBase';
 import Footer from './Footer';
 import BtnAcoesItens from './components/BtnAcoesItens';
+import SelectFilter from './components/SelectFilter';
 
 const Extintores = () => {
   const context = useContext(GlobalContext);
+  const navigate = useNavigate();
+  const [filter, setFilter] = React.useState(null);
   const [listaAtiva, setListaAtiva] = React.useState(
     [...context.userLogado.ext].reverse(),
   );
-  const [filter, setFilter] = React.useState(null);
 
   if (!context.userLogado.ext) {
     context.setUserLogado({ ...context.userLogado, ext: [] });
   }
-  const navigate = useNavigate();
 
   async function excluirExtintor(idUser, item, campo) {
     const nArray = listaAtiva.filter((f) => {
@@ -107,8 +108,6 @@ const Extintores = () => {
     context.setItensFiltrados(null);
   }
 
-  const opt = ['terreo', 'subsolo', '2 andar'];
-
   return (
     <>
       <div className={styles.filterBarWrapper}>
@@ -128,24 +127,7 @@ const Extintores = () => {
                 <i className="fa-solid fa-filter-circle-xmark"></i> limpar
               </p>
 
-              <select
-                style={{
-                  color: '#d1d1d1',
-                  backgroundColor: 'transparent',
-                  outline: 'none',
-                  border: 'none',
-                }}
-                name=""
-                id=""
-                options={opt}
-              >
-                <option value="">Térreo</option>
-                <option value="">Subsolo</option>
-                <option value="">2° Pav</option>
-                <option value="">2° Pav A</option>
-                <option value="">2° Pav B</option>
-                <option value="">2° Pav C</option>
-              </select>
+              <SelectFilter itens={context.userLogado.ext} />
             </>
           )}
 
@@ -217,7 +199,11 @@ const Extintores = () => {
 
                   <fieldset className={styles.fieldset}>
                     <i className="fa-regular fa-calendar" />
-                    <span>{ultRec(item.ultRet, item.ultRec.mes)}</span>
+                    <span>
+                      {item.ultRet
+                        ? ultRec(item.ultRet, item.ultRec.mes)
+                        : 'Reteste não informado'}
+                    </span>
                   </fieldset>
 
                   {item.avaria && (
