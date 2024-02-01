@@ -414,9 +414,9 @@
     box-shadow: inset #3337 2px 2px 4px ,inset #0007 -5px -5px 10px;
 }
 .filterBar p:hover{
-    color: #3f3f3f;
+    color: #000;
     background-color: #439A86;
-    box-shadow: inset #63bAa6 2px 2px 4px ,inset #237A66 -5px -5px 10px;
+    box-shadow: inset #83dAc6 2px 2px 4px ,inset #035A46 -5px -5px 10px;
 }
 
 .typeFilter{
