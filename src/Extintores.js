@@ -8,6 +8,7 @@ import Footer from './Footer';
 import BtnAcoesItens from './components/BtnAcoesItens';
 import SelectFilter from './components/SelectFilter';
 import { Timestamp } from 'firebase/firestore';
+import { UPDATE_DATA } from './funcoes/Api';
 
 const Extintores = () => {
   const context = useContext(GlobalContext);
@@ -117,29 +118,61 @@ const Extintores = () => {
     context.setItensFiltrados(null);
   }
 
-  function handleCheck(elem) {
+  async function handleCheck(elem, item) {
     const stamp = new Date();
-    // console.log(elem.firstChild.nextSibling.innerHTML);
-    elem.firstChild.nextSibling.innerHTML = stamp.toLocaleDateString('pt-Br', {
+    const stampPtBr = stamp.toLocaleDateString('pt-Br', {
       day: '2-digit',
       month: 'short',
       year: '2-digit',
       hour: '2-digit',
       minute: '2-digit',
     });
+
+    const checked = {
+      ...item,
+      vistoria: { check: true, stamp: stampPtBr },
+    };
+
+    const newArr = context.userLogado.ext.map((m) => {
+      if (m.id !== item.id) {
+        return m;
+      } else {
+        return checked;
+      }
+    });
+
+    elem.firstChild.nextSibling.innerHTML = stampPtBr;
+
+    await UPDATE_DATA(context.userLogado.id, newArr, 'ext');
+    context.setUserLogado({ ...context.userLogado, ext: newArr });
   }
+
+  function testeCheck(e) {}
+
   return (
     <>
       <div className={styles.filterBarWrapper}>
         <div className={styles.filterBar}>
           {!filter && (
             <>
-              <p onClick={() => setFilter('tipo')}>tipo</p>
-              <p onClick={() => setFilter('local')}>local</p>
-              <p>recarga</p>
-              <p>reteste</p>
-              <p>avariados</p>
-              <p>check</p>
+              <p onClick={() => setFilter('tipo')}>
+                <i className="fa-solid fa-fire-extinguisher" /> tipo
+              </p>
+              <p onClick={() => setFilter('local')}>
+                <i className="fa-solid fa-location-dot" /> local
+              </p>
+              <p>
+                <i className="fa-solid fa-calendar-day" /> recarga
+              </p>
+              <p>
+                <i className="fa-regular fa-calendar" /> reteste
+              </p>
+              <p>
+                <i className="fa-solid fa-circle-exclamation"></i> avariados
+              </p>
+              <p>
+                <i className="fa-solid fa-circle-check"></i> vistoriados
+              </p>
             </>
           )}
 
@@ -231,11 +264,15 @@ const Extintores = () => {
 
                   <fieldset
                     className={styles.fieldset}
-                    onClick={({ currentTarget }) => handleCheck(currentTarget)}
+                    onClick={({ currentTarget }) =>
+                      handleCheck(currentTarget, item)
+                    }
                   >
                     <i className={`${styles.vistoriaIcon} fa-solid fa-check`} />
 
-                    <span>{item.check ? item.check : 'vistoriar'}</span>
+                    <span>
+                      {item.vistoria ? item.vistoria.stamp : 'vistoriar'}
+                    </span>
                   </fieldset>
 
                   {item.avaria && (
@@ -446,7 +483,9 @@ const Extintores = () => {
 
                   <fieldset
                     className={styles.fieldset}
-                    onClick={({ currentTarget }) => handleCheck(currentTarget)}
+                    onClick={({ currentTarget }) =>
+                      handleCheck(currentTarget, item)
+                    }
                   >
                     <i className={`${styles.vistoriaIcon} fa-solid fa-check`} />
 

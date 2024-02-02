@@ -406,15 +406,18 @@
 }
 .filterBar p{
     border: 2px solid #333;
-    padding: .3rem .7rem;
+    padding: .1rem .3rem;
     border-radius: 1rem;
     cursor: pointer;
     display: flexbox;
     background-color: #111;
     box-shadow: inset #3337 2px 2px 4px ,inset #0007 -5px -5px 10px;
-    margin: .3rem .5rem;
+    margin: .2rem .2rem;
     font-size: .8rem;
     
+}
+.filterBar i{
+    font-size: .8rem;
 }
 .filterBar p:hover{
     color: #000;
@@ -426,4 +429,8 @@
     display: grid;
     grid-template-columns: 1fr .5fr .5fr .5fr;
     width: 100%;
+}
+
+.classChecked{
+ color: red;   
 }
