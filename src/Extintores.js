@@ -1,20 +1,16 @@
 import React, { useContext } from 'react';
 import { GlobalContext } from './GlobalContext';
-// import css from './css/ext.css'
 import styles from './Extintores.module.css';
 import { useNavigate } from 'react-router-dom';
 import { refreshBd, removerRegistro } from './crudFireBase';
-import Footer from './Footer';
 import BtnAcoesItens from './components/BtnAcoesItens';
 import SelectFilter from './components/SelectFilter';
-import { Timestamp } from 'firebase/firestore';
 import { UPDATE_DATA } from './funcoes/Api';
 
 const Extintores = () => {
   const context = useContext(GlobalContext);
   const navigate = useNavigate();
   const [filter, setFilter] = React.useState(null);
-  const [check, setCheck] = React.useState(null);
   const [listaAtiva, setListaAtiva] = React.useState(
     [...context.userLogado.ext].reverse(),
   );
@@ -47,42 +43,6 @@ const Extintores = () => {
     }
   }
 
-  function tipoClasse(tipo) {
-    if (tipo === 'A') {
-      return 'AP';
-    } else if (tipo === 'B') {
-      return 'PQS';
-    } else if (tipo === 'C') {
-      return 'CO²';
-    }
-  }
-
-  function datasPorExtenso(ano, mes) {
-    if (ano && mes) {
-      return new Date(ano + '-' + mes).toLocaleString('pt-BR', {
-        month: 'long',
-        year: 'numeric',
-      });
-    } else if (!ano && mes) {
-      return new Date(2020 - mes).toLocaleDateString('pt-BR', {
-        month: 'long',
-      });
-    } else if (!mes && ano) {
-      return ano;
-    } else {
-      return 'não informado';
-    }
-  }
-
-  // function handleLoad(t) {
-  //   t.style.transform = 'translate(0px)';
-  //   console.log(t);
-  // }
-
-  // React.useEffect(() => {
-  //   document.querySelector('#container').style.transform = 'translate(0px)';
-
-  // }, []);
   function ultRec(ano, mes) {
     const data = new Date(ano, mes);
     const ptbr = data.toLocaleDateString('pt-Br', {
@@ -104,9 +64,13 @@ const Extintores = () => {
     spans.forEach((el) => {
       el.style.backgroundColor = '#111';
       el.style.color = '#555';
-      elem.style.boxShadow =
+      console.log(el.firstChild.nextElementSibling);
+      el.firstChild.nextElementSibling.style.display = 'none';
+      el.style.boxShadow =
         'inset #3337 2px 2px 4px ,inset #0007 -5px -5px 10px ';
     });
+    elem.firstChild.nextElementSibling.innerHTML = filtered.length;
+    elem.firstChild.nextElementSibling.style.display = 'flex';
     elem.style.backgroundColor = '#439A86';
     elem.style.color = '#d1d1d1';
     elem.style.boxShadow =
@@ -114,6 +78,14 @@ const Extintores = () => {
   }
 
   function clearFilter() {
+    console.log(filter);
+    if (filter === 'tipo') {
+      const spans = document.querySelectorAll('#typeSpan');
+      spans.forEach((el) => {
+        el.innerHTML = el.innerHTML.slice(0, 1);
+      });
+    }
+
     setFilter(null);
     context.setItensFiltrados(null);
   }
@@ -147,40 +119,56 @@ const Extintores = () => {
     context.setUserLogado({ ...context.userLogado, ext: newArr });
   }
 
-  function testeCheck(e) {}
-
   return (
     <>
       <div className={styles.filterBarWrapper}>
         <div className={styles.filterBar}>
           {!filter && (
             <>
-              <p onClick={() => setFilter('tipo')}>
-                <i className="fa-solid fa-fire-extinguisher" /> tipo
+              <p
+                className={styles.filterBtns}
+                onClick={() => setFilter('tipo')}
+              >
+                <i className="fa-solid fa-fire-extinguisher" />
+                tipo
               </p>
-              <p onClick={() => setFilter('local')}>
-                <i className="fa-solid fa-location-dot" /> local
+              <p
+                className={styles.filterBtns}
+                onClick={() => setFilter('local')}
+              >
+                <i className="fa-solid fa-location-dot" />
+                local
               </p>
-              <p>
-                <i className="fa-solid fa-calendar-day" /> recarga
+              <p className={styles.filterBtns}>
+                <i className="fa-solid fa-calendar-day" />
+                recarga
               </p>
-              <p>
-                <i className="fa-regular fa-calendar" /> reteste
+              <p className={styles.filterBtns}>
+                <i className="fa-regular fa-calendar" />
+                reteste
               </p>
-              <p>
-                <i className="fa-solid fa-circle-exclamation"></i> avariados
+              <p className={styles.filterBtns}>
+                <i className="fa-solid fa-circle-exclamation"></i>avariados
               </p>
-              <p>
-                <i className="fa-solid fa-circle-check"></i> vistoriados
+              <p className={styles.filterBtns}>
+                <i className="fa-solid fa-circle-check"></i>vistoriados
               </p>
             </>
           )}
 
           {filter === 'local' && (
             <>
-              <p onClick={() => clearFilter()}>
-                <i className="fa-solid fa-filter-circle-xmark"></i> limpar
-              </p>
+              <div
+                className={styles.filterBtns}
+                onClick={({ currentTarget }) => clearFilter(currentTarget)}
+              >
+                <p>
+                  <i className="fa-solid fa-filter-circle-xmark"></i>limpar
+                </p>
+                <p style={{ display: 'flex' }} className={styles.filterNumbers}>
+                  {context.itensFiltrados ? context.itensFiltrados.length : '0'}
+                </p>
+              </div>
 
               <SelectFilter itens={context.userLogado.ext} />
             </>
@@ -189,37 +177,52 @@ const Extintores = () => {
           {filter === 'tipo' && (
             <div className={styles.typeFilter}>
               {context.itensFiltrados && (
-                <p onClick={() => clearFilter()}>
-                  <i className="fa-solid fa-filter-circle-xmark"></i> limpar
-                </p>
+                <div
+                  className={styles.filterBtns}
+                  onClick={() => clearFilter()}
+                >
+                  <p>
+                    <i className="fa-solid fa-filter-circle-xmark"></i> limpar
+                  </p>
+                </div>
               )}
               {!context.itensFiltrados && (
-                <p onClick={() => setFilter(null)}>voltar</p>
+                <div
+                  className={styles.filterBtns}
+                  onClick={() => setFilter(null)}
+                >
+                  <p>
+                    <i className="fa-solid fa-arrow-left"></i> voltar
+                  </p>
+                </div>
               )}
-              <p
+              <div
+                className={styles.filterBtns}
                 onClick={({ currentTarget }) =>
                   handleFilter('a', currentTarget)
                 }
                 id="typeSpan"
               >
-                A
-              </p>
-              <p
+                <p>A</p> <span className={styles.filterNumbers}>23</span>
+              </div>
+              <div
+                className={styles.filterBtns}
                 onClick={({ currentTarget }) =>
                   handleFilter('b', currentTarget)
                 }
                 id="typeSpan"
               >
-                B
-              </p>
-              <p
+                <p>B</p> <span className={styles.filterNumbers}>32</span>
+              </div>
+              <div
+                className={styles.filterBtns}
                 onClick={({ currentTarget }) =>
                   handleFilter('c', currentTarget)
                 }
                 id="typeSpan"
               >
-                C
-              </p>
+                <p>C</p> <span className={styles.filterNumbers}>43</span>
+              </div>
             </div>
           )}
         </div>
