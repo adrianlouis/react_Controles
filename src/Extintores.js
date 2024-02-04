@@ -206,10 +206,24 @@ const Extintores = () => {
     });
 
     if (hoje === stamped) {
-      return 'rgb(166, 243, 166)';
+      return 'rgb(106, 183, 106)';
     } else {
       return 'rgb(85,85,85)';
     }
+  }
+
+  function handleShowCard(ind) {
+    const el = document.querySelector('#minor' + ind);
+
+    console.log(el.previousElementSibling.firstChild);
+    el.style.display = 'block';
+    el.previousElementSibling.style.display = 'flex';
+    el.previousElementSibling.style.flexDirection = 'column';
+    el.previousElementSibling.firstChild.style.margin = '0 0 1rem 0';
+    el.previousElementSibling.firstChild.nextSibling.style.margin =
+      '0 0 1rem 0';
+    // el.previousElementSibling.style.border = '1px solid red';
+    // el.previous
   }
 
   return (
@@ -371,31 +385,53 @@ const Extintores = () => {
         {!context.itensFiltrados &&
           listaAtiva.map((item, i) => {
             return (
-              <div className={styles.item}>
-                <fieldset className={styles.fieldset}>
-                  <i className="fa-solid fa-hashtag" />
-                  <span>{item.num}</span>
-                </fieldset>
+              <div
+                id={'item' + i}
+                key={'item' + i}
+                className={styles.item}
+                onClick={() => handleShowCard(i)}
+              >
+                <div className={styles.minorWrapper}>
+                  <fieldset
+                    style={{ color: checked(item.vistoria.stamp) }}
+                    className={styles.fieldset}
+                  >
+                    <i className="fa-solid fa-hashtag" />
+                    <span>{item.num}</span>
+                  </fieldset>
 
-                <div className={styles.toogleOff}>
-                  <fieldset className={styles.fieldset}>
+                  <fieldset
+                    style={{ color: checked(item.vistoria.stamp) }}
+                    className={styles.fieldset}
+                  >
                     <i className="fa-solid fa-fire-extinguisher" />
                     <span>{item.tipo}</span>
                   </fieldset>
 
-                  <fieldset className={styles.fieldset}>
+                  <fieldset
+                    style={{ color: checked(item.vistoria.stamp) }}
+                    className={styles.fieldset}
+                  >
                     <i className="fa-solid fa-location-dot" />
 
                     <span>{item.local}</span>
                   </fieldset>
+                </div>
 
-                  <fieldset className={styles.fieldset}>
+                <div id={'minor' + i} className={styles.toogleOff}>
+                  <fieldset
+                    style={{ color: checked(item.vistoria.stamp) }}
+                    className={styles.fieldset}
+                  >
                     <i className="fa-solid fa-calendar-day" />
 
                     <span>{ultRec(item.ultRec.ano, item.ultRec.mes)}</span>
                   </fieldset>
 
-                  <fieldset className={styles.fieldset}>
+                  <fieldset
+                    style={{ color: checked(item.vistoria.stamp) }}
+                    className={styles.fieldset}
+                  >
                     <i className="fa-regular fa-calendar" />
                     <span>
                       {item.ultRet
@@ -405,6 +441,7 @@ const Extintores = () => {
                   </fieldset>
 
                   <fieldset
+                    style={{ color: checked(item.vistoria.stamp) }}
                     className={styles.fieldset}
                     onClick={({ currentTarget }) =>
                       handleCheck(currentTarget, item)

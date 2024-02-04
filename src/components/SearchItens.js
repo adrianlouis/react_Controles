@@ -35,6 +35,7 @@ const SearchItens = ({ itens }) => {
     const res = ctx.userLogado[path].filter((f) => {
       return f.num.includes(value);
     });
+
     setFound(res);
     if (!value) {
       ctx.setItensFiltrados('');

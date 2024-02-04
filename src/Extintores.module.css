@@ -337,10 +337,6 @@
 .flipbackCard::after{
     content:'voltar'
 }
-
-
-/* .container{
-} */
 .item{
     box-shadow: inset #333a 3px 3px 10px,  3px 3px 10px #111;
     background-color: #111c;
@@ -349,21 +345,62 @@
     padding: 1rem ;
 }
 
+.minorWrapper{
+    display: grid;
+    grid-template-columns: 1fr .5fr 1.25fr;
+    width: 100%;
+}
+.majorCard{
+    display: flex;
+    border: 1px solid red;
+    flex-direction: column;
+    opacity: .2;
+}
+
+.minorWrapper .fieldset:first-child{
+    margin: 0 5px 0 0;
+
+}
+.minorWrapper .fieldset{
+    margin: 0 10px 0 5px;
+}
+.minorWrapper .fieldset:last-child{
+    margin: 0;
+
+
+}
+
 .item:last-child{
     margin-bottom: 8rem;
 }
+
+.toogleOff{
+    display: none;
+    /* border: 1px solid #f5aa; */
+    
+}
+.toogleOff .fieldset{
+    margin: 1rem 0;
+}
+
 .fieldset, .fieldsetAvaria{
   border: 2px solid #3337;
   border-radius: .5rem;
-  padding: 10px 0;
-  margin-bottom: 15px;
+  padding: .3rem .5rem ;
+  /* margin-bottom: 15px; */
   display: grid;
-  grid-template-columns: .5fr 2fr;
+  grid-template-columns: .2fr 1fr;
     background-color: #111;
 }
 .fieldset span{
     margin: 0;
 }
+
+.fieldset *{
+    /* border: 1px solid white; */
+    margin: auto;
+}
+
 
 .fieldset:hover, .fieldsetAvaria:hover{
     box-shadow: inset #0007 -3px -3px 10px, inset #3337 3px 3px 10px;
@@ -372,6 +409,7 @@
 
 .fieldset i{
     margin: auto;
+    margin-right: 1rem;
 }
 .avaria{
     white-space: pre-line;
@@ -381,9 +419,9 @@
     display: block;
     margin-bottom: 0;
 }
-.fieldset:last-child{
+/* .fieldset:last-child{
     margin-bottom: 0;
-}
+} */
 .fieldset span::first-letter{
     text-transform: uppercase;
 }
@@ -461,3 +499,5 @@
     justify-content: center;
     align-items: center;
 }
+
+
