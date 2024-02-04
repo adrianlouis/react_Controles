@@ -26,6 +26,10 @@ const ExtNovo = () => {
     ultRec: { ...ultRec, mes: mesRec.toLowerCase() },
     ultRet: ultRet,
     avaria: avaria,
+    vistoria: {
+      check: true,
+      stamp: Date.now(),
+    },
   };
   const extNumeros = context.userLogado.ext.map((m) => {
     return m.num;

@@ -11,6 +11,7 @@ const Extintores = () => {
   const context = useContext(GlobalContext);
   const navigate = useNavigate();
   const [filter, setFilter] = React.useState(null);
+  const [checkToogle, setCheckToogle] = React.useState(false);
   const [listaAtiva, setListaAtiva] = React.useState(
     [...context.userLogado.ext].reverse(),
   );
@@ -43,8 +44,45 @@ const Extintores = () => {
     }
   }
 
+  function changeCheck() {
+    setCheckToogle(!checkToogle);
+
+    const today = new Date(Date.now()).toLocaleDateString('pt-Br', {
+      year: '2-digit',
+      month: '2-digit',
+      day: '2-digit',
+    });
+
+    if (checkToogle) {
+      const checked = context.userLogado.ext.filter((f) => {
+        return (
+          today ===
+          new Date(f.vistoria.stamp).toLocaleDateString('pt-Br', {
+            year: '2-digit',
+            month: '2-digit',
+            day: '2-digit',
+          })
+        );
+      });
+
+      context.setItensFiltrados(checked);
+    } else {
+      const checked = context.userLogado.ext.filter((f) => {
+        return (
+          today !==
+          new Date(f.vistoria.stamp).toLocaleDateString('pt-Br', {
+            year: '2-digit',
+            month: '2-digit',
+            day: '2-digit',
+          })
+        );
+      });
+      context.setItensFiltrados(checked);
+    }
+  }
+
   function ultRec(ano, mes) {
-    const data = new Date(ano, mes);
+    const data = new Date(ano, mes - 1);
     const ptbr = data.toLocaleDateString('pt-Br', {
       month: 'long',
       year: 'numeric',
@@ -64,7 +102,6 @@ const Extintores = () => {
     spans.forEach((el) => {
       el.style.backgroundColor = '#111';
       el.style.color = '#555';
-      console.log(el.firstChild.nextElementSibling);
       el.firstChild.nextElementSibling.style.display = 'none';
       el.style.boxShadow =
         'inset #3337 2px 2px 4px ,inset #0007 -5px -5px 10px ';
@@ -91,18 +128,11 @@ const Extintores = () => {
   }
 
   async function handleCheck(elem, item) {
-    const stamp = new Date();
-    const stampPtBr = stamp.toLocaleDateString('pt-Br', {
-      day: '2-digit',
-      month: 'short',
-      year: '2-digit',
-      hour: '2-digit',
-      minute: '2-digit',
-    });
+    const stamp = Date.now();
 
     const checked = {
       ...item,
-      vistoria: { check: true, stamp: stampPtBr },
+      vistoria: { check: true, stamp: stamp },
     };
 
     const newArr = context.userLogado.ext.map((m) => {
@@ -113,10 +143,69 @@ const Extintores = () => {
       }
     });
 
-    elem.firstChild.nextSibling.innerHTML = stampPtBr;
-
     await UPDATE_DATA(context.userLogado.id, newArr, 'ext');
     context.setUserLogado({ ...context.userLogado, ext: newArr });
+  }
+
+  function filterVistoria() {
+    const hoje = new Date(Date.now()).toLocaleDateString('pt-Br', {
+      year: '2-digit',
+      month: '2-digit',
+      day: '2-digit',
+    });
+    const a = context.userLogado.ext.filter((f) => {
+      const itemData = new Date(f.vistoria.stamp).toLocaleDateString('pt-Br', {
+        year: '2-digit',
+        month: '2-digit',
+        day: '2-digit',
+      });
+      return itemData === hoje;
+    });
+    setFilter('vistoria');
+    console.log(filter);
+  }
+
+  function handleVistoria(stamp) {
+    // RETORNAR A DATA PARA FICAR ESCRITO
+    const hoje = new Date(Date.now()).toLocaleDateString('pt-Br', {
+      day: '2-digit',
+      month: 'short',
+      year: '2-digit',
+    });
+    const stamped = new Date(stamp).toLocaleDateString('pt-Br', {
+      day: '2-digit',
+      month: 'short',
+      year: '2-digit',
+    });
+
+    const stampPtBr = new Date(stamp).toLocaleDateString('pt-Br', {
+      day: '2-digit',
+      month: 'short',
+      year: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+    });
+
+    return stampPtBr;
+  }
+
+  function checked(stamp) {
+    const hoje = new Date(Date.now()).toLocaleDateString('pt-Br', {
+      day: '2-digit',
+      month: 'short',
+      year: '2-digit',
+    });
+    const stamped = new Date(stamp).toLocaleDateString('pt-Br', {
+      day: '2-digit',
+      month: 'short',
+      year: '2-digit',
+    });
+
+    if (hoje === stamped) {
+      return 'rgb(166, 243, 166)';
+    } else {
+      return 'rgb(85,85,85)';
+    }
   }
 
   return (
@@ -150,8 +239,8 @@ const Extintores = () => {
               <p className={styles.filterBtns}>
                 <i className="fa-solid fa-circle-exclamation"></i>avariados
               </p>
-              <p className={styles.filterBtns}>
-                <i className="fa-solid fa-circle-check"></i>vistoriados
+              <p onClick={() => filterVistoria()} className={styles.filterBtns}>
+                <i className="fa-regular fa-circle-check"></i>vistoriados
               </p>
             </>
           )}
@@ -203,7 +292,7 @@ const Extintores = () => {
                 }
                 id="typeSpan"
               >
-                <p>A</p> <span className={styles.filterNumbers}>23</span>
+                <p>A</p> <span className={styles.filterNumbers}></span>
               </div>
               <div
                 className={styles.filterBtns}
@@ -212,7 +301,7 @@ const Extintores = () => {
                 }
                 id="typeSpan"
               >
-                <p>B</p> <span className={styles.filterNumbers}>32</span>
+                <p>B</p> <span className={styles.filterNumbers}></span>
               </div>
               <div
                 className={styles.filterBtns}
@@ -221,9 +310,36 @@ const Extintores = () => {
                 }
                 id="typeSpan"
               >
-                <p>C</p> <span className={styles.filterNumbers}>43</span>
+                <p>C</p> <span className={styles.filterNumbers}></span>
               </div>
             </div>
+          )}
+
+          {filter === 'vistoria' && (
+            <>
+              <div className={styles.filterBtns} onClick={() => clearFilter()}>
+                <i className="fa-solid fa-filter-circle-xmark"></i>
+                <span>voltar</span>
+              </div>
+              <div className={styles.filterBtns} onClick={() => changeCheck()}>
+                {checkToogle && (
+                  <>
+                    {' '}
+                    <i className="fa-regular fa-circle-check"></i>
+                    <span>vistoriados</span>
+                    <span className={styles.filterNumbers}>2</span>
+                  </>
+                )}
+                {!checkToogle && (
+                  <>
+                    {' '}
+                    <i className="fa-solid fa-circle-check"></i>
+                    <span>não vistoriados</span>
+                    <span className={styles.filterNumbers}>2</span>
+                  </>
+                )}
+              </div>
+            </>
           )}
         </div>
       </div>
@@ -271,10 +387,14 @@ const Extintores = () => {
                       handleCheck(currentTarget, item)
                     }
                   >
-                    <i className={`${styles.vistoriaIcon} fa-solid fa-check`} />
+                    <i
+                      style={{ color: checked(item.vistoria.stamp) }}
+                      className={`${styles.vistoriaIcon} fa-solid fa-check`}
+                    />
 
                     <span>
-                      {item.vistoria ? item.vistoria.stamp : 'vistoriar'}
+                      {/* {item.vistoria ? item.vistoria.stamp : 'vistoriar'} */}
+                      {handleVistoria(item.vistoria.stamp)}
                     </span>
                   </fieldset>
 
@@ -513,12 +633,6 @@ const Extintores = () => {
             );
           })}
       </div>
-
-      {/* <Footer
-        numeroItens={context.userLogado.ext.length}
-        itens={{ extintores: context.userLogado.ext }}
-        novoItem={'extnovo'}
-      /> */}
     </>
   );
 };
