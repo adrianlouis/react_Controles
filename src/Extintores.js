@@ -115,15 +115,15 @@ const Extintores = () => {
   }
 
   function clearFilter() {
-    console.log(filter);
-    if (filter === 'tipo') {
-      const spans = document.querySelectorAll('#typeSpan');
-      spans.forEach((el) => {
-        el.innerHTML = el.innerHTML.slice(0, 1);
-      });
-    }
+    // if (filter === 'tipo') {
+    //   const spans = document.querySelectorAll('#typeSpan');
+    //   spans.forEach((el) => {
+    //     el.innerHTML = el.innerHTML.slice(0, 1);
+    //   });
+    // }
 
     setFilter(null);
+    setCheckToogle(false);
     context.setItensFiltrados(null);
   }
 
@@ -148,12 +148,15 @@ const Extintores = () => {
   }
 
   function filterVistoria() {
+    setCheckToogle(!checkToogle);
+
     const hoje = new Date(Date.now()).toLocaleDateString('pt-Br', {
       year: '2-digit',
       month: '2-digit',
       day: '2-digit',
     });
-    const a = context.userLogado.ext.filter((f) => {
+
+    const visto = context.userLogado.ext.filter((f) => {
       const itemData = new Date(f.vistoria.stamp).toLocaleDateString('pt-Br', {
         year: '2-digit',
         month: '2-digit',
@@ -161,23 +164,22 @@ const Extintores = () => {
       });
       return itemData === hoje;
     });
+
+    const naoVisto = context.userLogado.ext.filter((f) => {
+      const itemData = new Date(f.vistoria.stamp).toLocaleDateString('pt-Br', {
+        year: '2-digit',
+        month: '2-digit',
+        day: '2-digit',
+      });
+      return itemData !== hoje;
+    });
+
+    !checkToogle
+      ? context.setItensFiltrados(visto)
+      : context.setItensFiltrados(naoVisto);
     setFilter('vistoria');
-    console.log(filter);
   }
-
   function handleVistoria(stamp) {
-    // RETORNAR A DATA PARA FICAR ESCRITO
-    const hoje = new Date(Date.now()).toLocaleDateString('pt-Br', {
-      day: '2-digit',
-      month: 'short',
-      year: '2-digit',
-    });
-    const stamped = new Date(stamp).toLocaleDateString('pt-Br', {
-      day: '2-digit',
-      month: 'short',
-      year: '2-digit',
-    });
-
     const stampPtBr = new Date(stamp).toLocaleDateString('pt-Br', {
       day: '2-digit',
       month: 'short',
@@ -321,13 +323,23 @@ const Extintores = () => {
                 <i className="fa-solid fa-filter-circle-xmark"></i>
                 <span>voltar</span>
               </div>
-              <div className={styles.filterBtns} onClick={() => changeCheck()}>
+              <div
+                className={styles.filterBtns}
+                onClick={() => filterVistoria()}
+              >
                 {checkToogle && (
                   <>
                     {' '}
                     <i className="fa-regular fa-circle-check"></i>
                     <span>vistoriados</span>
-                    <span className={styles.filterNumbers}>2</span>
+                    {context.itensFiltrados && (
+                      <span
+                        style={{ display: 'flex' }}
+                        className={styles.filterNumbers}
+                      >
+                        {context.itensFiltrados.length}
+                      </span>
+                    )}
                   </>
                 )}
                 {!checkToogle && (
@@ -335,7 +347,14 @@ const Extintores = () => {
                     {' '}
                     <i className="fa-solid fa-circle-check"></i>
                     <span>não vistoriados</span>
-                    <span className={styles.filterNumbers}>2</span>
+                    {context.itensFiltrados && (
+                      <span
+                        style={{ display: 'flex' }}
+                        className={styles.filterNumbers}
+                      >
+                        {context.itensFiltrados.length}
+                      </span>
+                    )}
                   </>
                 )}
               </div>
@@ -581,6 +600,7 @@ const Extintores = () => {
                   <i className="fa-solid fa-hashtag" />
                   <span>{item.num}</span>
                 </fieldset>
+
                 <div className={styles.toogleOff}>
                   <fieldset className={styles.fieldset}>
                     <i className="fa-solid fa-fire-extinguisher" />
@@ -601,7 +621,11 @@ const Extintores = () => {
 
                   <fieldset className={styles.fieldset}>
                     <i className="fa-regular fa-calendar" />
-                    <span>{ultRec(item.ultRet, item.ultRec.mes)}</span>
+                    <span>
+                      {item.ultRet
+                        ? ultRec(item.ultRet, item.ultRec.mes)
+                        : 'Reteste não informado'}
+                    </span>
                   </fieldset>
 
                   <fieldset
@@ -610,9 +634,15 @@ const Extintores = () => {
                       handleCheck(currentTarget, item)
                     }
                   >
-                    <i className={`${styles.vistoriaIcon} fa-solid fa-check`} />
+                    <i
+                      style={{ color: checked(item.vistoria.stamp) }}
+                      className={`${styles.vistoriaIcon} fa-solid fa-check`}
+                    />
 
-                    <span>{item.check ? item.check : 'vistoriar'}</span>
+                    <span>
+                      {/* {item.vistoria ? item.vistoria.stamp : 'vistoriar'} */}
+                      {handleVistoria(item.vistoria.stamp)}
+                    </span>
                   </fieldset>
 
                   {item.avaria && (
