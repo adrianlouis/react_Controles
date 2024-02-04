@@ -130,6 +130,8 @@ const Extintores = () => {
   async function handleCheck(elem, item) {
     const stamp = Date.now();
 
+    elem.firstChild.style.color = 'rgb(166,243,166)';
+
     const checked = {
       ...item,
       vistoria: { check: true, stamp: stamp },
@@ -257,7 +259,9 @@ const Extintores = () => {
                   <i className="fa-solid fa-filter-circle-xmark"></i>limpar
                 </p>
                 <p style={{ display: 'flex' }} className={styles.filterNumbers}>
-                  {context.itensFiltrados ? context.itensFiltrados.length : '0'}
+                  {context.itensFiltrados
+                    ? context.itensFiltrados.length
+                    : context.userLogado.ext.length}
                 </p>
               </div>
 
