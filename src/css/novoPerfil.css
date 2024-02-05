@@ -111,9 +111,9 @@
     overflow: scroll;
     margin-bottom: 5px;
     position: sticky;
-    top: 40px;
+    top: 0px;
     background-color: #000;
-    z-index: 5;
+    /* z-index: 5; */
     scrollbar-color: transparent transparent;
 }
 ul{
@@ -134,13 +134,15 @@ li{
     
 }
 .liVerde{
-    /* color: rgb(166, 243, 166); */
-    /* color: var(--corEscolhida); */
-    color: rgb(221, 221, 221);
-    border-bottom: 2px solid var(--corEscolhida);
-    /* box-shadow: var(--corEscolhida) inset 0 0px 10px, var(--corEscolhida) 0 0 10px ; */
+    color: #d1d1d1;
+    font-weight: 700;
+    border-top: 2px solid rgb(166, 243, 166);
+    border-bottom: 2px solid rgb(166, 243, 166);
     padding: 0 5px;
+
 }
+
+
 legend{
     margin-left: 10px;
     color: #fff;

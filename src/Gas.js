@@ -76,8 +76,6 @@ const Gas = () => {
   return (
     <>
       <div className={`${styles.mainContainer} animateLeft`}>
-        {/* <button onClick={() => settingPages(pages, 'menos')}>MENOS</button>
-        <button onClick={() => settingPages(pages, 'mais')}>MAIS</button> */}
         {user &&
           gases.map((item) => {
             return (

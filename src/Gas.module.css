@@ -1,3 +1,7 @@
+.mainContainer{
+    min-height: 100vh;
+}
+
 .wrapperEdicaoGas{
     display: flex;
     justify-content: space-evenly;
@@ -5,6 +9,7 @@
     padding: 10px 0;
     border: 1px solid red;
 }
+
 
 .inpStoreEdit, .inpGasEdit{
     background-color: transparent;

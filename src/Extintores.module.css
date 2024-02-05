@@ -4,7 +4,9 @@
     padding: 1rem 10px;
 } */
 
-
+/* .container{
+    padding-top: 1rem;
+} */
 
 
 .title{
@@ -431,7 +433,7 @@
 .filterBarWrapper{
     position: sticky;
     box-shadow: 0 10px 25px #000;
-    top: 5rem;
+    top: 2.4rem;
     background-color: #000;
 }
 

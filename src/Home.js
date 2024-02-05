@@ -1,5 +1,4 @@
 import React from 'react';
-import css from './css/novoPerfil.css';
 import { useNavigate, Outlet, useLocation } from 'react-router-dom';
 import { GlobalContext } from './GlobalContext';
 import { getDownloadURL, getStorage, ref } from 'firebase/storage';
@@ -8,17 +7,10 @@ import { auth, db } from './firebase-config';
 import Footer from './Footer';
 
 import styles from './Home.module.css';
-import {
-  arrayUnion,
-  collection,
-  doc,
-  getDoc,
-  updateDoc,
-} from 'firebase/firestore';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import Navbar from './components/Navbar';
 import BtnNewPost from './components/BtnNewPost';
 import SearchItens from './components/SearchItens';
-import Filter from './components/Filter';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -293,11 +285,11 @@ const Home = () => {
       menu.style.visibility = 'visible';
       menu.style.opacity = '1';
       menu.style.transform = 'translateY(.3rem )';
-      navBar.style.visibility = 'visible';
-      navBar.style.opacity = '1';
-      navBar.style.transform = 'translateY(.3rem )';
-      navBar.style.color = 'pink';
-      console.log(navBar);
+
+      navBar.style.transform = 'translateY(0px )';
+      navBar.style.visibility = 'hidden';
+      navBar.style.opacity = '0';
+      // navBar.style.display = 'none';
     } else {
       menu.style.visibility = 'hidden';
       menu.style.opacity = '0';
@@ -305,14 +297,17 @@ const Home = () => {
       arroba.style.transform = 'translateY(0px )';
       arroba.style.visibility = 'hidden';
       arroba.style.opacity = '0';
-      navBar.style.transform = 'translateY(0px )';
-      navBar.style.visibility = 'hidden';
-      navBar.style.opacity = '0';
+      navBar.style.visibility = 'visible';
+      navBar.style.opacity = '1';
+      navBar.style.transform = 'translateY(.3rem )';
+      navBar.style.color = 'pink';
+      // navBar.style.display = 'flex';
     }
   };
 
-  function handleMenu() {
-    setOpenMenu(!openMenu);
+  function minHeaderNav(link) {
+    navigate(link);
+    window.scrollTo({ top: 300, behavior: 'smooth' });
   }
 
   async function handleSaveSheet() {
@@ -325,7 +320,6 @@ const Home = () => {
     });
     const url = local.pathname.slice(6);
     const sheet = context.userLogado[url];
-    const usersCollectionRef = collection(db, 'users');
     const document = doc(db, 'users', context.userLogado.id);
     const dados = await getDoc(document);
     const userData = dados.data();
@@ -383,31 +377,51 @@ const Home = () => {
         >
           {/* TO-DO: NAVIGATE PARA PEGAR URL E POR SOMBRA OU BG NOS ICONES DO HEADER  */}
           <i
-            style={{ color: path === 'ext' ? 'aquamarine' : '#d1d1d1' }}
-            className="fa-solid fa-fire-extinguisher"
+            style={{
+              color: path === 'ext' ? 'aquamarine' : '#d1d1d155',
+              transform: path === 'ext' ? 'scale(1.2)' : 'scale(1)',
+            }}
+            className={`${
+              path !== 'ext' ? styles.iconHover : ''
+            } fa-solid fa-fire-extinguisher`}
             onClick={() => {
-              navigate('/home/ext');
+              minHeaderNav('/home/ext');
             }}
           ></i>
           <i
-            style={{ color: path === 'hd' ? 'aquamarine' : '#d1d1d1' }}
-            className="fa-solid fa-faucet"
+            style={{
+              color: path === 'hd' ? 'aquamarine' : '#d1d1d155',
+              transform: path === 'hd' ? 'scale(1.2)' : 'scale(1)',
+            }}
+            className={`${
+              path !== 'hd' ? styles.iconHover : ''
+            } fa-solid fa-faucet`}
             onClick={() => {
-              navigate('/home/hd');
+              minHeaderNav('/home/hd');
             }}
           ></i>
           <i
-            style={{ color: path === 'lde' ? 'aquamarine' : '#d1d1d1' }}
-            className="fa-solid fa-bolt"
+            style={{
+              color: path === 'lde' ? 'aquamarine' : '#d1d1d155',
+              transform: path === 'lde' ? 'scale(1.2)' : 'scale(1)',
+            }}
+            className={` ${
+              path !== 'lde' ? styles.iconHover : ''
+            } fa-solid fa-bolt`}
             onClick={() => {
-              navigate('/home/lde');
+              minHeaderNav('/home/lde');
             }}
           ></i>
           <i
-            style={{ color: path === 'gas' ? 'aquamarine' : '#d1d1d1' }}
-            class="fa-solid fa-gauge-high"
+            style={{
+              color: path === 'gas' ? 'aquamarine' : '#d1d1d155',
+              transform: path === 'gas' ? 'scale(1.2)' : 'scale(1)',
+            }}
+            class={`${
+              path !== 'gas' ? styles.iconHover : ''
+            } fa-solid fa-gauge-high`}
             onClick={() => {
-              navigate('/home/gas');
+              minHeaderNav('/home/gas');
             }}
           ></i>
           {/* <i

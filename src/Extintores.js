@@ -237,7 +237,7 @@ const Extintores = () => {
   return (
     <>
       <div className={styles.filterBarWrapper}>
-        <div className={styles.filterBar}>
+        <div className={`${styles.filterBar} animateLeft`}>
           {!filter && (
             <>
               <p

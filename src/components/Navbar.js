@@ -10,7 +10,8 @@ const Navbar = ({ onclick }) => {
     const links = document.querySelectorAll('#navbarPerfil li');
     context.setItensFiltrados('');
 
-    window.scrollTo({ top: 260, behavior: 'smooth' });
+    window.scrollTo({ top: 300, behavior: 'smooth' });
+    // window.scrollTo({ top: 260, behavior: 'smooth' });
 
     for (let i = 0; i < links.length; i++) {
       links[i].classList.remove('liVerde');

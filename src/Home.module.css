@@ -58,16 +58,19 @@
     align-items: center;
     justify-content: flex-end;
     top: .4rem;
-    right: 0rem;
-    margin-right: 1rem;
+    right: 1rem;
     visibility: hidden;
     opacity: 0;
     cursor: pointer;
     z-index: 0;
-    /* color: aquamarine; */
+}
+.iconHover:hover{
+    color: #d1d1d1 !important;
 }
 
 .minHeader i{
+    /* transform: scale(1); */
+    font-size: .9rem;
     width: 1rem;
     height: 1rem;
     /* border: 1px solid white; */
@@ -76,7 +79,7 @@
     justify-content: center;
     align-items: center;
     padding: .3rem;
-    margin-left: 1rem;
+    margin-left: .750rem;
             color: #d1d1d1;
 
 
