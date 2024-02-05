@@ -22,13 +22,14 @@ import Filter from './components/Filter';
 
 const Home = () => {
   const navigate = useNavigate();
+  const local = useLocation();
+  const path = local.pathname.slice(6);
+  const storage = getStorage();
   const context = React.useContext(GlobalContext);
   const larguraTela = window.screen.width;
-  const storage = getStorage();
   const [loading, setLoading] = React.useState(false);
   const [loadingWpp, setLoadingWpp] = React.useState(false);
   const [openMenu, setOpenMenu] = React.useState(false);
-  const local = useLocation();
   const [menuLabel, setMenuLabel] = React.useState('');
   const [newItem, setNewItem] = React.useState(false);
   const [searchToogle, setSearchToogle] = React.useState(false);
@@ -264,11 +265,12 @@ const Home = () => {
 
   window.onscroll = () => {
     const arroba = document.querySelector('#headerProfName');
-    // const menu = document.querySelector('#menu');
+    const menu = document.querySelector('#menu');
     const foto = document.querySelector('#canv');
     const wallpaper = document.querySelector('#wppCanvasWrapper');
     const canvWpp = document.querySelector('#canvWpp');
     const posTela = window.scrollY;
+    const navBar = document.querySelector('#navbarPerfil');
 
     if (posTela <= 70) {
       const valor = 1 - posTela / 135;
@@ -286,18 +288,26 @@ const Home = () => {
 
     if (posTela >= 175) {
       arroba.style.visibility = 'visible';
-      // menu.style.visibility = 'visible';
       arroba.style.opacity = '1';
-      // menu.style.opacity = '1';
       arroba.style.transform = 'translateY(.5rem )';
-      // menu.style.transform = 'translateY(.3rem )';
+      menu.style.visibility = 'visible';
+      menu.style.opacity = '1';
+      menu.style.transform = 'translateY(.3rem )';
+      navBar.style.visibility = 'visible';
+      navBar.style.opacity = '1';
+      navBar.style.transform = 'translateY(.3rem )';
+      navBar.style.color = 'pink';
+      console.log(navBar);
     } else {
-      // menu.style.visibility = 'hidden';
-      // menu.style.opacity = '0';
+      menu.style.visibility = 'hidden';
+      menu.style.opacity = '0';
+      menu.style.transform = 'translateY(0px )';
       arroba.style.transform = 'translateY(0px )';
-      // menu.style.transform = 'translateY(0px )';
       arroba.style.visibility = 'hidden';
       arroba.style.opacity = '0';
+      navBar.style.transform = 'translateY(0px )';
+      navBar.style.visibility = 'hidden';
+      navBar.style.opacity = '0';
     }
   };
 
@@ -361,16 +371,54 @@ const Home = () => {
           className={styles.headerProfName}
           onClick={() => navigate('/home/perfil')}
         >
+          {/* NOME FUNCIONAL @louiskrad */}
           {!openMenu && `@${context.userLogado.perfil.nick}`}
         </span>
-
+        <i class={`fa-solid fa-fire-extinguisher ${styles.headerProfName}`}></i>
         <div
           id="menu"
           style={{ visibility: openMenu ? 'hidden' : 'visible' }}
           className={styles.menu}
-          onClick={() => handleMenu()}
+          // onClick={() => handleMenu()}
         >
-          <i className="fa-solid fa-ellipsis-vertical"></i>
+          {/* TO-DO: NAVIGATE PARA PEGAR URL E POR SOMBRA OU BG NOS ICONES DO HEADER  */}
+          <i
+            style={{ color: path === 'ext' ? 'aquamarine' : '#d1d1d1' }}
+            className="fa-solid fa-fire-extinguisher"
+            onClick={() => {
+              navigate('/home/ext');
+            }}
+          ></i>
+          <i
+            style={{ color: path === 'hd' ? 'aquamarine' : '#d1d1d1' }}
+            className="fa-solid fa-faucet"
+            onClick={() => {
+              navigate('/home/hd');
+            }}
+          ></i>
+          <i
+            style={{ color: path === 'lde' ? 'aquamarine' : '#d1d1d1' }}
+            className="fa-solid fa-bolt"
+            onClick={() => {
+              navigate('/home/lde');
+            }}
+          ></i>
+          <i
+            style={{ color: path === 'gas' ? 'aquamarine' : '#d1d1d1' }}
+            class="fa-solid fa-gauge-high"
+            onClick={() => {
+              navigate('/home/gas');
+            }}
+          ></i>
+          {/* <i
+            className="fa-solid fa-ellipsis-vertical"
+            onClick={() => handleMenu()}
+          ></i> */}
+          <i
+            onClick={() => navigate('/editprofile')}
+            className="fa-solid fa-gear"
+          ></i>
+          {/* <span>menu</span> */}
         </div>
 
         {openMenu && (
@@ -427,10 +475,10 @@ const Home = () => {
             '@' + context.userLogado.perfil.nick}
         </p>
         <span
-          className={styles.btnEditPerfil}
           onClick={() => navigate('/editprofile')}
+          className={styles.btnEditPerfil}
         >
-          Editar perfil
+          <i className="fa-solid fa-gear"></i>
         </span>
         <p className={styles.quote}>{context.userLogado.perfil.quote}</p>
       </div>

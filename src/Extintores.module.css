@@ -337,6 +337,7 @@
 .flipbackCard::after{
     content:'voltar'
 }
+
 .item{
     box-shadow: inset #333a 3px 3px 10px,  3px 3px 10px #111;
     background-color: #111c;
@@ -344,6 +345,7 @@
     margin: 1.3rem 1rem 2rem ;
     padding: 1rem ;
 }
+
 
 .minorWrapper{
     display: grid;
@@ -442,6 +444,7 @@
     justify-content: start;
     flex-wrap: wrap;
     padding-top: .5rem;
+    z-index: 100;
 }
 
  .filterBtns{

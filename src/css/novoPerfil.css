@@ -122,9 +122,9 @@ ul{
     display: flex;
     min-width: 600px;
     height: 40px;
-    border-bottom: 1px solid var(--corEscolhida);
-    
-}
+    /* background-image: linear-gradient(to left, red, transparent  ); */
+}   
+
 li{
     margin-left: 20px;
     margin: auto auto;

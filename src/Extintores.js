@@ -214,16 +214,24 @@ const Extintores = () => {
 
   function handleShowCard(ind) {
     const el = document.querySelector('#minor' + ind);
-
-    console.log(el.previousElementSibling.firstChild);
-    el.style.display = 'block';
-    el.previousElementSibling.style.display = 'flex';
-    el.previousElementSibling.style.flexDirection = 'column';
-    el.previousElementSibling.firstChild.style.margin = '0 0 1rem 0';
-    el.previousElementSibling.firstChild.nextSibling.style.margin =
-      '0 0 1rem 0';
-    // el.previousElementSibling.style.border = '1px solid red';
-    // el.previous
+    if (el.style.display === 'block') {
+      el.style.display = 'none';
+      el.previousElementSibling.style.display = 'grid';
+      el.previousElementSibling.style.flexDirection = 'unset';
+      el.previousElementSibling.firstChild.style.margin = '0 10px 0 0';
+      el.previousElementSibling.firstChild.nextSibling.style.margin =
+        '0 10px 0 0';
+    } else {
+      console.log(el.previousElementSibling.firstChild);
+      el.style.display = 'block';
+      el.previousElementSibling.style.display = 'flex';
+      el.previousElementSibling.style.flexDirection = 'column';
+      el.previousElementSibling.firstChild.style.margin = '0 0 1rem 0';
+      el.previousElementSibling.firstChild.nextSibling.style.margin =
+        '0 0 1rem 0';
+      // el.previousElementSibling.style.border = '1px solid red';
+      // el.previous
+    }
   }
 
   return (
@@ -397,7 +405,7 @@ const Extintores = () => {
                     className={styles.fieldset}
                   >
                     <i className="fa-solid fa-hashtag" />
-                    <span>{item.num}</span>
+                    <span className="numId">{item.num}</span>
                   </fieldset>
 
                   <fieldset
