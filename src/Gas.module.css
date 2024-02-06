@@ -1,5 +1,6 @@
 .mainContainer{
     min-height: 100vh;
+    min-width: 100vw;
 }
 
 .wrapperEdicaoGas{
@@ -225,4 +226,7 @@ h2{
 .recGasWrapper{
     margin: 0;
     width: 50%;
+}
+.gasContainer{
+    overflow: hidden;
 }

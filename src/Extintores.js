@@ -389,14 +389,14 @@ const Extintores = () => {
         </div>
       </div>
 
-      <div className={`${styles.container} animateLeft`} id="container">
+      <div className={styles.container} id="container">
         {!context.itensFiltrados &&
           listaAtiva.map((item, i) => {
             return (
               <div
                 id={'item' + i}
                 key={'item' + i}
-                className={styles.item}
+                className={`${styles.item} animateLeft`}
                 onClick={() => handleShowCard(i)}
               >
                 <div className={styles.minorWrapper}>

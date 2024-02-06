@@ -365,10 +365,9 @@ const Home = () => {
           className={styles.headerProfName}
           onClick={() => navigate('/home/perfil')}
         >
-          {/* NOME FUNCIONAL @louiskrad */}
           {!openMenu && `@${context.userLogado.perfil.nick}`}
         </span>
-        <i class={`fa-solid fa-fire-extinguisher ${styles.headerProfName}`}></i>
+
         <div
           id="menu"
           style={{ visibility: openMenu ? 'hidden' : 'visible' }}

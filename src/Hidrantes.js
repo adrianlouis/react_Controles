@@ -73,7 +73,7 @@ const Hidrantes = () => {
 
   return (
     <>
-      <div className={`${styles.mainContainer} animateLeft`}>
+      <div className={styles.mainContainer}>
         {context.itensFiltrados && context.itensFiltrados.length === 0 && (
           <div className="ldeResumoFiltro">
             <p>Não foi encontrado Hidrante com o número digitado.</p>
@@ -88,7 +88,7 @@ const Hidrantes = () => {
             })
             .map((item) => {
               return (
-                <div key={item.id} className="ldeContent">
+                <div key={item.id} className="ldeContent animateLeft">
                   <div className={styles.title}>
                     <p className={styles.legends}> número</p>
                     <p className={styles.values}> {item.num}</p>
@@ -166,7 +166,7 @@ const Hidrantes = () => {
         {context.itensFiltrados.length > 0 &&
           context.itensFiltrados.reverse().map((item) => {
             return (
-              <div key={item.id} className="ldeContent">
+              <div key={item.id} className="ldeContent animateLeft">
                 <div className={styles.title}>
                   <p className={styles.legends}> número</p>
                   <p className={styles.values}> {item.num}</p>

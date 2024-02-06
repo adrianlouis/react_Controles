@@ -23,12 +23,12 @@ const LdE = () => {
 
   return (
     <>
-      <div className={`${styles.mainContainer} animateLeft`}>
+      <div className={styles.mainContainer}>
         {!context.itensFiltrados &&
           context.userLogado &&
           luzesOrdenadas.map((item, index) => {
             return (
-              <div key={item.id} className="ldeContent">
+              <div key={item.id} className="ldeContent animateLeft">
                 <div className={styles.title}>
                   <p className={styles.legends}>Número</p>
                   <p className={styles.values}>{item.num}</p>
@@ -68,7 +68,7 @@ const LdE = () => {
           context.userLogado &&
           context.itensFiltrados.map((item, index) => {
             return (
-              <div key={item.id} className="ldeContent">
+              <div key={item.id} className="ldeContent animateLeft">
                 <div className={styles.title}>
                   <p className={styles.legends}>Número</p>
                   <p className={styles.values}>{item.num}</p>

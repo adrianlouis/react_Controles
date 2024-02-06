@@ -44,9 +44,6 @@ const Gas = () => {
     }
   }
 
-  // console.log(activeItens);
-
-  // console.log(ctx.userLogado);
   function deletar(elem, id) {
     const res = gases.filter((f) => {
       return f.id !== elem.id;
@@ -74,77 +71,64 @@ const Gas = () => {
   }, [ctx.userLogado.id]);
 
   return (
-    <>
-      <div className={`${styles.mainContainer} animateLeft`}>
-        {user &&
-          gases.map((item) => {
-            return (
-              <div key={item.id} className={styles.gasContainer}>
-                <div className={styles.infos}>
-                  <div className={styles.title}>
-                    <p className={styles.legends}>
-                      <i className="fa-solid fa-calendar-day"></i>
-                      {' ' + item.diaCriado} -{' '}
-                      <i className="fa-regular fa-clock"></i>
-                      {' ' + item.horaCriado}
-                    </p>
-                  </div>
-                  {arrOrdemCresc(
-                    item.medicao.map((m) => {
-                      return m.loja;
-                    }),
-                  ).map((ordem) => {
-                    return item.medicao.map((lojas) => {
-                      if (lojas.loja === ordem) {
-                        return (
-                          <div
-                            key={'medicao' + item.id + '_' + lojas.loja}
-                            // className={styles.dados}
-                            className={styles.recordsLine}
-                          >
-                            <div className={styles.recordsItens}>
-                              <i className="fa-solid fa-store"></i> {lojas.loja}
-                            </div>
-                            <div className={styles.recGasWrapper}>
-                              <i className="fa-solid fa-gauge"></i>{' '}
-                              {lojas.medicao}
-                            </div>
-                          </div>
-                        );
-                      }
-                    });
-                  })}
-                  <div className={styles.btnAcoesWrap}>
-                    <BtnAcoesItens
-                      funcDel={() => deletar(item, ctx.userLogado.id)}
-                      itemId={item.id}
-                      editarOnClick={() =>
-                        navigate(
-                          `edit/id?id=${item.id}&userid=${ctx.userLogado.id}`,
-                        )
-                      }
-                    />
-                  </div>
+    // <>
+    <div className={styles.mainContainer}>
+      {user &&
+        gases.map((item, i) => {
+          return (
+            <div
+              key={`gas${item.id}${i}`}
+              className={`${styles.gasContainer} `}
+            >
+              <div className={`${styles.infos} animateLeft `}>
+                <div className={`${styles.title} `}>
+                  <p className={styles.legends}>
+                    <i className="fa-solid fa-calendar-day"></i>
+                    {' ' + item.diaCriado} -{' '}
+                    <i className="fa-regular fa-clock"></i>
+                    {' ' + item.horaCriado}
+                  </p>
                 </div>
+                {arrOrdemCresc(
+                  item.medicao.map((m) => {
+                    return m.loja;
+                  }),
+                ).map((ordem) => {
+                  return item.medicao.map((lojas) => {
+                    if (lojas.loja === ordem) {
+                      return (
+                        <div
+                          key={'medicao' + item.id + '_' + lojas.loja}
+                          // className={styles.dados}
+                          className={styles.recordsLine}
+                        >
+                          <div className={styles.recordsItens}>
+                            <i className="fa-solid fa-store"></i> {lojas.loja}
+                          </div>
+                          <div className={styles.recGasWrapper}>
+                            <i className="fa-solid fa-gauge"></i>{' '}
+                            {lojas.medicao}
+                          </div>
+                        </div>
+                      );
+                    }
+                  });
+                })}
+                <BtnAcoesItens
+                  funcDel={() => deletar(item, ctx.userLogado.id)}
+                  itemId={item.id}
+                  editarOnClick={() =>
+                    navigate(
+                      `edit/id?id=${item.id}&userid=${ctx.userLogado.id}`,
+                    )
+                  }
+                />
               </div>
-            );
-          })}
-      </div>
-
-      {/* <div className={styles.paginacao}>
-        <p>Esq.</p>
-        <p>1</p>
-        <p>2</p>
-        <p>3</p>
-        <p>Dir.</p>
-      </div> */}
-
-      <Footer
-        numeroItens={ctx.userLogado.gas.length}
-        itens={{ gas: ctx.userLogado.gas }}
-        novoItem={'gasnovo'}
-      />
-    </>
+            </div>
+          );
+        })}
+    </div>
+    // </>
   );
 };
 

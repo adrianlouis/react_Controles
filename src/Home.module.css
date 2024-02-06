@@ -50,13 +50,12 @@
 }
 
 .menu{
-    position: fixed;
+    position: fixed ;
     height: 1rem;
     
-    border-radius: 2rem;
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    /* justify-content: flex-end; */
     top: .4rem;
     right: 1rem;
     visibility: hidden;
@@ -73,16 +72,13 @@
     font-size: .9rem;
     width: 1rem;
     height: 1rem;
-    /* border: 1px solid white; */
     border-radius: 1rem;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: .3rem;
     margin-left: .750rem;
-            color: #d1d1d1;
-
-
+    color: #d1d1d1;
 }
 
 .fotoPerfil{
@@ -129,6 +125,8 @@
     right: .75rem;
     background-color: transparent;
     border: none;
+    transition: all 4s;
+    cursor: pointer;
 }
 
 .canv{
