@@ -272,7 +272,7 @@ const ExtEditar = () => {
       </fieldset>
 
       <div className={styles.actionBtnsCreateWrapper}>
-        <span onClick={() => navigate('/home/ext')}>
+        <span onClick={() => navigate('/home/ext?id=2')}>
           <i className="fa-solid fa-angle-left" /> Cancelar
         </span>
         <span onClick={() => salvarExt(context.userLogado.id)}>

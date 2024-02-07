@@ -10,11 +10,21 @@ import { UPDATE_DATA } from './funcoes/Api';
 const Extintores = () => {
   const context = useContext(GlobalContext);
   const navigate = useNavigate();
-  const [filter, setFilter] = React.useState(null);
+  const [filter, setFilter] = React.useState({
+    tipo: '',
+    opt: context.filterSelect,
+  });
   const [checkToogle, setCheckToogle] = React.useState(false);
   const [listaAtiva, setListaAtiva] = React.useState(
     [...context.userLogado.ext].reverse(),
   );
+
+  // console.log(context.filterSelect);
+  console.log(filter);
+
+  const filtro = { tipo: '', opt: '' };
+
+  const [filterChoice, setFilterChoice] = React.useState(false);
 
   if (!context.userLogado.ext) {
     context.setUserLogado({ ...context.userLogado, ext: [] });
@@ -93,6 +103,7 @@ const Extintores = () => {
   function handleFilter(type, elem) {
     // background-color: #439A86;
     // box-shadow: inset #83dAc6 2px 2px 4px ,inset #035A46 -5px -5px 10px;
+    setFilter({ tipo: filter.tipo, opt: type });
 
     const filtered = context.userLogado.ext.filter((f) => {
       return f.tipo === type.toUpperCase();
@@ -122,7 +133,7 @@ const Extintores = () => {
     //   });
     // }
 
-    setFilter(null);
+    setFilter({ tipo: '', opt: '' });
     setCheckToogle(false);
     context.setItensFiltrados(null);
   }
@@ -186,7 +197,7 @@ const Extintores = () => {
     !checkToogle
       ? context.setItensFiltrados(visto)
       : context.setItensFiltrados(naoVisto);
-    setFilter('vistoria');
+    setFilter({ tipo: 'vistoria', opt: !checkToogle ? 'visto' : 'naoVisto' });
   }
   function handleVistoria(stamp) {
     const stampPtBr = new Date(stamp).toLocaleDateString('pt-Br', {
@@ -238,22 +249,45 @@ const Extintores = () => {
     }
   }
 
+  function filterAvaria() {
+    setCheckToogle(!checkToogle);
+
+    filter.opt
+      ? setFilter({ tipo: 'avaria', opt: false })
+      : setFilter({ tipo: 'avaria', opt: true });
+
+    const comAvaria = context.userLogado.ext.filter((f) => {
+      return f.avaria;
+    });
+    const semAvaria = context.userLogado.ext.filter((f) => {
+      return !f.avaria;
+    });
+
+    if (checkToogle) {
+      context.setItensFiltrados(semAvaria);
+    } else {
+      context.setItensFiltrados(comAvaria);
+    }
+
+    console.log(filter, comAvaria, semAvaria);
+  }
+
   return (
     <>
       <div className={styles.filterBarWrapper}>
         <div className={`${styles.filterBar} animateLeft`}>
-          {!filter && (
+          {!filter.tipo && (
             <>
               <p
                 className={styles.filterBtns}
-                onClick={() => setFilter('tipo')}
+                onClick={() => setFilter({ tipo: 'classe', opt: '' })}
               >
                 <i className="fa-solid fa-fire-extinguisher" />
                 tipo
               </p>
               <p
                 className={styles.filterBtns}
-                onClick={() => setFilter('local')}
+                onClick={() => setFilter({ tipo: 'local', opt: '' })}
               >
                 <i className="fa-solid fa-location-dot" />
                 local
@@ -266,7 +300,7 @@ const Extintores = () => {
                 <i className="fa-regular fa-calendar" />
                 reteste
               </p>
-              <p className={styles.filterBtns}>
+              <p className={styles.filterBtns} onClick={() => filterAvaria()}>
                 <i className="fa-solid fa-circle-exclamation"></i>avariados
               </p>
               <p onClick={() => filterVistoria()} className={styles.filterBtns}>
@@ -275,7 +309,7 @@ const Extintores = () => {
             </>
           )}
 
-          {filter === 'local' && (
+          {filter.tipo === 'local' && (
             <>
               <div
                 className={styles.filterBtns}
@@ -295,7 +329,7 @@ const Extintores = () => {
             </>
           )}
 
-          {filter === 'tipo' && (
+          {filter.tipo === 'classe' && (
             <div className={styles.typeFilter}>
               {context.itensFiltrados && (
                 <div
@@ -347,7 +381,7 @@ const Extintores = () => {
             </div>
           )}
 
-          {filter === 'vistoria' && (
+          {filter.tipo === 'vistoria' && (
             <>
               <div className={styles.filterBtns} onClick={() => clearFilter()}>
                 <i className="fa-solid fa-filter-circle-xmark"></i>
@@ -377,6 +411,48 @@ const Extintores = () => {
                     {' '}
                     <i className="fa-solid fa-circle-check"></i>
                     <span>não vistoriados</span>
+                    {context.itensFiltrados && (
+                      <span
+                        style={{ display: 'flex' }}
+                        className={styles.filterNumbers}
+                      >
+                        {context.itensFiltrados.length}
+                      </span>
+                    )}
+                  </>
+                )}
+              </div>
+            </>
+          )}
+
+          {filter.tipo === 'avaria' && (
+            <>
+              <div className={styles.filterBtns} onClick={() => clearFilter()}>
+                <p>
+                  <i className="fa-solid fa-filter-circle-xmark"></i> limpar
+                </p>
+              </div>
+
+              <div className={styles.filterBtns} onClick={() => filterAvaria()}>
+                {checkToogle && (
+                  <>
+                    {' '}
+                    <i className="fa-solid fa-circle-exclamation"></i>
+                    <span>avariados</span>
+                    {context.itensFiltrados && (
+                      <span
+                        style={{ display: 'flex' }}
+                        className={styles.filterNumbers}
+                      >
+                        {context.itensFiltrados.length}
+                      </span>
+                    )}
+                  </>
+                )}
+                {!checkToogle && (
+                  <>
+                    <i className="fa-solid fa-circle-exclamation"></i>
+                    <span>não avariados</span>
                     {context.itensFiltrados && (
                       <span
                         style={{ display: 'flex' }}
@@ -481,7 +557,11 @@ const Extintores = () => {
                       excluirExtintor(context.userLogado.id, item, 'ext')
                     }
                     itemId={item.id}
-                    editarOnClick={() => navigate(`extedit?id=${item.id}`)}
+                    editarOnClick={() =>
+                      navigate(
+                        `extedit?id=${item.id}&ftr=${filter}&ftrtp=${filterChoice}`,
+                      )
+                    }
                   />
                 </div>
               </div>

@@ -5,6 +5,7 @@ const SelectFilter = ({ itens }) => {
   const context = useContext(GlobalContext);
 
   function handleSelectFilter(value) {
+    context.setFilterSelect(value);
     const res = itens.filter((f) => {
       return f.local.includes(value);
     });
@@ -39,7 +40,7 @@ const SelectFilter = ({ itens }) => {
       <option value={null}>4º Pav A</option>
       <option value={null}>4º Pav B</option>
       <option value={null}>4º Pav C</option>
-      <option value={null}>Terraço</option>
+      <option value={null}>CMI</option>
     </select>
   );
 };
