@@ -547,7 +547,10 @@ const Extintores = () => {
                   </fieldset>
 
                   {item.avaria && (
-                    <fieldset className={styles.fieldsetAvaria}>
+                    <fieldset
+                      className={styles.fieldsetAvaria}
+                      style={{ color: checked(item.vistoria.stamp) }}
+                    >
                       <span className={styles.avaria}>{item.avaria}</span>
                     </fieldset>
                   )}
