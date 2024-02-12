@@ -2,6 +2,14 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&family=Poppins&family=Spectral+SC:wght@700&display=swap');
 
+:root{
+  --dm-bg: #121212;
+  --dm-um: #1e1e1e;
+  --dm-dois: #232323;
+  --dm-tres: #252525;
+  --dm-quatro: #272727;
+}
+
 * {
   /* -webkit-tap-highlight-color: rgba(255, 255, 255, 0); */
   -webkit-tap-highlight-color: transparent;

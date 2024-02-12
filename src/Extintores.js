@@ -501,7 +501,6 @@ const Extintores = () => {
                     className={styles.fieldset}
                   >
                     <i className="fa-solid fa-location-dot" />
-
                     <span>{item.local}</span>
                   </fieldset>
                 </div>

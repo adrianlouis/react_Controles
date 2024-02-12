@@ -341,11 +341,12 @@
 }
 
 .item{
-    box-shadow: inset #333a 3px 3px 10px,  3px 3px 10px #111;
-    background-color: #111c;
-    border-radius: 1rem;
+    background-color: #121212;
+    border-radius: .5rem;
     margin: 1.3rem 1rem 2rem ;
-    padding: 1rem ;
+    padding: .5rem ;;
+    border: 2px solid #333;
+
 }
 
 
@@ -353,6 +354,7 @@
     display: grid;
     grid-template-columns: 1fr .5fr 1.25fr;
     width: 100%;
+    background-color: #111;
 }
 .majorCard{
     display: flex;
@@ -363,10 +365,13 @@
 
 .minorWrapper .fieldset:first-child{
     margin: 0 5px 0 0;
+    background-color: #222;
+    
 
 }
 .minorWrapper .fieldset{
     margin: 0 10px 0 5px;
+    background-color: #222;
 }
 .minorWrapper .fieldset:last-child{
     margin: 0;
@@ -398,6 +403,8 @@
 }
 .fieldset span{
     margin: 0;
+    background-color: #222a;
+    
 }
 
 .fieldset *{
