@@ -19,9 +19,6 @@ const Extintores = () => {
     [...context.userLogado.ext].reverse(),
   );
 
-  // console.log(context.filterSelect);
-  console.log(filter);
-
   const filtro = { tipo: '', opt: '' };
 
   const [filterChoice, setFilterChoice] = React.useState(false);
@@ -224,9 +221,11 @@ const Extintores = () => {
     });
 
     if (hoje === stamped) {
-      return 'rgb(106, 183, 106)';
+      // console.log('HOJE');
+      return 'rgb(106, 183, 106) !important';
     } else {
-      return 'rgb(85,85,85)';
+      // console.log('ONTEM');
+      return 'var(--span-branco)';
     }
   }
 
@@ -554,7 +553,7 @@ const Extintores = () => {
                     </fieldset>
                   )}
 
-                  <BtnAcoesItens
+                  {/* <BtnAcoesItens
                     funcDel={() =>
                       excluirExtintor(context.userLogado.id, item, 'ext')
                     }
@@ -564,7 +563,16 @@ const Extintores = () => {
                         `extedit?id=${item.id}&ftr=${filter}&ftrtp=${filterChoice}`,
                       )
                     }
-                  />
+                  /> */}
+
+                  <fieldset className={styles.fieldsetBtns}>
+                    <button className={styles.fsBtns}>
+                      <i className="fa-regular fa-pen-to-square"></i> editar
+                    </button>
+                    <button className={styles.fsBtns}>
+                      <i className="fa-regular fa-trash-can"></i> excluir
+                    </button>
+                  </fieldset>
                 </div>
               </div>
             );

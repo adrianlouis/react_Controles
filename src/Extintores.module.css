@@ -346,7 +346,10 @@
     margin: 1.3rem 1rem 2rem ;
     padding: .5rem ;;
     border: 2px solid #333;
+}
 
+.item span{
+    color: var(--span-branco);
 }
 
 
@@ -358,7 +361,6 @@
 }
 .majorCard{
     display: flex;
-    border: 1px solid red;
     flex-direction: column;
     opacity: .2;
 }
@@ -375,8 +377,6 @@
 }
 .minorWrapper .fieldset:last-child{
     margin: 0;
-
-
 }
 
 .item:last-child{
@@ -385,7 +385,6 @@
 
 .toogleOff{
     display: none;
-    /* border: 1px solid #f5aa; */
     
 }
 .toogleOff .fieldset{
@@ -396,11 +395,26 @@
   border: 2px solid #3337;
   border-radius: .5rem;
   padding: .3rem .5rem ;
-  /* margin-bottom: 15px; */
   display: grid;
   grid-template-columns: .2fr 1fr;
-    background-color: #111;
+  background-color: #222;
+  /* transition: .5s all; */
 }
+.fieldsetBtns{
+    border: none;
+    display: flex;
+    justify-content: space-between;
+}
+.fsBtns{
+    padding: .3rem 2.2rem;
+    background-color: #225;
+    border: 2px solid #113;
+    border-radius: .5rem;
+    color: #d1d1d1;
+    margin-bottom: .5rem;
+    cursor: pointer;
+}
+
 .fieldset span{
     margin: 0;
     background-color: #222a;
@@ -416,6 +430,7 @@
 .fieldset:hover, .fieldsetAvaria:hover{
     box-shadow: inset #0007 -3px -3px 10px, inset #3337 3px 3px 10px;
     color: #d1d1d1;
+
 }
 
 .fieldset i{
@@ -429,6 +444,7 @@
     padding-left: 1rem;
     display: block;
     margin-bottom: 0;
+    margin-bottom: 1rem;
 }
 /* .fieldset:last-child{
     margin-bottom: 0;
