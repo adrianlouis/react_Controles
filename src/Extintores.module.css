@@ -347,6 +347,9 @@
     padding: .5rem ;;
     border: 2px solid #333;
 }
+.item::hover{
+    box-shadow: #bcd8c1 0 0 0 1px, #bcd8c1aa 0 0 2px 4px, #bcd8c1aa 0 0 10px;
+}
 
 .item span{
     color: var(--span-branco);
@@ -367,13 +370,12 @@
 
 .minorWrapper .fieldset:first-child{
     margin: 0 5px 0 0;
-    background-color: #222;
     
 
 }
 .minorWrapper .fieldset{
     margin: 0 10px 0 5px;
-    background-color: #222;
+    /* background-color: #222; */
 }
 .minorWrapper .fieldset:last-child{
     margin: 0;
@@ -407,13 +409,48 @@
 }
 .fsBtns{
     padding: .3rem 2.2rem;
-    background-color: #225;
-    border: 2px solid #113;
+    background-color: #222;
+    color: #9cb8a1;
+
+    border: 2px solid #9cb8a1;
     border-radius: .5rem;
-    color: #d1d1d1;
+    /* color: ##8ca891; */
     margin-bottom: .5rem;
     cursor: pointer;
+    position: relative;
+    transition: 1s;
+    z-index: 1;
+    overflow: hidden;
 }
+
+.fsBtns::before{
+    content: '';
+    background-color: #bcd8c1;
+    transform: skewX(35deg);
+    position: absolute;
+    top: 0;
+    left: 200;
+    z-index: 1;
+    width: 0;
+    left: 3rem;
+    height: 100%;
+    z-index: -1;
+    transition: 1s;
+    /* aiejaiejf */
+
+}
+.fsBtns:hover::before{
+    width: 100%;
+    /* transition: .5; */
+}
+
+
+
+
+
+/* .fieldsetBtns button:hover{
+    background-color: transparent;
+} */
 
 .fieldset span{
     margin: 0;

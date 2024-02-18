@@ -10,10 +10,12 @@
   justify-content: center;
   align-items: center;
   z-index: 3;
+  margin: auto;
 }
 
 .footer i{
   font-size: 1.3rem;
   color: #d1d1d1;
   cursor: pointer;
+  margin: auto;
 }
