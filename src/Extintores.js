@@ -19,10 +19,6 @@ const Extintores = () => {
     [...context.userLogado.ext].reverse(),
   );
 
-  const filtro = { tipo: '', opt: '' };
-
-  const [filterChoice, setFilterChoice] = React.useState(false);
-
   if (!context.userLogado.ext) {
     context.setUserLogado({ ...context.userLogado, ext: [] });
   }
@@ -48,43 +44,6 @@ const Extintores = () => {
       });
 
       context.setItensFiltrados(itemRemovido);
-    }
-  }
-
-  function changeCheck() {
-    setCheckToogle(!checkToogle);
-
-    const today = new Date(Date.now()).toLocaleDateString('pt-Br', {
-      year: '2-digit',
-      month: '2-digit',
-      day: '2-digit',
-    });
-
-    if (checkToogle) {
-      const checked = context.userLogado.ext.filter((f) => {
-        return (
-          today ===
-          new Date(f.vistoria.stamp).toLocaleDateString('pt-Br', {
-            year: '2-digit',
-            month: '2-digit',
-            day: '2-digit',
-          })
-        );
-      });
-
-      context.setItensFiltrados(checked);
-    } else {
-      const checked = context.userLogado.ext.filter((f) => {
-        return (
-          today !==
-          new Date(f.vistoria.stamp).toLocaleDateString('pt-Br', {
-            year: '2-digit',
-            month: '2-digit',
-            day: '2-digit',
-          })
-        );
-      });
-      context.setItensFiltrados(checked);
     }
   }
 
@@ -128,14 +87,14 @@ const Extintores = () => {
 
   async function handleCheck(elem, item) {
     const stamp = Date.now();
-    elem.firstChild.style.color = 'rgb(166,243,166)';
+    elem.firstChild.style.color = 'var(--btn-default)';
     elem.parentElement.previousSibling
       .querySelectorAll('fieldset')
       .forEach((e) => {
-        e.style.color = 'rgb(106, 183, 106)';
+        e.style.color = 'var(--btn-default)';
       });
     elem.parentElement.querySelectorAll('fieldset').forEach((e) => {
-      e.style.color = 'rgb(106, 183, 106)';
+      e.style.color = 'var(--btn-default)';
     });
 
     const checked = {
@@ -212,11 +171,9 @@ const Extintores = () => {
     });
 
     if (hoje === stamped) {
-      // console.log('HOJE');
-      return 'rgb(106, 183, 106) !important';
+      return 'var(--btn-default) !important';
     } else {
-      // console.log('ONTEM');
-      return 'var(--span-branco)';
+      return '#a5a5a5';
     }
   }
 
@@ -475,6 +432,7 @@ const Extintores = () => {
                     <i className="fa-solid fa-hashtag" />
                     <span className="numId">{item.num}</span>
                   </fieldset>
+
                   <fieldset
                     style={{ color: checked(item.vistoria.stamp) }}
                     className={styles.fieldset}
@@ -482,6 +440,7 @@ const Extintores = () => {
                     <i className="fa-solid fa-fire-extinguisher" />
                     <span>{item.tipo}</span>
                   </fieldset>
+
                   <fieldset
                     style={{ color: checked(item.vistoria.stamp) }}
                     className={styles.fieldset}
@@ -552,7 +511,12 @@ const Extintores = () => {
                   /> */}
 
                   <fieldset className={styles.fieldsetBtns}>
-                    <button className={styles.fsBtns}>
+                    <button
+                      className={styles.fsBtns}
+                      onClick={() =>
+                        navigate(`extedit?id=${item.id}&ftr=${filter}`)
+                      }
+                    >
                       <i className="fa-regular fa-pen-to-square"></i> editar
                     </button>
                     <button className={styles.fsBtns}>

@@ -411,13 +411,14 @@
 
 .fieldset:hover, .fieldsetAvaria:hover{
     box-shadow: inset #0007 -3px -3px 10px, inset #3337 3px 3px 10px;
-    color: #d1d1d1;
+    /* color: #d1d1d1; */
 
 }
 
 .fieldset i{
     margin: auto;
     margin-right: 1rem;
+    /* color: #d1d1d1; */
 }
 .avaria{
     white-space: pre-line;
