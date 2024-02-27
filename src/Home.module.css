@@ -39,6 +39,7 @@
     text-transform: lowercase;
     visibility: hidden;
     opacity: 0;
+    transition: .3s;
 }
 
 .minHeader{
@@ -62,6 +63,8 @@
     opacity: 0;
     cursor: pointer;
     z-index: 0;
+    transition: .3s;
+
 }
 .iconHover:hover{
     color: #d1d1d1 !important;
@@ -131,6 +134,7 @@
 
 .canv{
     cursor: default;
+    transition: all .3s;
 }
 
 .menuOpened{

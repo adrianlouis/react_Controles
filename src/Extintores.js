@@ -98,8 +98,6 @@ const Extintores = () => {
   }
 
   function handleFilter(type, elem) {
-    // background-color: #439A86;
-    // box-shadow: inset #83dAc6 2px 2px 4px ,inset #035A46 -5px -5px 10px;
     setFilter({ tipo: filter.tipo, opt: type });
 
     const filtered = context.userLogado.ext.filter((f) => {
@@ -123,13 +121,6 @@ const Extintores = () => {
   }
 
   function clearFilter() {
-    // if (filter === 'tipo') {
-    //   const spans = document.querySelectorAll('#typeSpan');
-    //   spans.forEach((el) => {
-    //     el.innerHTML = el.innerHTML.slice(0, 1);
-    //   });
-    // }
-
     setFilter({ tipo: '', opt: '' });
     setCheckToogle(false);
     context.setItensFiltrados(null);
@@ -267,8 +258,6 @@ const Extintores = () => {
     } else {
       context.setItensFiltrados(comAvaria);
     }
-
-    console.log(filter, comAvaria, semAvaria);
   }
 
   return (
@@ -486,7 +475,6 @@ const Extintores = () => {
                     <i className="fa-solid fa-hashtag" />
                     <span className="numId">{item.num}</span>
                   </fieldset>
-
                   <fieldset
                     style={{ color: checked(item.vistoria.stamp) }}
                     className={styles.fieldset}
@@ -494,7 +482,6 @@ const Extintores = () => {
                     <i className="fa-solid fa-fire-extinguisher" />
                     <span>{item.tipo}</span>
                   </fieldset>
-
                   <fieldset
                     style={{ color: checked(item.vistoria.stamp) }}
                     className={styles.fieldset}
@@ -510,7 +497,6 @@ const Extintores = () => {
                     className={styles.fieldset}
                   >
                     <i className="fa-solid fa-calendar-day" />
-
                     <span>{ultRec(item.ultRec.ano, item.ultRec.mes)}</span>
                   </fieldset>
 

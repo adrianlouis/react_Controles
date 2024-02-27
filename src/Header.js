@@ -77,6 +77,7 @@ const Header = () => {
           height={window.screen.width / 3}
         ></canvas>
       </div>
+
       {data && (
         <>
           <header className={styles.headerUserData}>

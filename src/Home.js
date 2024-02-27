@@ -495,39 +495,6 @@ const Home = () => {
         </span>
         <p className={styles.quote}>{context.userLogado.perfil.quote}</p>
       </div>
-      {/* <div id="linksScroll">
-        <ul id="navbarPerfil">
-          <li
-            className="liVerde"
-            onClick={({ currentTarget }) =>
-              handleNavlink(currentTarget, '/home/ext')
-            }
-          >
-            Extintores
-          </li>
-          <li
-            onClick={({ currentTarget }) =>
-              handleNavlink(currentTarget, '/home/hd')
-            }
-          >
-            Hidrantes
-          </li>
-          <li
-            onClick={({ currentTarget }) =>
-              handleNavlink(currentTarget, '/home/lde')
-            }
-          >
-            Luzes de Emergência
-          </li>
-          <li
-            onClick={({ currentTarget }) =>
-              handleNavlink(currentTarget, '/home/gas')
-            }
-          >
-            Medição de Gás
-          </li>
-        </ul>
-      </div> */}
       {newItem && !context.searchInput && (
         <>
           <BtnNewPost onclick={() => handleAction()} />
