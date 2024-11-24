@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { GlobalContext } from './GlobalContext';
 import styles from './Extintores.module.css';
 import { useNavigate } from 'react-router-dom';
-import { refreshBd, removerRegistro } from './crudFireBase';
+import { refreshBd, removerRegistro, updateBd } from './crudFireBase';
 import BtnAcoesItens from './components/BtnAcoesItens';
 import SelectFilter from './components/SelectFilter';
 import { UPDATE_DATA } from './funcoes/Api';
@@ -10,6 +10,16 @@ import { UPDATE_DATA } from './funcoes/Api';
 const Extintores = () => {
   const context = useContext(GlobalContext);
   const navigate = useNavigate();
+  const now = new Date();
+  const today = new Date(
+    now.getFullYear(),
+    now.getMonth(),
+    now.getDate(),
+  ).toLocaleDateString('pt-Br', {
+    day: '2-digit',
+    month: '2-digit',
+    year: '2-digit',
+  });
   const [filter, setFilter] = React.useState({
     tipo: '',
     opt: context.filterSelect,
@@ -83,6 +93,21 @@ const Extintores = () => {
     setFilter({ tipo: '', opt: '' });
     setCheckToogle(false);
     context.setItensFiltrados(null);
+  }
+
+  function stampCheck(stamp) {
+    if (
+      today !==
+      new Date(stamp).toLocaleDateString('pt-Br', {
+        day: '2-digit',
+        month: '2-digit',
+        year: '2-digit',
+      })
+    ) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   async function handleCheck(elem, item) {
@@ -194,6 +219,26 @@ const Extintores = () => {
       el.previousElementSibling.firstChild.nextSibling.style.margin =
         '0 0 1rem 0';
     }
+  }
+
+  function doCheck(ind) {
+    const item = listaAtiva.filter((f, i) => {
+      return i === ind;
+    });
+
+    document.querySelector('#lastCheckWrap' + ind).innerHTML = 'checkado';
+
+    document.querySelector('#item' + ind).style.border = '2px solid #9cb8a1';
+
+    const extintores = listaAtiva.map((m, i) => {
+      return item[0] === m
+        ? { ...m, vistoria: { check: true, stamp: Date.now() } }
+        : m;
+    });
+
+    context.setUserLogado({ ...context.userLogado, ext: extintores });
+
+    updateBd(context.userLogado.id, { ext: extintores.reverse() });
   }
 
   function filterAvaria() {
@@ -423,6 +468,14 @@ const Extintores = () => {
                 key={'item' + i}
                 className={`${styles.item} animateLeft`}
                 onClick={() => handleShowCard(i)}
+                style={{
+                  border: `2px solid ${
+                    stampCheck(item.vistoria.stamp) ? '#333333' : '#9cb8a1'
+                  }`,
+                  color: `${
+                    stampCheck(item.vistoria.stamp) ? '#333333' : '#9cb8a1'
+                  }`,
+                }}
               >
                 <div className={styles.minorWrapper}>
                   <fieldset
@@ -498,31 +551,54 @@ const Extintores = () => {
                     </fieldset>
                   )}
 
-                  {/* <BtnAcoesItens
+                  <BtnAcoesItens
                     funcDel={() =>
                       excluirExtintor(context.userLogado.id, item, 'ext')
                     }
                     itemId={item.id}
                     editarOnClick={() =>
-                      navigate(
-                        `extedit?id=${item.id}&ftr=${filter}&ftrtp=${filterChoice}`,
-                      )
+                      navigate(`extedit?id=${item.id}&ftr=${filter}`)
                     }
-                  /> */}
+                  />
+                </div>
 
-                  <fieldset className={styles.fieldsetBtns}>
-                    <button
-                      className={styles.fsBtns}
-                      onClick={() =>
-                        navigate(`extedit?id=${item.id}&ftr=${filter}`)
-                      }
-                    >
-                      <i className="fa-regular fa-pen-to-square"></i> editar
-                    </button>
-                    <button className={styles.fsBtns}>
-                      <i className="fa-regular fa-trash-can"></i> excluir
-                    </button>
-                  </fieldset>
+                {/* <span id={`lastCheck${i}`} className={styles.lastCheck}>
+                  último check:{' '}
+                  {new Date(item.vistoria.stamp).toLocaleDateString('pt-Br', {
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: '2-digit',
+                  })}
+                </span>
+                <span id={`doCheck${i}`} className={styles.checkBtn}>
+                  realizar check
+                </span> */}
+
+                <div
+                  id={`lastCheckWrap${i}`}
+                  className={styles.lastCheckWrap}
+                  onClick={() =>
+                    stampCheck(item.vistoria.stamp) ? doCheck(i) : ''
+                  }
+                >
+                  {!stampCheck(item.vistoria.stamp) && <span>checkado</span>}
+
+                  {stampCheck(item.vistoria.stamp) && (
+                    <>
+                      <span>realizar check</span>
+                      <span className={styles.lastCheck}>
+                        último check:{' '}
+                        {new Date(item.vistoria.stamp).toLocaleDateString(
+                          'pt-Br',
+                          {
+                            day: '2-digit',
+                            month: '2-digit',
+                            year: '2-digit',
+                          },
+                        )}
+                      </span>
+                    </>
+                  )}
                 </div>
               </div>
             );
@@ -617,6 +693,32 @@ const Extintores = () => {
                     itemId={item.id}
                     editarOnClick={() => navigate(`extedit?id=${item.id}`)}
                   />
+                </div>
+                <div
+                  id={`lastCheckWrap${i}`}
+                  className={styles.lastCheckWrap}
+                  onClick={() =>
+                    stampCheck(item.vistoria.stamp) ? doCheck(i) : ''
+                  }
+                >
+                  {!stampCheck(item.vistoria.stamp) && <span>checkado</span>}
+
+                  {stampCheck(item.vistoria.stamp) && (
+                    <>
+                      <span>realizar check</span>
+                      <span className={styles.lastCheck}>
+                        último check:{' '}
+                        {new Date(item.vistoria.stamp).toLocaleDateString(
+                          'pt-Br',
+                          {
+                            day: '2-digit',
+                            month: '2-digit',
+                            year: '2-digit',
+                          },
+                        )}
+                      </span>
+                    </>
+                  )}
                 </div>
               </div>
             );

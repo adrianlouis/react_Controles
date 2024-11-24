@@ -2,81 +2,25 @@
     margin: .7rem 0 1rem;
     width: 100%;
 
-    /* border: 1px solid red ; */
 }
-
-/* .wrapperConfirmDel{
-    display: flex;
-    align-items: start;
-    justify-content: start;
-    position: relative;
-} */
-
-
 
 .wrapper{
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btnWrapper{
+    border: 2px solid #9cb8a1;
+    color: #9cb8a1;
+    background-color: #222;
+    display: flex;
     justify-content: center;
     align-items: center;
-    text-align: center;
+    padding: .2rem 2rem;
+    border-radius: .5rem;
 }
 
-.wrapper div{
-    display: flex;
-    align-items: center;
-    border-radius: 2rem;
-    /* margin: 10px 45px 10px 0; */
-    /* margin: auto auto; */
-    padding: .5rem ;
-    /* color: #e0e0e0; */
-}
-
-.wrapper div:first-child, .wrapperConfirmDel span:nth-child(2) {
-    color: rgb(166, 243, 166);
-    cursor: pointer;
-    /* border: 1px solid white; */
-    width: 50%;
-}
-.wrapper div:nth-child(2), .wrapperConfirmDel span:nth-child(3){
-    color: rgb(200, 45, 0);
-    cursor: pointer;
-    /* border: 1px solid white; */
-    /* margin: 5px 0; */
-    width: 50%;
-
-}
-
-
-.wrapperConfirmDel span{
-    font-size: 1rem !important;
-}
-.wrapperConfirmDel span:nth-child(1){
-    color: rgb(161,161,161);
-    font-weight: 900;
-}
-
-.wrapperConfirmDel{
-    /* border: 1px solid white; */
-    display: grid;
-    grid-template-areas:
-    'label label'
-    'yes no';
-}
-
-.delLabel{
-    grid-area: label;
-    font-size: 3rem;
-    /* border: 1px solid blue; */
-    padding: 1rem 0;
-}
-.delYes{
-    grid-area: yes;
-    /* border: 1px solid blue; */
-    text-align: center;
-}
-.delNo{
-    grid-area: no;
-    /* border: 1px solid blue; */
-    text-align: center;
+.btnWrapper *{
+    margin: 0 .2rem;
 }

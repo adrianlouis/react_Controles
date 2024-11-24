@@ -14,14 +14,15 @@ const BtnAcoesItens = ({ funcDel, editarOnClick, itemId }) => {
   return (
     <div id="btnAcoesItens" className={styles.container}>
       <div id={`btnContainer${itemId}`} className={styles.wrapper}>
-        <div onClick={editarOnClick}>
-          <p>
-            <i className="fa-regular fa-pen-to-square" /> editar
-          </p>
+        <div className={styles.btnWrapper} onClick={editarOnClick}>
+          <i className="fa-regular fa-pen-to-square" />
+          <p>editar</p>
         </div>
-        <div>
+
+        <div className={styles.btnWrapper}>
+          <i className="fa-regular fa-trash-can" />
           <p onClick={({ currentTarget }) => handleDel(currentTarget)}>
-            <i className="fa-regular fa-trash-can" /> excluir
+            excluir
           </p>
         </div>
       </div>
