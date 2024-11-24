@@ -477,7 +477,7 @@ const Extintores = () => {
                   }`,
                 }}
               >
-                <div className={styles.minorWrapper}>
+                {/* <div className={styles.minorWrapper}>
                   <fieldset
                     style={{ color: checked(item.vistoria.stamp) }}
                     className={styles.fieldset}
@@ -501,7 +501,7 @@ const Extintores = () => {
                     <i className="fa-solid fa-location-dot" />
                     <span>{item.local}</span>
                   </fieldset>
-                </div>
+                </div> */}
 
                 <div id={'minor' + i} className={styles.toogleOff}>
                   <fieldset

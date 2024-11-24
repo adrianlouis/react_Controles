@@ -13,10 +13,9 @@
     color: rgb(161,161,161);
 
 }
-
+/* 
 .legends{
     font-size: .8rem;
-    /* margin: 10px 0 0 0; */
     margin: 0;
     padding: 0;
     color: #439A86;
@@ -51,7 +50,7 @@
     width: calc(100vw - 20px);
     margin: auto 0;
     margin-bottom: 30px;
-}
+} */
 
 .nExt{
     background-color: #121;
