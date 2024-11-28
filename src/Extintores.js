@@ -221,24 +221,24 @@ const Extintores = () => {
     }
   }
 
-  function doCheck(ind) {
-    const item = listaAtiva.filter((f, i) => {
-      return i === ind;
-    });
-
-    document.querySelector('#lastCheckWrap' + ind).innerHTML = 'checkado';
-
-    document.querySelector('#item' + ind).style.border = '2px solid #9cb8a1';
-
-    const extintores = listaAtiva.map((m, i) => {
-      return item[0] === m
+  function doCheck(id) {
+    const extintores = context.userLogado.ext.map((m) => {
+      return m.id === id
         ? { ...m, vistoria: { check: true, stamp: Date.now() } }
         : m;
     });
 
-    context.setUserLogado({ ...context.userLogado, ext: extintores });
+    context.setUserLogado({
+      ...context.userLogado,
+      ext: extintores,
+    });
 
-    updateBd(context.userLogado.id, { ext: extintores.reverse() });
+    if (context.itensFiltrados) {
+      context.setItensFiltrados(false);
+      context.setSearchInput(false);
+    }
+
+    updateBd(context.userLogado.id, { ext: extintores });
   }
 
   function filterAvaria() {
@@ -460,8 +460,156 @@ const Extintores = () => {
       </div>
 
       <div className={styles.container} id="container">
-        {!context.itensFiltrados &&
-          listaAtiva.map((item, i) => {
+        {(context.itensFiltrados
+          ? context.itensFiltrados
+          : context.userLogado.ext.toReversed()
+        ).map((item, i) => {
+          // {!context.itensFiltrados &&
+          //   listaAtiva.map((item, i) => {
+          return (
+            <div
+              id={'item' + i}
+              key={'item' + i}
+              className={`${styles.item} animateLeft`}
+              onClick={() => handleShowCard(i)}
+              style={{
+                border: `2px solid ${
+                  stampCheck(item.vistoria.stamp) ? '#333333' : '#9cb8a1'
+                }`,
+                color: `${
+                  stampCheck(item.vistoria.stamp) ? '#333333' : '#9cb8a1'
+                }`,
+              }}
+            >
+              <div className={styles.minorWrapper}>
+                <fieldset
+                  style={{ color: checked(item.vistoria.stamp) }}
+                  className={styles.fieldset}
+                >
+                  <i className="fa-solid fa-hashtag" />
+                  <span className="numId">{item.num}</span>
+                </fieldset>
+
+                <fieldset
+                  style={{ color: checked(item.vistoria.stamp) }}
+                  className={styles.fieldset}
+                >
+                  <i className="fa-solid fa-fire-extinguisher" />
+                  <span>{item.tipo}</span>
+                </fieldset>
+
+                <fieldset
+                  style={{ color: checked(item.vistoria.stamp) }}
+                  className={styles.fieldset}
+                >
+                  <i className="fa-solid fa-location-dot" />
+                  <span>{item.local}</span>
+                </fieldset>
+              </div>
+
+              <div id={'minor' + i} className={styles.toogleOff}>
+                <fieldset
+                  style={{ color: checked(item.vistoria.stamp) }}
+                  className={styles.fieldset}
+                >
+                  <i className="fa-solid fa-calendar-day" />
+                  <span>{ultRec(item.ultRec.ano, item.ultRec.mes)}</span>
+                </fieldset>
+
+                <fieldset
+                  style={{ color: checked(item.vistoria.stamp) }}
+                  className={styles.fieldset}
+                >
+                  <i className="fa-regular fa-calendar" />
+                  <span>
+                    {item.ultRet
+                      ? ultRec(item.ultRet, item.ultRec.mes)
+                      : 'Reteste não informado'}
+                  </span>
+                </fieldset>
+
+                <fieldset
+                  style={{ color: checked(item.vistoria.stamp) }}
+                  className={styles.fieldset}
+                  onClick={({ currentTarget }) =>
+                    handleCheck(currentTarget, item)
+                  }
+                >
+                  <i
+                    style={{ color: checked(item.vistoria.stamp) }}
+                    className={`${styles.vistoriaIcon} fa-solid fa-check`}
+                  />
+
+                  <span>
+                    {/* {item.vistoria ? item.vistoria.stamp : 'vistoriar'} */}
+                    {handleVistoria(item.vistoria.stamp)}
+                  </span>
+                </fieldset>
+
+                {item.avaria && (
+                  <fieldset
+                    className={styles.fieldsetAvaria}
+                    style={{ color: checked(item.vistoria.stamp) }}
+                  >
+                    <span className={styles.avaria}>{item.avaria}</span>
+                  </fieldset>
+                )}
+
+                <BtnAcoesItens
+                  funcDel={() =>
+                    excluirExtintor(context.userLogado.id, item, 'ext')
+                  }
+                  itemId={item.id}
+                  editarOnClick={() =>
+                    navigate(`extedit?id=${item.id}&ftr=${filter}`)
+                  }
+                />
+              </div>
+
+              {/* <span id={`lastCheck${i}`} className={styles.lastCheck}>
+                  último check:{' '}
+                  {new Date(item.vistoria.stamp).toLocaleDateString('pt-Br', {
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: '2-digit',
+                  })}
+                </span>
+                <span id={`doCheck${i}`} className={styles.checkBtn}>
+                  realizar check
+                </span> */}
+
+              <div
+                id={`lastCheckWrap${i}`}
+                className={styles.lastCheckWrap}
+                onClick={() =>
+                  stampCheck(item.vistoria.stamp) ? doCheck(item.id) : ''
+                }
+              >
+                {!stampCheck(item.vistoria.stamp) && <span>checkado</span>}
+
+                {stampCheck(item.vistoria.stamp) && (
+                  <>
+                    <span>realizar check</span>
+                    <span className={styles.lastCheck}>
+                      último check:{' '}
+                      {new Date(item.vistoria.stamp).toLocaleDateString(
+                        'pt-Br',
+                        {
+                          day: '2-digit',
+                          month: '2-digit',
+                          year: '2-digit',
+                        },
+                      )}
+                    </span>
+                  </>
+                )}
+              </div>
+            </div>
+          );
+        })}
+
+        {/* {context.itensFiltrados &&
+          context.itensFiltrados.map((item, i) => {
             return (
               <div
                 id={'item' + i}
@@ -537,7 +685,6 @@ const Extintores = () => {
                     />
 
                     <span>
-                      {/* {item.vistoria ? item.vistoria.stamp : 'vistoriar'} */}
                       {handleVistoria(item.vistoria.stamp)}
                     </span>
                   </fieldset>
@@ -562,17 +709,6 @@ const Extintores = () => {
                   />
                 </div>
 
-                {/* <span id={`lastCheck${i}`} className={styles.lastCheck}>
-                  último check:{' '}
-                  {new Date(item.vistoria.stamp).toLocaleDateString('pt-Br', {
-                    day: '2-digit',
-                    month: '2-digit',
-                    year: '2-digit',
-                  })}
-                </span>
-                <span id={`doCheck${i}`} className={styles.checkBtn}>
-                  realizar check
-                </span> */}
 
                 <div
                   id={`lastCheckWrap${i}`}
@@ -602,127 +738,7 @@ const Extintores = () => {
                 </div>
               </div>
             );
-          })}
-
-        {context.itensFiltrados &&
-          context.itensFiltrados.map((item, i) => {
-            return (
-              <div
-                id={'item' + i}
-                key={'item' + i}
-                className={`${styles.item} animateLeft`}
-                onClick={() => handleShowCard(i)}
-              >
-                <div className={styles.minorWrapper}>
-                  <fieldset
-                    style={{ color: checked(item.vistoria.stamp) }}
-                    className={styles.fieldset}
-                  >
-                    <i className="fa-solid fa-hashtag" />
-                    <span className="numId">{item.num}</span>
-                  </fieldset>
-
-                  <fieldset
-                    style={{ color: checked(item.vistoria.stamp) }}
-                    className={styles.fieldset}
-                  >
-                    <i className="fa-solid fa-fire-extinguisher" />
-                    <span>{item.tipo}</span>
-                  </fieldset>
-
-                  <fieldset
-                    style={{ color: checked(item.vistoria.stamp) }}
-                    className={styles.fieldset}
-                  >
-                    <i className="fa-solid fa-location-dot" />
-
-                    <span>{item.local}</span>
-                  </fieldset>
-                </div>
-
-                <div id={'minor' + i} className={styles.toogleOff}>
-                  <fieldset
-                    style={{ color: checked(item.vistoria.stamp) }}
-                    className={styles.fieldset}
-                  >
-                    <i className="fa-solid fa-calendar-day" />
-
-                    <span>{ultRec(item.ultRec.ano, item.ultRec.mes)}</span>
-                  </fieldset>
-
-                  <fieldset
-                    style={{ color: checked(item.vistoria.stamp) }}
-                    className={styles.fieldset}
-                  >
-                    <i className="fa-regular fa-calendar" />
-                    <span>
-                      {item.ultRet
-                        ? ultRec(item.ultRet, item.ultRec.mes)
-                        : 'Reteste não informado'}
-                    </span>
-                  </fieldset>
-
-                  <fieldset
-                    style={{ color: checked(item.vistoria.stamp) }}
-                    className={styles.fieldset}
-                    onClick={({ currentTarget }) =>
-                      handleCheck(currentTarget, item)
-                    }
-                  >
-                    <i
-                      style={{ color: checked(item.vistoria.stamp) }}
-                      className={`${styles.vistoriaIcon} fa-solid fa-check`}
-                    />
-
-                    <span>
-                      {/* {item.vistoria ? item.vistoria.stamp : 'vistoriar'} */}
-                      {handleVistoria(item.vistoria.stamp)}
-                    </span>
-                  </fieldset>
-
-                  {item.avaria && (
-                    <fieldset className={styles.fieldsetAvaria}>
-                      <span className={styles.avaria}>{item.avaria}</span>
-                    </fieldset>
-                  )}
-
-                  <BtnAcoesItens
-                    funcDel={() =>
-                      excluirExtintor(context.userLogado.id, item, 'ext')
-                    }
-                    itemId={item.id}
-                    editarOnClick={() => navigate(`extedit?id=${item.id}`)}
-                  />
-                </div>
-                <div
-                  id={`lastCheckWrap${i}`}
-                  className={styles.lastCheckWrap}
-                  onClick={() =>
-                    stampCheck(item.vistoria.stamp) ? doCheck(i) : ''
-                  }
-                >
-                  {!stampCheck(item.vistoria.stamp) && <span>checkado</span>}
-
-                  {stampCheck(item.vistoria.stamp) && (
-                    <>
-                      <span>realizar check</span>
-                      <span className={styles.lastCheck}>
-                        último check:{' '}
-                        {new Date(item.vistoria.stamp).toLocaleDateString(
-                          'pt-Br',
-                          {
-                            day: '2-digit',
-                            month: '2-digit',
-                            year: '2-digit',
-                          },
-                        )}
-                      </span>
-                    </>
-                  )}
-                </div>
-              </div>
-            );
-          })}
+          })} */}
       </div>
     </>
   );

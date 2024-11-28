@@ -46,7 +46,7 @@ const SearchItens = ({ itens }) => {
 
   function handleClose() {
     ctx.setSearchInput(false);
-    ctx.setItensFiltrados('');
+    ctx.setItensFiltrados(false);
   }
 
   return (
