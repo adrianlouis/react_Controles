@@ -87,24 +87,6 @@
 
 
 
-.legends{
-    font-size: .8rem;
-    /* margin: 10px 0 0 0; */
-    margin: 0;
-    padding: 0;
-    color: #439A86;
-    margin-top: 5px;
-    transform: translate(0, 5px);
-}
-.values{
-    font-size: 1.4rem;
-    color: #BCD8C1;
-    font-weight: 900;
-}
-.txtValues{
-    font-size: 1rem;
-    color: #BCD8C1;
-}
 
 
 
@@ -112,4 +94,66 @@
 .vistoria{
     position: absolute;
     top: 20px;
+}
+
+.ldeContent{
+    border: 2px solid #333;
+    padding:  .5rem;
+    background-color: #121212;
+    margin: 1.25rem 1rem; 
+    border-radius: 1rem;
+    transition: all .3s;
+}
+.ldeContent:hover{
+    border: 2px solid #BCD8C1 !important;
+    box-shadow: #bcd8c177 0 0 7px inset, #bcd8c1aa 0 0 7px;
+}
+
+
+.title{
+    border-radius: .5rem;
+    text-align: left;
+    position: relative;
+
+}
+
+.legends{
+    font-size: .8rem;
+    margin: 0;
+    padding: 0;
+    color: #439A86;
+    transform: translateX(-50%);
+    left: 50%;
+    top: 2px;
+    position: absolute;
+}
+
+.inpLine, .checkContent{
+    font-size: 1rem;
+    color: #BCD8C1;
+    /* font-weight: 900; */
+    border: 2px solid #333;
+    padding: 1rem 0 .25rem;
+    border-radius: .5rem;
+    position: relative;
+    /* margin: .5rem 0; */
+    margin-bottom: .5rem;
+}
+
+.checkContent{
+    margin: .5rem 0 0;
+    background-color: #222;
+    border: 2px solid #222;
+    cursor: pointer;
+    transition: all .3s;
+    
+}
+.checkContent:hover{
+    border: 2px solid #9cb8a1;
+    background-color: #223;
+}
+.checked{
+    align-self: center;
+    /* font-size: 1.2rem; */
+    transform: translateY(-6px);
 }

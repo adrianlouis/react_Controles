@@ -29,6 +29,7 @@ const Extintores = () => {
   const [listaAtiva, setListaAtiva] = React.useState(
     [...context.userLogado.ext].reverse(),
   );
+  const [filterToggle, setFilterToggle] = React.useState(false);
 
   if (!context.userLogado.ext) {
     context.setUserLogado({ ...context.userLogado, ext: [] });
@@ -70,6 +71,7 @@ const Extintores = () => {
 
   function handleFilter(type, elem) {
     setFilter({ tipo: filter.tipo, opt: type });
+    console.log(filter.tipo);
 
     const filtered = context.userLogado.ext.filter((f) => {
       return f.tipo === type.toUpperCase();
@@ -90,6 +92,8 @@ const Extintores = () => {
     elem.style.boxShadow =
       'inset #83dAc6 2px 2px 4px ,inset #035A46 -5px -5px 10px ';
   }
+
+  function handleFilt() {}
 
   function clearFilter() {
     setFilter({ tipo: '', opt: '' });
@@ -217,32 +221,8 @@ const Extintores = () => {
     }
   }
 
-  function handleShowCard(ind, id) {
-    if (!opened.includes(id)) {
-      setOpened([...opened, id]);
-    }
-
-    const el = document.querySelector('#minor' + ind);
-    if (el.style.display === 'block') {
-      el.style.display = 'none';
-      el.previousElementSibling.style.display = 'grid';
-      el.previousElementSibling.style.flexDirection = 'unset';
-      el.previousElementSibling.firstChild.style.margin = '0 10px 0 0';
-      el.previousElementSibling.firstChild.nextSibling.style.margin =
-        '0 10px 0 0';
-    } else {
-      el.style.display = 'block';
-      el.previousElementSibling.style.display = 'flex';
-      el.previousElementSibling.style.flexDirection = 'column';
-      el.previousElementSibling.firstChild.style.margin = '0 0 1rem 0';
-      el.previousElementSibling.firstChild.nextSibling.style.margin =
-        '0 0 1rem 0';
-    }
-  }
-
   function doCheck(el, id) {
     el.stopPropagation();
-    console.log(el);
 
     const extintores = context.userLogado.ext.map((m) => {
       return m.id === id
@@ -290,34 +270,76 @@ const Extintores = () => {
         <div className={`${styles.filterBar} animateLeft`}>
           {!filter.tipo && (
             <>
-              <p
-                className={styles.filterBtns}
-                onClick={() => setFilter({ tipo: 'classe', opt: '' })}
-              >
-                <i className="fa-solid fa-fire-extinguisher" />
-                tipo
-              </p>
-              <p
-                className={styles.filterBtns}
-                onClick={() => setFilter({ tipo: 'local', opt: '' })}
-              >
-                <i className="fa-solid fa-location-dot" />
-                local
-              </p>
-              <p className={styles.filterBtns}>
-                <i className="fa-solid fa-calendar-day" />
-                recarga
-              </p>
-              <p className={styles.filterBtns}>
-                <i className="fa-regular fa-calendar" />
-                reteste
-              </p>
-              <p className={styles.filterBtns} onClick={() => filterAvaria()}>
-                <i className="fa-solid fa-circle-exclamation"></i>avariados
-              </p>
-              <p onClick={() => filterVistoria()} className={styles.filterBtns}>
-                <i className="fa-regular fa-circle-check"></i>vistoriados
-              </p>
+              {!filterToggle && (
+                <>
+                  <p
+                    className={styles.filterBtns}
+                    onClick={() => {
+                      setFilterToggle(!filterToggle);
+                    }}
+                  >
+                    <i className="fa-solid fa-filter"></i>
+                    filtrar
+                  </p>
+                  {/* <p
+                    className={styles.filterBtns}
+                    onClick={() => {
+                      setFilterToggle(!filterToggle);
+                    }}
+                  >
+                    <i className="fa-solid fa-filter-circle-xmark"></i>
+                    limpar filtro
+                  </p> */}
+                </>
+              )}
+              {filterToggle && (
+                <>
+                  {' '}
+                  <p
+                    className={styles.filterBtns}
+                    onClick={() => {
+                      setFilterToggle(!filterToggle);
+                    }}
+                  >
+                    <i className="fa-solid fa-filter-circle-xmark"></i>
+                    limpar filtro
+                  </p>
+                  <p
+                    className={styles.filterBtns}
+                    onClick={() => setFilter({ tipo: 'classe', opt: '' })}
+                  >
+                    <i className="fa-solid fa-fire-extinguisher" />
+                    tipo
+                  </p>
+                  <p
+                    className={styles.filterBtns}
+                    onClick={() => setFilter({ tipo: 'local', opt: '' })}
+                  >
+                    <i className="fa-solid fa-location-dot" />
+                    local
+                  </p>
+                  <p className={styles.filterBtns}>
+                    <i className="fa-solid fa-calendar-day" />
+                    recarga
+                  </p>
+                  <p className={styles.filterBtns}>
+                    <i className="fa-regular fa-calendar" />
+                    reteste
+                  </p>
+                  <p
+                    className={styles.filterBtns}
+                    onClick={() => filterAvaria()}
+                  >
+                    <i className="fa-solid fa-circle-exclamation"></i>avariados
+                  </p>
+                  <p
+                    onClick={() => filterVistoria()}
+                    className={styles.filterBtns}
+                  >
+                    <i className="fa-regular fa-circle-check"></i>vistoriados
+                  </p>
+                </>
+              )}
             </>
           )}
 
@@ -488,8 +510,6 @@ const Extintores = () => {
         )
           .toReversed()
           .map((item, i) => {
-            // {!context.itensFiltrados &&
-            //   listaAtiva.map((item, i) => {
             return (
               <div
                 id={'item' + i}

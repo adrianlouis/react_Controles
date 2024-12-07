@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './Hidrantes.module.css';
 import { GlobalContext } from './GlobalContext';
-import { refreshBd, removerRegistro } from './crudFireBase';
+import { refreshBd, removerRegistro, updateBd } from './crudFireBase';
 import Footer from './Footer';
 import BtnAcoesItens from './components/BtnAcoesItens';
 import { convertData } from './funcoes/extDatas';
@@ -12,6 +12,7 @@ const Hidrantes = () => {
   if (!context.userLogado.hd) {
     context.setUserLogado({ ...context.userLogado, hd: [] });
   }
+  const today = Date.now();
   const navigate = useNavigate();
   const [ordenar, setOrdenar] = React.useState('');
   const [resFiltragem, setResFiltragem] = React.useState('');
@@ -71,6 +72,52 @@ const Hidrantes = () => {
     await context.setUserLogado(...update);
   }
 
+  function handleCheck(id) {
+    const hd = context.userLogado.hd.map((m) => {
+      if (m.id !== id) {
+        return m;
+      } else {
+        return { ...m, stamp: Date.now() };
+      }
+    });
+
+    context.setUserLogado({
+      ...context.userLogado,
+      hd: hd,
+    });
+
+    updateBd(context.userLogado.id, { hd: hd });
+  }
+
+  function stampToDates(stamp) {
+    const convertion = new Date(stamp).toLocaleDateString('pt-Br', {
+      day: '2-digit',
+      month: '2-digit',
+      year: '2-digit',
+    });
+
+    return convertion ? convertion : null;
+  }
+
+  function checkDates(stamp) {
+    const convertion = new Date(stamp).toLocaleDateString('pt-Br', {
+      day: '2-digit',
+      month: '2-digit',
+      year: '2-digit',
+    });
+    const todayStamp = new Date(today).toLocaleDateString('pt-Br', {
+      day: '2-digit',
+      month: '2-digit',
+      year: '2-digit',
+    });
+
+    if (convertion === todayStamp) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   return (
     <>
       <div className={styles.mainContainer}>
@@ -81,59 +128,57 @@ const Hidrantes = () => {
         )}
 
         {!context.itensFiltrados &&
-          context.userLogado.hd &&
           context.userLogado.hd
             .sort((a, b) => {
               return a.num - b.num;
             })
             .map((item) => {
               return (
-                <div key={item.id} className="ldeContent animateLeft">
-                  <div className={styles.title}>
+                <div
+                  key={item.id}
+                  className={`${styles.ldeContent} animateLeft`}
+                  style={{
+                    border: checkDates(item.stamp)
+                      ? '2px solid #BCD8C1'
+                      : '2px solid #333333',
+                  }}
+                >
+                  <div className={styles.inpLine}>
                     <p className={styles.legends}> número</p>
-                    <p className={styles.values}> {item.num}</p>
+                    <p> {item.num}</p>
                   </div>
 
                   <div className={styles.minorInfos}>
                     {item.avaria && (
-                      <div>
+                      <div className={styles.inpLine}>
                         <p className={styles.legends}>avaria</p>
-                        <p className={styles.txtValues}>{item.avaria}</p>
+                        <p>{item.avaria}</p>
                       </div>
                     )}
 
-                    <div>
-                      <p className={styles.txtValues}></p>
+                    <div className={styles.inpLine}>
                       <p className={styles.legends}>local</p>
-                      <p className={styles.txtValues}>
-                        {item.local ? item.local : 'não informado'}
-                      </p>
+                      <p>{item.local ? item.local : 'não informado'}</p>
                     </div>
 
-                    <div>
+                    <div className={styles.inpLine}>
                       <p className={styles.legends}>abrigo</p>
-                      <p className={styles.txtValues}>
-                        {item.abrigo ? item.abrigo : 'não informado'}
-                      </p>
+                      <p>{item.abrigo ? item.abrigo : 'não informado'}</p>
                     </div>
 
-                    <div>
+                    <div className={styles.inpLine}>
                       <p className={styles.legends}>sinalização</p>
-                      <p className={styles.txtValues}>
-                        {item.placa ? item.placa : 'não informado'}
-                      </p>
+                      <p>{item.placa ? item.placa : 'não informado'}</p>
                     </div>
 
-                    <div>
+                    <div className={styles.inpLine}>
                       <p className={styles.legends}>marcação no chão</p>
-                      <p className={styles.txtValues}>
-                        {item.sinal ? item.sinal : 'não informado'}
-                      </p>
+                      <p>{item.sinal ? item.sinal : 'não informado'}</p>
                     </div>
 
-                    <div>
+                    <div className={styles.inpLine}>
                       <p className={styles.legends}>peças</p>
-                      <p className={styles.txtValues}>
+                      <p>
                         {item.pecas.length === 0
                           ? 'nenhuma peça registrada'
                           : item.pecas.map((m, ind, l) => {
@@ -142,11 +187,9 @@ const Hidrantes = () => {
                       </p>
                     </div>
 
-                    <div>
+                    <div className={styles.inpLine}>
                       <p className={styles.legends}>último reteste</p>
-                      <p className={styles.txtValues}>
-                        {convertData(item.val)}
-                      </p>
+                      <p>{convertData(item.val)}</p>
                     </div>
                   </div>
 
@@ -159,6 +202,23 @@ const Hidrantes = () => {
                       )
                     }
                   />
+                  <div
+                    className={styles.checkContent}
+                    onClick={() => handleCheck(item.id)}
+                  >
+                    {checkDates(item.stamp) ? (
+                      <p className={styles.checked}>vistoriado</p>
+                    ) : (
+                      <>
+                        <span className={styles.legends}>último check</span>
+                        <p>
+                          {item.stamp
+                            ? stampToDates(item.stamp)
+                            : 'Não vistoriado'}
+                        </p>
+                      </>
+                    )}
+                  </div>
                 </div>
               );
             })}
@@ -166,51 +226,51 @@ const Hidrantes = () => {
         {context.itensFiltrados.length > 0 &&
           context.itensFiltrados.reverse().map((item) => {
             return (
-              <div key={item.id} className="ldeContent animateLeft">
-                <div className={styles.title}>
+              <div
+                key={item.id}
+                className={`${styles.ldeContent} animateLeft`}
+                style={{
+                  border: checkDates(item.stamp)
+                    ? '2px solid #BCD8C1'
+                    : '2px solid #333333',
+                }}
+              >
+                <div className={styles.inpLine}>
                   <p className={styles.legends}> número</p>
-                  <p className={styles.values}> {item.num}</p>
+                  <p> {item.num}</p>
                 </div>
 
                 <div className={styles.minorInfos}>
                   {item.avaria && (
-                    <div>
+                    <div className={styles.inpLine}>
                       <p className={styles.legends}>avaria</p>
-                      <p className={styles.txtValues}>{item.avaria}</p>
+                      <p>{item.avaria}</p>
                     </div>
                   )}
 
-                  <div>
+                  <div className={styles.inpLine}>
                     <p className={styles.legends}>local</p>
-                    <p className={styles.txtValues}>
-                      {item.local ? item.local : 'não informado'}
-                    </p>
+                    <p>{item.local ? item.local : 'não informado'}</p>
                   </div>
 
-                  <div>
+                  <div className={styles.inpLine}>
                     <p className={styles.legends}>abrigo</p>
-                    <p className={styles.txtValues}>
-                      {item.abrigo ? item.abrigo : 'não informado'}
-                    </p>
+                    <p>{item.abrigo ? item.abrigo : 'não informado'}</p>
                   </div>
 
-                  <div>
+                  <div className={styles.inpLine}>
                     <p className={styles.legends}>sinalização</p>
-                    <p className={styles.txtValues}>
-                      {item.placa ? item.placa : 'não informado'}
-                    </p>
+                    <p>{item.placa ? item.placa : 'não informado'}</p>
                   </div>
 
-                  <div>
+                  <div className={styles.inpLine}>
                     <p className={styles.legends}>marcação no chão</p>
-                    <p className={styles.txtValues}>
-                      {item.sinal ? item.sinal : 'não informado'}
-                    </p>
+                    <p>{item.sinal ? item.sinal : 'não informado'}</p>
                   </div>
 
-                  <div>
+                  <div className={styles.inpLine}>
                     <p className={styles.legends}>peças</p>
-                    <p className={styles.txtValues}>
+                    <p>
                       {item.pecas.length === 0
                         ? 'nenhuma peça registrada'
                         : item.pecas.map((m, ind, l) => {
@@ -219,9 +279,9 @@ const Hidrantes = () => {
                     </p>
                   </div>
 
-                  <div>
+                  <div className={styles.inpLine}>
                     <p className={styles.legends}>último reteste</p>
-                    <p className={styles.txtValues}>{convertData(item.val)}</p>
+                    <p>{convertData(item.val)}</p>
                   </div>
                 </div>
 
@@ -234,6 +294,23 @@ const Hidrantes = () => {
                     )
                   }
                 />
+                <div
+                  className={styles.checkContent}
+                  onClick={() => handleCheck(item.id)}
+                >
+                  {checkDates(item.stamp) ? (
+                    <p className={styles.checked}>vistoriado</p>
+                  ) : (
+                    <>
+                      <span className={styles.legends}>último check</span>
+                      <p>
+                        {item.stamp
+                          ? stampToDates(item.stamp)
+                          : 'Não vistoriado'}
+                      </p>
+                    </>
+                  )}
+                </div>
               </div>
             );
           })}
