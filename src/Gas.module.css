@@ -16,7 +16,6 @@
     background-color: transparent;
     color: #d1d1d1;
     border: none;
-    /* border: 1px solid white; */
     width: 3rem;
     text-align: left;
     margin-left: 0.263rem;
@@ -65,12 +64,15 @@
 }
 
 .infos{
-    border: 1px solid #444;
-    padding: .5rem .5rem;
-    margin: .2rem .5rem 2rem .5rem;
-    border-radius: .3rem;
+    border: 2px solid #333;
+    padding: .5rem;
+    margin: 1.25rem 1rem;
+    border-radius: 1rem;
 }
-
+.infos:hover{
+    border: 2px solid #BCD8C1;
+    transition: all .3s;
+}
 .btnAcoesWrap{
     padding: 0 1rem; 
 }
@@ -79,12 +81,12 @@
     padding-left: 1rem;
     font-weight: 700;
     background-color: #333;
-    padding: 1rem;
+    padding: 1rem 1.3rem;
     color: #d1d1d1;
     font-family: 'Montserrat';
     font-size: 1rem;
-    border-top-right-radius: .2rem;
-    border-top-left-radius: .2rem;
+    border-top-right-radius: .5rem;
+    border-top-left-radius: .5rem;
     text-align: left;
 }
 
@@ -197,13 +199,10 @@ h2{
 .recordsLine:nth-child(2n){
     background-color: #212121;
 }
-.recordsLine:nth-child(1){
-    border-top-left-radius: .5rem;
-    border-top-right-radius: .5rem;
-}
 .recordsLine:last-child{
     border-bottom-left-radius: .5rem;
     border-bottom-right-radius: .5rem;
+    margin-bottom: .5rem;
 }
 .recordsLine i{
     margin: 0;
@@ -229,4 +228,10 @@ h2{
 }
 .gasContainer{
     overflow: hidden;
+}
+
+.title{
+    /* border: 2px solid red; */
+    /* border-top-left-radius: .5rem; */
+
 }

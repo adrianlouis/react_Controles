@@ -1,0 +1,54 @@
+
+.ldeContent{
+  border: 2px solid #333;
+  margin-bottom: 1rem;
+  padding: .5rem;
+  margin: 1.25rem 1rem;
+  border-radius: 1rem;
+  transition: all .3s;
+  font-size: 1rem;
+}
+.ldeContent:hover{
+  border: 2px solid #BCD8C1 ;
+}
+.checked{
+  border: 2px solid #BCD8C1
+}
+
+.title{
+  border: 2px solid #333;
+  border-radius: .5rem;
+  position: relative;
+  color: #BCD8C1;
+  padding: 1rem 0rem .25rem;
+  margin-bottom: .5rem;
+}
+
+.legends{
+  position: absolute;
+  font-size: .8rem;
+  color: #439A86;
+  left: 50%;
+  top: 3px;
+  transform: translateX(-50%);
+}
+
+.checkBtn{
+  border: 2px solid #222;
+  transition: all .3s;
+  background-color:  #222;
+  border-radius: .5rem;
+  margin-top: .5rem;
+  padding: 1rem 0rem .25rem;
+  color: #9cb8a1;
+  position: relative;
+}
+.checkBtn:hover{
+  border: 2px solid #9cb8a1;
+  background-color: #223;
+}
+
+.checkedTxt{
+  transform: translateY(-6px);
+  font-size: 1rem;
+}

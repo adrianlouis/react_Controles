@@ -54,6 +54,7 @@ const HidranteNovo = () => {
       val: hdValidade,
       pecas: pecas,
       avaria: avarias,
+      stamp: Date.now(),
     };
 
     // context.setUserLogado({

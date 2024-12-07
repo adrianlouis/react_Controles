@@ -89,31 +89,33 @@ const Gas = () => {
                     {' ' + item.horaCriado}
                   </p>
                 </div>
-                {arrOrdemCresc(
-                  item.medicao.map((m) => {
-                    return m.loja;
-                  }),
-                ).map((ordem) => {
-                  return item.medicao.map((lojas) => {
-                    if (lojas.loja === ordem) {
-                      return (
-                        <div
-                          key={'medicao' + item.id + '_' + lojas.loja}
-                          // className={styles.dados}
-                          className={styles.recordsLine}
-                        >
-                          <div className={styles.recordsItens}>
-                            <i className="fa-solid fa-store"></i> {lojas.loja}
+
+                <div className={styles.linesContent}>
+                  {arrOrdemCresc(
+                    item.medicao.map((m) => {
+                      return m.loja;
+                    }),
+                  ).map((ordem) => {
+                    return item.medicao.map((lojas) => {
+                      if (lojas.loja === ordem) {
+                        return (
+                          <div
+                            key={'medicao' + item.id + '_' + lojas.loja}
+                            className={styles.recordsLine}
+                          >
+                            <div className={styles.recordsItens}>
+                              <i className="fa-solid fa-store"></i> {lojas.loja}
+                            </div>
+                            <div className={styles.recGasWrapper}>
+                              <i className="fa-solid fa-gauge"></i>{' '}
+                              {lojas.medicao}
+                            </div>
                           </div>
-                          <div className={styles.recGasWrapper}>
-                            <i className="fa-solid fa-gauge"></i>{' '}
-                            {lojas.medicao}
-                          </div>
-                        </div>
-                      );
-                    }
-                  });
-                })}
+                        );
+                      }
+                    });
+                  })}
+                </div>
                 <BtnAcoesItens
                   funcDel={() => deletar(item, ctx.userLogado.id)}
                   itemId={item.id}

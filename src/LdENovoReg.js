@@ -41,6 +41,7 @@ const LdENovoReg = () => {
       local: pav,
       dur: dur,
       avaria: anotacao,
+      stamp: Date.now(),
     };
     await adicionarRegistro(id, ldeNovo, 'lde');
     await context.setUserLogado({
