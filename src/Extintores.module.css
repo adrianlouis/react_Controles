@@ -315,15 +315,15 @@
     border-radius: 1rem;
     margin: 1.25rem 1rem ;
     padding: .5rem ;;
-    border: 2px solid #333;
+    /* border: 2px solid #333; */
     /* border: 2px solid rgb(51, 51, 51); */
     transition: all .3s;
 
 }
-.item:hover{
+/* .item:hover{
     box-shadow: #bcd8c177 0 0 7px inset, #bcd8c1aa 0 0 7px;
     border: 2px solid #BCD8C1;
-}
+} */
 
 /* .item span{
     color: var(--span-branco);
@@ -331,8 +331,9 @@
 
 
 .minorWrapper{
-    display: grid;
-    grid-template-columns: 1fr .5fr 1.25fr;
+    /* display: grid;
+    grid-template-columns: 1fr .5fr 1.25fr; */
+    /* border: 1px solid white; */
     width: 100%;
     background-color: #111;
     position: relative;
@@ -410,20 +411,19 @@
 }
 
 .fieldset *{
-    /* border: 1px solid white; */
+    text-align: center;
     margin: auto;
 }
 
 
-.fieldset:hover, .fieldsetAvaria:hover{
+/* .fieldset:hover, .fieldsetAvaria:hover{
     box-shadow: inset #0007 -3px -3px 10px, inset #3337 3px 3px 10px;
-    /* color: #d1d1d1; */
 
-}
+} */
 
 .fieldset i{
     margin: auto;
-    margin-right: 1rem;
+    margin-right: .25rem;
     /* color: #d1d1d1; */
 }
 .avaria{
@@ -441,6 +441,11 @@
 .fieldset span::first-letter{
     text-transform: uppercase;
 }
+
+
+
+
+
 
 .filterBarWrapper{
     position: sticky;

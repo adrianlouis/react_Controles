@@ -6,6 +6,7 @@ import { refreshBd, removerRegistro, updateBd } from './crudFireBase';
 import BtnAcoesItens from './components/BtnAcoesItens';
 import SelectFilter from './components/SelectFilter';
 import { UPDATE_DATA } from './funcoes/Api';
+import ExtLineInfos from './components/ExtLineInfos';
 
 const Extintores = () => {
   const context = useContext(GlobalContext);
@@ -524,29 +525,12 @@ const Extintores = () => {
                 onClick={() => handleOpenCheck(item.id)}
               >
                 <div className={styles.minorWrapper}>
-                  <fieldset
-                    style={{ color: checked(item.vistoria.stamp) }}
-                    className={styles.fieldset}
-                  >
-                    <i className="fa-solid fa-hashtag" />
-                    <span className="numId">{item.num}</span>
-                  </fieldset>
-
-                  <fieldset
-                    style={{ color: checked(item.vistoria.stamp) }}
-                    className={styles.fieldset}
-                  >
-                    <i className="fa-solid fa-fire-extinguisher" />
-                    <span>{item.tipo}</span>
-                  </fieldset>
-
-                  <fieldset
-                    style={{ color: checked(item.vistoria.stamp) }}
-                    className={styles.fieldset}
-                  >
-                    <i className="fa-solid fa-location-dot" />
-                    <span>{item.local}</span>
-                  </fieldset>
+                  <ExtLineInfos label={'número'} info={item.num} />
+                  <ExtLineInfos label={'classe'} info={item.tipo} />
+                  <ExtLineInfos label={'local'} info={item.local} />
+                  {item.avaria && (
+                    <ExtLineInfos label={'avaria'} info={item.avaria} />
+                  )}
                 </div>
 
                 <div
@@ -555,48 +539,22 @@ const Extintores = () => {
                     opened.includes(item.id) ? styles.opened : ''
                   }`}
                 >
-                  <fieldset
-                    style={{ color: checked(item.vistoria.stamp) }}
-                    className={styles.fieldset}
-                  >
-                    <i className="fa-solid fa-calendar-day" />
-                    <span>{ultRec(item.ultRec.ano, item.ultRec.mes)}</span>
-                  </fieldset>
+                  <ExtLineInfos
+                    label={'última recarga'}
+                    info={ultRec(item.ultRec.ano, item.ultRec.mes)}
+                  />
 
-                  <fieldset
-                    style={{ color: checked(item.vistoria.stamp) }}
-                    className={styles.fieldset}
-                  >
-                    <i className="fa-regular fa-calendar" />
-                    <span>
-                      {item.ultRet
+                  <ExtLineInfos
+                    label={'último reteste'}
+                    info={
+                      item.ultRet
                         ? ultRec(item.ultRet, item.ultRec.mes)
-                        : 'Reteste não informado'}
-                    </span>
-                  </fieldset>
-
-                  <fieldset
-                    style={{ color: checked(item.vistoria.stamp) }}
-                    className={styles.fieldset}
-                    onClick={({ currentTarget }) =>
-                      handleCheck(currentTarget, item)
+                        : 'Reteste não informado'
                     }
-                  >
-                    <i
-                      style={{ color: checked(item.vistoria.stamp) }}
-                      className={`${styles.vistoriaIcon} fa-solid fa-check`}
-                    />
-
-                    <span>{handleVistoria(item.vistoria.stamp)}</span>
-                  </fieldset>
+                  />
 
                   {item.avaria && (
-                    <fieldset
-                      className={styles.fieldsetAvaria}
-                      style={{ color: checked(item.vistoria.stamp) }}
-                    >
-                      <span className={styles.avaria}>{item.avaria}</span>
-                    </fieldset>
+                    <ExtLineInfos label={'avaria'} info={item.avaria} />
                   )}
 
                   <BtnAcoesItens

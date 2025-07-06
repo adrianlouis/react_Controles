@@ -1,0 +1,23 @@
+.infoLine{
+  display: flex;
+  flex-direction: column;
+  border: 1px solid transparent;
+  border-radius: .5rem;
+  padding: .15rem .5rem;
+  margin:  .25rem 0;
+  cursor: pointer;
+  transition: all .3s;
+}
+.infoLine:hover{
+  border: 1px solid #666;
+}
+.infoLabel{
+  font-size: .75rem;
+  transform: translateY(.25rem);
+}
+.infoLineSpan{
+  color: #d1d1d1;
+}
+.infoLineSpan::first-letter{
+  text-transform: capitalize;
+}
