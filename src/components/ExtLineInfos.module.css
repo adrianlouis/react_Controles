@@ -10,6 +10,7 @@
 }
 .infoLine:hover{
   border: 1px solid #666;
+  /* s  */
 }
 .infoLabel{
   font-size: .75rem;
