@@ -1,23 +1,26 @@
 .infoLine{
   display: flex;
   flex-direction: column;
-  border: 1px solid transparent;
   border-radius: .5rem;
   padding: .15rem .5rem;
   margin:  .25rem 0;
   cursor: pointer;
   transition: all .3s;
 }
-.infoLine:hover{
-  border: 1px solid #666;
-  /* s  */
-}
 .infoLabel{
   font-size: .75rem;
   transform: translateY(.25rem);
+  transition: all .3s;
+}
+.infoLine:hover .infoLabel{
+  color: #d0d0d0;
 }
 .infoLineSpan{
-  color: #d1d1d1;
+  color: #b1b1b1;
+  transition: all .3s;
+}
+.infoLine:hover .infoLineSpan {
+  color: #f4f4f4;
 }
 .infoLineSpan::first-letter{
   text-transform: capitalize;

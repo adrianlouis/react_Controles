@@ -515,14 +515,7 @@ const Extintores = () => {
               <div
                 id={'item' + i}
                 key={'item' + i}
-                className={`${styles.item}  animateLeft ${
-                  opened.includes(item.id)
-                    ? styles.selected
-                    : !stampCheck(item.vistoria.stamp)
-                    ? styles.selected
-                    : ''
-                }`}
-                onClick={() => handleOpenCheck(item.id)}
+                className={`${styles.item}`}
               >
                 <div className={styles.minorWrapper}>
                   <ExtLineInfos label={'número'} info={item.num} />
@@ -565,10 +558,22 @@ const Extintores = () => {
                     editarOnClick={() =>
                       navigate(`extedit?id=${item.id}&ftr=${filter}`)
                     }
+                    toCheck={(e) => {
+                      doCheck(e, item.id);
+                    }}
                   />
                 </div>
 
-                <div
+                <div className={styles.btnActionsWrapper}>
+                  <span
+                    onClick={() => handleOpenCheck(item.id)}
+                    className={styles.detailBtn}
+                  >
+                    {opened.includes(item.id) ? 'fechar' : 'detalhes'}
+                  </span>
+                </div>
+
+                {/* <div
                   id={`lastCheckWrap${i}`}
                   className={styles.lastCheckWrap}
                   style={{
@@ -583,20 +588,26 @@ const Extintores = () => {
                       ? 'checado'
                       : 'realizar check'}
                   </span>
-                  {stampCheck(item.vistoria.stamp) && (
-                    <span className={styles.lastCheck}>
-                      último check:{' '}
-                      {new Date(item.vistoria.stamp).toLocaleDateString(
+                </div> */}
+
+                {/* <i className="fa-solid fa-check"></i> */}
+                <span
+                  className={`${styles.checkLine} ${
+                    !stampCheck(item.vistoria.stamp) && styles.checkedLine
+                  }`}
+                >
+                  checado{' '}
+                  {item.vistoria.stamp
+                    ? new Date(item.vistoria.stamp).toLocaleDateString(
                         'pt-Br',
                         {
                           day: '2-digit',
-                          month: '2-digit',
+                          month: 'long',
                           year: '2-digit',
                         },
-                      )}
-                    </span>
-                  )}
-                </div>
+                      )
+                    : ''}
+                </span>
               </div>
             );
           })}

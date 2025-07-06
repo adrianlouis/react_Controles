@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './BtnAcoesItens.module.css';
 
-const BtnAcoesItens = ({ funcDel, editarOnClick, itemId }) => {
+const BtnAcoesItens = ({ funcDel, editarOnClick, itemId, toCheck }) => {
   function handleDel(e) {
     e.currentTarget.parentElement.style.display = 'none';
     e.currentTarget.parentElement.nextSibling.style.display = 'grid';
@@ -17,18 +17,28 @@ const BtnAcoesItens = ({ funcDel, editarOnClick, itemId }) => {
   return (
     <div id="btnAcoesItens" className={styles.container}>
       <div id={`btnContainer${itemId}`} className={styles.wrapper}>
-        <div className={styles.btnWrapper} onClick={(e) => editarOnClick(e)}>
-          {/* <div className={styles.btnWrapper} onClick={editarOnClick}> */}
-          <i className="fa-regular fa-pen-to-square" />
+        <div
+          className={`${styles.btnWrapper} ${styles.editBtn}`}
+          onClick={(e) => toCheck(e)}
+        >
+          {/* <i className="fa-regular fa-pen-to-square" /> */}
+          <p>checkar</p>
+        </div>
+
+        <div
+          className={`${styles.btnWrapper} ${styles.editBtn}`}
+          onClick={(e) => editarOnClick(e)}
+        >
+          {/* <i className="fa-regular fa-pen-to-square" /> */}
           <p>editar</p>
         </div>
 
-        <div className={styles.btnWrapper} onClick={(e) => handleDel(e)}>
-          <i className="fa-regular fa-trash-can" />
-          <p>
-            {/* <p onClick={({ currentTarget }) => handleDel(currentTarget)}> */}
-            excluir
-          </p>
+        <div
+          className={`${styles.btnWrapper} ${styles.delBtn}`}
+          onClick={(e) => handleDel(e)}
+        >
+          {/* <i className="fa-regular fa-trash-can" /> */}
+          <p>excluir</p>
         </div>
       </div>
 

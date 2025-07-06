@@ -1,17 +1,15 @@
-.container {
-    /* margin: .7rem 0 1rem; */
+.container{
     width: 100%;
 }
-
+ 
 .wrapper{
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
 }
 
 .btnWrapper{
-    border: 2px solid #222;
-    color: #9cb8a1;
+    border: 2px solid #333333;
+    color: #888;
     background-color: #222;
     display: flex;
     justify-content: center;
@@ -19,12 +17,25 @@
     padding: .2rem 2rem;
     border-radius: .5rem;
     transition: all .3s;
+    margin: .25rem 0;
+    cursor: pointer;
 }
 .btnWrapper:hover{
     border: 2px solid #9cb8a1;
-    background-color: #223;
+    background-color: #232;
+    color: #9cb8a1;
+    
 }
-
+.delBtn:hover{
+    border: 2px solid #773333;
+    background-color: #322;
+    color: #c77;
+}
+.editBtn:hover{
+    border: 2px solid #333377;
+    background-color: #223;
+    color: #77c;
+}
 .btnWrapper *{
     margin: 0 .2rem;
 }
