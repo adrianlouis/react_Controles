@@ -268,7 +268,12 @@ const Extintores = () => {
   return (
     <>
       <div className={styles.filterBarWrapper}>
-        <div className={`${styles.filterBar} animateLeft`}>
+        <div
+          style={{
+            justifyContent: filter.tipo === 'local' ? 'space-around' : '',
+          }}
+          className={`${styles.filterBar} animateLeft`}
+        >
           {!filter.tipo && (
             <>
               {!filterToggle && (
@@ -518,12 +523,63 @@ const Extintores = () => {
                 className={`${styles.item}`}
               >
                 <div className={styles.minorWrapper}>
-                  <ExtLineInfos label={'número'} info={item.num} />
+                  <div className={styles.card}>
+                    <span className={styles.numba}>{item.num}</span>
+                    <div className={styles.iconWrap}>
+                      <i className="fa-solid fa-location-dot"></i>
+                      <span className={styles.placeName}>{item.local}</span>
+                    </div>
+
+                    <div className={styles.iconWrap}>
+                      <i className="fa-solid fa-calendar-days"></i>
+                      <span className={styles.placeName}>
+                        {ultRec(item.ultRec.ano, item.ultRec.mes)}
+                      </span>
+                    </div>
+                    <div className={styles.iconWrap}>
+                      <i
+                        className={`fa-solid fa-check ${
+                          !stampCheck(item.vistoria.stamp) && styles.checkedLine
+                        }`}
+                      ></i>
+                      <span
+                        className={`${styles.placeName} ${
+                          !stampCheck(item.vistoria.stamp) && styles.checkedLine
+                        }`}
+                      >
+                        {item.vistoria.stamp
+                          ? new Date(item.vistoria.stamp).toLocaleDateString(
+                              'pt-Br',
+                              {
+                                day: '2-digit',
+                                month: 'short',
+                                year: '2-digit',
+                              },
+                            )
+                          : ''}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className={styles.iconsStats}>
+                    {item.avaria && (
+                      <div className={styles.iconStatus}>
+                        <i className="fa-solid fa-circle-info"></i>
+                        {/* <span className={styles.iconLabel}>avariado</span> */}
+                      </div>
+                    )}
+                    <div className={styles.iconStatus}>
+                      <i className="fa-solid fa-calendar-days"></i>
+                      {/* <span className={styles.iconLabel}>atrasado</span> */}
+                    </div>
+                  </div>
+
+                  {/* <ExtLineInfos label={'número'} info={item.num} />
                   <ExtLineInfos label={'classe'} info={item.tipo} />
-                  <ExtLineInfos label={'local'} info={item.local} />
-                  {item.avaria && (
+                  <ExtLineInfos label={'local'} info={item.local} /> */}
+                  {/* {item.avaria && (
                     <ExtLineInfos label={'avaria'} info={item.avaria} />
-                  )}
+                  )} */}
                 </div>
 
                 <div
@@ -591,23 +647,6 @@ const Extintores = () => {
                 </div> */}
 
                 {/* <i className="fa-solid fa-check"></i> */}
-                <span
-                  className={`${styles.checkLine} ${
-                    !stampCheck(item.vistoria.stamp) && styles.checkedLine
-                  }`}
-                >
-                  checado{' '}
-                  {item.vistoria.stamp
-                    ? new Date(item.vistoria.stamp).toLocaleDateString(
-                        'pt-Br',
-                        {
-                          day: '2-digit',
-                          month: 'long',
-                          year: '2-digit',
-                        },
-                      )
-                    : ''}
-                </span>
               </div>
             );
           })}

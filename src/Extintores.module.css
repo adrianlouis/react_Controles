@@ -314,7 +314,7 @@
     background-color: #121212;
     border-radius: 1rem;
     margin: 1.25rem 1rem ;
-    padding: .5rem ;;
+    padding: .25rem .35rem ;
     border: 2px solid #333;
     transition: all .3s;
     /* border: 2px solid rgb(51, 51, 51); */
@@ -332,14 +332,40 @@
 
 
 .minorWrapper{
-    /* display: grid;
-    grid-template-columns: 1fr .5fr 1.25fr; */
-    /* border: 1px solid white; */
     width: 100%;
     background-color: #111;
     position: relative;
-    z-index: -0;
+    display: flex;
+    justify-content: space-between;
+    /* border: 1px solid #7127; */
+    display: grid;
+    grid-template-columns: 1fr .5fr;
+    grid-gap: 1rem;
     /* transition: all .3s; */
+}
+.iconsStats{
+    /* border: 1px solid #447; */
+    display: flex;
+    justify-content: end;
+    align-items: first baseline;
+
+}
+.iconsStats i{
+    margin-right: .35rem;
+    margin-top: .5rem;
+    color: #cc8;
+}
+.iconLabel{
+    font-size: .85rem;
+}
+
+.iconStatus{
+    /* border: 1px solid red; */
+    /* text-align: center; */
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    
 }
 
 
@@ -444,7 +470,6 @@
 }
 
 .btnActionsWrapper{
-    /* border: 1px solid white; */
     display: flex;
     flex-direction: column;
     text-align: center;
@@ -490,7 +515,7 @@ background-color: #232;
     margin: 0 auto;
     display: flex;
     width: 90%;
-    align-items: flex-start;
+    align-items: center;
     justify-content: start;
     flex-wrap: wrap;
     padding-top: .5rem;
@@ -608,8 +633,33 @@ background-color: #232;
 .opened{
     /* MINOR  */
     display: block;
+   
 }
 .selected{
  box-shadow: #bcd8c177 0 0 7px inset, #bcd8c1aa 0 0 7px ;   
  border: 2px solid #bcd8c1;
 }
+
+.card{
+    /* border: 1px solid #5858; */
+
+}
+.numba{
+    color: #d1d1d1;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+.iconWrap{
+    color: #555;
+    transform: translateY(-.5rem);
+    /* border: 1px solid #3578; */
+}
+.placeName{
+    font-size: .85rem;
+    
+}
+.iconWrap i{
+    font-size: .85rem;
+    margin-right: .25rem;
+}
+
