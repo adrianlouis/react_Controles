@@ -5,11 +5,10 @@ import { GlobalContext } from './GlobalContext';
 //FIREBASE CMDS
 import { db } from './firebase-config';
 import { collection, addDoc, getDocs } from '@firebase/firestore';
-import CheckBox from './CheckBox';
-import { readBD } from './crudFireBase';
 import {
   createUserWithEmailAndPassword,
   getAuth,
+  onAuthStateChanged,
   signInWithEmailAndPassword,
   updateProfile,
 } from 'firebase/auth';
@@ -138,6 +137,7 @@ const Login = () => {
       .then((userCredential) => {
         const user = userCredential.user;
         ctx.setFbAuth(user);
+        console.log(user);
         userData();
       })
       .catch((error) => {
@@ -325,6 +325,16 @@ const Login = () => {
       setRemember(true);
     }
   }, [lastUser, lastCode]);
+
+  React.useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        console.log(user);
+      } else {
+        console.log('Nao logado...');
+      }
+    });
+  }, []);
 
   return (
     <>
